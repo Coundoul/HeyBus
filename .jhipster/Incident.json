@@ -1,0 +1,42 @@
+{
+  "name": "Incident",
+  "fields": [
+    {
+      "fieldName": "gravite",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chauffeur",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "responsableincident",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "reporteurincident",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vehicule",
+      "otherEntityRelationshipName": "incident",
+      "relationshipName": "vehicule",
+      "otherEntityField": "reference"
+    }
+  ],
+  "entityTableName": "incident",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101013"
+}

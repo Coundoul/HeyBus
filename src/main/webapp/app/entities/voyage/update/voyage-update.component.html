@@ -1,0 +1,258 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-voyage-heading" data-cy="VoyageCreateUpdateHeading" jhiTranslate="heybusApp.voyage.home.createOrEditLabel">
+        Create or edit a Voyage
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.dateDeVoyage" for="field_dateDeVoyage">Date De Voyage</label>
+          <div class="d-flex">
+            <input
+              id="field_dateDeVoyage"
+              data-cy="dateDeVoyage"
+              type="datetime-local"
+              class="form-control"
+              name="dateDeVoyage"
+              formControlName="dateDeVoyage"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div
+            *ngIf="editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.prix" for="field_prix">Prix</label>
+          <input type="number" class="form-control" name="prix" id="field_prix" data-cy="prix" formControlName="prix" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.nbrePlace" for="field_nbrePlace">Nbre Place</label>
+          <input type="number" class="form-control" name="nbrePlace" id="field_nbrePlace" data-cy="nbrePlace" formControlName="nbrePlace" />
+        </div>
+
+        <!-- <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.quartier" for="field_quartier">Quartier</label>
+          <input type="text" class="form-control" name="quartier" id="field_quartier" data-cy="quartier" formControlName="quartier" />
+        </div> -->
+
+        <!-- <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div> -->
+
+        <div class="form-group row">
+          <div class="col-md-10">
+            <label class="form-control-label" jhiTranslate="heybusApp.voyage.departVille" for="field_departVille">Depart Ville</label>
+            <select class="form-control" id="field_departVille" data-cy="departVille" name="departVille" formControlName="departVille">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
+                *ngFor="let villeOption of villesSharedCollection; trackBy: trackVilleById"
+              >
+                {{ villeOption.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-control-label" for="field_add">Ville</label><br />
+            <button type="button" class="btn btn-primary" [routerLink]="['/ville/new']">
+              <fa-icon icon="plus"></fa-icon>&nbsp;<span></span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="field_adresseDepart">Adresse Depart</label>
+          <input
+            type="text"
+            class="form-control"
+            name="adresseDepart"
+            id="field_adresseDepart"
+            data-cy="adresseDepart"
+            formControlName="adresseDepart"
+            placeholder="Quartier,Rue"
+          />
+        </div>
+        <div class="form-group row">
+          <div class="col-md-10">
+            <label class="form-control-label" jhiTranslate="heybusApp.voyage.arriveVille" for="field_arriveVille">Arrive Ville</label>
+            <select class="form-control" id="field_arriveVille" data-cy="arriveVille" name="arriveVille" formControlName="arriveVille">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
+                *ngFor="let villeOption of villesSharedCollection; trackBy: trackVilleById"
+              >
+                {{ villeOption.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-control-label" for="field_add">Ville</label><br />
+            <button type="button" class="btn btn-primary" [routerLink]="['/ville/new']">
+              <fa-icon icon="plus"></fa-icon>&nbsp;<span></span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="field_adresseArrive">Adresse Arrive</label>
+          <input
+            type="text"
+            class="form-control"
+            name="adresseArrive"
+            id="field_adresseArrive"
+            data-cy="adresseArrive"
+            formControlName="adresseArrive"
+            placeholder="Quartier,Rue"
+          />
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-10">
+            <label jhiTranslate="heybusApp.voyage.employe" for="field_employes">Employe</label>
+            <select class="form-control" id="field_employes" data-cy="employe" multiple name="employes" formControlName="employes">
+              <option
+                [ngValue]="getSelectedEmploye(employeOption, editForm.get('employes')!.value)"
+                *ngFor="let employeOption of employesSharedCollection; trackBy: trackEmployeById"
+              >
+                {{ employeOption.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-control-label" for="field_add">Employe</label><br />
+            <button type="button" class="btn btn-primary" [routerLink]="['/employe/new']">
+              <fa-icon icon="plus"></fa-icon>&nbsp;<span></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-10">
+            <label jhiTranslate="heybusApp.voyage.arret" for="field_arrets">Arret</label>
+            <select class="form-control" id="field_arrets" data-cy="arret" multiple name="arrets" formControlName="arrets">
+              <option
+                [ngValue]="getSelectedArret(arretOption, editForm.get('arrets')!.value)"
+                *ngFor="let arretOption of arretsSharedCollection; trackBy: trackArretById"
+              >
+                {{ arretOption.id }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-control-label" for="field_add">Arret</label><br />
+            <button type="button" class="btn btn-primary" [routerLink]="['/arret/new']">
+              <fa-icon icon="plus"></fa-icon>&nbsp;<span></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-10">
+            <label class="form-control-label" jhiTranslate="heybusApp.voyage.vehicule" for="field_vehicule">Vehicule</label>
+            <select class="form-control" id="field_vehicule" data-cy="vehicule" name="vehicule" formControlName="vehicule">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="vehiculeOption.id === editForm.get('vehicule')!.value?.id ? editForm.get('vehicule')!.value : vehiculeOption"
+                *ngFor="let vehiculeOption of vehiculesSharedCollection; trackBy: trackVehiculeById"
+              >
+                {{ vehiculeOption.reference }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-control-label" for="field_add">Vehicule</label><br />
+            <button type="button" class="btn btn-primary" [routerLink]="['/vehicule/new']">
+              <fa-icon icon="plus"></fa-icon>&nbsp;<span></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.climatisation" for="field_climatisation">Climatisation</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="climatisation"
+            id="field_climatisation"
+            data-cy="climatisation"
+            formControlName="climatisation"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.wifi" for="field_wifi">Wifi</label>
+          <input type="checkbox" class="form-check" name="wifi" id="field_wifi" data-cy="wifi" formControlName="wifi" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.toilette" for="field_toilette">Toilette</label>
+          <input type="checkbox" class="form-check" name="toilette" id="field_toilette" data-cy="toilette" formControlName="toilette" />
+        </div>
+
+        <div class="form-group" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+          <label class="form-control-label" jhiTranslate="heybusApp.voyage.transporteur" for="field_transporteur">Transporteur</label>
+          <select class="form-control" id="field_transporteur" data-cy="transporteur" name="transporteur" formControlName="transporteur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                transporteurOption.id === editForm.get('transporteur')!.value?.id ? editForm.get('transporteur')!.value : transporteurOption
+              "
+              *ngFor="let transporteurOption of transporteursSharedCollection; trackBy: trackTransporteurById"
+            >
+              {{ transporteurOption.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

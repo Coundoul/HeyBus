@@ -1,0 +1,38 @@
+{
+  "heybusApp": {
+    "voyage": {
+      "home": {
+        "title": "Voyages",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Voyage",
+        "createOrEditLabel": "Créer ou éditer un Voyage",
+        "notFound": "Aucun Voyage trouvé"
+      },
+      "created": "Un nouveau Voyage a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Voyage avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Voyage avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Voyage {{ id }} ?"
+      },
+      "detail": {
+        "title": "Voyage"
+      },
+      "id": "ID",
+      "dateDeVoyage": "Date De Voyage",
+      "prix": "Prix",
+      "nbrePlace": "Nbre Place",
+      "quartier": "Quartier",
+      "description": "Description",
+      "climatisation": "Climatisation",
+      "wifi": "Wifi",
+      "toilette": "Toilette",
+      "reservation": "Reservation",
+      "employe": "Employe",
+      "arret": "Arret",
+      "vehicule": "Vehicule",
+      "departVille": "Depart Ville",
+      "arriveVille": "Arrive Ville",
+      "transporteur": "Transporteur"
+    }
+  }
+}

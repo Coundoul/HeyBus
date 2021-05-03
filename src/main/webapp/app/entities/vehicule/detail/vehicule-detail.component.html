@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="vehicule">
+      <h2 data-cy="vehiculeDetailsHeading"><span jhiTranslate="heybusApp.vehicule.detail.title">Vehicule</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ vehicule.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.reference">Reference</span></dt>
+        <dd>
+          <span>{{ vehicule.reference }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.numChassis">Num Chassis</span></dt>
+        <dd>
+          <span>{{ vehicule.numChassis }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.numCarteGrise">Num Carte Grise</span></dt>
+        <dd>
+          <span>{{ vehicule.numCarteGrise }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.nbrePlace">Nbre Place</span></dt>
+        <dd>
+          <span>{{ vehicule.nbrePlace }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.marqueVoiture">Marque Voiture</span></dt>
+        <dd>
+          <span>{{ vehicule.marqueVoiture }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.photo">Photo</span></dt>
+        <dd>
+          <span>{{ vehicule.photo }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.refcartetotal">Refcartetotal</span></dt>
+        <dd>
+          <span>{{ vehicule.refcartetotal }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.typemoteur">Typemoteur</span></dt>
+        <dd>
+          <span>{{ vehicule.typemoteur }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.vehicule.transporteur">Transporteur</span></dt>
+        <dd>
+          <div *ngIf="vehicule.transporteur">
+            <a [routerLink]="['/transporteur', vehicule.transporteur?.id, 'view']">{{ vehicule.transporteur?.nom }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/vehicule', vehicule.id, 'edit']"
+        class="btn btn-primary"
+        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

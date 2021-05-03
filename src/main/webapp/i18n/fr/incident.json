@@ -1,0 +1,28 @@
+{
+  "heybusApp": {
+    "incident": {
+      "home": {
+        "title": "Incidents",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Incident",
+        "createOrEditLabel": "Créer ou éditer un Incident",
+        "notFound": "Aucun Incident trouvé"
+      },
+      "created": "Un nouveau Incident a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Incident avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Incident avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Incident {{ id }} ?"
+      },
+      "detail": {
+        "title": "Incident"
+      },
+      "id": "ID",
+      "gravite": "Gravite",
+      "chauffeur": "Chauffeur",
+      "responsableincident": "Responsableincident",
+      "reporteurincident": "Reporteurincident",
+      "vehicule": "Vehicule"
+    }
+  }
+}

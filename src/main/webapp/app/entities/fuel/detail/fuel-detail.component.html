@@ -1,0 +1,54 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+  <div class="col-8">
+    <div *ngIf="fuel">
+      <h2 data-cy="fuelDetailsHeading"><span jhiTranslate="heybusApp.fuel.detail.title">Fuel</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ fuel.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.fuel.typeDeCarburant">Type De Carburant</span></dt>
+        <dd>
+          <span>{{ fuel.typeDeCarburant }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.fuel.date">Date</span></dt>
+        <dd>
+          <span>{{ fuel.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.fuel.km">Km</span></dt>
+        <dd>
+          <span>{{ fuel.km }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.fuel.nbLitre">Nb Litre</span></dt>
+        <dd>
+          <span>{{ fuel.nbLitre }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.fuel.montant">Montant</span></dt>
+        <dd>
+          <span>{{ fuel.montant }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.fuel.vehicule">Vehicule</span></dt>
+        <dd>
+          <div *ngIf="fuel.vehicule">
+            <a [routerLink]="['/vehicule', fuel.vehicule?.id, 'view']">{{ fuel.vehicule?.reference }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/fuel', fuel.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

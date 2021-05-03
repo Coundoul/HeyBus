@@ -1,0 +1,36 @@
+{
+  "name": "Arret",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "ville",
+      "otherEntityRelationshipName": "nomarret",
+      "relationshipName": "nomarretVille",
+      "otherEntityField": "nom",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "voyage",
+      "otherEntityRelationshipName": "arret",
+      "relationshipName": "voyage",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "arret",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101008"
+}

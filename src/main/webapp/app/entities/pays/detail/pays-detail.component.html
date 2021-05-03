@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pays">
+      <h2 data-cy="paysDetailsHeading"><span jhiTranslate="heybusApp.pays.detail.title">Pays</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pays.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.pays.nom">Nom</span></dt>
+        <dd>
+          <span>{{ pays.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.pays.code">Code</span></dt>
+        <dd>
+          <span>{{ pays.code }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.pays.indicatif">Indicatif</span></dt>
+        <dd>
+          <span>{{ pays.indicatif }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.pays.capitale">Capitale</span></dt>
+        <dd>
+          <span>{{ pays.capitale }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.pays.currency">Currency</span></dt>
+        <dd>
+          <span>{{ pays.currency }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/pays', pays.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

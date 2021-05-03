@@ -1,0 +1,34 @@
+{
+  "name": "Reservation",
+  "fields": [
+    {
+      "fieldName": "dateDeReservation",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "voyage",
+      "otherEntityRelationshipName": "reservation",
+      "relationshipName": "voyage"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "customer",
+      "otherEntityRelationshipName": "reservation",
+      "relationshipName": "customer",
+      "otherEntityField": "email"
+    }
+  ],
+  "entityTableName": "reservation",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101020"
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Position",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reference",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "niveau",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "employe",
+      "otherEntityRelationshipName": "position",
+      "relationshipName": "employe"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "section",
+      "otherEntityRelationshipName": "position",
+      "relationshipName": "section",
+      "otherEntityField": "nom"
+    }
+  ],
+  "entityTableName": "position",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101017"
+}

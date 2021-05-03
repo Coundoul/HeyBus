@@ -1,0 +1,69 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR', 'ROLE_USER']">
+  <div class="col-8">
+    <div *ngIf="customer">
+      <h2 data-cy="customerDetailsHeading"><span jhiTranslate="heybusApp.customer.detail.title">Customer</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ customer.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.nom">Nom</span></dt>
+        <dd>
+          <span>{{ customer.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.prenom">Prenom</span></dt>
+        <dd>
+          <span>{{ customer.prenom }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.telephone">Telephone</span></dt>
+        <dd>
+          <span>{{ customer.telephone }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.email">Email</span></dt>
+        <dd>
+          <span>{{ customer.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.profession">Profession</span></dt>
+        <dd>
+          <span>{{ customer.profession }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.datenaissance">Datenaissance</span></dt>
+        <dd>
+          <span>{{ customer.datenaissance | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.dateprisecontact">Dateprisecontact</span></dt>
+        <dd>
+          <span>{{ customer.dateprisecontact | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.adresse">Adresse</span></dt>
+        <dd>
+          <span>{{ customer.adresse }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.customer.user">User</span></dt>
+        <dd>
+          <span>{{ customer.user?.login }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/customer', customer.id, 'edit']"
+        class="btn btn-primary"
+        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

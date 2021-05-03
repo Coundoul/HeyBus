@@ -1,0 +1,163 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-fuel-heading" data-cy="FuelCreateUpdateHeading" jhiTranslate="heybusApp.fuel.home.createOrEditLabel">
+        Create or edit a Fuel
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.fuel.typeDeCarburant" for="field_typeDeCarburant"
+            >Type De Carburant</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="typeDeCarburant"
+            id="field_typeDeCarburant"
+            data-cy="typeDeCarburant"
+            formControlName="typeDeCarburant"
+          />
+          <div
+            *ngIf="
+              editForm.get('typeDeCarburant')!.invalid &&
+              (editForm.get('typeDeCarburant')!.dirty || editForm.get('typeDeCarburant')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('typeDeCarburant')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.fuel.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            </span>
+          </div>
+          <div *ngIf="editForm.get('date')!.invalid && (editForm.get('date')!.dirty || editForm.get('date')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('date')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.fuel.km" for="field_km">Km</label>
+          <input type="number" class="form-control" name="km" id="field_km" data-cy="km" formControlName="km" />
+          <div *ngIf="editForm.get('km')!.invalid && (editForm.get('km')!.dirty || editForm.get('km')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('km')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('km')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.fuel.nbLitre" for="field_nbLitre">Nb Litre</label>
+          <input type="number" class="form-control" name="nbLitre" id="field_nbLitre" data-cy="nbLitre" formControlName="nbLitre" />
+          <div *ngIf="editForm.get('nbLitre')!.invalid && (editForm.get('nbLitre')!.dirty || editForm.get('nbLitre')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nbLitre')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('nbLitre')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.fuel.montant" for="field_montant">Montant</label>
+          <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
+          <div *ngIf="editForm.get('montant')!.invalid && (editForm.get('montant')!.dirty || editForm.get('montant')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('montant')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('montant')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.fuel.vehicule" for="field_vehicule">Vehicule</label>
+          <select class="form-control" id="field_vehicule" data-cy="vehicule" name="vehicule" formControlName="vehicule">
+            <option *ngIf="!editForm.get('vehicule')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="vehiculeOption.id === editForm.get('vehicule')!.value?.id ? editForm.get('vehicule')!.value : vehiculeOption"
+              *ngFor="let vehiculeOption of vehiculesSharedCollection; trackBy: trackVehiculeById"
+            >
+              {{ vehiculeOption.reference }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['vehicule'])!.invalid && (editForm.get(['vehicule'])!.dirty || editForm.get(['vehicule'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['vehicule'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

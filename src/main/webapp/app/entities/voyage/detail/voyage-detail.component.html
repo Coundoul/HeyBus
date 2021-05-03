@@ -1,0 +1,106 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="voyage">
+      <h2 data-cy="voyageDetailsHeading"><span jhiTranslate="heybusApp.voyage.detail.title">Voyage</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ voyage.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span></dt>
+        <dd>
+          <span>{{ voyage.dateDeVoyage | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.prix">Prix</span></dt>
+        <dd>
+          <span>{{ voyage.prix }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.nbrePlace">Nbre Place</span></dt>
+        <dd>
+          <span>{{ voyage.nbrePlace }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.quartier">Quartier</span></dt>
+        <dd>
+          <span>{{ voyage.quartier }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.description">Description</span></dt>
+        <dd>
+          <span>{{ voyage.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.climatisation">Climatisation</span></dt>
+        <dd>
+          <span>{{ voyage.climatisation }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span></dt>
+        <dd>
+          <span>{{ voyage.wifi }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.toilette">Toilette</span></dt>
+        <dd>
+          <span>{{ voyage.toilette }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.adresseDepart">Adresse Depart</span></dt>
+        <dd>
+          <span>{{ voyage.adresseDepart }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.adresseArrive">Adresse Arrive</span></dt>
+        <dd>
+          <span>{{ voyage.adresseArrive }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.employe">Employe</span></dt>
+        <dd>
+          <span *ngFor="let employe of voyage.employes; let last = last">
+            <a [routerLink]="['/employe', employe?.id, 'view']">{{ employe.nom }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.arret">Arret</span></dt>
+        <dd>
+          <span *ngFor="let arret of voyage.arrets; let last = last">
+            <a [routerLink]="['/arret', arret?.id, 'view']">{{ arret.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.vehicule">Vehicule</span></dt>
+        <dd>
+          <div *ngIf="voyage.vehicule">
+            <a [routerLink]="['/vehicule', voyage.vehicule?.id, 'view']">{{ voyage.vehicule?.reference }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.departVille">Depart Ville</span></dt>
+        <dd>
+          <div *ngIf="voyage.departVille">
+            <a [routerLink]="['/ville', voyage.departVille?.id, 'view']">{{ voyage.departVille?.nom }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.arriveVille">Arrive Ville</span></dt>
+        <dd>
+          <div *ngIf="voyage.arriveVille">
+            <a [routerLink]="['/ville', voyage.arriveVille?.id, 'view']">{{ voyage.arriveVille?.nom }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.transporteur">Transporteur</span></dt>
+        <dd>
+          <div *ngIf="voyage.transporteur">
+            <a [routerLink]="['/transporteur', voyage.transporteur?.id, 'view']">{{ voyage.transporteur?.nom }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/voyage', voyage.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

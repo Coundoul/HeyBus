@@ -1,0 +1,72 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+  <div class="col-8">
+    <div *ngIf="employe">
+      <h2 data-cy="employeDetailsHeading"><span jhiTranslate="heybusApp.employe.detail.title">Employe</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ employe.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.nom">Nom</span></dt>
+        <dd>
+          <span>{{ employe.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.prenom">Prenom</span></dt>
+        <dd>
+          <span>{{ employe.prenom }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.dateNaissance">Date Naissance</span></dt>
+        <dd>
+          <span>{{ employe.dateNaissance | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.matrimoniale">Matrimoniale</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'heybusApp.Matrimoniale.' + employe.matrimoniale }}">{{ employe.matrimoniale }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.telephone">Telephone</span></dt>
+        <dd>
+          <span>{{ employe.telephone }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.nbreEnfant">Nbre Enfant</span></dt>
+        <dd>
+          <span>{{ employe.nbreEnfant }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.photo">Photo</span></dt>
+        <dd>
+          <span>{{ employe.photo }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.account">Account</span></dt>
+        <dd>
+          <span>{{ employe.account }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.position">Position</span></dt>
+        <dd>
+          <div *ngIf="employe.position">
+            <a [routerLink]="['/position', employe.position?.id, 'view']">{{ employe.position?.nom }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.transporteur">Transporteur</span></dt>
+        <dd>
+          <div *ngIf="employe.transporteur">
+            <a [routerLink]="['/transporteur', employe.transporteur?.id, 'view']">{{ employe.transporteur?.nom }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/employe', employe.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

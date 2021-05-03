@@ -1,0 +1,28 @@
+{
+  "heybusApp": {
+    "agence": {
+      "home": {
+        "title": "Agences",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Agence",
+        "createOrEditLabel": "Create or edit a Agence",
+        "notFound": "No Agences found"
+      },
+      "created": "A new Agence is created with identifier {{ param }}",
+      "updated": "A Agence is updated with identifier {{ param }}",
+      "deleted": "A Agence is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Agence {{ id }}?"
+      },
+      "detail": {
+        "title": "Agence"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "telephone": "Telephone",
+      "responsable": "Responsable",
+      "revenu": "Revenu",
+      "depense": "Depense"
+    }
+  }
+}

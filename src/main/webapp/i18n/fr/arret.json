@@ -1,0 +1,26 @@
+{
+  "heybusApp": {
+    "arret": {
+      "home": {
+        "title": "Arrets",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Arret",
+        "createOrEditLabel": "Créer ou éditer un Arret",
+        "notFound": "Aucun Arret trouvé"
+      },
+      "created": "Un nouveau Arret a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Arret avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Arret avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Arret {{ id }} ?"
+      },
+      "detail": {
+        "title": "Arret"
+      },
+      "id": "ID",
+      "description": "Description",
+      "nomarretVille": "Nomarret Ville",
+      "voyage": "Voyage"
+    }
+  }
+}

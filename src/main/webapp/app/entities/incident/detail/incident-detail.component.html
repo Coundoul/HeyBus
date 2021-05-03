@@ -1,0 +1,50 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN']">
+  <div class="col-8">
+    <div *ngIf="incident">
+      <h2 data-cy="incidentDetailsHeading"><span jhiTranslate="heybusV1App.incident.detail.title">Incident</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ incident.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusV1App.incident.gravite">Gravite</span></dt>
+        <dd>
+          <span>{{ incident.gravite }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusV1App.incident.chauffeur">Chauffeur</span></dt>
+        <dd>
+          <span>{{ incident.chauffeur }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusV1App.incident.responsableincident">Responsableincident</span></dt>
+        <dd>
+          <span>{{ incident.responsableincident }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusV1App.incident.reporteurincident">Reporteurincident</span></dt>
+        <dd>
+          <span>{{ incident.reporteurincident }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusV1App.incident.vehicule">Vehicule</span></dt>
+        <dd>
+          <div *ngIf="incident.vehicule">
+            <a [routerLink]="['/vehicule', incident.vehicule?.id, 'view']">{{ incident.vehicule?.reference }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/incident', incident.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

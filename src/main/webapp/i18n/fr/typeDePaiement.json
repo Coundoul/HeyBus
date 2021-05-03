@@ -1,0 +1,24 @@
+{
+  "heybusApp": {
+    "typeDePaiement": {
+      "home": {
+        "title": "TypeDePaiements",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Type De Paiement",
+        "createOrEditLabel": "Créer ou éditer un Type De Paiement",
+        "notFound": "Aucun Type De Paiement trouvé"
+      },
+      "created": "Un nouveau Type De Paiement a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Type De Paiement avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Type De Paiement avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Type De Paiement {{ id }} ?"
+      },
+      "detail": {
+        "title": "Type De Paiement"
+      },
+      "id": "ID",
+      "paiement": "Paiement"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "Ville",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codePostal",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "voyage",
+      "otherEntityRelationshipName": "departVille",
+      "relationshipName": "depart"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "voyage",
+      "otherEntityRelationshipName": "arriveVille",
+      "relationshipName": "arrive"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "arret",
+      "otherEntityRelationshipName": "nomarretVille",
+      "relationshipName": "nomarret",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "pays",
+      "otherEntityRelationshipName": "ville",
+      "relationshipName": "pays",
+      "otherEntityField": "nom"
+    }
+  ],
+  "entityTableName": "ville",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101015"
+}

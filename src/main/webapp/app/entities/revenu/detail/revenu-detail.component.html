@@ -1,0 +1,44 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN']">
+  <div class="col-8">
+    <div *ngIf="revenu">
+      <h2 data-cy="revenuDetailsHeading"><span jhiTranslate="heybusApp.revenu.detail.title">Revenu</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ revenu.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.revenu.date">Date</span></dt>
+        <dd>
+          <span>{{ revenu.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.revenu.type">Type</span></dt>
+        <dd>
+          <span>{{ revenu.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.revenu.montant">Montant</span></dt>
+        <dd>
+          <span>{{ revenu.montant }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.revenu.description">Description</span></dt>
+        <dd>
+          <span>{{ revenu.description }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/revenu', revenu.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

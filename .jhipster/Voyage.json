@@ -1,0 +1,107 @@
+{
+  "name": "Voyage",
+  "fields": [
+    {
+      "fieldName": "dateDeVoyage",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prix",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nbrePlace",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "quartier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "climatisation",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "wifi",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "toilette",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "adresseDepart",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adresseArrive",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "reservation",
+      "otherEntityRelationshipName": "voyage",
+      "relationshipName": "reservation"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "employe",
+      "otherEntityRelationshipName": "voyage",
+      "relationshipName": "employe",
+      "otherEntityField": "nom",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "arret",
+      "otherEntityRelationshipName": "voyage",
+      "relationshipName": "arret",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vehicule",
+      "otherEntityRelationshipName": "voyage",
+      "relationshipName": "vehicule",
+      "otherEntityField": "reference"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "ville",
+      "otherEntityRelationshipName": "depart",
+      "relationshipName": "departVille",
+      "otherEntityField": "nom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "ville",
+      "otherEntityRelationshipName": "arrive",
+      "relationshipName": "arriveVille",
+      "otherEntityField": "nom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "transporteur",
+      "otherEntityRelationshipName": "voyage",
+      "relationshipName": "transporteur",
+      "otherEntityField": "nom"
+    }
+  ],
+  "entityTableName": "voyage",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101023"
+}

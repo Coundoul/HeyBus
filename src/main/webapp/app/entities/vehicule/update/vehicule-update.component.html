@@ -1,0 +1,135 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-vehicule-heading" data-cy="VehiculeCreateUpdateHeading" jhiTranslate="heybusApp.vehicule.home.createOrEditLabel">
+        Create or edit a Vehicule
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.reference" for="field_reference">Reference</label>
+          <input type="text" class="form-control" name="reference" id="field_reference" data-cy="reference" formControlName="reference" />
+          <div *ngIf="editForm.get('reference')!.invalid && (editForm.get('reference')!.dirty || editForm.get('reference')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('reference')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.numChassis" for="field_numChassis">Num Chassis</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numChassis"
+            id="field_numChassis"
+            data-cy="numChassis"
+            formControlName="numChassis"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.numCarteGrise" for="field_numCarteGrise"
+            >Num Carte Grise</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="numCarteGrise"
+            id="field_numCarteGrise"
+            data-cy="numCarteGrise"
+            formControlName="numCarteGrise"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.nbrePlace" for="field_nbrePlace">Nbre Place</label>
+          <input type="number" class="form-control" name="nbrePlace" id="field_nbrePlace" data-cy="nbrePlace" formControlName="nbrePlace" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.marqueVoiture" for="field_marqueVoiture">Marque Voiture</label>
+          <input
+            type="text"
+            class="form-control"
+            name="marqueVoiture"
+            id="field_marqueVoiture"
+            data-cy="marqueVoiture"
+            formControlName="marqueVoiture"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.photo" for="field_photo">Photo</label>
+          <input type="text" class="form-control" name="photo" id="field_photo" data-cy="photo" formControlName="photo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.refcartetotal" for="field_refcartetotal">Refcartetotal</label>
+          <input
+            type="text"
+            class="form-control"
+            name="refcartetotal"
+            id="field_refcartetotal"
+            data-cy="refcartetotal"
+            formControlName="refcartetotal"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.typemoteur" for="field_typemoteur">Typemoteur</label>
+          <input
+            type="text"
+            class="form-control"
+            name="typemoteur"
+            id="field_typemoteur"
+            data-cy="typemoteur"
+            formControlName="typemoteur"
+          />
+        </div>
+
+        <div class="form-group" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+          <label class="form-control-label" jhiTranslate="heybusApp.vehicule.transporteur" for="field_transporteur">Transporteur</label>
+          <select class="form-control" id="field_transporteur" data-cy="transporteur" name="transporteur" formControlName="transporteur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                transporteurOption.id === editForm.get('transporteur')!.value?.id ? editForm.get('transporteur')!.value : transporteurOption
+              "
+              *ngFor="let transporteurOption of transporteursSharedCollection; trackBy: trackTransporteurById"
+            >
+              {{ transporteurOption.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

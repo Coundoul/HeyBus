@@ -1,0 +1,81 @@
+{
+  "name": "Employe",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateNaissance",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "matrimoniale",
+      "fieldType": "Matrimoniale",
+      "fieldValues": "Celibataire,Marie"
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nbreEnfant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "photo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "account",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "employe",
+      "relationshipName": "user",
+      "otherEntityField": "login",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "position",
+      "otherEntityRelationshipName": "employe",
+      "relationshipValidateRules": "required",
+      "relationshipName": "position",
+      "otherEntityField": "nom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "transporteur",
+      "otherEntityRelationshipName": "employe",
+      "relationshipName": "transporteur",
+      "otherEntityField": "nom"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "voyage",
+      "otherEntityRelationshipName": "employe",
+      "relationshipName": "voyage",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "employe",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101011"
+}

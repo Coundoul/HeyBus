@@ -1,0 +1,28 @@
+{
+  "heybusApp": {
+    "revenu": {
+      "home": {
+        "title": "Revenus",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Revenu",
+        "createOrEditLabel": "Create or edit a Revenu",
+        "notFound": "No Revenus found"
+      },
+      "created": "A new Revenu is created with identifier {{ param }}",
+      "updated": "A Revenu is updated with identifier {{ param }}",
+      "deleted": "A Revenu is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Revenu {{ id }}?"
+      },
+      "detail": {
+        "title": "Revenu"
+      },
+      "id": "ID",
+      "date": "Date",
+      "type": "Type",
+      "montant": "Montant",
+      "description": "Description",
+      "agence": "Agence"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "heybusApp": {
+    "transporteur": {
+      "home": {
+        "title": "Transporteurs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Transporteur",
+        "createOrEditLabel": "Create or edit a Transporteur",
+        "notFound": "No Transporteurs found"
+      },
+      "created": "A new Transporteur is created with identifier {{ param }}",
+      "updated": "A Transporteur is updated with identifier {{ param }}",
+      "deleted": "A Transporteur is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Transporteur {{ id }}?"
+      },
+      "detail": {
+        "title": "Transporteur"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "telephone": "Telephone",
+      "responsable": "Responsable",
+      "mail": "Mail",
+      "adresse": "Adresse",
+      "logo": "Logo",
+      "user": "User",
+      "voyage": "Voyage",
+      "vehicule": "Vehicule",
+      "employe": "Employe"
+    }
+  }
+}

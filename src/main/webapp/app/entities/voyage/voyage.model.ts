@@ -1,0 +1,59 @@
+import * as dayjs from 'dayjs';
+import { IReservation } from 'app/entities/reservation/reservation.model';
+import { IEmploye } from 'app/entities/employe/employe.model';
+import { IArret } from 'app/entities/arret/arret.model';
+import { IVehicule } from 'app/entities/vehicule/vehicule.model';
+import { IVille } from 'app/entities/ville/ville.model';
+import { ITransporteur } from 'app/entities/transporteur/transporteur.model';
+
+export interface IVoyage {
+  id?: number;
+  dateDeVoyage?: dayjs.Dayjs;
+  prix?: number | null;
+  nbrePlace?: number | null;
+  quartier?: string | null;
+  description?: string | null;
+  climatisation?: boolean | null;
+  wifi?: boolean | null;
+  adresseDepart?: string | null;
+  adresseArrive?: string | null;
+  toilette?: boolean | null;
+  reservations?: IReservation[] | null;
+  employes?: IEmploye[] | null;
+  arrets?: IArret[] | null;
+  vehicule?: IVehicule | null;
+  departVille?: IVille | null;
+  arriveVille?: IVille | null;
+  transporteur?: ITransporteur | null;
+}
+
+export class Voyage implements IVoyage {
+  constructor(
+    public id?: number,
+    public dateDeVoyage?: dayjs.Dayjs,
+    public prix?: number | null,
+    public nbrePlace?: number | null,
+    public quartier?: string | null,
+    public description?: string | null,
+    public adresseDepart?: string | null,
+    public adresseArrive?: string | null,
+    public climatisation?: boolean | null,
+    public wifi?: boolean | null,
+    public toilette?: boolean | null,
+    public reservations?: IReservation[] | null,
+    public employes?: IEmploye[] | null,
+    public arrets?: IArret[] | null,
+    public vehicule?: IVehicule | null,
+    public departVille?: IVille | null,
+    public arriveVille?: IVille | null,
+    public transporteur?: ITransporteur | null
+  ) {
+    this.climatisation = this.climatisation ?? false;
+    this.wifi = this.wifi ?? false;
+    this.toilette = this.toilette ?? false;
+  }
+}
+
+export function getVoyageIdentifier(voyage: IVoyage): number | undefined {
+  return voyage.id;
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Pays",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "indicatif",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "capitale",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currency",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "ville",
+      "otherEntityRelationshipName": "pays",
+      "relationshipName": "ville"
+    }
+  ],
+  "entityTableName": "pays",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101016"
+}

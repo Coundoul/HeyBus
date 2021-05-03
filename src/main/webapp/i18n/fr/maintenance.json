@@ -1,0 +1,27 @@
+{
+  "heybusApp": {
+    "maintenance": {
+      "home": {
+        "title": "Maintenances",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Maintenance",
+        "createOrEditLabel": "Créer ou éditer un Maintenance",
+        "notFound": "Aucun Maintenance trouvé"
+      },
+      "created": "Un nouveau Maintenance a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Maintenance avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Maintenance avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Maintenance {{ id }} ?"
+      },
+      "detail": {
+        "title": "Maintenance"
+      },
+      "id": "ID",
+      "date": "Date",
+      "type": "Type",
+      "nbreKmMoteur": "Nbre Km Moteur",
+      "vehicule": "Vehicule"
+    }
+  }
+}

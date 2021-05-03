@@ -1,0 +1,28 @@
+{
+  "heybusApp": {
+    "section": {
+      "home": {
+        "title": "Sections",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Section",
+        "createOrEditLabel": "Créer ou éditer un Section",
+        "notFound": "Aucun Section trouvé"
+      },
+      "created": "Un nouveau Section a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Section avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Section avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Section {{ id }} ?"
+      },
+      "detail": {
+        "title": "Section"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "description": "Description",
+      "reference": "Reference",
+      "niveau": "Niveau",
+      "position": "Position"
+    }
+  }
+}

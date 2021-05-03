@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Voyage.
+    -->
+    <changeSet id="20210426101023-1" author="jhipster">
+        <createTable tableName="voyage">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date_de_voyage" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="prix" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="nbre_place" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="quartier" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="climatisation" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="wifi" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="toilette" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="vehicule_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="depart_ville_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="arrive_ville_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="transporteur_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="voyage" columnName="date_de_voyage" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20210426101023-1-relations" author="jhipster">
+
+        <createTable tableName="rel_voyage__employe">
+            <column name="employe_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voyage_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="voyage_id, employe_id" tableName="rel_voyage__employe"/>
+
+        <createTable tableName="rel_voyage__arret">
+            <column name="arret_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voyage_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="voyage_id, arret_id" tableName="rel_voyage__arret"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20210426101023-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/voyage.csv"
+                  separator=";"
+                  tableName="voyage">
+            <column name="id" type="numeric"/>
+            <column name="date_de_voyage" type="${datetimeType}"/>
+            <column name="prix" type="numeric"/>
+            <column name="nbre_place" type="numeric"/>
+            <column name="quartier" type="string"/>
+            <column name="description" type="string"/>
+            <column name="climatisation" type="boolean"/>
+            <column name="wifi" type="boolean"/>
+            <column name="toilette" type="boolean"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

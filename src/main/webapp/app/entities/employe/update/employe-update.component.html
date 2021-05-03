@@ -1,0 +1,148 @@
+h
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-employe-heading" data-cy="EmployeCreateUpdateHeading" jhiTranslate="heybusApp.employe.home.createOrEditLabel">
+        Create or edit a Employe
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.prenom" for="field_prenom">Prenom</label>
+          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.dateNaissance" for="field_dateNaissance">Date Naissance</label>
+          <div class="input-group">
+            <input
+              id="field_dateNaissance"
+              data-cy="dateNaissance"
+              type="text"
+              class="form-control"
+              name="dateNaissance"
+              ngbDatepicker
+              #dateNaissanceDp="ngbDatepicker"
+              formControlName="dateNaissance"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="dateNaissanceDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.matrimoniale" for="field_matrimoniale">Matrimoniale</label>
+          <select class="form-control" name="matrimoniale" formControlName="matrimoniale" id="field_matrimoniale" data-cy="matrimoniale">
+            <option [ngValue]="null">{{ 'heybusApp.Matrimoniale.null' | translate }}</option>
+            <option value="Celibataire">{{ 'heybusApp.Matrimoniale.Celibataire' | translate }}</option>
+            <option value="Marie">{{ 'heybusApp.Matrimoniale.Marie' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.telephone" for="field_telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+          <div *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telephone')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.nbreEnfant" for="field_nbreEnfant">Nbre Enfant</label>
+          <input
+            type="number"
+            class="form-control"
+            name="nbreEnfant"
+            id="field_nbreEnfant"
+            data-cy="nbreEnfant"
+            formControlName="nbreEnfant"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.photo" for="field_photo">Photo</label>
+          <input type="text" class="form-control" name="photo" id="field_photo" data-cy="photo" formControlName="photo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.account" for="field_account">Account</label>
+          <input type="checkbox" class="form-check" name="account" id="field_account" data-cy="account" formControlName="account" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.position" for="field_position">Position</label>
+          <select class="form-control" id="field_position" data-cy="position" name="position" formControlName="position">
+            <option *ngIf="!editForm.get('position')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="positionOption.id === editForm.get('position')!.value?.id ? editForm.get('position')!.value : positionOption"
+              *ngFor="let positionOption of positionsSharedCollection; trackBy: trackPositionById"
+            >
+              {{ positionOption.nom }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['position'])!.invalid && (editForm.get(['position'])!.dirty || editForm.get(['position'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['position'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+          <label class="form-control-label" jhiTranslate="heybusApp.employe.transporteur" for="field_transporteur">Transporteur</label>
+          <select class="form-control" id="field_transporteur" data-cy="transporteur" name="transporteur" formControlName="transporteur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                transporteurOption.id === editForm.get('transporteur')!.value?.id ? editForm.get('transporteur')!.value : transporteurOption
+              "
+              *ngFor="let transporteurOption of transporteursSharedCollection; trackBy: trackTransporteurById"
+            >
+              {{ transporteurOption.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

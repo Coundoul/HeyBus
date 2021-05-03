@@ -1,0 +1,101 @@
+<div *jhiHasAnyAuthority="['ROLE_ADMIN']">
+  <h2 id="page-heading" data-cy="TransporteurHeading">
+    <span jhiTranslate="heybusApp.transporteur.home.title">Transporteurs</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="heybusApp.transporteur.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-transporteur"
+        [routerLink]="['/transporteur/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="heybusApp.transporteur.home.createLabel"> Create a new Transporteur </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="transporteurs?.length === 0">
+    <span jhiTranslate="heybusApp.transporteur.home.notFound">No transporteurs found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="transporteurs && transporteurs.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.transporteur.nom">Nom</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.transporteur.telephone">Telephone</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.transporteur.responsable">Responsable</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.transporteur.mail">Mail</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.transporteur.adresse">Adresse</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.transporteur.logo">Logo</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.transporteur.user">User</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transporteur of transporteurs; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/transporteur', transporteur.id, 'view']">{{ transporteur.id }}</a>
+          </td>
+          <td>{{ transporteur.nom }}</td>
+          <td>{{ transporteur.telephone }}</td>
+          <td>{{ transporteur.responsable }}</td>
+          <td>{{ transporteur.mail }}</td>
+          <td>{{ transporteur.adresse }}</td>
+          <td>
+            <a *ngIf="transporteur.logo" (click)="openFile(transporteur.logo, transporteur.logoContentType)">
+              <img
+                [src]="'data:' + transporteur.logoContentType + ';base64,' + transporteur.logo"
+                style="max-height: 30px"
+                alt="transporteur image"
+              />
+            </a>
+            <span *ngIf="transporteur.logo">{{ transporteur.logoContentType }}, {{ byteSize(transporteur.logo) }}</span>
+          </td>
+          <td>
+            {{ transporteur.user?.login }}
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/transporteur', transporteur.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/transporteur', transporteur.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(transporteur)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

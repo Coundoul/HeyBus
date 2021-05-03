@@ -1,0 +1,36 @@
+{
+  "heybusApp": {
+    "vehicule": {
+      "home": {
+        "title": "Vehicules",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Vehicule",
+        "createOrEditLabel": "Create or edit a Vehicule",
+        "notFound": "No Vehicules found"
+      },
+      "created": "A new Vehicule is created with identifier {{ param }}",
+      "updated": "A Vehicule is updated with identifier {{ param }}",
+      "deleted": "A Vehicule is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Vehicule {{ id }}?"
+      },
+      "detail": {
+        "title": "Vehicule"
+      },
+      "id": "ID",
+      "reference": "Reference",
+      "numChassis": "Num Chassis",
+      "numCarteGrise": "Num Carte Grise",
+      "nbrePlace": "Nbre Place",
+      "marqueVoiture": "Marque Voiture",
+      "photo": "Photo",
+      "refcartetotal": "Refcartetotal",
+      "typemoteur": "Typemoteur",
+      "fuel": "Fuel",
+      "incident": "Incident",
+      "maintenance": "Maintenance",
+      "voyage": "Voyage",
+      "transporteur": "Transporteur"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="reservation">
+      <h2 data-cy="reservationDetailsHeading"><span jhiTranslate="heybusApp.reservation.detail.title">Reservation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ reservation.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.reservation.dateDeReservation">Date De Reservation</span></dt>
+        <dd>
+          <span>{{ reservation.dateDeReservation | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.reservation.voyage">Voyage</span></dt>
+        <dd>
+          <div *ngIf="reservation.voyage">
+            <a [routerLink]="['/voyage', reservation.voyage?.id, 'view']">{{ reservation.voyage?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.reservation.customer">Customer</span></dt>
+        <dd>
+          <div *ngIf="reservation.customer">
+            <a [routerLink]="['/customer', reservation.customer?.id, 'view']">{{ reservation.customer?.email }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/reservation', reservation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

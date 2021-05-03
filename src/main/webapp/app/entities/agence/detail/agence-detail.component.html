@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="agence">
+      <h2 data-cy="agenceDetailsHeading"><span jhiTranslate="heybusApp.agence.detail.title">Agence</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ agence.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.agence.nom">Nom</span></dt>
+        <dd>
+          <span>{{ agence.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.agence.telephone">Telephone</span></dt>
+        <dd>
+          <span>{{ agence.telephone }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.agence.responsable">Responsable</span></dt>
+        <dd>
+          <span>{{ agence.responsable }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.agence.revenu">Revenu</span></dt>
+        <dd>
+          <div *ngIf="agence.revenu">
+            <a [routerLink]="['/revenu', agence.revenu?.id, 'view']">{{ agence.revenu?.date }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.agence.depense">Depense</span></dt>
+        <dd>
+          <div *ngIf="agence.depense">
+            <a [routerLink]="['/depense', agence.depense?.id, 'view']">{{ agence.depense?.date }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/agence', agence.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

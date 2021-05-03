@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Voyage.
+    -->
+    <changeSet id="20210426101023-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="voyage_id"
+                                 baseTableName="rel_voyage__employe"
+                                 constraintName="fk_rel_voyage__employe__voyage_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="voyage"/>
+
+        <addForeignKeyConstraint baseColumnNames="employe_id"
+                                 baseTableName="rel_voyage__employe"
+                                 constraintName="fk_rel_voyage__employe__employe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employe"/>
+
+        <addForeignKeyConstraint baseColumnNames="voyage_id"
+                                 baseTableName="rel_voyage__arret"
+                                 constraintName="fk_rel_voyage__arret__voyage_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="voyage"/>
+
+        <addForeignKeyConstraint baseColumnNames="arret_id"
+                                 baseTableName="rel_voyage__arret"
+                                 constraintName="fk_rel_voyage__arret__arret_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="arret"/>
+
+        <addForeignKeyConstraint baseColumnNames="vehicule_id"
+                                 baseTableName="voyage"
+                                 constraintName="fk_voyage__vehicule_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vehicule"/>
+
+        <addForeignKeyConstraint baseColumnNames="depart_ville_id"
+                                 baseTableName="voyage"
+                                 constraintName="fk_voyage__depart_ville_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ville"/>
+
+        <addForeignKeyConstraint baseColumnNames="arrive_ville_id"
+                                 baseTableName="voyage"
+                                 constraintName="fk_voyage__arrive_ville_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ville"/>
+
+        <addForeignKeyConstraint baseColumnNames="transporteur_id"
+                                 baseTableName="voyage"
+                                 constraintName="fk_voyage__transporteur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="transporteur"/>
+    </changeSet>
+</databaseChangeLog>

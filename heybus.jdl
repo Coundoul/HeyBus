@@ -1,0 +1,158 @@
+entity Agence {
+  nom String,
+  telephone String required,
+  responsable String
+}
+entity Transporteur{
+  nom String required,
+  telephone String required,
+  responsable String required,
+  mail String,
+  adresse String required,
+  logo ImageBlob
+}
+
+entity Arret {
+  description String
+}
+entity Customer {
+  nom String,
+  prenom String,
+  telephone String required unique,
+  email String unique,
+  profession String,
+  datenaissance LocalDate,
+  dateprisecontact LocalDate,
+  adresse String
+}
+entity Depense {
+  date LocalDate required,
+  category String required,
+  type String required,
+  montant Double required,
+  description String
+}
+entity Employe {
+  nom String,
+  prenom String,
+  dateNaissance LocalDate,
+  matrimoniale Matrimoniale,
+  telephone String required unique,
+  nbreEnfant Integer,
+  photo String,
+  account Boolean
+}
+entity Fuel {
+  typeDeCarburant String required,
+  date LocalDate required,
+  km Integer required,
+  nbLitre Integer required,
+  montant Double required
+}
+entity Incident {
+  gravite String,
+  chauffeur String required,
+  responsableincident String required,
+  reporteurincident String
+}
+entity Maintenance {
+  date LocalDate required,
+  type String,
+  nbreKmMoteur Integer
+}
+entity Ville {
+  nom String
+}
+entity Pays {
+  nom String,
+  code String,
+  indicatif String,
+  capitale String,
+  currency String
+}
+entity Position {
+  nom String required,
+  description String,
+  reference String unique,
+  niveau String
+}
+entity Revenu {
+  date LocalDate required,
+  type String required,
+  montant Double required,
+  description String
+}
+entity Section {
+  nom String required,
+  description String,
+  reference String unique,
+  niveau String
+}
+entity Reservation {
+  dateDeReservation LocalDate
+}
+entity TypeDePaiement {
+  paiement String required
+}
+entity Vehicule {
+  reference String required unique,
+  numChassis String,
+  numCarteGrise String,
+  nbrePlace Integer,
+  marqueVoiture String,
+  photo String,
+  refcartetotal String,
+  typemoteur String
+}
+entity Ville {
+  nom String,
+  codePostal String
+}
+entity Voyage {
+  dateDeVoyage ZonedDateTime required,
+  prix Integer,
+  nbrePlace Integer,
+  quartier String,
+  description String,
+  climatisation Boolean,
+  wifi Boolean,
+  toilette Boolean
+}
+enum Matrimoniale {
+  Celibataire,
+  Marie
+}
+enum Bagage {
+  AVEC,
+  SANS
+}
+
+relationship OneToOne {
+  Arret{nomarretVille(nom)} to Ville{nomarret},
+  Customer{user(login)} to User,
+  Employe{user(login)} to User,
+  Transporteur{user(login)} to User
+}
+relationship OneToMany {
+  Revenu{agence} to Agence{revenu(date)},
+  Depense{agence} to Agence{depense(date)},
+  Position{employe} to Employe{position(nom) required},
+  Vehicule{fuel} to Fuel{vehicule(reference) required},
+  Vehicule{incident} to Incident{vehicule(reference)},
+  Vehicule{maintenance} to Maintenance{vehicule(reference)},
+  Section{position} to Position{section(nom)},
+  Voyage{reservation} to Reservation{voyage},
+  Customer{reservation} to Reservation{customer(email)},
+  Vehicule{voyage} to Voyage{vehicule(reference)},
+  Ville{depart} to Voyage{departVille(nom)},
+  Ville{arrive} to Voyage{arriveVille(nom)},
+  Transporteur{voyage} to Voyage{transporteur(nom)},
+  Transporteur{vehicule} to Vehicule{transporteur(nom)},
+  Transporteur{employe} to Employe{transporteur(nom)},
+  Pays{ville} to Ville{pays(nom)}
+}
+
+relationship ManyToMany {
+  Voyage{employe(nom)} to Employe{voyage},
+  Voyage{arret} to Arret{voyage}
+}

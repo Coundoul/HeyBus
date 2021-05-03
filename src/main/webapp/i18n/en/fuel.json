@@ -1,0 +1,29 @@
+{
+  "heybusApp": {
+    "fuel": {
+      "home": {
+        "title": "Fuels",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Fuel",
+        "createOrEditLabel": "Create or edit a Fuel",
+        "notFound": "No Fuels found"
+      },
+      "created": "A new Fuel is created with identifier {{ param }}",
+      "updated": "A Fuel is updated with identifier {{ param }}",
+      "deleted": "A Fuel is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Fuel {{ id }}?"
+      },
+      "detail": {
+        "title": "Fuel"
+      },
+      "id": "ID",
+      "typeDeCarburant": "Type De Carburant",
+      "date": "Date",
+      "km": "Km",
+      "nbLitre": "Nb Litre",
+      "montant": "Montant",
+      "vehicule": "Vehicule"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="now()" dbms="mysql, mariadb"/>
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="clob" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="varchar(36)" dbms="h2, mysql, mariadb"/>
+    <property name="datetimeType" value="datetime(6)" dbms="mysql, mariadb"/>
+    <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101006_added_entity_Agence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101007_added_entity_Transporteur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101008_added_entity_Arret.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101009_added_entity_Customer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101010_added_entity_Depense.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101011_added_entity_Employe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101012_added_entity_Fuel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101013_added_entity_Incident.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101014_added_entity_Maintenance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101015_added_entity_Ville.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101016_added_entity_Pays.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101017_added_entity_Position.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101018_added_entity_Revenu.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101019_added_entity_Section.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101020_added_entity_Reservation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101021_added_entity_TypeDePaiement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101022_added_entity_Vehicule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101023_added_entity_Voyage.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20210426101006_added_entity_constraints_Agence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101007_added_entity_constraints_Transporteur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101008_added_entity_constraints_Arret.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101009_added_entity_constraints_Customer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101011_added_entity_constraints_Employe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101012_added_entity_constraints_Fuel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101013_added_entity_constraints_Incident.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101014_added_entity_constraints_Maintenance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101015_added_entity_constraints_Ville.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101017_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101020_added_entity_constraints_Reservation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101022_added_entity_constraints_Vehicule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426101023_added_entity_constraints_Voyage.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+</databaseChangeLog>

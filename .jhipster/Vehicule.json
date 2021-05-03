@@ -1,0 +1,81 @@
+{
+  "name": "Vehicule",
+  "fields": [
+    {
+      "fieldName": "reference",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "numChassis",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numCarteGrise",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nbrePlace",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "marqueVoiture",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "photo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "refcartetotal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "typemoteur",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "fuel",
+      "otherEntityRelationshipName": "vehicule",
+      "relationshipName": "fuel"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "incident",
+      "otherEntityRelationshipName": "vehicule",
+      "relationshipName": "incident"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "maintenance",
+      "otherEntityRelationshipName": "vehicule",
+      "relationshipName": "maintenance"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "voyage",
+      "otherEntityRelationshipName": "vehicule",
+      "relationshipName": "voyage"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "transporteur",
+      "otherEntityRelationshipName": "vehicule",
+      "relationshipName": "transporteur",
+      "otherEntityField": "nom"
+    }
+  ],
+  "entityTableName": "vehicule",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210426101022"
+}

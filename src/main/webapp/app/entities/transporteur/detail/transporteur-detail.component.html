@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="transporteur">
+      <h2 data-cy="transporteurDetailsHeading"><span jhiTranslate="heybusApp.transporteur.detail.title">Transporteur</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ transporteur.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.transporteur.nom">Nom</span></dt>
+        <dd>
+          <span>{{ transporteur.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.transporteur.telephone">Telephone</span></dt>
+        <dd>
+          <span>{{ transporteur.telephone }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.transporteur.responsable">Responsable</span></dt>
+        <dd>
+          <span>{{ transporteur.responsable }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.transporteur.mail">Mail</span></dt>
+        <dd>
+          <span>{{ transporteur.mail }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.transporteur.adresse">Adresse</span></dt>
+        <dd>
+          <span>{{ transporteur.adresse }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.transporteur.logo">Logo</span></dt>
+        <dd>
+          <div *ngIf="transporteur.logo">
+            <a (click)="openFile(transporteur.logo, transporteur.logoContentType)">
+              <img
+                [src]="'data:' + transporteur.logoContentType + ';base64,' + transporteur.logo"
+                style="max-width: 100%"
+                alt="transporteur image"
+              />
+            </a>
+            {{ transporteur.logoContentType }}, {{ byteSize(transporteur.logo) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.transporteur.user">User</span></dt>
+        <dd>
+          <span>{{ transporteur.user?.login }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button
+        type="button"
+        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']"
+        [routerLink]="['/transporteur', transporteur.id, 'edit']"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

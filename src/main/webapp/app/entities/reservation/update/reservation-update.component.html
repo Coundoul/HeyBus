@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-6">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-reservation-heading" data-cy="ReservationCreateUpdateHeading" jhiTranslate="heybusApp.reservation.home.createOrEditLabel">
+        Create or edit a Reservation
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.reservation.dateDeReservation" for="field_dateDeReservation"
+            >Date De Reservation</label
+          >
+          <div class="input-group">
+            <input
+              id="field_dateDeReservation"
+              data-cy="dateDeReservation"
+              type="text"
+              class="form-control"
+              name="dateDeReservation"
+              ngbDatepicker
+              #dateDeReservationDp="ngbDatepicker"
+              formControlName="dateDeReservation"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="dateDeReservationDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.reservation.voyage" for="field_voyage">Voyage</label>
+          <select class="form-control" id="field_voyage" data-cy="voyage" name="voyage" formControlName="voyage">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="voyageOption.id === editForm.get('voyage')!.value?.id ? editForm.get('voyage')!.value : voyageOption"
+              *ngFor="let voyageOption of voyagesSharedCollection; trackBy: trackVoyageById"
+            >
+              {{ voyageOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.reservation.customer" for="field_customer">Customer</label>
+          <select class="form-control" id="field_customer" data-cy="customer" name="customer" formControlName="customer">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="customerOption.id === editForm.get('customer')!.value?.id ? editForm.get('customer')!.value : customerOption"
+              *ngFor="let customerOption of customersSharedCollection; trackBy: trackCustomerById"
+            >
+              {{ customerOption.email }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-6"></div>
+</div>

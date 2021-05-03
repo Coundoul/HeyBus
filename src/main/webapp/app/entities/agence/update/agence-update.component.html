@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-agence-heading" data-cy="AgenceCreateUpdateHeading" jhiTranslate="heybusApp.agence.home.createOrEditLabel">
+        Create or edit a Agence
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.agence.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.agence.telephone" for="field_telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+          <div *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telephone')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.agence.responsable" for="field_responsable">Responsable</label>
+          <input
+            type="text"
+            class="form-control"
+            name="responsable"
+            id="field_responsable"
+            data-cy="responsable"
+            formControlName="responsable"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.agence.revenu" for="field_revenu">Revenu</label>
+          <select class="form-control" id="field_revenu" data-cy="revenu" name="revenu" formControlName="revenu">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="revenuOption.id === editForm.get('revenu')!.value?.id ? editForm.get('revenu')!.value : revenuOption"
+              *ngFor="let revenuOption of revenusSharedCollection; trackBy: trackRevenuById"
+            >
+              {{ revenuOption.date }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.agence.depense" for="field_depense">Depense</label>
+          <select class="form-control" id="field_depense" data-cy="depense" name="depense" formControlName="depense">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="depenseOption.id === editForm.get('depense')!.value?.id ? editForm.get('depense')!.value : depenseOption"
+              *ngFor="let depenseOption of depensesSharedCollection; trackBy: trackDepenseById"
+            >
+              {{ depenseOption.date }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
