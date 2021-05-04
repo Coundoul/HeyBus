@@ -50,13 +50,13 @@
           </td>
           <td>
             <span *ngFor="let employe of voyage.employes; let last = last">
-              <a class="form-control-static" [routerLink]="['/employe', employe.id, 'view']">{{ employe.nom }}</a>{{
+              <a class="form-control-static" [routerLink]="['/employe', employe.id, 'view']">{{ voyage.employe.nom }}</a>{{
               last ? '' : ', ' }}
             </span>
           </td>
           <td>
             <span *ngFor="let arret of voyage.arrets; let last = last">
-              <a class="form-control-static" [routerLink]="['/arret', arret.id, 'view']">{{ arret.id }}</a>{{ last ? ''
+              <a class="form-control-static" [routerLink]="['/arret', arret.id, 'view']">{{ voyage.arret.id }}</a>{{ last ? ''
               : ', ' }}
             </span>
           </td>
