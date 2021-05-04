@@ -83,7 +83,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     const date = this.editForm.get(['dateDeVoyage'])!.value;
     const depart = this.editForm.get(['departVille'])!.value;
     const arrive = (this.arrive = this.editForm.get(['arriveVille'])!.value);
-    this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
+    this.router.navigate(['/search/'+String(date)+'/'+String(depart.id)+'/'+String(arrive.id)]);
+
+    //this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
   }
 
   ngOnDestroy(): void {

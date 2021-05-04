@@ -19,31 +19,16 @@ import { Account } from 'app/core/auth/account.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'jhi-home',
+  selector: 'jhi-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
   providers: [DatePipe],
 })
 export class SearchComponent implements OnInit, OnDestroy {
   myDate: any = new Date();
   account: Account | null = null;
   authSubscription?: Subscription;
-  employes: IEmploye[] = [];
-  arrets: IArret[] = [];
-  vehicules: IVehicule[] = [];
-  villes: IVille[] = [];
-  voyages!: Voyage[];
-  arrive: [] | undefined;
   depart: [] | undefined;
-  editForm = this.fb.group({
-    id: [],
-    dateDeVoyage: [null, [Validators.required]],
-    employes: [],
-    arrets: [],
-    vehicule: [],
-    departVille: [],
-    arriveVille: [],
-  });
+  voyages!: Voyage[];
 
   constructor(
     private datePipe: DatePipe,
@@ -51,25 +36,17 @@ export class SearchComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     protected activatedRoute: ActivatedRoute,
     protected voyageService: VoyageService,
-    protected employeService: EmployeService,
-    protected arretService: ArretService,
-    protected vehiculeService: VehiculeService,
-    protected villeService: VilleService,
     private router: Router
   ) {
-    this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
   }
 
   ngOnInit(): void {
-    this.villeService.query().subscribe((res: HttpResponse<IVille[]>) => {
-      this.villes = res.body ?? [];
-    });
-    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-    // this.editForm.get('departVille')?.valueChanges.subscribe((data)=>{
-    // this.villes2.splice(this.villes2.indexOf(this.editForm.get(['departVille'])!.value),1);
-    // eslint-disable-next-line no-console
-    // console.log(this.villes)
-    // })
+ 
+    const date = String(this.activatedRoute.snapshot.paramMap.get('date'));
+    const depart = Number(this.activatedRoute.snapshot.paramMap.get('depart'));
+    const arrive = Number(this.activatedRoute.snapshot.paramMap.get('arrive'));
+
+    this.voyageService.searchVoyage(date, depart, arrive).subscribe(rest => (this.voyages = rest.body!));
   }
 
   isAuthenticated(): boolean {
@@ -79,13 +56,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   login(): void {
     this.router.navigate(['/login']);
   }
-  recherche(): void {
-    const date = this.editForm.get(['dateDeVoyage'])!.value;
-    const depart = this.editForm.get(['departVille'])!.value;
-    const arrive = (this.arrive = this.editForm.get(['arriveVille'])!.value);
-    this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
-  }
-
+ 
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();

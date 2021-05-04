@@ -10,7 +10,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { SearchComponent } from './search.component';
 
 describe('Component Tests', () => {
-  describe('Home Component', () => {
+  describe('Search Component', () => {
     let comp: SearchComponent;
     let fixture: ComponentFixture<SearchComponent>;
     let mockAccountService: AccountService;
