@@ -238,7 +238,7 @@ public class ReservationResource {
             customerExisting.get().setNom(customer.getNom());
             customerExisting.get().setPrenom(customer.getPrenom());
             customerRepository.save(customerExisting.get());
-            
+
             Voyage voyage = voyageRepository.findById(voyageId).get();
 
             Reservation reservation = new Reservation();
@@ -247,11 +247,10 @@ public class ReservationResource {
             reservation.setVoyage(voyage);
             reservation.setNbrePassagers(nbrePassagers);
             Reservation result = reservationRepository.save(reservation);
-            
+
             voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
             voyageRepository.save(voyage);
-
-            return ResponseEntity.created(new URI("/api/reservations/voyage/"+voyageId+"/"))
+            return ResponseEntity.created(new URI("/api/reservations/voyage/" + voyageId + "/"))
                     .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
                             "\n Reservation reussi pour votre compte " + customerExisting.get().getEmail().toString()))
                     .body(result);
@@ -287,7 +286,7 @@ public class ReservationResource {
             voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
             voyageRepository.save(voyage);
 
-            return ResponseEntity.created(new URI("/api/reservations/voyage/"+voyageId+"/"))
+            return ResponseEntity.created(new URI("/api/reservations/voyage/" + voyageId + "/"))
                     .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
                             "\n Reservation reussi !\n consulter votre mail pour activer votre compte "
                                     + customerResult.getEmail().toString()))

@@ -1,7 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.Voyage;
-import com.mycompany.myapp.repository.TransporteurRepository;
 import com.mycompany.myapp.repository.VilleRepository;
 import com.mycompany.myapp.repository.VoyageRepository;
 import com.mycompany.myapp.security.SecurityUtils;
