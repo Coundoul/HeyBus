@@ -37,5 +37,5 @@ public interface VoyageRepository extends JpaRepository<Voyage, Long> {
     @Query("select transporteur from Transporteur transporteur where transporteur.user.login = ?#{principal.username}")
     Transporteur findCurrentTransporteur();
 
-    List<Voyage> findByDateDeVoyageBetweenAndDepartVilleAndArriveVille(ZonedDateTime date, ZonedDateTime date2, Ville arrive, Ville depart);
+    List<Voyage> findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(ZonedDateTime date, ZonedDateTime date2, Ville arrive, Ville depart,Integer nbrePassagers);
 }

@@ -206,8 +206,8 @@ public class VoyageResource {
             .build();
     }
 
-    @GetMapping("/voyages/{dateVoyage}/{idDepartVille}/{idArriveVille}")
-    public List<Voyage> getVoyage(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille) {
+    @GetMapping("/voyages/{dateVoyage}/{idDepartVille}/{idArriveVille}/{nbrePassagers}")
+    public List<Voyage> getVoyage(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille, @PathVariable Integer nbrePassagers) {
         //log.debug("REST request to get Voyage : {}", id);
         ZonedDateTime date = ZonedDateTime.of(
             Integer.parseInt(dateVoyage.split("-")[0]),
@@ -229,11 +229,12 @@ public class VoyageResource {
             0,
             ZoneId.of("UTC")
         );
-        return voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVille(
+        return voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
             date,
             date2,
             ville.findById(idDepartVille).get(),
-            ville.findById(idArriveVille).get()
+            ville.findById(idArriveVille).get(),
+            nbrePassagers
         );
     }
 }

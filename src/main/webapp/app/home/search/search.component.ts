@@ -35,8 +35,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     const date = String(this.activatedRoute.snapshot.paramMap.get('date'));
     const depart = Number(this.activatedRoute.snapshot.paramMap.get('depart'));
     const arrive = Number(this.activatedRoute.snapshot.paramMap.get('arrive'));
-
-    this.voyageService.searchVoyage(date, depart, arrive).subscribe(rest => (this.voyages = rest.body!));
+    const nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('nbrePassagers'));
+    this.voyageService.searchVoyage(date, depart, arrive,nbrePassagers).subscribe(rest => (this.voyages = rest.body!));
   }
 
   isAuthenticated(): boolean {

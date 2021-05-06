@@ -12,7 +12,7 @@ export const HOME_ROUTE: Routes =[
     },
   },
   {
-    path: 'search/:date/:depart/:arrive',
+    path: 'search/:date/:depart/:arrive/:nbrePassagers',
     component: SearchComponent,
     data: {
       pageTitle: 'home.title',
