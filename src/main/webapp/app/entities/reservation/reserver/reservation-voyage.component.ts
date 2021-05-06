@@ -60,11 +60,13 @@ export class ReservationVoyageComponent implements OnInit {
     this.isSaving = true;
     const customer = this.createFromForm();
     const idVoyage = Number(this.activatedRoute.snapshot.paramMap.get('voyage'));
+    const nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('passagers'));
+
 
     if (customer.id !== undefined) {
       this.subscribeToSaveResponse(this.reservationService.update(customer));
     } else {
-      this.subscribeToSaveResponse(this.reservationService.createReservation(customer, idVoyage));
+      this.subscribeToSaveResponse(this.reservationService.createReservation(customer, idVoyage, nbrePassagers));
     }
   }
 

@@ -20,6 +20,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   authSubscription?: Subscription;
   depart: [] | undefined;
   voyages!: Voyage[];
+  nbrePassagers!: number;
 
   constructor(
     private datePipe: DatePipe,
@@ -35,8 +36,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     const date = String(this.activatedRoute.snapshot.paramMap.get('date'));
     const depart = Number(this.activatedRoute.snapshot.paramMap.get('depart'));
     const arrive = Number(this.activatedRoute.snapshot.paramMap.get('arrive'));
-    const nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('nbrePassagers'));
-    this.voyageService.searchVoyage(date, depart, arrive,nbrePassagers).subscribe(rest => (this.voyages = rest.body!));
+    this.nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('nbrePassagers'));
+    this.voyageService.searchVoyage(date, depart, arrive,this.nbrePassagers).subscribe(rest => (this.voyages = rest.body!));
   }
 
   isAuthenticated(): boolean {

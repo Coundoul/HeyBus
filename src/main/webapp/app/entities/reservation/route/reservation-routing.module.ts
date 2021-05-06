@@ -31,7 +31,7 @@ const reservationRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
-    path: 'new/voyage/:voyage',
+    path: 'new/voyage/:voyage/passagers/:passagers',
     component: ReservationVoyageComponent,
     resolve: {
       reservation: ReservationRoutingResolveService,

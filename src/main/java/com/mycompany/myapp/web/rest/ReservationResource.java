@@ -221,9 +221,9 @@ public class ReservationResource {
      *         the reservation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/reservations/voyage/{voyageId}")
+    @PostMapping("/reservations/voyage/{voyageId}/passagers/{nbrePassagers}")
     public ResponseEntity<Reservation> createReservationVoyageCustomer(@RequestBody Customer customer,
-            @PathVariable Long voyageId) throws URISyntaxException {
+            @PathVariable Long voyageId, @PathVariable Integer nbrePassagers) throws URISyntaxException {
         log.debug("REST request to save Customer Reservation : {}", customer);
 
         Optional<Customer> customerExisting = customerRepository.findOneByEmailIgnoreCase(customer.getEmail());
@@ -245,9 +245,10 @@ public class ReservationResource {
             reservation.setDateDeReservation(LocalDate.now());
             reservation.setCustomer(customerExisting.get());
             reservation.setVoyage(voyage);
+            reservation.setNbrePassagers(nbrePassagers);
             Reservation result = reservationRepository.save(reservation);
             
-            voyage.setNbrePlace(voyage.getNbrePlace() -1);
+            voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
             voyageRepository.save(voyage);
 
             return ResponseEntity.created(new URI("/api/reservations/voyage/"+voyageId+"/"))
@@ -280,10 +281,10 @@ public class ReservationResource {
             reservation.setDateDeReservation(LocalDate.now());
             reservation.setCustomer(customerResult);
             reservation.setVoyage(voyage);
-
+            reservation.setNbrePassagers(nbrePassagers);
             Reservation result = reservationRepository.save(reservation);
 
-            voyage.setNbrePlace(voyage.getNbrePlace() -1);
+            voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
             voyageRepository.save(voyage);
 
             return ResponseEntity.created(new URI("/api/reservations/voyage/"+voyageId+"/"))
