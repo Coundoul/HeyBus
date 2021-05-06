@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A Reservation.
@@ -20,6 +21,10 @@ public class Reservation implements Serializable {
 
     @Column(name = "date_de_reservation")
     private LocalDate dateDeReservation;
+
+    @NotNull
+    @Column(name = "nbre_passagers", nullable = false)
+    private Integer nbrePassagers;
 
     @ManyToOne
     @JsonIgnoreProperties(
@@ -57,6 +62,19 @@ public class Reservation implements Serializable {
 
     public void setDateDeReservation(LocalDate dateDeReservation) {
         this.dateDeReservation = dateDeReservation;
+    }
+
+    public Integer getNbrePassagers() {
+        return this.nbrePassagers;
+    }
+
+    public Reservation nbrePassagers(Integer nbrePassagers) {
+        this.nbrePassagers = nbrePassagers;
+        return this;
+    }
+
+    public void setNbrePassagers(Integer nbrePassagers) {
+        this.nbrePassagers = nbrePassagers;
     }
 
     public Voyage getVoyage() {
@@ -110,6 +128,7 @@ public class Reservation implements Serializable {
         return "Reservation{" +
             "id=" + getId() +
             ", dateDeReservation='" + getDateDeReservation() + "'" +
+            ", nbrePassagers=" + getNbrePassagers() +
             "}";
     }
 }

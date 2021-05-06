@@ -27,6 +27,7 @@ describe('Service Tests', () => {
       elemDefault = {
         id: 0,
         dateDeReservation: currentDate,
+        nbrePassagers: 0,
       };
     });
 
@@ -74,6 +75,7 @@ describe('Service Tests', () => {
           {
             id: 1,
             dateDeReservation: currentDate.format(DATE_FORMAT),
+            nbrePassagers: 1,
           },
           elemDefault
         );
@@ -121,6 +123,7 @@ describe('Service Tests', () => {
           {
             id: 1,
             dateDeReservation: currentDate.format(DATE_FORMAT),
+            nbrePassagers: 1,
           },
           elemDefault
         );
@@ -177,7 +180,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Reservation to an array', () => {
-          const reservationArray: IReservation[] = [{ id: 123 }, { id: 456 }, { id: 16091 }];
+          const reservationArray: IReservation[] = [{ id: 123 }, { id: 456 }, { id: 75709 }];
           const reservationCollection: IReservation[] = [{ id: 123 }];
           expectedResult = service.addReservationToCollectionIfMissing(reservationCollection, ...reservationArray);
           expect(expectedResult).toHaveLength(3);

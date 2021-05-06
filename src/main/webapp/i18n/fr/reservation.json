@@ -19,6 +19,7 @@
       },
       "id": "ID",
       "dateDeReservation": "Date De Reservation",
+      "nbrePassagers": "Nbre Passagers",
       "voyage": "Voyage",
       "customer": "Customer"
     }

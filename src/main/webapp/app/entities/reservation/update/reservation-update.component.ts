@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -25,6 +25,7 @@ export class ReservationUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     dateDeReservation: [],
+    nbrePassagers: [null, [Validators.required]],
     voyage: [],
     customer: [],
   });
@@ -90,6 +91,7 @@ export class ReservationUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: reservation.id,
       dateDeReservation: reservation.dateDeReservation,
+      nbrePassagers: reservation.nbrePassagers,
       voyage: reservation.voyage,
       customer: reservation.customer,
     });
@@ -124,6 +126,7 @@ export class ReservationUpdateComponent implements OnInit {
       ...new Reservation(),
       id: this.editForm.get(['id'])!.value,
       dateDeReservation: this.editForm.get(['dateDeReservation'])!.value,
+      nbrePassagers: this.editForm.get(['nbrePassagers'])!.value,
       voyage: this.editForm.get(['voyage'])!.value,
       customer: this.editForm.get(['customer'])!.value,
     };

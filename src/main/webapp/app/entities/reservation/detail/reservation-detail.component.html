@@ -18,6 +18,10 @@
         <dd>
           <span>{{ reservation.dateDeReservation | formatMediumDate }}</span>
         </dd>
+        <dt><span jhiTranslate="heybusApp.reservation.nbrePassagers">Nbre Passagers</span></dt>
+        <dd>
+          <span>{{ reservation.nbrePassagers }}</span>
+        </dd>
         <dt><span jhiTranslate="heybusApp.reservation.voyage">Voyage</span></dt>
         <dd>
           <div *ngIf="reservation.voyage">
