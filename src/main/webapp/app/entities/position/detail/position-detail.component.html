@@ -1,7 +1,7 @@
 <div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN']">
   <div class="col-8">
     <div *ngIf="position">
-      <h2 data-cy="positionDetailsHeading"><span jhiTranslate="heybusV1App.position.detail.title">Position</span></h2>
+      <h2 data-cy="positionDetailsHeading"><span jhiTranslate="heybusApp.position.detail.title">Position</span></h2>
 
       <hr />
 
@@ -14,23 +14,23 @@
         <dd>
           <span>{{ position.id }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.position.nom">Nom</span></dt>
+        <dt><span jhiTranslate="heybusApp.position.nom">Nom</span></dt>
         <dd>
           <span>{{ position.nom }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.position.description">Description</span></dt>
+        <dt><span jhiTranslate="heybusApp.position.description">Description</span></dt>
         <dd>
           <span>{{ position.description }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.position.reference">Reference</span></dt>
+        <dt><span jhiTranslate="heybusApp.position.reference">Reference</span></dt>
         <dd>
           <span>{{ position.reference }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.position.niveau">Niveau</span></dt>
+        <dt><span jhiTranslate="heybusApp.position.niveau">Niveau</span></dt>
         <dd>
           <span>{{ position.niveau }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.position.section">Section</span></dt>
+        <dt><span jhiTranslate="heybusApp.position.section">Section</span></dt>
         <dd>
           <div *ngIf="position.section">
             <a [routerLink]="['/section', position.section?.id, 'view']">{{ position.section?.nom }}</a>

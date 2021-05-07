@@ -1,7 +1,7 @@
 <div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN']">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-position-heading" data-cy="PositionCreateUpdateHeading" jhiTranslate="heybusV1App.position.home.createOrEditLabel">
+      <h2 id="jhi-position-heading" data-cy="PositionCreateUpdateHeading" jhiTranslate="heybusApp.position.home.createOrEditLabel">
         Create or edit a Position
       </h2>
 
@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.position.nom" for="field_nom">Nom</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.position.nom" for="field_nom">Nom</label>
           <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
           <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.position.description" for="field_description">Description</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.position.description" for="field_description">Description</label>
           <input
             type="text"
             class="form-control"
@@ -36,18 +36,18 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.position.reference" for="field_reference">Reference</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.position.reference" for="field_reference">Reference</label>
           <input type="text" class="form-control" name="reference" id="field_reference" data-cy="reference" formControlName="reference" />
           <div *ngIf="editForm.get('reference')!.invalid && (editForm.get('reference')!.dirty || editForm.get('reference')!.touched)"></div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.position.niveau" for="field_niveau">Niveau</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.position.niveau" for="field_niveau">Niveau</label>
           <input type="text" class="form-control" name="niveau" id="field_niveau" data-cy="niveau" formControlName="niveau" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.position.section" for="field_section">Section</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.position.section" for="field_section">Section</label>
           <select class="form-control" id="field_section" data-cy="section" name="section" formControlName="section">
             <option [ngValue]="null"></option>
             <option

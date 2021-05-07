@@ -1,7 +1,7 @@
 <div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN']">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-incident-heading" data-cy="IncidentCreateUpdateHeading" jhiTranslate="heybusV1App.incident.home.createOrEditLabel">
+      <h2 id="jhi-incident-heading" data-cy="IncidentCreateUpdateHeading" jhiTranslate="heybusApp.incident.home.createOrEditLabel">
         Create or edit a Incident
       </h2>
 
@@ -14,12 +14,12 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.incident.gravite" for="field_gravite">Gravite</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.incident.gravite" for="field_gravite">Gravite</label>
           <input type="text" class="form-control" name="gravite" id="field_gravite" data-cy="gravite" formControlName="gravite" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.incident.chauffeur" for="field_chauffeur">Chauffeur</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.incident.chauffeur" for="field_chauffeur">Chauffeur</label>
           <input type="text" class="form-control" name="chauffeur" id="field_chauffeur" data-cy="chauffeur" formControlName="chauffeur" />
           <div *ngIf="editForm.get('chauffeur')!.invalid && (editForm.get('chauffeur')!.dirty || editForm.get('chauffeur')!.touched)">
             <small
@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.incident.responsableincident" for="field_responsableincident"
+          <label class="form-control-label" jhiTranslate="heybusApp.incident.responsableincident" for="field_responsableincident"
             >Responsableincident</label
           >
           <input
@@ -61,7 +61,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.incident.reporteurincident" for="field_reporteurincident"
+          <label class="form-control-label" jhiTranslate="heybusApp.incident.reporteurincident" for="field_reporteurincident"
             >Reporteurincident</label
           >
           <input
@@ -75,7 +75,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusV1App.incident.vehicule" for="field_vehicule">Vehicule</label>
+          <label class="form-control-label" jhiTranslate="heybusApp.incident.vehicule" for="field_vehicule">Vehicule</label>
           <select class="form-control" id="field_vehicule" data-cy="vehicule" name="vehicule" formControlName="vehicule">
             <option [ngValue]="null"></option>
             <option

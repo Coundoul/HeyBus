@@ -1,11 +1,11 @@
 <div *jhiHasAnyAuthority="['ROLE_ADMIN']">
   <h2 id="page-heading" data-cy="IncidentHeading">
-    <span jhiTranslate="heybusV1App.incident.home.title">Incidents</span>
+    <span jhiTranslate="heybusApp.incident.home.title">Incidents</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="heybusV1App.incident.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="heybusApp.incident.home.refreshListLabel">Refresh List</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/incident/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="heybusV1App.incident.home.createLabel"> Create a new Incident </span>
+        <span jhiTranslate="heybusApp.incident.home.createLabel"> Create a new Incident </span>
       </button>
     </div>
   </h2>
@@ -25,7 +25,7 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="incidents?.length === 0">
-    <span jhiTranslate="heybusV1App.incident.home.notFound">No incidents found</span>
+    <span jhiTranslate="heybusApp.incident.home.notFound">No incidents found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="incidents && incidents.length > 0">
@@ -33,11 +33,11 @@
       <thead>
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="heybusV1App.incident.gravite">Gravite</span></th>
-          <th scope="col"><span jhiTranslate="heybusV1App.incident.chauffeur">Chauffeur</span></th>
-          <th scope="col"><span jhiTranslate="heybusV1App.incident.responsableincident">Responsableincident</span></th>
-          <th scope="col"><span jhiTranslate="heybusV1App.incident.reporteurincident">Reporteurincident</span></th>
-          <th scope="col"><span jhiTranslate="heybusV1App.incident.vehicule">Vehicule</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.incident.gravite">Gravite</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.incident.chauffeur">Chauffeur</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.incident.responsableincident">Responsableincident</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.incident.reporteurincident">Reporteurincident</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.incident.vehicule">Vehicule</span></th>
           <th scope="col"></th>
         </tr>
       </thead>

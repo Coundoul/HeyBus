@@ -1,7 +1,7 @@
 <div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN']">
   <div class="col-8">
     <div *ngIf="incident">
-      <h2 data-cy="incidentDetailsHeading"><span jhiTranslate="heybusV1App.incident.detail.title">Incident</span></h2>
+      <h2 data-cy="incidentDetailsHeading"><span jhiTranslate="heybusApp.incident.detail.title">Incident</span></h2>
 
       <hr />
 
@@ -14,23 +14,23 @@
         <dd>
           <span>{{ incident.id }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.incident.gravite">Gravite</span></dt>
+        <dt><span jhiTranslate="heybusApp.incident.gravite">Gravite</span></dt>
         <dd>
           <span>{{ incident.gravite }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.incident.chauffeur">Chauffeur</span></dt>
+        <dt><span jhiTranslate="heybusApp.incident.chauffeur">Chauffeur</span></dt>
         <dd>
           <span>{{ incident.chauffeur }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.incident.responsableincident">Responsableincident</span></dt>
+        <dt><span jhiTranslate="heybusApp.incident.responsableincident">Responsableincident</span></dt>
         <dd>
           <span>{{ incident.responsableincident }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.incident.reporteurincident">Reporteurincident</span></dt>
+        <dt><span jhiTranslate="heybusApp.incident.reporteurincident">Reporteurincident</span></dt>
         <dd>
           <span>{{ incident.reporteurincident }}</span>
         </dd>
-        <dt><span jhiTranslate="heybusV1App.incident.vehicule">Vehicule</span></dt>
+        <dt><span jhiTranslate="heybusApp.incident.vehicule">Vehicule</span></dt>
         <dd>
           <div *ngIf="incident.vehicule">
             <a [routerLink]="['/vehicule', incident.vehicule?.id, 'view']">{{ incident.vehicule?.reference }}</a>
