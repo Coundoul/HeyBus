@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'jhi-search',
   templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
   providers: [DatePipe],
 })
 export class SearchComponent implements OnInit, OnDestroy {
