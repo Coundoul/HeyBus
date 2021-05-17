@@ -37,6 +37,9 @@ class ReservationResourceIT {
     private static final Integer DEFAULT_NBRE_PASSAGERS = 1;
     private static final Integer UPDATED_NBRE_PASSAGERS = 2;
 
+    private static final Integer DEFAULT_PRIX_RESERVATION = 1;
+    private static final Integer UPDATED_PRIX_RESERVATION = 2;
+
     private static final String ENTITY_API_URL = "/api/reservations";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -61,7 +64,10 @@ class ReservationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Reservation createEntity(EntityManager em) {
-        Reservation reservation = new Reservation().dateDeReservation(DEFAULT_DATE_DE_RESERVATION).nbrePassagers(DEFAULT_NBRE_PASSAGERS);
+        Reservation reservation = new Reservation()
+            .dateDeReservation(DEFAULT_DATE_DE_RESERVATION)
+            .nbrePassagers(DEFAULT_NBRE_PASSAGERS)
+            .prixReservation(DEFAULT_PRIX_RESERVATION);
         return reservation;
     }
 
@@ -72,7 +78,10 @@ class ReservationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Reservation createUpdatedEntity(EntityManager em) {
-        Reservation reservation = new Reservation().dateDeReservation(UPDATED_DATE_DE_RESERVATION).nbrePassagers(UPDATED_NBRE_PASSAGERS);
+        Reservation reservation = new Reservation()
+            .dateDeReservation(UPDATED_DATE_DE_RESERVATION)
+            .nbrePassagers(UPDATED_NBRE_PASSAGERS)
+            .prixReservation(UPDATED_PRIX_RESERVATION);
         return reservation;
     }
 
@@ -96,6 +105,7 @@ class ReservationResourceIT {
         Reservation testReservation = reservationList.get(reservationList.size() - 1);
         assertThat(testReservation.getDateDeReservation()).isEqualTo(DEFAULT_DATE_DE_RESERVATION);
         assertThat(testReservation.getNbrePassagers()).isEqualTo(DEFAULT_NBRE_PASSAGERS);
+        assertThat(testReservation.getPrixReservation()).isEqualTo(DEFAULT_PRIX_RESERVATION);
     }
 
     @Test
@@ -146,7 +156,8 @@ class ReservationResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(reservation.getId().intValue())))
             .andExpect(jsonPath("$.[*].dateDeReservation").value(hasItem(DEFAULT_DATE_DE_RESERVATION.toString())))
-            .andExpect(jsonPath("$.[*].nbrePassagers").value(hasItem(DEFAULT_NBRE_PASSAGERS)));
+            .andExpect(jsonPath("$.[*].nbrePassagers").value(hasItem(DEFAULT_NBRE_PASSAGERS)))
+            .andExpect(jsonPath("$.[*].prixReservation").value(hasItem(DEFAULT_PRIX_RESERVATION)));
     }
 
     @Test
@@ -162,7 +173,8 @@ class ReservationResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(reservation.getId().intValue()))
             .andExpect(jsonPath("$.dateDeReservation").value(DEFAULT_DATE_DE_RESERVATION.toString()))
-            .andExpect(jsonPath("$.nbrePassagers").value(DEFAULT_NBRE_PASSAGERS));
+            .andExpect(jsonPath("$.nbrePassagers").value(DEFAULT_NBRE_PASSAGERS))
+            .andExpect(jsonPath("$.prixReservation").value(DEFAULT_PRIX_RESERVATION));
     }
 
     @Test
@@ -184,7 +196,10 @@ class ReservationResourceIT {
         Reservation updatedReservation = reservationRepository.findById(reservation.getId()).get();
         // Disconnect from session so that the updates on updatedReservation are not directly saved in db
         em.detach(updatedReservation);
-        updatedReservation.dateDeReservation(UPDATED_DATE_DE_RESERVATION).nbrePassagers(UPDATED_NBRE_PASSAGERS);
+        updatedReservation
+            .dateDeReservation(UPDATED_DATE_DE_RESERVATION)
+            .nbrePassagers(UPDATED_NBRE_PASSAGERS)
+            .prixReservation(UPDATED_PRIX_RESERVATION);
 
         restReservationMockMvc
             .perform(
@@ -200,6 +215,7 @@ class ReservationResourceIT {
         Reservation testReservation = reservationList.get(reservationList.size() - 1);
         assertThat(testReservation.getDateDeReservation()).isEqualTo(UPDATED_DATE_DE_RESERVATION);
         assertThat(testReservation.getNbrePassagers()).isEqualTo(UPDATED_NBRE_PASSAGERS);
+        assertThat(testReservation.getPrixReservation()).isEqualTo(UPDATED_PRIX_RESERVATION);
     }
 
     @Test
@@ -270,7 +286,7 @@ class ReservationResourceIT {
         Reservation partialUpdatedReservation = new Reservation();
         partialUpdatedReservation.setId(reservation.getId());
 
-        partialUpdatedReservation.dateDeReservation(UPDATED_DATE_DE_RESERVATION);
+        partialUpdatedReservation.dateDeReservation(UPDATED_DATE_DE_RESERVATION).prixReservation(UPDATED_PRIX_RESERVATION);
 
         restReservationMockMvc
             .perform(
@@ -286,6 +302,7 @@ class ReservationResourceIT {
         Reservation testReservation = reservationList.get(reservationList.size() - 1);
         assertThat(testReservation.getDateDeReservation()).isEqualTo(UPDATED_DATE_DE_RESERVATION);
         assertThat(testReservation.getNbrePassagers()).isEqualTo(DEFAULT_NBRE_PASSAGERS);
+        assertThat(testReservation.getPrixReservation()).isEqualTo(UPDATED_PRIX_RESERVATION);
     }
 
     @Test
@@ -300,7 +317,10 @@ class ReservationResourceIT {
         Reservation partialUpdatedReservation = new Reservation();
         partialUpdatedReservation.setId(reservation.getId());
 
-        partialUpdatedReservation.dateDeReservation(UPDATED_DATE_DE_RESERVATION).nbrePassagers(UPDATED_NBRE_PASSAGERS);
+        partialUpdatedReservation
+            .dateDeReservation(UPDATED_DATE_DE_RESERVATION)
+            .nbrePassagers(UPDATED_NBRE_PASSAGERS)
+            .prixReservation(UPDATED_PRIX_RESERVATION);
 
         restReservationMockMvc
             .perform(
@@ -316,6 +336,7 @@ class ReservationResourceIT {
         Reservation testReservation = reservationList.get(reservationList.size() - 1);
         assertThat(testReservation.getDateDeReservation()).isEqualTo(UPDATED_DATE_DE_RESERVATION);
         assertThat(testReservation.getNbrePassagers()).isEqualTo(UPDATED_NBRE_PASSAGERS);
+        assertThat(testReservation.getPrixReservation()).isEqualTo(UPDATED_PRIX_RESERVATION);
     }
 
     @Test

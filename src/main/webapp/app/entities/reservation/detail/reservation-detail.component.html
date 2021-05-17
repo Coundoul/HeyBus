@@ -22,6 +22,10 @@
         <dd>
           <span>{{ reservation.nbrePassagers }}</span>
         </dd>
+        <dt><span jhiTranslate="heybusApp.reservation.prixReservation">Prix Reservation</span></dt>
+        <dd>
+          <span>{{ reservation.prixReservation }}</span>
+        </dd>
         <dt><span jhiTranslate="heybusApp.reservation.voyage">Voyage</span></dt>
         <dd>
           <div *ngIf="reservation.voyage">

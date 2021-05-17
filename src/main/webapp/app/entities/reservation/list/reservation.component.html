@@ -35,6 +35,7 @@
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.reservation.dateDeReservation">Date De Reservation</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.reservation.nbrePassagers">Nbre Passagers</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.reservation.prixReservation">Prix Reservation</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.reservation.voyage">Voyage</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.reservation.customer">Customer</span></th>
           <th scope="col"></th>
@@ -47,6 +48,7 @@
           </td>
           <td>{{ reservation.dateDeReservation | formatMediumDate }}</td>
           <td>{{ reservation.nbrePassagers }}</td>
+          <td>{{ reservation.prixReservation }}</td>
           <td>
             <div *ngIf="reservation.voyage">
               <a [routerLink]="['/voyage', reservation.voyage?.id, 'view']">{{ reservation.voyage?.id }}</a>

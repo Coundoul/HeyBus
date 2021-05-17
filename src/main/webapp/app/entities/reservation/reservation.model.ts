@@ -6,6 +6,7 @@ export interface IReservation {
   id?: number;
   dateDeReservation?: dayjs.Dayjs | null;
   nbrePassagers?: number;
+  prixReservation?: number | null;
   voyage?: IVoyage | null;
   customer?: ICustomer | null;
 }
@@ -15,6 +16,7 @@ export class Reservation implements IReservation {
     public id?: number,
     public dateDeReservation?: dayjs.Dayjs | null,
     public nbrePassagers?: number,
+    public prixReservation?: number | null,
     public voyage?: IVoyage | null,
     public customer?: ICustomer | null
   ) {}

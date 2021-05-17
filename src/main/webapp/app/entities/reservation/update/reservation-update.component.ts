@@ -26,6 +26,7 @@ export class ReservationUpdateComponent implements OnInit {
     id: [],
     dateDeReservation: [],
     nbrePassagers: [null, [Validators.required]],
+    prixReservation: [],
     voyage: [],
     customer: [],
   });
@@ -92,6 +93,7 @@ export class ReservationUpdateComponent implements OnInit {
       id: reservation.id,
       dateDeReservation: reservation.dateDeReservation,
       nbrePassagers: reservation.nbrePassagers,
+      prixReservation: reservation.prixReservation,
       voyage: reservation.voyage,
       customer: reservation.customer,
     });
@@ -127,6 +129,7 @@ export class ReservationUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       dateDeReservation: this.editForm.get(['dateDeReservation'])!.value,
       nbrePassagers: this.editForm.get(['nbrePassagers'])!.value,
+      prixReservation: this.editForm.get(['prixReservation'])!.value,
       voyage: this.editForm.get(['voyage'])!.value,
       customer: this.editForm.get(['customer'])!.value,
     };

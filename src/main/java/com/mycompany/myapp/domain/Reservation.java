@@ -26,6 +26,9 @@ public class Reservation implements Serializable {
     @Column(name = "nbre_passagers", nullable = false)
     private Integer nbrePassagers;
 
+    @Column(name = "prix_reservation")
+    private Integer prixReservation;
+
     @ManyToOne
     @JsonIgnoreProperties(
         value = { "reservations", "employes", "arrets", "vehicule", "departVille", "arriveVille", "transporteur" },
@@ -75,6 +78,19 @@ public class Reservation implements Serializable {
 
     public void setNbrePassagers(Integer nbrePassagers) {
         this.nbrePassagers = nbrePassagers;
+    }
+
+    public Integer getPrixReservation() {
+        return this.prixReservation;
+    }
+
+    public Reservation prixReservation(Integer prixReservation) {
+        this.prixReservation = prixReservation;
+        return this;
+    }
+
+    public void setPrixReservation(Integer prixReservation) {
+        this.prixReservation = prixReservation;
     }
 
     public Voyage getVoyage() {
@@ -129,6 +145,7 @@ public class Reservation implements Serializable {
             "id=" + getId() +
             ", dateDeReservation='" + getDateDeReservation() + "'" +
             ", nbrePassagers=" + getNbrePassagers() +
+            ", prixReservation=" + getPrixReservation() +
             "}";
     }
 }

@@ -9,6 +9,10 @@
       "fieldName": "nbrePassagers",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prixReservation",
+      "fieldType": "Integer"
     }
   ],
   "relationships": [
