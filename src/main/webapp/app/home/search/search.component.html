@@ -68,7 +68,7 @@
           <h6 class="card-title font-weight-bold"><fa-icon icon="map-marker-alt"></fa-icon> {{ voyage.arriveVille?.nom }}</h6>
         </div>
         <div class="float-right">
-          <a name="" id="" class="btn btn-reserver" [routerLink]="['reserver']" role="button">Reserver</a>
+          <a name="" id="" class="btn btn-reserver" [routerLink]="['/reservation/new/voyage', voyage.id, 'passagers', nbrePassagers]" role="button">Reserver</a>
         </div>
         <br />
         <div class="float-left">
