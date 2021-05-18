@@ -1,0 +1,53 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+.text-heybus {
+  color: #132968 !important;
+}
+.shadow {
+  border-radius: 12px;
+}
+.form-control {
+  border-radius: 8px;
+  background-color: #f1f2f6;
+  border: none;
+}
+.btn-reserver {
+  height: 47px;
+  width: 161px;
+  border-radius: 8px;
+  background-color: #ff1b2e;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+  font-family: 'Calibri', Courier, monospace;
+  text-align: center;
+}
+.btn-annuler{
+  height: 47px;
+  width: 161px;
+  border-radius: 8px;
+  background-color: #616060;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+  font-family: 'Calibri', Courier, monospace;
+  text-align: center;
+}
+.line {
+  box-sizing: border-box;
+  height: 1px;
+  width: 200px;
+  border: 2px solid #a1a9c3;
+}
+
+.vl {
+  box-sizing: border-box;
+  height: 50px;
+  width: 1px;
+  border: 2px solid #a1a9c3;
+}

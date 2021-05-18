@@ -1,209 +1,137 @@
-<div class="row">
-  <div class="col-md-12">
-    
-  </div>
-  <div class="col-6">
-    <div *ngIf="voyage">
-      <h2 data-cy="voyageDetailsHeading"><span jhiTranslate="heybusApp.voyage.detail.title">Voyage</span></h2>
-      <hr />
+<div class="row justify-content-center">
+  <div class="shadow bg-white rounded col-md-7 mr-1 mb-1">
+    <div class="card-body">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <h4 class="text-heybus font-weight-bold">Passager Principal</h4>
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row mt-4">
+          <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+            <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+              [readonly]="true" />
+          </div>
 
-      <jhi-alert-error></jhi-alert-error>
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="heybusApp.customer.nom" for="field_nom">Nom</label>
+            <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          </div>
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="heybusApp.customer.prenom" for="field_prenom">Prenom</label>
+            <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom"
+              formControlName="prenom" />
+          </div>
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="heybusApp.customer.telephone"
+              for="field_telephone">Telephone</label>
+            <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone"
+              formControlName="telephone" />
+            <div
+              *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('telephone')?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+            </div>
+          </div>
 
-      <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span></dt>
-        <dd>
-          <span>{{ voyage.dateDeVoyage | formatMediumDatetime }}</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.prix">Prix</span></dt>
-        <dd>
-          <span>{{ voyage.prix }}</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.departVille">Depart Ville</span></dt>
-        <dd>
-          <div *ngIf="voyage.departVille">
-            <a [routerLink]="['/ville', voyage.departVille?.id, 'view']">{{ voyage.departVille?.nom }}</a>
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="heybusApp.customer.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email" data-cy="email"
+              formControlName="email" />
+            <div
+              *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+            </div>
           </div>
-        </dd>
-        <dt><span>Adresse Depart</span></dt>
-        <dd>
-          <span>{{ voyage.adresseDepart }}</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.arriveVille">Arrive Ville</span></dt>
-        <dd>
-          <div *ngIf="voyage.arriveVille">
-            <a [routerLink]="['/ville', voyage.arriveVille?.id, 'view']">{{ voyage.arriveVille?.nom }}</a>
+
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="heybusApp.customer.profession"
+              for="field_profession">Profession</label>
+            <input type="text" class="form-control" name="profession" id="field_profession" data-cy="profession"
+              formControlName="profession" />
           </div>
-        </dd>
-        <dt><span>Adresse Arrive</span></dt>
-        <dd>
-          <span>{{ voyage.adresseArrive }}</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.nbrePlace">Nbre Place</span></dt>
-        <dd>
-          <span>{{ voyage.nbrePlace }}</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.climatisation">Climatisation</span></dt>
-        <dd>
-          <span *ngIf="voyage.climatisation" class="badge badge-pill badge-success">Oui</span>
-          <span *ngIf="!voyage.climatisation" class="badge badge-pill badge-warning">Non</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span></dt>
-        <dd>
-          <span *ngIf="voyage.wifi" class="badge badge-pill badge-success">Oui</span>
-          <span *ngIf="!voyage.wifi" class="badge badge-pill badge-warning">Non</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.toilette">Toilette</span></dt>
-        <dd>
-          <span *ngIf="voyage.toilette" class="badge badge-pill badge-success">Oui</span>
-          <span *ngIf="!voyage.toilette" class="badge badge-pill badge-warning">Non</span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.employe">Employe</span></dt>
-        <dd>
-          <span *ngFor="let employe of voyage.employes; let last = last">
-            <a [routerLink]="['/employe', employe?.id, 'view']">{{ employe.nom }}</a>{{ last ? '' : ', ' }}
-          </span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.arret">Arret</span></dt>
-        <dd>
-          <span *ngFor="let arret of voyage.arrets; let last = last">
-            <a [routerLink]="['/arret', arret?.id, 'view']">{{ arret.id }}</a>{{ last ? '' : ', ' }}
-          </span>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.vehicule">Vehicule</span></dt>
-        <dd>
-          <div *ngIf="voyage.vehicule">
-            <a [routerLink]="['/vehicule', voyage.vehicule?.id, 'view']">{{ voyage.vehicule?.reference }}</a>
+
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="heybusApp.customer.datenaissance"
+              for="field_datenaissance">Datenaissance</label>
+            <div class="input-group">
+              <input id="field_datenaissance" data-cy="datenaissance" type="text" class="form-control"
+                name="datenaissance" ngbDatepicker #datenaissanceDp="ngbDatepicker" formControlName="datenaissance" />
+              <span class="input-group-append">
+                <button type="button" class="btn btn-secondary" (click)="datenaissanceDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
+              </span>
+            </div>
           </div>
-        </dd>
-        <dt><span jhiTranslate="heybusApp.voyage.transporteur">Transporteur</span></dt>
-        <dd>
-          <div *ngIf="voyage.transporteur">
-            <a [routerLink]="['/transporteur', voyage.transporteur?.id, 'view']">{{ voyage.transporteur?.nom }}</a>
+
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="heybusApp.customer.dateprisecontact"
+              for="field_dateprisecontact">Dateprisecontact</label>
+            <div class="input-group">
+              <input id="field_dateprisecontact" data-cy="dateprisecontact" type="text" class="form-control"
+                name="dateprisecontact" ngbDatepicker #dateprisecontactDp="ngbDatepicker"
+                formControlName="dateprisecontact" />
+              <span class="input-group-append">
+                <button type="button" class="btn btn-secondary" (click)="dateprisecontactDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
+              </span>
+            </div>
           </div>
-        </dd>
-      </dl>
+
+        </div>
+        <div class="float-right">
+          <button type="button" id="cancel-save" class="btn btn-annuler" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          </button>
+
+          <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
+            [disabled]="editForm.invalid || isSaving" class="btn btn-reserver">
+            <fa-icon icon="save"></fa-icon>&nbsp;<span >Réserver</span>
+          </button>
+        </div>
+        <br/><br/>
+      </form>
     </div>
   </div>
-  <div class="col-6">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-customer-heading" data-cy="CustomerCreateUpdateHeading"
-        jhiTranslate="heybusApp.customer.home.createOrEditLabel">
-        Create or edit a Customer
-      </h2>
 
-      <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
-            [readonly]="true" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.nom" for="field_nom">Nom</label>
-          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.prenom" for="field_prenom">Prenom</label>
-          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom"
-            formControlName="prenom" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.telephone"
-            for="field_telephone">Telephone</label>
-          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone"
-            formControlName="telephone" />
-          <div
-            *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('telephone')?.errors?.required"
-              jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="shadow bg-white rounded col-md-12">
+        <div class="card-body">
+          <h4 class="text-heybus font-weight-bold">Votre Voyage</h4>
+          <hr>
+          <h6>Aller {{ voyage.dateDeVoyage | formatMediumDatetime }}</h6>
+          <div class="row">
+            <div class="col-md-12">
+              <small>
+                <fa-icon icon="circle" class="mr-1"></fa-icon>
+              </small><strong class="text-heybus font-weight-bold">06:20 {{ voyage.departVille?.nom }}</strong> {{
+              voyage.adresseDepart }}
+              <div class="text-center vl ml-1 col-xs-4"></div>
+              <small>
+                <fa-icon icon="map-marker-alt" class="mr-1"></fa-icon>
+              </small><strong class="text-heybus font-weight-bold">06:20 {{ voyage.arriveVille?.nom }}</strong> {{
+              voyage.adresseArrive }}
+            </div>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.email" for="field_email">Email</label>
-          <input type="text" class="form-control" name="email" id="field_email" data-cy="email"
-            formControlName="email" />
-          <div
-            *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required"
-              jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.profession"
-            for="field_profession">Profession</label>
-          <input type="text" class="form-control" name="profession" id="field_profession" data-cy="profession"
-            formControlName="profession" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.datenaissance"
-            for="field_datenaissance">Datenaissance</label>
-          <div class="input-group">
-            <input id="field_datenaissance" data-cy="datenaissance" type="text" class="form-control"
-              name="datenaissance" ngbDatepicker #datenaissanceDp="ngbDatepicker" formControlName="datenaissance" />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="datenaissanceDp.toggle()">
-                <fa-icon icon="calendar-alt"></fa-icon>
-              </button>
-            </span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.dateprisecontact"
-            for="field_dateprisecontact">Dateprisecontact</label>
-          <div class="input-group">
-            <input id="field_dateprisecontact" data-cy="dateprisecontact" type="text" class="form-control"
-              name="dateprisecontact" ngbDatepicker #dateprisecontactDp="ngbDatepicker"
-              formControlName="dateprisecontact" />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="dateprisecontactDp.toggle()">
-                <fa-icon icon="calendar-alt"></fa-icon>
-              </button>
-            </span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.adresse"
-            for="field_adresse">Adresse</label>
-          <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse"
-            formControlName="adresse" />
-        </div>
-
-        <!-- <div class="form-group">
-          <label class="form-control-label" jhiTranslate="heybusApp.customer.user" for="field_user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
-              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById">
-              {{ userOption.login }}
-            </option>
-          </select>
-        </div> -->
       </div>
-
-      <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
+      <div class="shadow bg-white rounded col-md-12 mt-1">
+        <div class="card-body justify-content-center">
+          <h6 class="text-center text-heybus">{{ voyage.transporteur?.nom }}</h6>
+        </div>
       </div>
-    </form>
+      <div class="shadow bg-white rounded col-md-12 mt-1">
+        <div class="card-body">
+          <h6 class="text-heybus">Billet(1 passager)</h6>
+          <h6 class="text-heybus">Total({{ voyage.prix }}*nombre passager)</h6>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

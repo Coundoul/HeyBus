@@ -15,6 +15,7 @@ import { IUser } from 'app/entities/user/user.model';
 
 @Component({
   selector: 'jhi-reservation-voyage',
+  styleUrls: ['./reservation-voyage.component.scss'],
   templateUrl: './reservation-voyage.component.html',
 })
 export class ReservationVoyageComponent implements OnInit {
