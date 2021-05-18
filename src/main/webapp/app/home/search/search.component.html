@@ -40,7 +40,53 @@
   </div>
 </div> -->
 
+
 <div class="row justify-content-center">
+  <div class="col-md-3">
+    <h4 class="text-heybus font-weight-bold">Depart Dakar</h4>
+  </div>
+
+  <div class="col-md-9 col-xs-12"  >
+    <h4 class="text-heybus font-weight-bold">Voyages</h4>
+    <hr/>
+    <div *ngFor="let voyage of voyages; trackBy: trackId" class="shadow p-3 mb-5 bg-white rounded" style="max-width: 50rem" >
+      <div class="">{{ voyage.transporteur?.nom }} <fa-icon icon="star"></fa-icon> 4,5</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 col-xs-4">
+            <h5 class="card-title text-heybus">{{ voyage.dateDeVoyage | formatMediumDatetime }}</h5>
+          </div>
+          <div class="col-md-6 col-xs-4 text-right">
+            <h5 class="card-title text-heybus">{{ voyage.prix }} CFA</h5>
+          </div>
+        </div>
+        <div class="float-left mr-2 col-xs-4 text-heybus">
+          <h6 class="card-title font-weight-bold"><fa-icon icon="circle"></fa-icon> {{ voyage.departVille?.nom }}</h6>
+        </div>
+        <div class="line float-left mt-2 mr-2 col-xs-4"></div>
+        <div class="col-xs-4 text-heybus">
+          <h6 class="card-title font-weight-bold"><fa-icon icon="map-marker-alt"></fa-icon> {{ voyage.arriveVille?.nom }}</h6>
+        </div>
+        <div class="float-right">
+          <a name="" id="" class="btn btn-reserver" [routerLink]="['reserver']" role="button">Reserver</a>
+        </div>
+        <br />
+        <div class="float-left">
+          <small *ngIf="voyage.wifi"><fa-icon icon="wifi" class="text-secondary" title="WIFI"></fa-icon></small>
+          <small *ngIf="voyage.toilette"><fa-icon icon="toilet" class="text-secondary" title="Cabine Toilette"></fa-icon></small>
+          <small *ngIf="voyage.climatisation" ><fa-icon icon="fan" class="text-secondary" title="Climatiseur"></fa-icon></small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="voyages && voyages.length === 0">
+    <p>Aucun resultat</p>
+  </div>
+</div>
+
+
+
+<!-- <div class="row justify-content-center">
 
   <div class="table-responsive" id="entities" *ngIf="voyages && voyages.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
@@ -71,9 +117,9 @@
           </td>
           <td>{{ voyage.prix }}</td>
           <td>{{ voyage.dateDeVoyage | formatMediumDatetime }}</td>
-          <!-- <td>{{ voyage.nbrePlace }}</td>
+          <td>{{ voyage.nbrePlace }}</td>
             <td>{{ voyage.quartier }}</td>
-            <td>{{ voyage.description }}</td> -->
+            <td>{{ voyage.description }}</td>
           <td>
             <div *ngIf="voyage.departVille">
               <a [routerLink]="['/ville', voyage.departVille?.id, 'view']">{{ voyage.departVille?.nom }}</a>
@@ -136,4 +182,4 @@
     <p>Aucun resultat</p>
   </div>
   
-</div>
+</div> -->
