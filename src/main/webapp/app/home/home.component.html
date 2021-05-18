@@ -1,68 +1,28 @@
-
 <div class="row">
-  <div class="col-md-3">
-    <span class="hipster img-fluid rounded"></span>
+  <div class="col-md-12">
+    <jhi-alert></jhi-alert>
   </div>
 
-  <div class="col-md-9">
-    <h1 class="display-4" jhiTranslate="home.title">Welcome, Heybus</h1>
-
-    <!--p class="lead" jhiTranslate="home.subtitle">This is your homepage</p-->
-
-    <!--div [ngSwitch]="isAuthenticated()">
-          <div class="alert alert-success" *ngSwitchCase="true">
-              <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
-                  [translateValues]="{ username: account.login }">You are logged in as user "{{ account.login }}".</span>
-          </div>
-      </div-->
-
-    <div class="row">
-      <div class="col-md-12">
-        <jhi-alert></jhi-alert>
+  <div class="col-md-12">
+    <form name="editForm" role="form" novalidate [formGroup]="editForm">
+      <div class="form-group" [hidden]="!editForm.get('id')!.value">
+        <label for="id" jhiTranslate="global.field.id">ID</label>
+        <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
       </div>
-      <div class="col-md-2"></div>
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
 
-        <div>
-
-          <form name="editForm" role="form" novalidate [formGroup]="editForm">
-            <div class="form-group" [hidden]="!editForm.get('id')!.value">
-              <label for="id" jhiTranslate="global.field.id">ID</label>
-              <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
-            </div>
-            <h2 id="jhi-voyage-heading">Chercher un voyage</h2>
-
-            <div>
-              <jhi-alert-error></jhi-alert-error>
-              
-
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="heybusApp.voyage.dateDeVoyage"
-                  for="field_dateDeVoyage">Date De Voyage</label>
-                <div class="d-flex">
-                  <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
-                    formControlName="dateDeVoyage" placeholder="YYYY/MM/DD" />
+      <div class="shadow bg-white rounded row justify-content-center pt-2">
+        <div class="col-md-6 col-xs-12">
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">
+                    <fa-icon icon="circle"></fa-icon>
+                  </span>
                 </div>
-                <div *ngIf="
-                    editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)
-                  ">
-                  <small class="form-text text-danger" *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
-                    jhiTranslate="entity.validation.required">
-                    This field is required.
-                  </small>
-                  <small class="form-text text-danger"
-                    [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
-                    jhiTranslate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                  </small>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="heybusApp.voyage.departVille"
-                  for="field_departVille">Depart Ville</label>
-                <select class="form-control" id="field_departVille" name="departVille" formControlName="departVille">
-                  <option [ngValue]="null"></option>
+                <select class="form-control" id="field_departVille" name="departVille" formControlName="departVille"
+                  aria-describedby="basic-addon1">
+                  <option value="null">Ville de départ</option>
                   <option
                     [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
                     *ngFor="let villeOption of villes">
@@ -70,11 +30,18 @@
                   </option>
                 </select>
               </div>
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="heybusApp.voyage.arriveVille"
-                  for="field_arriveVille">Arrive Ville</label>
-                <select class="form-control" id="field_arriveVille" name="arriveVille" formControlName="arriveVille">
-                  <option [ngValue]="null"></option>
+            </div>
+            <fa-icon icon="exchange-alt"></fa-icon>
+            <div class="col-md-5">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon2">
+                    <fa-icon icon="map-marker-alt"></fa-icon>
+                  </span>
+                </div>
+                <select class="form-control" id="field_arriveVille" name="arriveVille" formControlName="arriveVille"
+                  aria-describedby="basic-addon2">
+                  <option value="null">Ville d'arrivée</option>
                   <option
                     [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
                     *ngFor="let villeOption of villes">
@@ -82,50 +49,55 @@
                   </option>
                 </select>
               </div>
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="heybusApp.reservation.nbrePassagers" for="field_nbrePassagers"
-                  >Nbre Passagers</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  name="nbrePassagers"
-                  id="field_nbrePassagers"
-                  data-cy="nbrePassagers"
-                  formControlName="nbrePassagers"
-                />
-                <div
-                  *ngIf="
-                    editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)
-                  "
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="editForm.get('nbrePassagers')?.errors?.required"
-                    jhiTranslate="entity.validation.required"
-                  >
-                    This field is required.
-                  </small>
-                  <small
-                    class="form-text text-danger"
-                    [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
-                    jhiTranslate="entity.validation.number"
-                  >
-                    This field should be a number.
-                  </small>
-                </div>
-              </div>
             </div>
+          </div>
+        </div>
 
-            <div>
-              <button type="submit" id="save-entity" class="btn btn-primary" (click)="recherche()">
-                <fa-icon icon="save"></fa-icon>&nbsp;<span>Rechercher</span>
-              </button>
+        <div class="form-group col-md-2">
+          <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
+            formControlName="dateDeVoyage" placeholder="YYYY/MM/DD" />
+          <div
+            *ngIf="editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
+              jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <fa-icon icon="circle"></fa-icon>
+              </span>
             </div>
-          </form>
+            <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
+              data-cy="nbrePassagers" formControlName="nbrePassagers" placeholder="1 passager" />
+            <div *ngIf="
+                    editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)
+                  ">
+              <small class="form-text text-danger" *ngIf="editForm.get('nbrePassagers')?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+              <small class="form-text text-danger" [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
+                jhiTranslate="entity.validation.number">
+                This field should be a number.
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <button type="submit" id="save-entity" class="btn btn-reserver" (click)="recherche()">
+            <fa-icon icon="search"></fa-icon>&nbsp;<span>Rechercher</span>
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
-  
 </div>
