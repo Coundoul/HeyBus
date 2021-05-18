@@ -246,7 +246,7 @@ public class ReservationResource {
             reservation.setCustomer(customerExisting.get());
             reservation.setVoyage(voyage);
             reservation.setNbrePassagers(nbrePassagers);
-            reservation.setPrixReservation(voyage.getPrix()*nbrePassagers);
+            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix()*nbrePassagers));
             Reservation result = reservationRepository.save(reservation);
 
             voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
@@ -282,7 +282,7 @@ public class ReservationResource {
             reservation.setCustomer(customerResult);
             reservation.setVoyage(voyage);
             reservation.setNbrePassagers(nbrePassagers);
-            reservation.setPrixReservation(voyage.getPrix()*nbrePassagers);
+            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix()*nbrePassagers));
             Reservation result = reservationRepository.save(reservation);
 
             voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
