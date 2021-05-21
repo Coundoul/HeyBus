@@ -18,10 +18,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -41,7 +46,6 @@ public class VoyageResource {
 
     @Autowired
     private VilleRepository ville;
-
     private final VoyageRepository voyageRepository;
 
     public VoyageResource(VoyageRepository voyageRepository) {
@@ -57,10 +61,12 @@ public class VoyageResource {
      */
     @PostMapping("/voyages")
     public ResponseEntity<Voyage> createVoyage(@Valid @RequestBody Voyage voyage) throws URISyntaxException {
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) //set the Current Transporteur
-        voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
-
         log.debug("REST request to save Voyage : {}", voyage);
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")){
+             //set the Current Transporteur
+        voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
+        }
+        
         if (voyage.getId() != null) {
             throw new BadRequestAlertException("A new voyage cannot already have an ID", ENTITY_NAME, "idexists");
         }
@@ -86,10 +92,12 @@ public class VoyageResource {
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody Voyage voyage
     ) throws URISyntaxException {
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) //set the Current Transporteur
-        voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
-
         log.debug("REST request to update Voyage : {}, {}", id, voyage);
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")){
+             //set the Current Transporteur
+        voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
+        }
+
         if (voyage.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -149,6 +157,27 @@ public class VoyageResource {
                     if (voyage.getNbrePlace() != null) {
                         existingVoyage.setNbrePlace(voyage.getNbrePlace());
                     }
+                    if (voyage.getAdresseDepart() != null) {
+                        existingVoyage.setAdresseDepart(voyage.getAdresseDepart());
+                    }
+                    if (voyage.getAdresseArrive() != null) {
+                        existingVoyage.setAdresseArrive(voyage.getAdresseArrive());
+                    }
+                    if (voyage.getQuartier() != null) {
+                        existingVoyage.setQuartier(voyage.getQuartier());
+                    }
+                    if (voyage.getDescription() != null) {
+                        existingVoyage.setDescription(voyage.getDescription());
+                    }
+                    if (voyage.getClimatisation() != null) {
+                        existingVoyage.setClimatisation(voyage.getClimatisation());
+                    }
+                    if (voyage.getWifi() != null) {
+                        existingVoyage.setWifi(voyage.getWifi());
+                    }
+                    if (voyage.getToilette() != null) {
+                        existingVoyage.setToilette(voyage.getToilette());
+                    }
 
                     return existingVoyage;
                 }
@@ -164,16 +193,30 @@ public class VoyageResource {
     /**
      * {@code GET  /voyages} : get all the voyages.
      *
+     * @param pageable the pagination information.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of voyages in body.
-     * updated
      */
     @GetMapping("/voyages")
-    public List<Voyage> getAllVoyages(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        log.debug("REST request to get all Voyages");
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) return voyageRepository.findAllWithEagerRelationships();
-
-        return voyageRepository.findByUserIsCurrentUser();
+    public ResponseEntity<List<Voyage>> getAllVoyages(
+        Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
+        log.debug("REST request to get a page of Voyages");
+        Page<Voyage> page;
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN"))
+        {
+            if (eagerload) {
+                page = voyageRepository.findAllWithEagerRelationships(pageable);
+            } else {
+                page = voyageRepository.findAll(pageable);
+            }
+        }else{
+                page = voyageRepository.findByUserIsCurrentUser(pageable);
+        }
+        
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -204,7 +247,6 @@ public class VoyageResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
-
     @GetMapping("/voyages/{dateVoyage}/{idDepartVille}/{idArriveVille}/{nbrePassagers}")
     public List<Voyage> getVoyage(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille, @PathVariable Integer nbrePassagers) {
         //log.debug("REST request to get Voyage : {}", id);

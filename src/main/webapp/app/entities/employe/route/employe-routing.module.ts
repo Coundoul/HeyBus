@@ -11,17 +11,11 @@ const employeRoute: Routes = [
   {
     path: '',
     component: EmployeComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: EmployeDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       employe: EmployeRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const employeRoute: Routes = [
   {
     path: 'new',
     component: EmployeUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       employe: EmployeRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const employeRoute: Routes = [
   {
     path: ':id/edit',
     component: EmployeUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       employe: EmployeRoutingResolveService,
     },

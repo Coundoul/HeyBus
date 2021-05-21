@@ -11,17 +11,11 @@ const arretRoute: Routes = [
   {
     path: '',
     component: ArretComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: ArretDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       arret: ArretRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const arretRoute: Routes = [
   {
     path: 'new',
     component: ArretUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       arret: ArretRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const arretRoute: Routes = [
   {
     path: ':id/edit',
     component: ArretUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       arret: ArretRoutingResolveService,
     },

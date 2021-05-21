@@ -1,10 +1,11 @@
-  
-  
 package com.mycompany.myapp.repository;
 
 import com.mycompany.myapp.domain.Reservation;
-import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    @Query("select reservation from Reservation reservation where reservation.voyage.transporteur.user.login = ?#{principal.username}")
-    List<Reservation> findByUserIsCurrentUser();
+    @Query( value = "select reservation from Reservation reservation where reservation.voyage.transporteur.user.login = ?#{principal.username}",
+            countQuery = "select count(distinct reservation) from Reservation reservation")
+    Page<Reservation> findByUserIsCurrentUser(Pageable pageable);
 
-    @Query("select reservation from Reservation reservation where reservation.customer.user.login = ?#{principal.username}")
-    List<Reservation> findByCustomerIsCurrentCustomer();
+    @Query( value = "select reservation from Reservation reservation where reservation.customer.user.login = ?#{principal.username}",
+            countQuery = "select count(distinct reservation) from Reservation reservation")
+    Page<Reservation> findByCustomerIsCurrentCustomer(Pageable pageable); 
 }

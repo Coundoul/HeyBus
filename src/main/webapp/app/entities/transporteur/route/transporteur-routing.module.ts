@@ -12,7 +12,7 @@ const transporteurRoute: Routes = [
     path: '',
     component: TransporteurComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      defaultSort: 'id,asc',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -22,14 +22,11 @@ const transporteurRoute: Routes = [
     resolve: {
       transporteur: TransporteurRoutingResolveService,
     },
-    //canActivate: [UserRouteAccessService],
+    canActivate: [UserRouteAccessService],
   },
   {
     path: 'new',
     component: TransporteurUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       transporteur: TransporteurRoutingResolveService,
     },
@@ -38,9 +35,6 @@ const transporteurRoute: Routes = [
   {
     path: ':id/edit',
     component: TransporteurUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       transporteur: TransporteurRoutingResolveService,
     },

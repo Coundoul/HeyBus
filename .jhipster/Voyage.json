@@ -15,6 +15,14 @@
       "fieldType": "Integer"
     },
     {
+      "fieldName": "adresseDepart",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adresseArrive",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "quartier",
       "fieldType": "String"
     },
@@ -33,14 +41,6 @@
     {
       "fieldName": "toilette",
       "fieldType": "Boolean"
-    },
-    {
-      "fieldName": "adresseDepart",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "adresseArrive",
-      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -96,7 +96,7 @@
   ],
   "entityTableName": "voyage",
   "dto": "no",
-  "pagination": "no",
+  "pagination": "pagination",
   "service": "no",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,

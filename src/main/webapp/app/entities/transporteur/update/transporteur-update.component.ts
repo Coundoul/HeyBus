@@ -64,7 +64,7 @@ export class TransporteurUpdateComponent implements OnInit {
     this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
       error: (err: FileLoadError) =>
         this.eventManager.broadcast(
-          new EventWithContent<AlertError>('heybusV1App.error', { ...err, key: 'error.file.' + err.key })
+          new EventWithContent<AlertError>('heybusApp.error', { ...err, key: 'error.file.' + err.key })
         ),
     });
   }

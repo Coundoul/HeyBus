@@ -11,12 +11,12 @@ export interface IVoyage {
   dateDeVoyage?: dayjs.Dayjs;
   prix?: number | null;
   nbrePlace?: number | null;
+  adresseDepart?: string | null;
+  adresseArrive?: string | null;
   quartier?: string | null;
   description?: string | null;
   climatisation?: boolean | null;
   wifi?: boolean | null;
-  adresseDepart?: string | null;
-  adresseArrive?: string | null;
   toilette?: boolean | null;
   reservations?: IReservation[] | null;
   employes?: IEmploye[] | null;
@@ -33,10 +33,10 @@ export class Voyage implements IVoyage {
     public dateDeVoyage?: dayjs.Dayjs,
     public prix?: number | null,
     public nbrePlace?: number | null,
-    public quartier?: string | null,
-    public description?: string | null,
     public adresseDepart?: string | null,
     public adresseArrive?: string | null,
+    public quartier?: string | null,
+    public description?: string | null,
     public climatisation?: boolean | null,
     public wifi?: boolean | null,
     public toilette?: boolean | null,

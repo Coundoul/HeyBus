@@ -7,8 +7,7 @@
     },
     {
       "fieldName": "nbrePassagers",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
+      "fieldType": "Integer"
     },
     {
       "fieldName": "prixReservation",
@@ -32,7 +31,7 @@
   ],
   "entityTableName": "reservation",
   "dto": "no",
-  "pagination": "no",
+  "pagination": "pagination",
   "service": "no",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,

@@ -12,6 +12,9 @@ const reservationRoute: Routes = [
   {
     path: '',
     component: ReservationComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

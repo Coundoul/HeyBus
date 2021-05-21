@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     vehicule: [],
     departVille: [],
     arriveVille: [],
-    nbrePassagers: [null, [Validators.required]]
+    nbrePassagers: [1, [Validators.required]]
   });
 
   constructor(

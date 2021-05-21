@@ -48,26 +48,6 @@
             data-cy="nbrePassagers"
             formControlName="nbrePassagers"
           />
-          <div
-            *ngIf="
-              editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)
-            "
-          >
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('nbrePassagers')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
-              jhiTranslate="entity.validation.number"
-            >
-              This field should be a number.
-            </small>
-          </div>
         </div>
 
         <div class="form-group">

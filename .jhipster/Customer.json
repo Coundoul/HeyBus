@@ -54,7 +54,7 @@
   ],
   "entityTableName": "customer",
   "dto": "no",
-  "pagination": "no",
+  "pagination": "pagination",
   "service": "no",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,

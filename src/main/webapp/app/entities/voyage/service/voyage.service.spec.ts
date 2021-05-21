@@ -29,6 +29,8 @@ describe('Service Tests', () => {
         dateDeVoyage: currentDate,
         prix: 0,
         nbrePlace: 0,
+        adresseDepart: 'AAAAAAA',
+        adresseArrive: 'AAAAAAA',
         quartier: 'AAAAAAA',
         description: 'AAAAAAA',
         climatisation: false,
@@ -83,6 +85,8 @@ describe('Service Tests', () => {
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
             prix: 1,
             nbrePlace: 1,
+            adresseDepart: 'BBBBBB',
+            adresseArrive: 'BBBBBB',
             quartier: 'BBBBBB',
             description: 'BBBBBB',
             climatisation: true,
@@ -111,8 +115,8 @@ describe('Service Tests', () => {
           {
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
             prix: 1,
-            quartier: 'BBBBBB',
-            toilette: true,
+            adresseDepart: 'BBBBBB',
+            climatisation: true,
           },
           new Voyage()
         );
@@ -140,6 +144,8 @@ describe('Service Tests', () => {
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
             prix: 1,
             nbrePlace: 1,
+            adresseDepart: 'BBBBBB',
+            adresseArrive: 'BBBBBB',
             quartier: 'BBBBBB',
             description: 'BBBBBB',
             climatisation: true,
@@ -201,7 +207,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Voyage to an array', () => {
-          const voyageArray: IVoyage[] = [{ id: 123 }, { id: 456 }, { id: 48460 }];
+          const voyageArray: IVoyage[] = [{ id: 123 }, { id: 456 }, { id: 34134 }];
           const voyageCollection: IVoyage[] = [{ id: 123 }];
           expectedResult = service.addVoyageToCollectionIfMissing(voyageCollection, ...voyageArray);
           expect(expectedResult).toHaveLength(3);

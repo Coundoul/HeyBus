@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 /**
  * A Reservation.
@@ -22,8 +21,7 @@ public class Reservation implements Serializable {
     @Column(name = "date_de_reservation")
     private LocalDate dateDeReservation;
 
-    @NotNull
-    @Column(name = "nbre_passagers", nullable = false)
+    @Column(name = "nbre_passagers")
     private Integer nbrePassagers;
 
     @Column(name = "prix_reservation")

@@ -11,9 +11,6 @@ const vehiculeRoute: Routes = [
   {
     path: '',
     component: VehiculeComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -27,9 +24,6 @@ const vehiculeRoute: Routes = [
   {
     path: 'new',
     component: VehiculeUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       vehicule: VehiculeRoutingResolveService,
     },
@@ -38,9 +32,6 @@ const vehiculeRoute: Routes = [
   {
     path: ':id/edit',
     component: VehiculeUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       vehicule: VehiculeRoutingResolveService,
     },

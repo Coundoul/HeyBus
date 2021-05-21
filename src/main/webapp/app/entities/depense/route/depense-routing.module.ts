@@ -11,17 +11,11 @@ const depenseRoute: Routes = [
   {
     path: '',
     component: DepenseComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: DepenseDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       depense: DepenseRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const depenseRoute: Routes = [
   {
     path: 'new',
     component: DepenseUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       depense: DepenseRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const depenseRoute: Routes = [
   {
     path: ':id/edit',
     component: DepenseUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       depense: DepenseRoutingResolveService,
     },

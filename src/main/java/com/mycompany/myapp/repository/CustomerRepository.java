@@ -12,7 +12,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    
-    Optional<Customer> findOneByEmailIgnoreCase(String email);
-
+    Optional<Customer> findOneByEmailIgnoreCase(String email);  
 }

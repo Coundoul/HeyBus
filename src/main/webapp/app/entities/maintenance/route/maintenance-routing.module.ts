@@ -11,17 +11,11 @@ const maintenanceRoute: Routes = [
   {
     path: '',
     component: MaintenanceComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: MaintenanceDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       maintenance: MaintenanceRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const maintenanceRoute: Routes = [
   {
     path: 'new',
     component: MaintenanceUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       maintenance: MaintenanceRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const maintenanceRoute: Routes = [
   {
     path: ':id/edit',
     component: MaintenanceUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       maintenance: MaintenanceRoutingResolveService,
     },

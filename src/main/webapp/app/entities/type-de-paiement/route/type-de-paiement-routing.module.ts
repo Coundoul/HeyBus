@@ -11,17 +11,11 @@ const typeDePaiementRoute: Routes = [
   {
     path: '',
     component: TypeDePaiementComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: TypeDePaiementDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       typeDePaiement: TypeDePaiementRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const typeDePaiementRoute: Routes = [
   {
     path: 'new',
     component: TypeDePaiementUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       typeDePaiement: TypeDePaiementRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const typeDePaiementRoute: Routes = [
   {
     path: ':id/edit',
     component: TypeDePaiementUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       typeDePaiement: TypeDePaiementRoutingResolveService,
     },

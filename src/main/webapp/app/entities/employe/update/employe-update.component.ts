@@ -7,6 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 
 import { IEmploye, Employe } from '../employe.model';
 import { EmployeService } from '../service/employe.service';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 import { IPosition } from 'app/entities/position/position.model';
 import { PositionService } from 'app/entities/position/service/position.service';
 import { ITransporteur } from 'app/entities/transporteur/transporteur.model';
@@ -19,6 +21,7 @@ import { TransporteurService } from 'app/entities/transporteur/service/transport
 export class EmployeUpdateComponent implements OnInit {
   isSaving = false;
 
+  usersSharedCollection: IUser[] = [];
   positionsSharedCollection: IPosition[] = [];
   transporteursSharedCollection: ITransporteur[] = [];
 
@@ -32,12 +35,14 @@ export class EmployeUpdateComponent implements OnInit {
     nbreEnfant: [],
     photo: [],
     account: [],
+    user: [],
     position: [null, Validators.required],
     transporteur: [],
   });
 
   constructor(
     protected employeService: EmployeService,
+    protected userService: UserService,
     protected positionService: PositionService,
     protected transporteurService: TransporteurService,
     protected activatedRoute: ActivatedRoute,
@@ -64,6 +69,10 @@ export class EmployeUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.employeService.create(employe));
     }
+  }
+
+  trackUserById(index: number, item: IUser): number {
+    return item.id!;
   }
 
   trackPositionById(index: number, item: IPosition): number {
@@ -104,10 +113,12 @@ export class EmployeUpdateComponent implements OnInit {
       nbreEnfant: employe.nbreEnfant,
       photo: employe.photo,
       account: employe.account,
+      user: employe.user,
       position: employe.position,
       transporteur: employe.transporteur,
     });
 
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, employe.user);
     this.positionsSharedCollection = this.positionService.addPositionToCollectionIfMissing(
       this.positionsSharedCollection,
       employe.position
@@ -119,6 +130,12 @@ export class EmployeUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+
     this.positionService
       .query()
       .pipe(map((res: HttpResponse<IPosition[]>) => res.body ?? []))
@@ -152,6 +169,7 @@ export class EmployeUpdateComponent implements OnInit {
       nbreEnfant: this.editForm.get(['nbreEnfant'])!.value,
       photo: this.editForm.get(['photo'])!.value,
       account: this.editForm.get(['account'])!.value,
+      user: this.editForm.get(['user'])!.value,
       position: this.editForm.get(['position'])!.value,
       transporteur: this.editForm.get(['transporteur'])!.value,
     };

@@ -5,7 +5,7 @@ import { ICustomer } from 'app/entities/customer/customer.model';
 export interface IReservation {
   id?: number;
   dateDeReservation?: dayjs.Dayjs | null;
-  nbrePassagers?: number;
+  nbrePassagers?: number | null;
   prixReservation?: number | null;
   voyage?: IVoyage | null;
   customer?: ICustomer | null;
@@ -15,7 +15,7 @@ export class Reservation implements IReservation {
   constructor(
     public id?: number,
     public dateDeReservation?: dayjs.Dayjs | null,
-    public nbrePassagers?: number,
+    public nbrePassagers?: number | null,
     public prixReservation?: number | null,
     public voyage?: IVoyage | null,
     public customer?: ICustomer | null

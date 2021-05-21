@@ -50,11 +50,11 @@ public class VehiculeResource {
      */
     @PostMapping("/vehicules")
     public ResponseEntity<Vehicule> createVehicule(@Valid @RequestBody Vehicule vehicule) throws URISyntaxException {
+        log.debug("REST request to save Vehicule : {}", vehicule);
         if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) {
             //set the Current Transporteur
             vehicule.setTransporteur(vehiculeRepository.findCurrentTransporteur());
         }
-        log.debug("REST request to save Vehicule : {}", vehicule);
         if (vehicule.getId() != null) {
             throw new BadRequestAlertException("A new vehicule cannot already have an ID", ENTITY_NAME, "idexists");
         }
@@ -80,9 +80,11 @@ public class VehiculeResource {
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody Vehicule vehicule
     ) throws URISyntaxException {
-        //set the Current Transporteur
-        vehicule.setTransporteur(vehiculeRepository.findCurrentTransporteur());
         log.debug("REST request to update Vehicule : {}, {}", id, vehicule);
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) {
+            //set the Current Transporteur
+            vehicule.setTransporteur(vehiculeRepository.findCurrentTransporteur());
+        }
         if (vehicule.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -171,8 +173,6 @@ public class VehiculeResource {
 
     /**
      * {@code GET  /vehicules} : get all the vehicules.
-     *
-     *
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of vehicules in body.
      */

@@ -51,6 +51,12 @@ class VoyageResourceIT {
     private static final Integer DEFAULT_NBRE_PLACE = 1;
     private static final Integer UPDATED_NBRE_PLACE = 2;
 
+    private static final String DEFAULT_ADRESSE_DEPART = "AAAAAAAAAA";
+    private static final String UPDATED_ADRESSE_DEPART = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ADRESSE_ARRIVE = "AAAAAAAAAA";
+    private static final String UPDATED_ADRESSE_ARRIVE = "BBBBBBBBBB";
+
     private static final String DEFAULT_QUARTIER = "AAAAAAAAAA";
     private static final String UPDATED_QUARTIER = "BBBBBBBBBB";
 
@@ -97,6 +103,8 @@ class VoyageResourceIT {
             .dateDeVoyage(DEFAULT_DATE_DE_VOYAGE)
             .prix(DEFAULT_PRIX)
             .nbrePlace(DEFAULT_NBRE_PLACE)
+            .adresseDepart(DEFAULT_ADRESSE_DEPART)
+            .adresseArrive(DEFAULT_ADRESSE_ARRIVE)
             .quartier(DEFAULT_QUARTIER)
             .description(DEFAULT_DESCRIPTION)
             .climatisation(DEFAULT_CLIMATISATION)
@@ -116,6 +124,8 @@ class VoyageResourceIT {
             .dateDeVoyage(UPDATED_DATE_DE_VOYAGE)
             .prix(UPDATED_PRIX)
             .nbrePlace(UPDATED_NBRE_PLACE)
+            .adresseDepart(UPDATED_ADRESSE_DEPART)
+            .adresseArrive(UPDATED_ADRESSE_ARRIVE)
             .quartier(UPDATED_QUARTIER)
             .description(UPDATED_DESCRIPTION)
             .climatisation(UPDATED_CLIMATISATION)
@@ -145,6 +155,8 @@ class VoyageResourceIT {
         assertThat(testVoyage.getDateDeVoyage()).isEqualTo(DEFAULT_DATE_DE_VOYAGE);
         assertThat(testVoyage.getPrix()).isEqualTo(DEFAULT_PRIX);
         assertThat(testVoyage.getNbrePlace()).isEqualTo(DEFAULT_NBRE_PLACE);
+        assertThat(testVoyage.getAdresseDepart()).isEqualTo(DEFAULT_ADRESSE_DEPART);
+        assertThat(testVoyage.getAdresseArrive()).isEqualTo(DEFAULT_ADRESSE_ARRIVE);
         assertThat(testVoyage.getQuartier()).isEqualTo(DEFAULT_QUARTIER);
         assertThat(testVoyage.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testVoyage.getClimatisation()).isEqualTo(DEFAULT_CLIMATISATION);
@@ -202,6 +214,8 @@ class VoyageResourceIT {
             .andExpect(jsonPath("$.[*].dateDeVoyage").value(hasItem(sameInstant(DEFAULT_DATE_DE_VOYAGE))))
             .andExpect(jsonPath("$.[*].prix").value(hasItem(DEFAULT_PRIX)))
             .andExpect(jsonPath("$.[*].nbrePlace").value(hasItem(DEFAULT_NBRE_PLACE)))
+            .andExpect(jsonPath("$.[*].adresseDepart").value(hasItem(DEFAULT_ADRESSE_DEPART)))
+            .andExpect(jsonPath("$.[*].adresseArrive").value(hasItem(DEFAULT_ADRESSE_ARRIVE)))
             .andExpect(jsonPath("$.[*].quartier").value(hasItem(DEFAULT_QUARTIER)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].climatisation").value(hasItem(DEFAULT_CLIMATISATION.booleanValue())))
@@ -242,6 +256,8 @@ class VoyageResourceIT {
             .andExpect(jsonPath("$.dateDeVoyage").value(sameInstant(DEFAULT_DATE_DE_VOYAGE)))
             .andExpect(jsonPath("$.prix").value(DEFAULT_PRIX))
             .andExpect(jsonPath("$.nbrePlace").value(DEFAULT_NBRE_PLACE))
+            .andExpect(jsonPath("$.adresseDepart").value(DEFAULT_ADRESSE_DEPART))
+            .andExpect(jsonPath("$.adresseArrive").value(DEFAULT_ADRESSE_ARRIVE))
             .andExpect(jsonPath("$.quartier").value(DEFAULT_QUARTIER))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.climatisation").value(DEFAULT_CLIMATISATION.booleanValue()))
@@ -272,6 +288,8 @@ class VoyageResourceIT {
             .dateDeVoyage(UPDATED_DATE_DE_VOYAGE)
             .prix(UPDATED_PRIX)
             .nbrePlace(UPDATED_NBRE_PLACE)
+            .adresseDepart(UPDATED_ADRESSE_DEPART)
+            .adresseArrive(UPDATED_ADRESSE_ARRIVE)
             .quartier(UPDATED_QUARTIER)
             .description(UPDATED_DESCRIPTION)
             .climatisation(UPDATED_CLIMATISATION)
@@ -293,6 +311,8 @@ class VoyageResourceIT {
         assertThat(testVoyage.getDateDeVoyage()).isEqualTo(UPDATED_DATE_DE_VOYAGE);
         assertThat(testVoyage.getPrix()).isEqualTo(UPDATED_PRIX);
         assertThat(testVoyage.getNbrePlace()).isEqualTo(UPDATED_NBRE_PLACE);
+        assertThat(testVoyage.getAdresseDepart()).isEqualTo(UPDATED_ADRESSE_DEPART);
+        assertThat(testVoyage.getAdresseArrive()).isEqualTo(UPDATED_ADRESSE_ARRIVE);
         assertThat(testVoyage.getQuartier()).isEqualTo(UPDATED_QUARTIER);
         assertThat(testVoyage.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testVoyage.getClimatisation()).isEqualTo(UPDATED_CLIMATISATION);
@@ -368,7 +388,11 @@ class VoyageResourceIT {
         Voyage partialUpdatedVoyage = new Voyage();
         partialUpdatedVoyage.setId(voyage.getId());
 
-        partialUpdatedVoyage.dateDeVoyage(UPDATED_DATE_DE_VOYAGE).prix(UPDATED_PRIX).quartier(UPDATED_QUARTIER).toilette(UPDATED_TOILETTE);
+        partialUpdatedVoyage
+            .dateDeVoyage(UPDATED_DATE_DE_VOYAGE)
+            .prix(UPDATED_PRIX)
+            .adresseDepart(UPDATED_ADRESSE_DEPART)
+            .climatisation(UPDATED_CLIMATISATION);
 
         restVoyageMockMvc
             .perform(
@@ -385,11 +409,13 @@ class VoyageResourceIT {
         assertThat(testVoyage.getDateDeVoyage()).isEqualTo(UPDATED_DATE_DE_VOYAGE);
         assertThat(testVoyage.getPrix()).isEqualTo(UPDATED_PRIX);
         assertThat(testVoyage.getNbrePlace()).isEqualTo(DEFAULT_NBRE_PLACE);
-        assertThat(testVoyage.getQuartier()).isEqualTo(UPDATED_QUARTIER);
+        assertThat(testVoyage.getAdresseDepart()).isEqualTo(UPDATED_ADRESSE_DEPART);
+        assertThat(testVoyage.getAdresseArrive()).isEqualTo(DEFAULT_ADRESSE_ARRIVE);
+        assertThat(testVoyage.getQuartier()).isEqualTo(DEFAULT_QUARTIER);
         assertThat(testVoyage.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testVoyage.getClimatisation()).isEqualTo(DEFAULT_CLIMATISATION);
+        assertThat(testVoyage.getClimatisation()).isEqualTo(UPDATED_CLIMATISATION);
         assertThat(testVoyage.getWifi()).isEqualTo(DEFAULT_WIFI);
-        assertThat(testVoyage.getToilette()).isEqualTo(UPDATED_TOILETTE);
+        assertThat(testVoyage.getToilette()).isEqualTo(DEFAULT_TOILETTE);
     }
 
     @Test
@@ -408,6 +434,8 @@ class VoyageResourceIT {
             .dateDeVoyage(UPDATED_DATE_DE_VOYAGE)
             .prix(UPDATED_PRIX)
             .nbrePlace(UPDATED_NBRE_PLACE)
+            .adresseDepart(UPDATED_ADRESSE_DEPART)
+            .adresseArrive(UPDATED_ADRESSE_ARRIVE)
             .quartier(UPDATED_QUARTIER)
             .description(UPDATED_DESCRIPTION)
             .climatisation(UPDATED_CLIMATISATION)
@@ -429,6 +457,8 @@ class VoyageResourceIT {
         assertThat(testVoyage.getDateDeVoyage()).isEqualTo(UPDATED_DATE_DE_VOYAGE);
         assertThat(testVoyage.getPrix()).isEqualTo(UPDATED_PRIX);
         assertThat(testVoyage.getNbrePlace()).isEqualTo(UPDATED_NBRE_PLACE);
+        assertThat(testVoyage.getAdresseDepart()).isEqualTo(UPDATED_ADRESSE_DEPART);
+        assertThat(testVoyage.getAdresseArrive()).isEqualTo(UPDATED_ADRESSE_ARRIVE);
         assertThat(testVoyage.getQuartier()).isEqualTo(UPDATED_QUARTIER);
         assertThat(testVoyage.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testVoyage.getClimatisation()).isEqualTo(UPDATED_CLIMATISATION);

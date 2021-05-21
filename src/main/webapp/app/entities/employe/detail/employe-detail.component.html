@@ -1,4 +1,4 @@
-<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+<div class="row justify-content-center">
   <div class="col-8">
     <div *ngIf="employe">
       <h2 data-cy="employeDetailsHeading"><span jhiTranslate="heybusApp.employe.detail.title">Employe</span></h2>
@@ -45,6 +45,10 @@
         <dt><span jhiTranslate="heybusApp.employe.account">Account</span></dt>
         <dd>
           <span>{{ employe.account }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.employe.user">User</span></dt>
+        <dd>
+          <span>{{ employe.user?.login }}</span>
         </dd>
         <dt><span jhiTranslate="heybusApp.employe.position">Position</span></dt>
         <dd>

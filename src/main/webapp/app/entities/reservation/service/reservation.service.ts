@@ -26,14 +26,12 @@ export class ReservationService {
       .post<IReservation>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
-
   createReservation(customer: ICustomer, idVoyage:number, nbrePassagers:number): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(customer);
     return this.http
       .post<ICustomer>(`${this.resourceUrl}/voyage/${idVoyage}/passagers/${nbrePassagers}`, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
-
   update(reservation: IReservation): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(reservation);
     return this.http

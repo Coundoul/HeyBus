@@ -128,23 +128,6 @@ class ReservationResourceIT {
 
     @Test
     @Transactional
-    void checkNbrePassagersIsRequired() throws Exception {
-        int databaseSizeBeforeTest = reservationRepository.findAll().size();
-        // set the field null
-        reservation.setNbrePassagers(null);
-
-        // Create the Reservation, which fails.
-
-        restReservationMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(reservation)))
-            .andExpect(status().isBadRequest());
-
-        List<Reservation> reservationList = reservationRepository.findAll();
-        assertThat(reservationList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllReservations() throws Exception {
         // Initialize the database
         reservationRepository.saveAndFlush(reservation);

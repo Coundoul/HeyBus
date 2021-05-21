@@ -12,16 +12,13 @@ const customerRoute: Routes = [
     path: '',
     component: CustomerComponent,
     data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_USER'],
+      defaultSort: 'id,asc',
     },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: CustomerDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       customer: CustomerRoutingResolveService,
     },
@@ -30,9 +27,6 @@ const customerRoute: Routes = [
   {
     path: 'new',
     component: CustomerUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_USER'],
-    },
     resolve: {
       customer: CustomerRoutingResolveService,
     },
@@ -41,9 +35,6 @@ const customerRoute: Routes = [
   {
     path: ':id/edit',
     component: CustomerUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_USER'],
-    },
     resolve: {
       customer: CustomerRoutingResolveService,
     },

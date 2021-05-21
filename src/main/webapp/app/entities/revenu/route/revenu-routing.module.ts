@@ -11,17 +11,11 @@ const revenuRoute: Routes = [
   {
     path: '',
     component: RevenuComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: RevenuDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       revenu: RevenuRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const revenuRoute: Routes = [
   {
     path: 'new',
     component: RevenuUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       revenu: RevenuRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const revenuRoute: Routes = [
   {
     path: ':id/edit',
     component: RevenuUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       revenu: RevenuRoutingResolveService,
     },

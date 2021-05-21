@@ -11,6 +11,9 @@ const voyageRoute: Routes = [
   {
     path: '',
     component: VoyageComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

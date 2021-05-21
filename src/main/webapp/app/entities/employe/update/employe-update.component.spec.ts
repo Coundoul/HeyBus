@@ -9,6 +9,9 @@ import { of, Subject } from 'rxjs';
 
 import { EmployeService } from '../service/employe.service';
 import { IEmploye, Employe } from '../employe.model';
+
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 import { IPosition } from 'app/entities/position/position.model';
 import { PositionService } from 'app/entities/position/service/position.service';
 import { ITransporteur } from 'app/entities/transporteur/transporteur.model';
@@ -22,6 +25,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<EmployeUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let employeService: EmployeService;
+    let userService: UserService;
     let positionService: PositionService;
     let transporteurService: TransporteurService;
 
@@ -37,6 +41,7 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(EmployeUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       employeService = TestBed.inject(EmployeService);
+      userService = TestBed.inject(UserService);
       positionService = TestBed.inject(PositionService);
       transporteurService = TestBed.inject(TransporteurService);
 
@@ -44,6 +49,25 @@ describe('Component Tests', () => {
     });
 
     describe('ngOnInit', () => {
+      it('Should call User query and add missing value', () => {
+        const employe: IEmploye = { id: 456 };
+        const user: IUser = { id: 48385 };
+        employe.user = user;
+
+        const userCollection: IUser[] = [{ id: 2487 }];
+        spyOn(userService, 'query').and.returnValue(of(new HttpResponse({ body: userCollection })));
+        const additionalUsers = [user];
+        const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+        spyOn(userService, 'addUserToCollectionIfMissing').and.returnValue(expectedCollection);
+
+        activatedRoute.data = of({ employe });
+        comp.ngOnInit();
+
+        expect(userService.query).toHaveBeenCalled();
+        expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
+        expect(comp.usersSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should call Position query and add missing value', () => {
         const employe: IEmploye = { id: 456 };
         const position: IPosition = { id: 98316 };
@@ -65,10 +89,10 @@ describe('Component Tests', () => {
 
       it('Should call Transporteur query and add missing value', () => {
         const employe: IEmploye = { id: 456 };
-        const transporteur: ITransporteur = { id: 91149 };
+        const transporteur: ITransporteur = { id: 19848 };
         employe.transporteur = transporteur;
 
-        const transporteurCollection: ITransporteur[] = [{ id: 53635 }];
+        const transporteurCollection: ITransporteur[] = [{ id: 51836 }];
         spyOn(transporteurService, 'query').and.returnValue(of(new HttpResponse({ body: transporteurCollection })));
         const additionalTransporteurs = [transporteur];
         const expectedCollection: ITransporteur[] = [...additionalTransporteurs, ...transporteurCollection];
@@ -87,15 +111,18 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const employe: IEmploye = { id: 456 };
+        const user: IUser = { id: 97240 };
+        employe.user = user;
         const position: IPosition = { id: 85346 };
         employe.position = position;
-        const transporteur: ITransporteur = { id: 41253 };
+        const transporteur: ITransporteur = { id: 78170 };
         employe.transporteur = transporteur;
 
         activatedRoute.data = of({ employe });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(employe));
+        expect(comp.usersSharedCollection).toContain(user);
         expect(comp.positionsSharedCollection).toContain(position);
         expect(comp.transporteursSharedCollection).toContain(transporteur);
       });
@@ -166,6 +193,14 @@ describe('Component Tests', () => {
     });
 
     describe('Tracking relationships identifiers', () => {
+      describe('trackUserById', () => {
+        it('Should return tracked User primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackUserById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
+
       describe('trackPositionById', () => {
         it('Should return tracked Position primary key', () => {
           const entity = { id: 123 };
