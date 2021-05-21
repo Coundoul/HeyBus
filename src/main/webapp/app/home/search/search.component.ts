@@ -29,7 +29,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   authSubscription?: Subscription;
   depart: [] | undefined;
   voyages!: Voyage[];
-  nbrePassagers!: number;
+  nbrePassagers?: number;
+  nbrePlace!: number;
   villes: IVille[] = [];
   arrive: [] | undefined;
   editForm = this.fb.group({
@@ -40,7 +41,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     vehicule: [],
     departVille: [],
     arriveVille: [],
-    nbrePassagers: [null, [Validators.required]]
+    nbrePassagers: [1, [Validators.required]]
   });
 
 
@@ -56,6 +57,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected villeService: VilleService,
     private router: Router
   ) {
+    this.nbrePassagers=1;
   }
 
   ngOnInit(): void {
@@ -68,6 +70,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     const depart = Number(this.activatedRoute.snapshot.paramMap.get('depart'));
     const arrive = Number(this.activatedRoute.snapshot.paramMap.get('arrive'));
     this.nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('nbrePassagers'));
+    this.nbrePlace = Number(this.activatedRoute.snapshot.paramMap.get('nbrePlace'));
     this.voyageService.searchVoyage(date, depart, arrive,this.nbrePassagers).subscribe(rest => (this.voyages = rest.body!));
   }
 
@@ -86,7 +89,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     window.location.assign('/search/'+String(date)+'/'+String(depart.id)+'/'+String(arrive.id)+'/'+String(nbrePassagers));
     //this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
   }
- 
+  
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();

@@ -72,7 +72,7 @@
               </span>
             </div>
             <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
-              data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager" />
+              data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager" value=1 />
           </div>
 
           <div
@@ -129,6 +129,9 @@
             <fa-icon icon="map-marker-alt"></fa-icon> {{ voyage.arriveVille?.nom }}
           </h6>
         </div>
+        <div *ngIf="(voyage && voyage.nbrePlace === 3)" > 
+           <p class="text-danger">Attention il reste {{ voyage.nbrePlace }} places pour ce voyage</p> 
+        </div>
         <div class="float-right">
           <a name="" id="" class="btn btn-reserver"
             [routerLink]="['/reservation/new/voyage', voyage.id, 'passagers', nbrePassagers]" role="button">Reserver</a>
@@ -148,7 +151,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="voyages && voyages.length === 0">
+  <div *ngIf="voyages && voyages.length === 0" class="alert alert-danger">
     <p>Aucun resultat</p>
   </div>
 </div>
