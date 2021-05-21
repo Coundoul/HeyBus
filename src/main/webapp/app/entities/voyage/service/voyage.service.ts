@@ -56,7 +56,6 @@ export class VoyageService {
       .get<IVoyage[]>(`${this.resourceUrl}/${date}/${idDepartVoyage}/${idArriveVoyage}/${nbrePassagers}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
-
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

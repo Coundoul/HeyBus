@@ -3,7 +3,7 @@
     <span jhiTranslate="heybusApp.reservation.home.title">Reservations</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="heybusApp.reservation.home.refreshListLabel">Refresh List</span>
       </button>
@@ -31,13 +31,23 @@
   <div class="table-responsive" id="entities" *ngIf="reservations && reservations.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.reservation.dateDeReservation">Date De Reservation</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.reservation.nbrePassagers">Nbre Passagers</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.reservation.prixReservation">Prix Reservation</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.reservation.voyage">Voyage</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.reservation.customer">Customer</span></th>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dateDeReservation">
+            <span jhiTranslate="heybusApp.reservation.dateDeReservation">Date De Reservation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nbrePassagers">
+            <span jhiTranslate="heybusApp.reservation.nbrePassagers">Nbre Passagers</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="prixReservation">
+            <span jhiTranslate="heybusApp.reservation.prixReservation">Prix Reservation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="voyage.id">
+            <span jhiTranslate="heybusApp.reservation.voyage">Voyage</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="customer.email">
+            <span jhiTranslate="heybusApp.reservation.customer">Customer</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -90,5 +100,23 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div *ngIf="reservations && reservations.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>

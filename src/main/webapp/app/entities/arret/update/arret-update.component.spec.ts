@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call nomarretVille query and add missing value', () => {
         const arret: IArret = { id: 456 };
-        const nomarretVille: IVille = { id: 86096 };
+        const nomarretVille: IVille = { id: 50271 };
         arret.nomarretVille = nomarretVille;
 
-        const nomarretVilleCollection: IVille[] = [{ id: 99191 }];
+        const nomarretVilleCollection: IVille[] = [{ id: 79873 }];
         spyOn(villeService, 'query').and.returnValue(of(new HttpResponse({ body: nomarretVilleCollection })));
         const expectedCollection: IVille[] = [nomarretVille, ...nomarretVilleCollection];
         spyOn(villeService, 'addVilleToCollectionIfMissing').and.returnValue(expectedCollection);
@@ -60,7 +60,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const arret: IArret = { id: 456 };
-        const nomarretVille: IVille = { id: 31227 };
+        const nomarretVille: IVille = { id: 36293 };
         arret.nomarretVille = nomarretVille;
 
         activatedRoute.data = of({ arret });

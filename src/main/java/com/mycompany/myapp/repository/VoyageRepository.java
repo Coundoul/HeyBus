@@ -3,6 +3,7 @@ package com.mycompany.myapp.repository;
 import com.mycompany.myapp.domain.Transporteur;
 import com.mycompany.myapp.domain.Ville;
 import com.mycompany.myapp.domain.Voyage;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +29,13 @@ public interface VoyageRepository extends JpaRepository<Voyage, Long> {
 
     @Query("select voyage from Voyage voyage left join fetch voyage.employes left join fetch voyage.arrets where voyage.id =:id")
     Optional<Voyage> findOneWithEagerRelationships(@Param("id") Long id);
-
+   
     @Query(
-        "select distinct voyage from Voyage voyage left join fetch voyage.employes left join fetch voyage.arrets where voyage.transporteur.user.login = ?#{principal.username}"
+        value = "select distinct voyage from Voyage voyage left join voyage.employes left join voyage.arrets where voyage.transporteur.user.login = ?#{principal.username}",
+        countQuery = "select count(distinct voyage) from Voyage voyage"
+
     )
-    List<Voyage> findByUserIsCurrentUser();
+    Page<Voyage> findByUserIsCurrentUser(Pageable pageable);
 
     @Query("select transporteur from Transporteur transporteur where transporteur.user.login = ?#{principal.username}")
     Transporteur findCurrentTransporteur();

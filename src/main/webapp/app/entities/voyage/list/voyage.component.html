@@ -3,7 +3,7 @@
     <span jhiTranslate="heybusApp.voyage.home.title">Voyages</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="heybusApp.voyage.home.refreshListLabel">Refresh List</span>
       </button>
@@ -31,24 +31,46 @@
   <div class="table-responsive" id="entities" *ngIf="voyages && voyages.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.prix">Prix</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.nbrePlace">Nbre Place</span></th>
-          <!-- <th scope="col"><span jhiTranslate="heybusApp.voyage.quartier">Quartier</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.description">Description</span></th> -->
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.climatisation">Climatisation</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.toilette">Toilette</span></th>
-          <th scope="col"><span>Adresse Depart</span></th>
-          <th scope="col"><span>Adresse Arrive</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.employe">Employe</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.arret">Arret</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.vehicule">Vehicule</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.departVille">Depart Ville</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.arriveVille">Arrive Ville</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.voyage.transporteur">Transporteur</span></th>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dateDeVoyage">
+            <span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="prix"><span jhiTranslate="heybusApp.voyage.prix">Prix</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nbrePlace">
+            <span jhiTranslate="heybusApp.voyage.nbrePlace">Nbre Place</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="adresseDepart">
+            <span jhiTranslate="heybusApp.voyage.adresseDepart">Adresse Depart</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="adresseArrive">
+            <span jhiTranslate="heybusApp.voyage.adresseArrive">Adresse Arrive</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="quartier">
+            <span jhiTranslate="heybusApp.voyage.quartier">Quartier</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <span jhiTranslate="heybusApp.voyage.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="climatisation">
+            <span jhiTranslate="heybusApp.voyage.climatisation">Climatisation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="wifi"><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="toilette">
+            <span jhiTranslate="heybusApp.voyage.toilette">Toilette</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="vehicule.reference">
+            <span jhiTranslate="heybusApp.voyage.vehicule">Vehicule</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="departVille.nom">
+            <span jhiTranslate="heybusApp.voyage.departVille">Depart Ville</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="arriveVille.nom">
+            <span jhiTranslate="heybusApp.voyage.arriveVille">Arrive Ville</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="transporteur.nom">
+            <span jhiTranslate="heybusApp.voyage.transporteur">Transporteur</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -60,25 +82,13 @@
           <td>{{ voyage.dateDeVoyage | formatMediumDatetime }}</td>
           <td>{{ voyage.prix }}</td>
           <td>{{ voyage.nbrePlace }}</td>
-          <!-- <td>{{ voyage.quartier }}</td>
-          <td>{{ voyage.description }}</td> -->
+          <td>{{ voyage.adresseDepart }}</td>
+          <td>{{ voyage.adresseArrive }}</td>
+          <td>{{ voyage.quartier }}</td>
+          <td>{{ voyage.description }}</td>
           <td>{{ voyage.climatisation }}</td>
           <td>{{ voyage.wifi }}</td>
           <td>{{ voyage.toilette }}</td>
-          <td>{{ voyage.adresseDepart }}</td>
-          <td>{{ voyage.adresseArrive }}</td>
-          <td>
-            <span *ngFor="let employe of voyage.employes; let last = last">
-              <a class="form-control-static" [routerLink]="['/employe', employe.id, 'view']">{{ employe.nom }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
-          </td>
-          <td>
-            <span *ngFor="let arret of voyage.arrets; let last = last">
-              <a class="form-control-static" [routerLink]="['/arret', arret.id, 'view']">{{ arret.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
-          </td>
           <td>
             <div *ngIf="voyage.vehicule">
               <a [routerLink]="['/vehicule', voyage.vehicule?.id, 'view']">{{ voyage.vehicule?.reference }}</a>
@@ -120,5 +130,23 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div *ngIf="voyages && voyages.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>

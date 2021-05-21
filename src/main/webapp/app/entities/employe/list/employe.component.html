@@ -1,4 +1,4 @@
-<div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+<div>
   <h2 id="page-heading" data-cy="EmployeHeading">
     <span jhiTranslate="heybusApp.employe.home.title">Employes</span>
 
@@ -41,6 +41,7 @@
           <th scope="col"><span jhiTranslate="heybusApp.employe.nbreEnfant">Nbre Enfant</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.employe.photo">Photo</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.employe.account">Account</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.employe.user">User</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.employe.position">Position</span></th>
           <th scope="col"><span jhiTranslate="heybusApp.employe.transporteur">Transporteur</span></th>
           <th scope="col"></th>
@@ -59,6 +60,9 @@
           <td>{{ employe.nbreEnfant }}</td>
           <td>{{ employe.photo }}</td>
           <td>{{ employe.account }}</td>
+          <td>
+            {{ employe.user?.login }}
+          </td>
           <td>
             <div *ngIf="employe.position">
               <a [routerLink]="['/position', employe.position?.id, 'view']">{{ employe.position?.nom }}</a>

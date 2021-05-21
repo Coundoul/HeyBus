@@ -11,17 +11,11 @@ const incidentRoute: Routes = [
   {
     path: '',
     component: IncidentComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: IncidentDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       incident: IncidentRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const incidentRoute: Routes = [
   {
     path: 'new',
     component: IncidentUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       incident: IncidentRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const incidentRoute: Routes = [
   {
     path: ':id/edit',
     component: IncidentUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       incident: IncidentRoutingResolveService,
     },

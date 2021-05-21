@@ -17,6 +17,12 @@
             <column name="date_de_reservation" type="date">
                 <constraints nullable="true" />
             </column>
+            <column name="nbre_passagers" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="prix_reservation" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="voyage_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -44,6 +50,8 @@
                   tableName="reservation">
             <column name="id" type="numeric"/>
             <column name="date_de_reservation" type="date"/>
+            <column name="nbre_passagers" type="numeric"/>
+            <column name="prix_reservation" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

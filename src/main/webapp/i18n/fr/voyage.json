@@ -21,6 +21,8 @@
       "dateDeVoyage": "Date De Voyage",
       "prix": "Prix",
       "nbrePlace": "Nbre Place",
+      "adresseDepart": "Adresse Depart",
+      "adresseArrive": "Adresse Arrive",
       "quartier": "Quartier",
       "description": "Description",
       "climatisation": "Climatisation",

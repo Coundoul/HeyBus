@@ -11,17 +11,11 @@ const fuelRoute: Routes = [
   {
     path: '',
     component: FuelComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: FuelDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       fuel: FuelRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const fuelRoute: Routes = [
   {
     path: 'new',
     component: FuelUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       fuel: FuelRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const fuelRoute: Routes = [
   {
     path: ':id/edit',
     component: FuelUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN', 'ROLE_TRANSPORTEUR'],
-    },
     resolve: {
       fuel: FuelRoutingResolveService,
     },

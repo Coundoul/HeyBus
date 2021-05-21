@@ -160,7 +160,9 @@ public class FuelResource {
     @GetMapping("/fuels")
     public List<Fuel> getAllFuels() {
         log.debug("REST request to get all Fuels");
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) return fuelRepository.findAll();
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) 
+        return fuelRepository.findAll();
+        
         return fuelRepository.findByUserIsCurrentUser();
     }
 

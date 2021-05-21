@@ -46,10 +46,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Voyage query and add missing value', () => {
         const reservation: IReservation = { id: 456 };
-        const voyage: IVoyage = { id: 53428 };
+        const voyage: IVoyage = { id: 70598 };
         reservation.voyage = voyage;
 
-        const voyageCollection: IVoyage[] = [{ id: 6254 }];
+        const voyageCollection: IVoyage[] = [{ id: 15003 }];
         spyOn(voyageService, 'query').and.returnValue(of(new HttpResponse({ body: voyageCollection })));
         const additionalVoyages = [voyage];
         const expectedCollection: IVoyage[] = [...additionalVoyages, ...voyageCollection];
@@ -65,10 +65,10 @@ describe('Component Tests', () => {
 
       it('Should call Customer query and add missing value', () => {
         const reservation: IReservation = { id: 456 };
-        const customer: ICustomer = { id: 97899 };
+        const customer: ICustomer = { id: 71664 };
         reservation.customer = customer;
 
-        const customerCollection: ICustomer[] = [{ id: 83012 }];
+        const customerCollection: ICustomer[] = [{ id: 22151 }];
         spyOn(customerService, 'query').and.returnValue(of(new HttpResponse({ body: customerCollection })));
         const additionalCustomers = [customer];
         const expectedCollection: ICustomer[] = [...additionalCustomers, ...customerCollection];
@@ -84,9 +84,9 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const reservation: IReservation = { id: 456 };
-        const voyage: IVoyage = { id: 37524 };
+        const voyage: IVoyage = { id: 62492 };
         reservation.voyage = voyage;
-        const customer: ICustomer = { id: 67703 };
+        const customer: ICustomer = { id: 19253 };
         reservation.customer = customer;
 
         activatedRoute.data = of({ reservation });

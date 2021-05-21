@@ -11,6 +11,9 @@ const agenceRoute: Routes = [
   {
     path: '',
     component: AgenceComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

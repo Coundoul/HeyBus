@@ -23,6 +23,12 @@
             <column name="nbre_place" type="integer">
                 <constraints nullable="true" />
             </column>
+            <column name="adresse_depart" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="adresse_arrive" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="quartier" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -99,6 +105,8 @@
             <column name="date_de_voyage" type="${datetimeType}"/>
             <column name="prix" type="numeric"/>
             <column name="nbre_place" type="numeric"/>
+            <column name="adresse_depart" type="string"/>
+            <column name="adresse_arrive" type="string"/>
             <column name="quartier" type="string"/>
             <column name="description" type="string"/>
             <column name="climatisation" type="boolean"/>

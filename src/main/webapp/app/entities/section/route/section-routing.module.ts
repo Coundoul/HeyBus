@@ -11,17 +11,11 @@ const sectionRoute: Routes = [
   {
     path: '',
     component: SectionComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
     component: SectionDetailComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       section: SectionRoutingResolveService,
     },
@@ -30,9 +24,6 @@ const sectionRoute: Routes = [
   {
     path: 'new',
     component: SectionUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       section: SectionRoutingResolveService,
     },
@@ -41,9 +32,6 @@ const sectionRoute: Routes = [
   {
     path: ':id/edit',
     component: SectionUpdateComponent,
-    data: {
-      authorities: ['ROLE_ADMIN'],
-    },
     resolve: {
       section: SectionRoutingResolveService,
     },

@@ -3,6 +3,8 @@ entity Agence {
   telephone String required,
   responsable String
 }
+paginate Agence with pagination
+
 entity Transporteur{
   nom String required,
   telephone String required,
@@ -11,6 +13,7 @@ entity Transporteur{
   adresse String required,
   logo ImageBlob
 }
+paginate Transporteur with pagination
 
 entity Arret {
   description String
@@ -25,6 +28,8 @@ entity Customer {
   dateprisecontact LocalDate,
   adresse String
 }
+paginate Customer with pagination
+
 entity Depense {
   date LocalDate required,
   category String required,
@@ -90,7 +95,12 @@ entity Section {
 }
 entity Reservation {
   dateDeReservation LocalDate
+  nbrePassagers Integer
+  prixReservation Integer
+
 }
+paginate Reservation with pagination
+
 entity TypeDePaiement {
   paiement String required
 }
@@ -112,12 +122,16 @@ entity Voyage {
   dateDeVoyage ZonedDateTime required,
   prix Integer,
   nbrePlace Integer,
+  adresseDepart String
+  adresseArrive String
   quartier String,
   description String,
   climatisation Boolean,
   wifi Boolean,
   toilette Boolean
 }
+paginate Voyage with pagination
+
 enum Matrimoniale {
   Celibataire,
   Marie

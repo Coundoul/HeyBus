@@ -1,11 +1,7 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.Customer;
-import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.CustomerRepository;
-import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.service.MailService;
-import com.mycompany.myapp.service.dto.AdminUserDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,12 +12,17 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -38,15 +39,6 @@ public class CustomerResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    @Autowired
-    private UserResource userResource;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private MailService mailService;
 
     private final CustomerRepository customerRepository;
 
@@ -67,29 +59,6 @@ public class CustomerResource {
         if (customer.getId() != null) {
             throw new BadRequestAlertException("A new customer cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        User user = null;
-        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(customer.getEmail());
-        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(customer.getEmail()))) {
-            // throw new EmailAlreadyUsedException();
-            user = existingUser.get();
-        } else {
-            user = new User();
-            user.setEmail(customer.getEmail());
-            user.setLogin(customer.getEmail());
-            user.setFirstName(customer.getPrenom());
-            user.setLastName(customer.getNom());
-            user = this.userResource.createUser(new AdminUserDTO(user)).getBody();
-            mailService.sendCreationEmail(user);
-            //     Set<Authority> authorities = userDTO
-            //     .getAuthorities()
-            //     .stream()
-            //     .map(authorityRepository::findById)
-            //     .filter(Optional::isPresent)
-            //     .map(Optional::get)
-            //     .collect(Collectors.toSet());
-            // user.setAuthorities(authorities);
-        }
-        customer.setUser(user);
         Customer result = customerRepository.save(customer);
         return ResponseEntity
             .created(new URI("/api/customers/" + result.getId()))
@@ -202,12 +171,15 @@ public class CustomerResource {
     /**
      * {@code GET  /customers} : get all the customers.
      *
+     * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customers in body.
      */
     @GetMapping("/customers")
-    public List<Customer> getAllCustomers() {
-        log.debug("REST request to get all Customers");
-        return customerRepository.findAll();
+    public ResponseEntity<List<Customer>> getAllCustomers(Pageable pageable) {
+        log.debug("REST request to get a page of Customers");
+        Page<Customer> page = customerRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

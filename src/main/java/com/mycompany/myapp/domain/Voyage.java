@@ -31,6 +31,12 @@ public class Voyage implements Serializable {
     @Column(name = "nbre_place")
     private Integer nbrePlace;
 
+    @Column(name = "adresse_depart")
+    private String adresseDepart;
+
+    @Column(name = "adresse_arrive")
+    private String adresseArrive;
+
     @Column(name = "quartier")
     private String quartier;
 
@@ -45,12 +51,6 @@ public class Voyage implements Serializable {
 
     @Column(name = "toilette")
     private Boolean toilette;
-
-    @Column(name = "adresse_depart")
-    private String adresseDepart;
-
-    @Column(name = "adresse_arrive")
-    private String adresseArrive;
 
     @OneToMany(mappedBy = "voyage")
     @JsonIgnoreProperties(value = { "voyage", "customer" }, allowSetters = true)
@@ -143,6 +143,32 @@ public class Voyage implements Serializable {
         this.nbrePlace = nbrePlace;
     }
 
+    public String getAdresseDepart() {
+        return this.adresseDepart;
+    }
+
+    public Voyage adresseDepart(String adresseDepart) {
+        this.adresseDepart = adresseDepart;
+        return this;
+    }
+
+    public void setAdresseDepart(String adresseDepart) {
+        this.adresseDepart = adresseDepart;
+    }
+
+    public String getAdresseArrive() {
+        return this.adresseArrive;
+    }
+
+    public Voyage adresseArrive(String adresseArrive) {
+        this.adresseArrive = adresseArrive;
+        return this;
+    }
+
+    public void setAdresseArrive(String adresseArrive) {
+        this.adresseArrive = adresseArrive;
+    }
+
     public String getQuartier() {
         return this.quartier;
     }
@@ -206,32 +232,6 @@ public class Voyage implements Serializable {
 
     public void setToilette(Boolean toilette) {
         this.toilette = toilette;
-    }
-
-    public String getAdresseDepart() {
-        return this.adresseDepart;
-    }
-
-    public Voyage adresseDepart(String adresseDepart) {
-        this.adresseDepart = adresseDepart;
-        return this;
-    }
-
-    public void setAdresseDepart(String adresseDepart) {
-        this.adresseDepart = adresseDepart;
-    }
-
-    public String getAdresseArrive() {
-        return this.adresseArrive;
-    }
-
-    public Voyage adresseArrive(String adresseArrive) {
-        this.adresseArrive = adresseArrive;
-        return this;
-    }
-
-    public void setAdresseArrive(String adresseArrive) {
-        this.adresseArrive = adresseArrive;
     }
 
     public Set<Reservation> getReservations() {
@@ -394,13 +394,13 @@ public class Voyage implements Serializable {
             ", dateDeVoyage='" + getDateDeVoyage() + "'" +
             ", prix=" + getPrix() +
             ", nbrePlace=" + getNbrePlace() +
+            ", adresseDepart='" + getAdresseDepart() + "'" +
+            ", adresseArrive='" + getAdresseArrive() + "'" +
             ", quartier='" + getQuartier() + "'" +
             ", description='" + getDescription() + "'" +
             ", climatisation='" + getClimatisation() + "'" +
             ", wifi='" + getWifi() + "'" +
             ", toilette='" + getToilette() + "'" +
-            ", adresseDepart='" + getAdresseDepart() + "'" +
-            ", adresseArrive='" + getAdresseArrive() + "'" +
             "}";
     }
 }

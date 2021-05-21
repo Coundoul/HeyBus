@@ -1,4 +1,5 @@
 import * as dayjs from 'dayjs';
+import { IUser } from 'app/entities/user/user.model';
 import { IPosition } from 'app/entities/position/position.model';
 import { ITransporteur } from 'app/entities/transporteur/transporteur.model';
 import { IVoyage } from 'app/entities/voyage/voyage.model';
@@ -14,6 +15,7 @@ export interface IEmploye {
   nbreEnfant?: number | null;
   photo?: string | null;
   account?: boolean | null;
+  user?: IUser | null;
   position?: IPosition;
   transporteur?: ITransporteur | null;
   voyages?: IVoyage[] | null;
@@ -30,6 +32,7 @@ export class Employe implements IEmploye {
     public nbreEnfant?: number | null,
     public photo?: string | null,
     public account?: boolean | null,
+    public user?: IUser | null,
     public position?: IPosition,
     public transporteur?: ITransporteur | null,
     public voyages?: IVoyage[] | null
