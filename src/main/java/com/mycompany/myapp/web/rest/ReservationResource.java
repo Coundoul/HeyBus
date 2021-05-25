@@ -321,4 +321,18 @@ public class ReservationResource {
         }
 
     }
+    /**
+     * {@code GET  /reservations} : get all the reservations.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of reservations in body.
+     */
+    @GetMapping("/reservations/customer/voyage/{voyageId}")
+    public ResponseEntity<List<Reservation>> getReservationCustomers(Pageable pageable, @PathVariable Long voyageId) {
+        log.debug("REST request to get a page of Reservations");
+        Page<Reservation> page = reservationRepository.findCustomerByVoyage(pageable, voyageId);
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

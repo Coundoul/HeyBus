@@ -53,8 +53,8 @@ const reservationRoute: Routes = [
   {
     path: 'customer/voyage/:voyage',
     component: ClientsComponent,
-    resolve: {
-      reservation: ReservationRoutingResolveService,
+    data: {
+      defaultSort: 'id,asc',
     },
     canActivate: [UserRouteAccessService],
   },

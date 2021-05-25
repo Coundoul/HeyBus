@@ -36,7 +36,8 @@ export class ClientsComponent implements OnInit {
     const pageToLoad: number = page ?? this.page ?? 1;
 
     this.reservationService
-      .query({
+      .customerVoyage({
+        voyage: Number(this.activatedRoute.snapshot.paramMap.get('voyage')),
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -99,7 +100,7 @@ export class ClientsComponent implements OnInit {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
-      this.router.navigate(['/reservation'], {
+      this.router.navigate(['/reservation/cutomer/voyage/'+String(this.activatedRoute.snapshot.paramMap.get('voyage'))], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,
