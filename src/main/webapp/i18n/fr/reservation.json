@@ -4,15 +4,15 @@
       "home": {
         "title": "Reservations",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Reservation",
-        "createOrEditLabel": "Créer ou éditer un Reservation",
-        "notFound": "Aucun Reservation trouvé"
+        "createLabel": "Créer une nouvelle réservation",
+        "createOrEditLabel": "Créer ou éditer une réservation",
+        "notFound": "Aucune réservation trouvée"
       },
-      "created": "Un nouveau Reservation a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Reservation avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Reservation avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle réservation a été créée avec l'identifiant {{ param }}",
+      "updated": "La réservation avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "Le réservation avec l'identifiant {{ param }} a été supprimée",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Reservation {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer la réservation {{ id }} ?"
       },
       "detail": {
         "title": "Reservation"

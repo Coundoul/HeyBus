@@ -2,20 +2,20 @@
   "heybusApp": {
     "incident": {
       "home": {
-        "title": "Incidents",
+        "title": "incidents",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Incident",
-        "createOrEditLabel": "Créer ou éditer un Incident",
-        "notFound": "Aucun Incident trouvé"
+        "createLabel": "Créer un nouvell incident",
+        "createOrEditLabel": "Créer ou éditer un incident",
+        "notFound": "Aucun incident trouvé"
       },
-      "created": "Un nouveau Incident a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Incident avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Incident avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel incident a été créé avec l'identifiant {{ param }}",
+      "updated": "L'incident avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'incident avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Incident {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le incident {{ id }} ?"
       },
       "detail": {
-        "title": "Incident"
+        "title": "incident"
       },
       "id": "ID",
       "gravite": "Gravite",
