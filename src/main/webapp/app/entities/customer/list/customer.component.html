@@ -41,7 +41,7 @@
             <span jhiTranslate="heybusApp.customer.telephone">Telephone</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="email"><span jhiTranslate="heybusApp.customer.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="profession">
+          <!-- <th scope="col" jhiSortBy="profession">
             <span jhiTranslate="heybusApp.customer.profession">Profession</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="datenaissance">
@@ -52,7 +52,7 @@
           </th>
           <th scope="col" jhiSortBy="adresse">
             <span jhiTranslate="heybusApp.customer.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="user.login">
             <span jhiTranslate="heybusApp.customer.user">User</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -68,10 +68,10 @@
           <td>{{ customer.prenom }}</td>
           <td>{{ customer.telephone }}</td>
           <td>{{ customer.email }}</td>
-          <td>{{ customer.profession }}</td>
+          <!-- <td>{{ customer.profession }}</td>
           <td>{{ customer.datenaissance | formatMediumDate }}</td>
           <td>{{ customer.dateprisecontact | formatMediumDate }}</td>
-          <td>{{ customer.adresse }}</td>
+          <td>{{ customer.adresse }}</td> -->
           <td>
             {{ customer.user?.login }}
           </td>
