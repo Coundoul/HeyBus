@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -36,7 +36,8 @@ export class CustomerUpdateComponent implements OnInit {
     protected customerService: CustomerService,
     protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    protected router: Router
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +74,8 @@ export class CustomerUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    // this.previousState();
+    this.router.navigate(['/reservation/new']);
   }
 
   protected onSaveError(): void {
