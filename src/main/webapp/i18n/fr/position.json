@@ -4,15 +4,15 @@
       "home": {
         "title": "Positions",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Position",
+        "createLabel": "Créer un nouvelle Position",
         "createOrEditLabel": "Créer ou éditer un Position",
         "notFound": "Aucun Position trouvé"
       },
-      "created": "Un nouveau Position a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Position avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Position avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvelle Position a été créée avec l'identifiant {{ param }}",
+      "updated": "Le Position avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "Le Position avec l'identifiant {{ param }} a été supprimée",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Position {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer la Position {{ id }} ?"
       },
       "detail": {
         "title": "Position"

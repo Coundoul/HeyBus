@@ -4,15 +4,15 @@
       "home": {
         "title": "Depenses",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Depense",
-        "createOrEditLabel": "Créer ou éditer un Depense",
-        "notFound": "Aucun Depense trouvé"
+        "createLabel": "Créer une nouvelle dépense",
+        "createOrEditLabel": "Créer ou éditer une dépense",
+        "notFound": "Aucune dépense trouvée"
       },
-      "created": "Un nouveau Depense a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Depense avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Depense avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle dépense a été créée avec l'identifiant {{ param }}",
+      "updated": "La dépense avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La dépense avec l'identifiant {{ param }} a été supprimée",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Depense {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer la dépense {{ id }} ?"
       },
       "detail": {
         "title": "Depense"

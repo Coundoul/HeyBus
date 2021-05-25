@@ -2,20 +2,20 @@
   "heybusApp": {
     "maintenance": {
       "home": {
-        "title": "Maintenances",
+        "title": "maintenances",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Maintenance",
-        "createOrEditLabel": "Créer ou éditer un Maintenance",
-        "notFound": "Aucun Maintenance trouvé"
+        "createLabel": "Créer une nouvelle maintenance",
+        "createOrEditLabel": "Créer ou éditer une maintenance",
+        "notFouned": "Aucune maintenance trouvée"
       },
-      "created": "Un nouveau Maintenance a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Maintenance avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Maintenance avec l'identifiant {{ param }} a été supprimé",
+      "created": "une nouvelle maintenance a été créée avec l'identifiant {{ param }}",
+      "updated": "La maintenance avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La maintenance avec l'identifiant {{ param }} a été supprimée",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Maintenance {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer la maintenance {{ id }} ?"
       },
       "detail": {
-        "title": "Maintenance"
+        "title": "maintenance"
       },
       "id": "ID",
       "date": "Date",
