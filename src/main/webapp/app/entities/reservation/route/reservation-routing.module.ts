@@ -7,6 +7,7 @@ import { ReservationDetailComponent } from '../detail/reservation-detail.compone
 import { ReservationUpdateComponent } from '../update/reservation-update.component';
 import { ReservationRoutingResolveService } from './reservation-routing-resolve.service';
 import { ReservationVoyageComponent } from '../reserver/reservation-voyage.component';
+import { ClientsComponent } from '../list-client-voyage/clients.component';
 
 const reservationRoute: Routes = [
   {
@@ -44,6 +45,14 @@ const reservationRoute: Routes = [
   {
     path: ':id/edit',
     component: ReservationUpdateComponent,
+    resolve: {
+      reservation: ReservationRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'customer/voyage/:voyage',
+    component: ClientsComponent,
     resolve: {
       reservation: ReservationRoutingResolveService,
     },

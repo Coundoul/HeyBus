@@ -180,7 +180,9 @@ public class EmployeResource {
     @GetMapping("/employes")
     public List<Employe> getAllEmployes() {
         log.debug("REST request to get all Employes");
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) return employeRepository.findAll();
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) 
+        return employeRepository.findAll();
+        
         return employeRepository.findByUserIsCurrentUser();
     }
 

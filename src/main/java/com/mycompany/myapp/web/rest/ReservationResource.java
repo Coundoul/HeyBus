@@ -192,12 +192,15 @@ public class ReservationResource {
         log.debug("REST request to get a page of Reservations");
         Page<Reservation> page = null;
 
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN"))
-            page = reservationRepository.findAll(pageable);
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_USER")){
+            if(SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")){
+                page = reservationRepository.findAll(pageable);
+            }else{
+                page = reservationRepository.findByCustomerIsCurrentCustomer(pageable);
+            }
+            
+        }
 
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_USER"))
-            page = reservationRepository.findByCustomerIsCurrentCustomer(pageable);
-        
         if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR"))
             page = reservationRepository.findByUserIsCurrentUser(pageable);
 
