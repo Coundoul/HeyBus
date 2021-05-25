@@ -100,7 +100,7 @@ export class ClientsComponent implements OnInit {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
-      this.router.navigate(['/reservation/cutomer/voyage/'+String(this.activatedRoute.snapshot.paramMap.get('voyage'))], {
+      this.router.navigate(['/reservation/customer/voyage/'+String(this.activatedRoute.snapshot.paramMap.get('voyage'))], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,
