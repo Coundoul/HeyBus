@@ -61,8 +61,9 @@ export class ReservationService {
 
   customerVoyage(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
+    const idVoyage = Number(options.get('voyage'));
     return this.http
-      .get<IReservation[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .get<IReservation[]>(`${this.resourceUrl}/customer/voyage/${idVoyage}`, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

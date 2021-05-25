@@ -116,6 +116,11 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
+              <button type="submit" [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-secondary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="users"></fa-icon>
+                <span class="d-none d-md-inline" >Voir Clients</span>
+              </button>
+
               <button type="submit" [routerLink]="['/voyage', voyage.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>

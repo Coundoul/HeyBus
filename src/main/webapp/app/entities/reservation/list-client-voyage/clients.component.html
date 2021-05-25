@@ -1,6 +1,6 @@
 <div class="card jh-card">
   <h2 id="page-heading" data-cy="ReservationHeading">
-    <span jhiTranslate="heybusApp.reservation.home.title">Reservations</span>
+    <span jhiTranslate="heybusApp.reservation.home.title">Clients</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
@@ -34,19 +34,19 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="dateDeReservation">
-            <span jhiTranslate="heybusApp.reservation.dateDeReservation">Date De Reservation</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="heybusApp.reservation.dateDeReservation">Date De Réservation</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="nbrePassagers">
-            <span jhiTranslate="heybusApp.reservation.nbrePassagers">Nbre Passagers</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="customer.nom">
+            <span >Nom</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="prixReservation">
-            <span jhiTranslate="heybusApp.reservation.prixReservation">Prix Reservation</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="customer.prenom">
+            <span >Prénom</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="voyage.id">
-            <span jhiTranslate="heybusApp.reservation.voyage">Voyage</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="customer.telephone">
+            <span>Téléphone</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="customer.email">
-            <span jhiTranslate="heybusApp.reservation.customer">Customer</span> <fa-icon icon="sort"></fa-icon>
+            <span >E-mail</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -57,38 +57,24 @@
             <a [routerLink]="['/reservation', reservation.id, 'view']">{{ reservation.id }}</a>
           </td>
           <td>{{ reservation.dateDeReservation | formatMediumDate }}</td>
-          <td>{{ reservation.nbrePassagers }}</td>
-          <td>{{ reservation.prixReservation }}</td>
+          <td>{{ reservation.customer?.nom }}</td>
+          <td>{{ reservation.customer?.prenom }}</td>
           <td>
-            <div *ngIf="reservation.voyage">
-              <a [routerLink]="['/voyage', reservation.voyage?.id, 'view']">{{ reservation.voyage?.id }}</a>
-            </div>
+           {{ reservation.customer?.telephone }}
           </td>
           <td>
-            <div *ngIf="reservation.customer">
-              <a [routerLink]="['/customer', reservation.customer?.id, 'view']">{{ reservation.customer?.email }}</a>
-            </div>
+            {{ reservation.customer?.email }}
           </td>
           <td class="text-right">
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/reservation', reservation.id, 'view']"
+                [routerLink]="['/customer', reservation.customer?.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/reservation', reservation.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(reservation)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">

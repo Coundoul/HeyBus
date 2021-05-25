@@ -18,7 +18,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             countQuery = "select count(distinct reservation) from Reservation reservation")
     Page<Reservation> findByUserIsCurrentUser(Pageable pageable);
 
+
     @Query( value = "select reservation from Reservation reservation where reservation.customer.user.login = ?#{principal.username}",
             countQuery = "select count(distinct reservation) from Reservation reservation")
     Page<Reservation> findByCustomerIsCurrentCustomer(Pageable pageable); 
+
+    @Query( value = "select reservation from Reservation reservation where reservation.voyage.id = :voyageId",
+            countQuery = "select count(distinct reservation) from Reservation reservation")
+    Page<Reservation> findCustomerByVoyage(Pageable pageable, @Param("voyageId") Long voyageId);
 }
