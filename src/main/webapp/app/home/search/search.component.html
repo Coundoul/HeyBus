@@ -108,6 +108,7 @@
     <hr />
     <div *ngFor="let voyage of voyages; trackBy: trackId" class="shadow p-3 mb-5 bg-white rounded"
       style="max-width: 50rem">
+      <div *ngIf="voyages && voyages.length > 0">
       <div class="">{{ voyage.transporteur?.nom }} <fa-icon icon="star"></fa-icon> 4,5</div>
       <div class="card-body">
         <div class="row">
@@ -150,9 +151,27 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
   <div *ngIf="voyages && voyages.length === 0" class="alert alert-danger">
     <p>Aucun resultat</p>
+  </div>
+  <div *ngIf="voyages && voyages.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>
 

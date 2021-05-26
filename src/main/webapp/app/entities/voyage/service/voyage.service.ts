@@ -51,9 +51,14 @@ export class VoyageService {
       .get<IVoyage[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
-  searchVoyage(date: string, idDepartVoyage: number, idArriveVoyage: number, nbrePassagers: number): Observable<EntityArrayResponseType> {
+  searchVoyage(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    const date =  String(options.get('date'));
+    const  depart =  Number(options.get('depart'));
+    const  arrive =  Number(options.get('arrive'));
+    const nbrePassagers =  Number(options.get('nbrePassagers'));
     return this.http
-      .get<IVoyage[]>(`${this.resourceUrl}/${date}/${idDepartVoyage}/${idArriveVoyage}/${nbrePassagers}`, { observe: 'response' })
+      .get<IVoyage[]>(`${this.resourceUrl}/${date}/${depart}/${arrive}/${nbrePassagers}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
   delete(id: number): Observable<HttpResponse<{}>> {
