@@ -2,14 +2,26 @@
   <p class="voyages-en-bus font-weight-bold" style="position: relative; top:65%">Voyages en bus pas chers à
     partir de 5000 FCFA</p>
    
-  <div class="col-md-11 shadow bg-white mt-5" style="position: relative; left: 5%; top:65%">
+  <div class="col-md-11 shadow bg-white mt-5" style="position: relative; left: 5%; top:55%">
+
     <form name="editForm" role="form" novalidate [formGroup]="editForm">
       <div class="form-group" [hidden]="!editForm.get('id')!.value">
         <label for="id" jhiTranslate="global.field.id">ID</label>
         <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
       </div>
-
-      <div class="row justify-content-center pt-2">
+      <div class="row ml-1 pt-2">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="" id="" value="checkedValue"> Aller Simple
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="" id="" value="checkedValue"> Aller Retour
+          </label>
+        </div>
+      </div>
+      <div class="row pt-2">
 
         <div class="col-md-2">
           <div class="input-group">
@@ -29,7 +41,7 @@
             </select>
           </div>
         </div>
-        <fa-icon icon="exchange-alt" style="position: relative; top: 10px;"></fa-icon>
+        <div class="col-md-1"><fa-icon icon="exchange-alt" class="fa-2x"></fa-icon></div>
         <div class="col-md-2">
           <div class="input-group">
             <div class="input-group-prepend">
