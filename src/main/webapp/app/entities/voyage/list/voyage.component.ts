@@ -36,7 +36,7 @@ export class VoyageComponent implements OnInit {
     const pageToLoad: number = page ?? this.page ?? 1;
 
     this.voyageService
-      .query({
+      .searchVoyage({
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),

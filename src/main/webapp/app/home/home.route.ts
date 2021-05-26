@@ -16,7 +16,8 @@ export const HOME_ROUTE: Routes =[
     component: SearchComponent,
     data: {
       pageTitle: 'home.title',
-      authorities:[]
+      authorities:[],
+      defaultSort: 'id,asc'
     },
   }
 ];

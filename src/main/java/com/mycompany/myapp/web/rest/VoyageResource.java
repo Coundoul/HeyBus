@@ -248,8 +248,10 @@ public class VoyageResource {
             .build();
     }
     @GetMapping("/voyages/{dateVoyage}/{idDepartVille}/{idArriveVille}/{nbrePassagers}")
-    public List<Voyage> getVoyage(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille, @PathVariable Integer nbrePassagers) {
+     public ResponseEntity<List<Voyage>> getVoyage(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille, @PathVariable Integer nbrePassagers,
+     Pageable pageable) {
         //log.debug("REST request to get Voyage : {}", id);
+       
         ZonedDateTime date = ZonedDateTime.of(
             Integer.parseInt(dateVoyage.split("-")[0]),
             Integer.parseInt(dateVoyage.split("-")[1]),
@@ -270,12 +272,15 @@ public class VoyageResource {
             0,
             ZoneId.of("UTC")
         );
-        return voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
+        Page<Voyage> page=voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
+            pageable,
             date,
             date2,
             ville.findById(idDepartVille).get(),
             ville.findById(idArriveVille).get(),
             nbrePassagers
         );
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

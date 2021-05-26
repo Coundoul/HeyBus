@@ -108,17 +108,23 @@
     <hr />
     <div *ngFor="let voyage of voyages; trackBy: trackId" class="shadow p-3 mb-5 bg-white rounded"
       style="max-width: 50rem">
-      <div class=""><small>{{ voyage.transporteur?.nom }}</small><fa-icon icon="star"></fa-icon><small> 4,5</small></div>
+      <div class=""><small>{{ voyage.transporteur?.nom }}</small>
+        <fa-icon icon="star"></fa-icon><small> 4,5</small>
+      </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-6 col-xs-4">
             <small>
               <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
-            </small><span class="text-heybus"><strong>06:20</strong> {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon></span>
-            <div class="line ml-2 col-xs-4 mr-1 text-center"><p class="mr-2">4h</p></div>
+            </small><span class="text-heybus"><strong>06:20</strong> {{ voyage.departVille?.nom }} <fa-icon
+                icon="info-circle" class="text-danger"></fa-icon></span>
+            <div class="line ml-2 col-xs-4 mr-1 text-center">
+              <p class="mr-2">4h</p>
+            </div>
             <small>
-              <fa-icon icon="map-marker-alt"  class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
-            </small><span class="text-heybus"><strong>06:20</strong> {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon></span>
+              <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
+            </small><span class="text-heybus"><strong>06:20</strong> {{ voyage.arriveVille?.nom }} <fa-icon
+                icon="info-circle" class="text-danger"></fa-icon></span>
           </div>
           <!-- <div class="col-md-6 col-xs-4">
             <h5 class="card-title text-heybus">{{ voyage.dateDeVoyage | formatMediumDatetime }}</h5>
@@ -136,15 +142,26 @@
                 <fa-icon icon="fan" class="text-secondary" title="Climatiseur"></fa-icon>
               </small>
               <a name="" id="" class="btn btn-reserver align-bottom"
-              [routerLink]="['/reservation/new/voyage', voyage.id, 'passagers', nbrePassagers]" role="button">Réserver</a>
+                [routerLink]="['/reservation/new/voyage', voyage.id, 'passagers', nbrePassagers]"
+                role="button">Réserver</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="voyages && voyages.length === 0" class="alert alert-danger">
-    <p>Aucun resultat</p>
+</div>
+<div *ngIf="voyages && voyages.length === 0" class="alert alert-danger">
+  <p>Aucun resultat</p>
+</div>
+<div *ngIf="voyages && voyages.length > 0">
+  <div class="row justify-content-center">
+    <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+  </div>
+
+  <div class="row justify-content-center">
+    <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5"
+      [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
   </div>
 </div>
 
