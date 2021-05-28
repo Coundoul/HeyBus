@@ -14,11 +14,11 @@ import { CustomerService } from 'app/entities/customer/service/customer.service'
 import { IUser } from 'app/entities/user/user.model';
 
 @Component({
-  selector: 'jhi-reservation-voyage',
-  styleUrls: ['./reservation-voyage.component.scss'],
-  templateUrl: './reservation-voyage.component.html',
+  selector: 'jhi-reservation-success',
+  styleUrls: ['./reservation-success.component.scss'],
+  templateUrl: './reservation-success.component.html',
 })
-export class ReservationVoyageComponent implements OnInit {
+export class ReservationSuccessComponent implements OnInit {
   isSaving = false;
 
   voyage!: IVoyage;
@@ -88,8 +88,8 @@ export class ReservationVoyageComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    const idVoyage = String(this.activatedRoute.snapshot.paramMap.get('voyage'));
-    this.router.navigate(['/reservation/success/voyage/'+idVoyage]);
+    //this.previousState();
+    this.router.navigate(['/']);
 
   }
 

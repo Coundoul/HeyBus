@@ -46,6 +46,9 @@ import {
   faToilet,
   faFan,
   faStar,
+  faInfo,
+  faInfoCircle,
+  faChevronDown
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -94,6 +97,8 @@ export const fontAwesomeIcons = [
   faWifi,
   faToilet,
   faFan,
-  faStar
+  faStar,
+  faInfoCircle,
+  faChevronDown
   // jhipster-needle-add-icon-import
 ];

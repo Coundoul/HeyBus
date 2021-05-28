@@ -52,6 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     arriveVille: [],
     nbrePassagers: [1, [Validators.required]]
   });
+  _currentValues?: number[];
 
 
   constructor(
@@ -135,7 +136,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.authSubscription.unsubscribe();
     }
   }
-
+ /*Method to listen for onChange event from slider*/
+ onSliderChange(selectedValues: number[]):void {
+  this._currentValues = selectedValues;
+}
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
@@ -183,5 +187,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.ngbPaginationPage = this.page ?? 1;
   }
 
- 
+
+
 }

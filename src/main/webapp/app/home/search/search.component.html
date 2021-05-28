@@ -1,13 +1,12 @@
 <div class="row justify-content-center">
-  <div class="col-md-12 bg-white">
-    <hr>
+  <div class="col-md-12 search-shadow">
     <form name="editForm" role="form" novalidate [formGroup]="editForm">
       <div class="form-group" [hidden]="!editForm.get('id')!.value">
         <label for="id" jhiTranslate="global.field.id">ID</label>
         <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
       </div>
 
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mt-3">
 
         <div class="col-md-2">
           <div class="input-group">
@@ -27,7 +26,7 @@
             </select>
           </div>
         </div>
-        <fa-icon icon="exchange-alt" style="position: relative; top: 10px;"></fa-icon>
+      <fa-icon icon="exchange-alt" style="position: relative; top: 10px;" class="fa-lg"></fa-icon>
         <div class="col-md-2">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -100,78 +99,85 @@
 
 <div class="row justify-content-center mt-4">
   <div class="col-md-3">
-    <h6 class="text-heybus font-weight-bold">Depart Dakar</h6>
+    <h5 class="font-weight-bold">Départ de Dakar</h5>
+    <div class="row">
+      <div class="col-xs-6 col-md-6">
+        <!-- sam 9:30 -->
+      </div>
+      <div class="col-xs-6 col-md-6 text-right">
+        <!-- sam 20:30 -->
+      </div>
+      <div class="col-xs-12 col-md-12 mt-1">
+        <!-- <npn-slider [min]="9" [max]="20" (onChange)="onSliderChange($event)"></npn-slider> -->
+      </div>
+    </div>
   </div>
 
   <div class="col-md-9 col-xs-12">
-    <h5 class="text-heybus font-weight-bold">Voyages</h5>
-    <hr />
-    <div *ngFor="let voyage of voyages; trackBy: trackId" class="shadow p-3 mb-5 bg-white rounded"
+    <div class="row mb-3 mt-3">
+      <div class="col-md-6 col-xs-3">
+        <h5 class="font-weight-bold">Choisir l'aller</h5>
+      </div>
+      <div class="col-md-6 col-xs-3">
+        <h6>Trier par : <strong>Départ le plus tôt</strong> <fa-icon icon="chevron-down" class="text-secondary fa-lg"></fa-icon></h6>
+      </div>
+    </div>
+    <div *ngFor="let voyage of voyages; trackBy: trackId" class="shadow pt-3 px-3 mb-3 bg-white"
       style="max-width: 50rem">
-      <div *ngIf="voyages && voyages.length > 0">
-      <div class="">{{ voyage.transporteur?.nom }} <fa-icon icon="star"></fa-icon> 4,5</div>
+      <div ><small>{{ voyage.transporteur?.nom }}</small>
+        <fa-icon icon="star"></fa-icon><small> 4,5</small>
+        <div class="circle-left"></div><hr class="line-horizontal"><div class="circle-right float-right"></div>
+      </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6 col-xs-4">
+          <div class="col-md-7 col-xs-6">
+            <small>
+              <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
+            </small><span class="text-heybus"><strong>06:20</strong> {{ voyage.departVille?.nom }} <fa-icon
+                icon="info-circle" class="text-danger"></fa-icon></span>
+            <div class="line text-center col-xs-4 ml-2"> <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+            </div>
+            <small>
+              <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
+            </small><span class="text-heybus"><strong>06:20</strong> {{ voyage.arriveVille?.nom }} <fa-icon
+                icon="info-circle" class="text-danger"></fa-icon></span>
+          </div>
+          <!-- <div class="col-md-6 col-xs-4">
             <h5 class="card-title text-heybus">{{ voyage.dateDeVoyage | formatMediumDatetime }}</h5>
+          </div> -->
+          <div class="col-md-5 col-xs-6">
+            <h3 class="card-title text-right font-weight-bold">{{ voyage.prix }}FCFA</h3>
+            <div class="float-right">
+              <small *ngIf="voyage.wifi">
+                <fa-icon icon="wifi" class="text-secondary fa-md" title="WIFI"></fa-icon>
+              </small>
+              <small *ngIf="voyage.toilette">
+                <fa-icon icon="toilet" class="text-secondary fa-md" title="Cabine Toilette"></fa-icon>
+              </small>
+              <small *ngIf="voyage.climatisation">
+                <fa-icon icon="fan" class="text-secondary fa-md" title="Climatiseur"></fa-icon>
+              </small>
+              <button class="btn btn-reserver text-center"
+                [routerLink]="['/reservation/new/voyage', voyage.id, 'passagers', nbrePassagers]"
+                role="button">Réserver</button>
+            </div>
           </div>
-          <div class="col-md-6 col-xs-4 text-right">
-            <h5 class="card-title text-heybus">{{ voyage.prix }} CFA</h5>
-          </div>
-        </div>
-        <div class="float-left mr-2 col-xs-4 text-heybus">
-          <h6 class="card-title font-weight-bold">
-            <fa-icon icon="circle"></fa-icon> {{ voyage.departVille?.nom }}
-          </h6>
-        </div>
-        <div class="line float-left mt-2 mr-2 col-xs-4"></div>
-        <div class="col-xs-4 text-heybus">
-          <h6 class="card-title font-weight-bold">
-            <fa-icon icon="map-marker-alt"></fa-icon> {{ voyage.arriveVille?.nom }}
-          </h6>
-        </div>
-        <div *ngIf="(voyage && voyage.nbrePlace === 3)" > 
-           <p class="text-danger">Attention il reste {{ voyage.nbrePlace }} places pour ce voyage</p> 
-        </div>
-        <div class="float-right">
-          <a name="" id="" class="btn btn-reserver"
-            [routerLink]="['/reservation/new/voyage', voyage.id, 'passagers', nbrePassagers]" role="button">Reserver</a>
-        </div>
-        <br />
-        <div class="float-left">
-          <small *ngIf="voyage.wifi">
-            <fa-icon icon="wifi" class="text-secondary" title="WIFI"></fa-icon>
-          </small>
-          <small *ngIf="voyage.toilette">
-            <fa-icon icon="toilet" class="text-secondary" title="Cabine Toilette"></fa-icon>
-          </small>
-          <small *ngIf="voyage.climatisation">
-            <fa-icon icon="fan" class="text-secondary" title="Climatiseur"></fa-icon>
-          </small>
         </div>
       </div>
     </div>
-    </div>
   </div>
-  <div *ngIf="voyages && voyages.length === 0" class="alert alert-danger">
-    <p>Aucun resultat</p>
+</div>
+<div *ngIf="voyages && voyages.length === 0" class="alert alert-danger">
+  <p>Aucun resultat</p>
+</div>
+<div *ngIf="voyages && voyages.length > 0">
+  <div class="row justify-content-center">
+    <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
   </div>
-  <div *ngIf="voyages && voyages.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
 
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
-    </div>
+  <div class="row justify-content-center">
+    <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5"
+      [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
   </div>
 </div>
 
@@ -273,3 +279,4 @@
   </div>
   
 </div> -->
+

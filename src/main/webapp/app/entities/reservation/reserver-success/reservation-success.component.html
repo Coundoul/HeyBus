@@ -1,0 +1,53 @@
+<!-- Information de Reservation -->
+<div class="row justify-content-center mt-4">
+  <div class="col-md-12">
+    <jhi-alert></jhi-alert>
+  </div>
+  <div class="col-md-12">
+    <h5 class="font-weight-bold text-center">Merci pour votre réservation !</h5>
+  </div>
+  <div class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3" style="max-width: 50rem">
+    <div><small>{{ voyage.dateDeVoyage}}</small>
+      <div class="circle-left"></div>
+      <hr class="line-horizontal">
+      <div class="circle-right float-right"></div>
+    </div>
+    <div class="card-body row">
+      <div class="col-xs-12 col-md-7">
+        <small>
+          <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
+        </small><span class="text-black"><strong>06:20</strong> {{ voyage.departVille?.nom }} <fa-icon
+            icon="info-circle" class="text-danger"></fa-icon></span>
+        <div class="line text-center col-xs-4 ml-2">
+          <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+        </div>
+        <small>
+          <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
+        </small><span class="text-black"><strong>06:20</strong> {{ voyage.arriveVille?.nom }} <fa-icon
+            icon="info-circle" class="text-danger"></fa-icon></span>
+      </div>
+      <div class="col-xs-12 col-md-5">
+        <h3 class="text-right font-weight-bold">{{ voyage.prix }}FCFA</h3>
+            <div class="float-right">
+              <small *ngIf="voyage.wifi">
+                <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
+              </small>
+              <small *ngIf="voyage.toilette">
+                <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
+              </small>
+              <small *ngIf="voyage.climatisation">
+                <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
+              </small>
+              <small style="color: #A1A9C3;">{{ voyage.transporteur?.nom }}</small> <fa-icon icon="star" style="color: #A1A9C3;"></fa-icon><small style="color: #A1A9C3;"> 4,5</small>              <br>
+           <small class="float-right mt-2 text-heybus"><a><u>Conditions</u></a></small>
+            </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-12 text-center mb-3">
+    <button type="submit" class="btn btn-reserver" [routerLink]="['/']">
+     Rechercher un billet
+    </button>
+  </div>
+</div>
