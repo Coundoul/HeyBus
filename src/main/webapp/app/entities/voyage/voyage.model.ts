@@ -5,10 +5,13 @@ import { IArret } from 'app/entities/arret/arret.model';
 import { IVehicule } from 'app/entities/vehicule/vehicule.model';
 import { IVille } from 'app/entities/ville/ville.model';
 import { ITransporteur } from 'app/entities/transporteur/transporteur.model';
+import { TypeVoyage } from 'app/entities/enumerations/type-voyage.model';
 
 export interface IVoyage {
   id?: number;
   dateDeVoyage?: dayjs.Dayjs;
+  dateRetour?: dayjs.Dayjs | null;
+  dateArrivee?: dayjs.Dayjs | null;
   prix?: number | null;
   nbrePlace?: number | null;
   adresseDepart?: string | null;
@@ -18,6 +21,7 @@ export interface IVoyage {
   climatisation?: boolean | null;
   wifi?: boolean | null;
   toilette?: boolean | null;
+  typeVoyage?: TypeVoyage | null;
   reservations?: IReservation[] | null;
   employes?: IEmploye[] | null;
   arrets?: IArret[] | null;
@@ -31,6 +35,8 @@ export class Voyage implements IVoyage {
   constructor(
     public id?: number,
     public dateDeVoyage?: dayjs.Dayjs,
+    public dateRetour?: dayjs.Dayjs | null,
+    public dateArrivee?: dayjs.Dayjs | null,
     public prix?: number | null,
     public nbrePlace?: number | null,
     public adresseDepart?: string | null,
@@ -40,6 +46,7 @@ export class Voyage implements IVoyage {
     public climatisation?: boolean | null,
     public wifi?: boolean | null,
     public toilette?: boolean | null,
+    public typeVoyage?: TypeVoyage | null,
     public reservations?: IReservation[] | null,
     public employes?: IEmploye[] | null,
     public arrets?: IArret[] | null,

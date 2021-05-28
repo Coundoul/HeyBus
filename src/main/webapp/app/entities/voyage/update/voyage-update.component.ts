@@ -37,6 +37,8 @@ export class VoyageUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     dateDeVoyage: [null, [Validators.required]],
+    dateRetour: [],
+    dateArrivee: [],
     prix: [],
     nbrePlace: [],
     adresseDepart: [],
@@ -46,6 +48,7 @@ export class VoyageUpdateComponent implements OnInit {
     climatisation: [],
     wifi: [],
     toilette: [],
+    typeVoyage: [],
     employes: [],
     arrets: [],
     vehicule: [],
@@ -70,6 +73,8 @@ export class VoyageUpdateComponent implements OnInit {
       if (voyage.id === undefined) {
         const today = dayjs().startOf('day');
         voyage.dateDeVoyage = today;
+        voyage.dateRetour = today;
+        voyage.dateArrivee = today;
       }
 
       this.updateForm(voyage);
@@ -157,6 +162,8 @@ export class VoyageUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: voyage.id,
       dateDeVoyage: voyage.dateDeVoyage ? voyage.dateDeVoyage.format(DATE_TIME_FORMAT) : null,
+      dateRetour: voyage.dateRetour ? voyage.dateRetour.format(DATE_TIME_FORMAT) : null,
+      dateArrivee: voyage.dateArrivee ? voyage.dateArrivee.format(DATE_TIME_FORMAT) : null,
       prix: voyage.prix,
       nbrePlace: voyage.nbrePlace,
       adresseDepart: voyage.adresseDepart,
@@ -166,6 +173,7 @@ export class VoyageUpdateComponent implements OnInit {
       climatisation: voyage.climatisation,
       wifi: voyage.wifi,
       toilette: voyage.toilette,
+      typeVoyage: voyage.typeVoyage,
       employes: voyage.employes,
       arrets: voyage.arrets,
       vehicule: voyage.vehicule,
@@ -252,6 +260,10 @@ export class VoyageUpdateComponent implements OnInit {
       dateDeVoyage: this.editForm.get(['dateDeVoyage'])!.value
         ? dayjs(this.editForm.get(['dateDeVoyage'])!.value, DATE_TIME_FORMAT)
         : undefined,
+      dateRetour: this.editForm.get(['dateRetour'])!.value ? dayjs(this.editForm.get(['dateRetour'])!.value, DATE_TIME_FORMAT) : undefined,
+      dateArrivee: this.editForm.get(['dateArrivee'])!.value
+        ? dayjs(this.editForm.get(['dateArrivee'])!.value, DATE_TIME_FORMAT)
+        : undefined,
       prix: this.editForm.get(['prix'])!.value,
       nbrePlace: this.editForm.get(['nbrePlace'])!.value,
       adresseDepart: this.editForm.get(['adresseDepart'])!.value,
@@ -261,6 +273,7 @@ export class VoyageUpdateComponent implements OnInit {
       climatisation: this.editForm.get(['climatisation'])!.value,
       wifi: this.editForm.get(['wifi'])!.value,
       toilette: this.editForm.get(['toilette'])!.value,
+      typeVoyage: this.editForm.get(['typeVoyage'])!.value,
       employes: this.editForm.get(['employes'])!.value,
       arrets: this.editForm.get(['arrets'])!.value,
       vehicule: this.editForm.get(['vehicule'])!.value,

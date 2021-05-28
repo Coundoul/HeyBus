@@ -7,6 +7,14 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "dateRetour",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "dateArrivee",
+      "fieldType": "ZonedDateTime"
+    },
+    {
       "fieldName": "prix",
       "fieldType": "Integer"
     },
@@ -41,6 +49,11 @@
     {
       "fieldName": "toilette",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "typeVoyage",
+      "fieldType": "TypeVoyage",
+      "fieldValues": "Aller_Simple,Aller_Retour"
     }
   ],
   "relationships": [

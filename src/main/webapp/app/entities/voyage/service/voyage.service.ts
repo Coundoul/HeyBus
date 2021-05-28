@@ -99,6 +99,8 @@ export class VoyageService {
     if (res.body) {
       res.body.forEach((voyage: IVoyage) => {
         voyage.dateDeVoyage = voyage.dateDeVoyage ? dayjs(voyage.dateDeVoyage) : undefined;
+        voyage.dateRetour = voyage.dateRetour ? dayjs(voyage.dateRetour) : undefined;
+        voyage.dateArrivee = voyage.dateArrivee ? dayjs(voyage.dateArrivee) : undefined;
       });
     }
     return res;

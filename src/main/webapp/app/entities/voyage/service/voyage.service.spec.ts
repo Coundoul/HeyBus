@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import * as dayjs from 'dayjs';
 
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import { TypeVoyage } from 'app/entities/enumerations/type-voyage.model';
 import { IVoyage, Voyage } from '../voyage.model';
 
 import { VoyageService } from './voyage.service';
@@ -27,6 +28,8 @@ describe('Service Tests', () => {
       elemDefault = {
         id: 0,
         dateDeVoyage: currentDate,
+        dateRetour: currentDate,
+        dateArrivee: currentDate,
         prix: 0,
         nbrePlace: 0,
         adresseDepart: 'AAAAAAA',
@@ -36,6 +39,7 @@ describe('Service Tests', () => {
         climatisation: false,
         wifi: false,
         toilette: false,
+        typeVoyage: TypeVoyage.ALLER_SIMPLE,
       };
     });
 
@@ -44,6 +48,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
+            dateRetour: currentDate.format(DATE_TIME_FORMAT),
+            dateArrivee: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
@@ -60,6 +66,8 @@ describe('Service Tests', () => {
           {
             id: 0,
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
+            dateRetour: currentDate.format(DATE_TIME_FORMAT),
+            dateArrivee: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
@@ -67,6 +75,8 @@ describe('Service Tests', () => {
         const expected = Object.assign(
           {
             dateDeVoyage: currentDate,
+            dateRetour: currentDate,
+            dateArrivee: currentDate,
           },
           returnedFromService
         );
@@ -83,6 +93,8 @@ describe('Service Tests', () => {
           {
             id: 1,
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
+            dateRetour: currentDate.format(DATE_TIME_FORMAT),
+            dateArrivee: currentDate.format(DATE_TIME_FORMAT),
             prix: 1,
             nbrePlace: 1,
             adresseDepart: 'BBBBBB',
@@ -92,6 +104,7 @@ describe('Service Tests', () => {
             climatisation: true,
             wifi: true,
             toilette: true,
+            typeVoyage: 'BBBBBB',
           },
           elemDefault
         );
@@ -99,6 +112,8 @@ describe('Service Tests', () => {
         const expected = Object.assign(
           {
             dateDeVoyage: currentDate,
+            dateRetour: currentDate,
+            dateArrivee: currentDate,
           },
           returnedFromService
         );
@@ -114,9 +129,11 @@ describe('Service Tests', () => {
         const patchObject = Object.assign(
           {
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
+            dateRetour: currentDate.format(DATE_TIME_FORMAT),
             prix: 1,
-            adresseDepart: 'BBBBBB',
-            climatisation: true,
+            quartier: 'BBBBBB',
+            toilette: true,
+            typeVoyage: 'BBBBBB',
           },
           new Voyage()
         );
@@ -126,6 +143,8 @@ describe('Service Tests', () => {
         const expected = Object.assign(
           {
             dateDeVoyage: currentDate,
+            dateRetour: currentDate,
+            dateArrivee: currentDate,
           },
           returnedFromService
         );
@@ -142,6 +161,8 @@ describe('Service Tests', () => {
           {
             id: 1,
             dateDeVoyage: currentDate.format(DATE_TIME_FORMAT),
+            dateRetour: currentDate.format(DATE_TIME_FORMAT),
+            dateArrivee: currentDate.format(DATE_TIME_FORMAT),
             prix: 1,
             nbrePlace: 1,
             adresseDepart: 'BBBBBB',
@@ -151,6 +172,7 @@ describe('Service Tests', () => {
             climatisation: true,
             wifi: true,
             toilette: true,
+            typeVoyage: 'BBBBBB',
           },
           elemDefault
         );
@@ -158,6 +180,8 @@ describe('Service Tests', () => {
         const expected = Object.assign(
           {
             dateDeVoyage: currentDate,
+            dateRetour: currentDate,
+            dateArrivee: currentDate,
           },
           returnedFromService
         );
@@ -207,7 +231,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Voyage to an array', () => {
-          const voyageArray: IVoyage[] = [{ id: 123 }, { id: 456 }, { id: 34134 }];
+          const voyageArray: IVoyage[] = [{ id: 123 }, { id: 456 }, { id: 4012 }];
           const voyageCollection: IVoyage[] = [{ id: 123 }];
           expectedResult = service.addVoyageToCollectionIfMissing(voyageCollection, ...voyageArray);
           expect(expectedResult).toHaveLength(3);
