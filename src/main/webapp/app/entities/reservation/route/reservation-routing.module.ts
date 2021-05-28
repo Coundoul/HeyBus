@@ -8,6 +8,7 @@ import { ReservationUpdateComponent } from '../update/reservation-update.compone
 import { ReservationRoutingResolveService } from './reservation-routing-resolve.service';
 import { ReservationVoyageComponent } from '../reserver/reservation-voyage.component';
 import { ClientsComponent } from '../list-client-voyage/clients.component';
+import { ReservationSuccessComponent } from '../reserver-success/reservation-success.component';
 
 const reservationRoute: Routes = [
   {
@@ -37,6 +38,14 @@ const reservationRoute: Routes = [
   {
     path: 'new/voyage/:voyage/passagers/:passagers',
     component: ReservationVoyageComponent,
+    resolve: {
+      reservation: ReservationRoutingResolveService,
+    },
+    //canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'success/voyage/:voyage',
+    component: ReservationSuccessComponent,
     resolve: {
       reservation: ReservationRoutingResolveService,
     },

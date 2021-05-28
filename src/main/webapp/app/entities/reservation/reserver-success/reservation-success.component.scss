@@ -1,19 +1,7 @@
 /* ==========================================================================
 Main page styles
 ========================================================================== */
-.form-control {
-  border-radius: 8px;
-  height: 47px;
-  background: #f1f2f6;
-  color: #425486;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-}
+
 @font-face {
   font-family: 'Mulish';
   src: url('../../../../content/font/Mulish-VariableFont_wght.ttf');
@@ -44,7 +32,7 @@ Main page styles
   box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2);
 }
 .btn-reserver {
-  width: 162px;
+  width: 212px;
   height: 47px;
   border-radius: 8px;
   background-color: #ff1b2e;

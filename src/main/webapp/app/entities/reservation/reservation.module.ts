@@ -8,10 +8,11 @@ import { ReservationDeleteDialogComponent } from './delete/reservation-delete-di
 import { ReservationRoutingModule } from './route/reservation-routing.module';
 import { ReservationVoyageComponent } from './reserver/reservation-voyage.component';
 import { ClientsComponent } from './list-client-voyage/clients.component';
+import { ReservationSuccessComponent } from './reserver-success/reservation-success.component';
 
 @NgModule({
   imports: [SharedModule, ReservationRoutingModule],
-  declarations: [ReservationComponent, ReservationDetailComponent, ReservationUpdateComponent, ReservationDeleteDialogComponent, ReservationVoyageComponent, ClientsComponent],
+  declarations: [ReservationComponent, ReservationDetailComponent, ReservationUpdateComponent, ReservationDeleteDialogComponent, ReservationVoyageComponent, ClientsComponent, ReservationSuccessComponent],
   entryComponents: [ReservationDeleteDialogComponent],
 })
 export class ReservationModule {}
