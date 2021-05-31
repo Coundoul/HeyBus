@@ -7,7 +7,7 @@
     <!-- Formulaire Voyage Simple-->
 
       <div class="col-md-11 shadow bg-white mt-5 pt-2" style="position: relative; left: 5%; top:55%" *ngIf=" valeurVoyage ==1">
-  
+
         <form name="editForm" role="form" novalidate [formGroup]="editForm">
           <div class="form-group" [hidden]="!editForm.get('id')!.value">
             <label for="id" jhiTranslate="global.field.id">ID</label>
