@@ -5,6 +5,23 @@ entity Agence {
 }
 paginate Agence with pagination
 
+entity Voyage {
+  dateDeVoyage ZonedDateTime required,
+  dateRetour ZonedDateTime,
+  dateArrivee ZonedDateTime,
+  prix Integer,
+  nbrePlace Integer,
+  adresseDepart String
+  adresseArrive String
+  quartier String,
+  description String,
+  climatisation Boolean,
+  wifi Boolean,
+  toilette Boolean,
+  typeVoyage TypeVoyage
+}
+paginate Voyage with pagination
+
 entity Transporteur{
   nom String required,
   telephone String required,
@@ -65,9 +82,6 @@ entity Maintenance {
   type String,
   nbreKmMoteur Integer
 }
-entity Ville {
-  nom String
-}
 entity Pays {
   nom String,
   code String,
@@ -120,6 +134,8 @@ entity Ville {
 }
 entity Voyage {
   dateDeVoyage ZonedDateTime required,
+  dateRetour ZonedDateTime,
+  dateArrivee ZonedDateTime,
   prix Integer,
   nbrePlace Integer,
   adresseDepart String
@@ -128,18 +144,24 @@ entity Voyage {
   description String,
   climatisation Boolean,
   wifi Boolean,
-  toilette Boolean
+  toilette Boolean,
+  typeVoyage TypeVoyage
 }
 paginate Voyage with pagination
 
 enum Matrimoniale {
-  Celibataire,
-  Marie
+  CELIBATAIRE,
+  MARIE
 }
 enum Bagage {
   AVEC,
   SANS
 }
+enum TypeVoyage {
+  Aller_Simple,
+  Aller_Retour
+}
+
 
 relationship OneToOne {
   Arret{nomarretVille(nom)} to Ville{nomarret},

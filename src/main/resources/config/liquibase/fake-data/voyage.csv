@@ -1,11 +1,11 @@
-id;date_de_voyage;prix;nbre_place;adresse_depart;adresse_arrive;quartier;description;climatisation;wifi;toilette
-1;2021-04-25T11:56:22;95578;47084;optimize online world-class;calculating;integrated;Brunei;true;true;true
-2;2021-04-25T22:22:04;54056;32292;b;b;Aquitaine;Account white;false;true;true
-3;2021-04-26T00:29:51;53253;44173;Bacon revolutionize Tasty;Jewelery Profound Plastic;Gorgeous;a;false;false;true
-4;2021-04-26T08:30:04;99683;45893;Viêt Cambridgeshire d'Assas;Bretagne Small primary;Executif Nesle Avon;Concrete b;true;true;false
-5;2021-04-25T14:59:28;15217;57664;Ergonomic Chair;redundant;b Adaptive;Shoes b Baby;false;false;false
-6;2021-04-26T04:01:32;42721;33789;Coordinateur Function-based Movies;Plastic;parsing;protocol access;true;false;true
-7;2021-04-25T16:41:51;82593;74572;Mouffetard;EXE;circuit homogeneous;solutions;false;true;false
-8;2021-04-26T04:45:02;35898;50992;human-resource;Centre;Sports productivity;transmitter Steel adapter;false;true;true
-9;2021-04-26T00:00:05;98752;47146;Algérie Pizza optimal;Auto Loan;transmitter stable;redundant b;false;true;false
-10;2021-04-26T05:36:52;9655;33044;a;Buckinghamshire service-desk;best-of-breed world-class Concrete;Market Incredible payment;false;false;true
+id;date_de_voyage;date_retour;date_arrivee;prix;nbre_place;adresse_depart;adresse_arrive;quartier;description;climatisation;wifi;toilette;type_voyage
+1;2021-04-25T11:56:22;2021-04-25T11:14:03;2021-04-25T22:52:21;68047;40151;extend;world-class Refined;parse Brunei;Card Géorgie b;false;true;true;ALLER_SIMPLE
+2;2021-04-26T03:17:11;2021-04-25T20:03:29;2021-04-26T08:20:06;82249;62156;impactful Ameliorated;Account schemas user;revolutionize Tasty up;Profound;false;true;false;ALLER_SIMPLE
+3;2021-04-25T23:06:19;2021-04-26T03:42:12;2021-04-26T07:58:41;24227;63547;a;Hat;Saussaies Manager a;SMS;false;true;false;ALLER_SIMPLE
+4;2021-04-26T02:29:10;2021-04-25T15:03:57;2021-04-26T08:48:41;36311;75846;Granite Avon enable;b reboot back-end;Ergonomic Chair;redundant;false;true;true;ALLER_SIMPLE
+5;2021-04-26T04:00:12;2021-04-26T10:04:21;2021-04-25T17:27:34;81759;18274;Cambridgeshire deposit;5th;e-services;turn-key collaboration Intelligent;true;false;true;ALLER_RETOUR
+6;2021-04-26T01:40:28;2021-04-25T20:55:56;2021-04-26T02:50:48;81493;2794;Books;USB bypass;Wooden Belgique;a Zadkine solutions;false;true;false;ALLER_SIMPLE
+7;2021-04-26T01:33:26;2021-04-25T21:56:04;2021-04-26T03:27:55;28023;49148;Awesome b synthesizing;Automotive programming Handcrafted;deposit;methodologies haptic;true;false;true;ALLER_RETOUR
+8;2021-04-25T13:54:33;2021-04-25T14:54:33;2021-04-26T03:26:17;74065;51267;Auto Loan;transmitter stable;redundant b;bandwidth Incredible;true;false;true;ALLER_SIMPLE
+9;2021-04-25T22:15:08;2021-04-25T15:42:56;2021-04-25T18:38:24;33233;83068;navigate Pants;Concrete;Market Incredible payment;software Soap;true;true;false;ALLER_SIMPLE
+10;2021-04-25T16:14:44;2021-04-25T23:26:09;2021-04-25T22:04:16;27769;16683;Balboa;Cambridgeshire;Sierra Ruble;flexibility;true;true;true;ALLER_RETOUR

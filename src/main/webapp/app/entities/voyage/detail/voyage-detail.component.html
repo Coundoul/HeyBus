@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-8 card jh-card mr-1">
+  <div class="col-8">
     <div *ngIf="voyage">
       <h2 data-cy="voyageDetailsHeading"><span jhiTranslate="heybusApp.voyage.detail.title">Voyage</span></h2>
 
@@ -17,6 +17,14 @@
         <dt><span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span></dt>
         <dd>
           <span>{{ voyage.dateDeVoyage | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.dateRetour">Date Retour</span></dt>
+        <dd>
+          <span>{{ voyage.dateRetour | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.dateArrivee">Date Arrivee</span></dt>
+        <dd>
+          <span>{{ voyage.dateArrivee | formatMediumDatetime }}</span>
         </dd>
         <dt><span jhiTranslate="heybusApp.voyage.prix">Prix</span></dt>
         <dd>
@@ -53,6 +61,10 @@
         <dt><span jhiTranslate="heybusApp.voyage.toilette">Toilette</span></dt>
         <dd>
           <span>{{ voyage.toilette }}</span>
+        </dd>
+        <dt><span jhiTranslate="heybusApp.voyage.typeVoyage">Type Voyage</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'heybusApp.TypeVoyage.' + voyage.typeVoyage }}">{{ voyage.typeVoyage }}</span>
         </dd>
         <dt><span jhiTranslate="heybusApp.voyage.employe">Employe</span></dt>
         <dd>

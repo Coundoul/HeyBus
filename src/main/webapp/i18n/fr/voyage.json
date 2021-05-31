@@ -28,12 +28,15 @@
       "climatisation": "Climatisation",
       "wifi": "Wifi",
       "toilette": "Toilette",
+      "typeVoyage":"Type voyage",
       "reservation": "Reservation",
       "employe": "Employe",
       "arret": "Arret",
       "vehicule": "Vehicule",
       "departVille": "Depart Ville",
       "arriveVille": "Arrivée Ville",
+      "dateArrivee": "Date Arrivée",
+      "dateRetour":"Date Retour",
       "transporteur": "Transporteur"
     }
   }
