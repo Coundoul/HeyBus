@@ -25,6 +25,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  valeurVoyage: any = 1;
   myDate: any = new Date();
   account: Account | null = null;
   authSubscription?: Subscription;
@@ -64,6 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.villeService.query().subscribe((res: HttpResponse<IVille[]>) => {
       this.villes = res.body ?? [];
+      this.valeurVoyage;
     });
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
     // this.editForm.get('departVille')?.valueChanges.subscribe((data)=>{
@@ -96,7 +98,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackId(index: number, item: Voyage): number {
+  trackId(_index: number, item: Voyage): number {
     return item.id!;
   }
+
+  voyageSimple(): void{
+    if(document.getElementById("inlineRadio1")){
+      this.valeurVoyage=1;
+    }
+  }
+
+  voyageAllerRetour(): void{
+    if(document.getElementById("inlineRadio2")){
+      this.valeurVoyage=2;
+    }
+  }
+
 }
