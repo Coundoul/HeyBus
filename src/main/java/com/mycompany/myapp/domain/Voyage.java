@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mycompany.myapp.domain.enumeration.TypeVoyage;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -24,6 +25,12 @@ public class Voyage implements Serializable {
     @NotNull
     @Column(name = "date_de_voyage", nullable = false)
     private ZonedDateTime dateDeVoyage;
+
+    @Column(name = "date_retour")
+    private ZonedDateTime dateRetour;
+
+    @Column(name = "date_arrivee")
+    private ZonedDateTime dateArrivee;
 
     @Column(name = "prix")
     private Integer prix;
@@ -51,6 +58,10 @@ public class Voyage implements Serializable {
 
     @Column(name = "toilette")
     private Boolean toilette;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_voyage")
+    private TypeVoyage typeVoyage;
 
     @OneToMany(mappedBy = "voyage")
     @JsonIgnoreProperties(value = { "voyage", "customer" }, allowSetters = true)
@@ -115,6 +126,32 @@ public class Voyage implements Serializable {
 
     public void setDateDeVoyage(ZonedDateTime dateDeVoyage) {
         this.dateDeVoyage = dateDeVoyage;
+    }
+
+    public ZonedDateTime getDateRetour() {
+        return this.dateRetour;
+    }
+
+    public Voyage dateRetour(ZonedDateTime dateRetour) {
+        this.dateRetour = dateRetour;
+        return this;
+    }
+
+    public void setDateRetour(ZonedDateTime dateRetour) {
+        this.dateRetour = dateRetour;
+    }
+
+    public ZonedDateTime getDateArrivee() {
+        return this.dateArrivee;
+    }
+
+    public Voyage dateArrivee(ZonedDateTime dateArrivee) {
+        this.dateArrivee = dateArrivee;
+        return this;
+    }
+
+    public void setDateArrivee(ZonedDateTime dateArrivee) {
+        this.dateArrivee = dateArrivee;
     }
 
     public Integer getPrix() {
@@ -232,6 +269,19 @@ public class Voyage implements Serializable {
 
     public void setToilette(Boolean toilette) {
         this.toilette = toilette;
+    }
+
+    public TypeVoyage getTypeVoyage() {
+        return this.typeVoyage;
+    }
+
+    public Voyage typeVoyage(TypeVoyage typeVoyage) {
+        this.typeVoyage = typeVoyage;
+        return this;
+    }
+
+    public void setTypeVoyage(TypeVoyage typeVoyage) {
+        this.typeVoyage = typeVoyage;
     }
 
     public Set<Reservation> getReservations() {
@@ -392,6 +442,8 @@ public class Voyage implements Serializable {
         return "Voyage{" +
             "id=" + getId() +
             ", dateDeVoyage='" + getDateDeVoyage() + "'" +
+            ", dateRetour='" + getDateRetour() + "'" +
+            ", dateArrivee='" + getDateArrivee() + "'" +
             ", prix=" + getPrix() +
             ", nbrePlace=" + getNbrePlace() +
             ", adresseDepart='" + getAdresseDepart() + "'" +
@@ -401,6 +453,7 @@ public class Voyage implements Serializable {
             ", climatisation='" + getClimatisation() + "'" +
             ", wifi='" + getWifi() + "'" +
             ", toilette='" + getToilette() + "'" +
+            ", typeVoyage='" + getTypeVoyage() + "'" +
             "}";
     }
 }

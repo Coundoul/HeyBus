@@ -1,53 +1,102 @@
 /* ==========================================================================
 Main page styles
 ========================================================================== */
-.text-heybus {
-  color: #132968 !important;
-}
-.shadow {
-  border-radius: 12px;
-}
 .form-control {
   border-radius: 8px;
-  background-color: #f1f2f6;
+  height: 47px;
+  background: #f1f2f6;
+  color: #425486;
+  border-radius: 8px;
   border: none;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+}
+@font-face {
+  font-family: 'Mulish';
+  src: url('../../../../content/font/Mulish-VariableFont_wght.ttf');
+}
+
+.text-heybus {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 20px;
+  color: #425486;
+}
+.text-black {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+  color: black;
+}
+.shadow {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: none !important;
+}
+.search-shadow {
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2);
 }
 .btn-reserver {
+  width: 162px;
   height: 47px;
-  width: 161px;
   border-radius: 8px;
   background-color: #ff1b2e;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 22px;
-  font-family: 'Calibri', Courier, monospace;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
   text-align: center;
-}
-.btn-annuler{
-  height: 47px;
-  width: 161px;
-  border-radius: 8px;
-  background-color: #616060;
   color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 22px;
-  font-family: 'Calibri', Courier, monospace;
+}
+.btn-simple {
+  width: 162px;
+  height: 47px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #425486;
+  color: #425486;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
   text-align: center;
 }
 .line {
-  box-sizing: border-box;
-  height: 1px;
-  width: 200px;
-  border: 2px solid #a1a9c3;
+  width: 0px;
+  height: 61px;
+  border: 1px solid #a1a9c3;
 }
-
-.vl {
-  box-sizing: border-box;
-  height: 50px;
-  width: 1px;
-  border: 2px solid #a1a9c3;
+.line-horizontal {
+  border: 1px dashed #f1f2f6;
+  margin-bottom: 0px;
+  margin-top: -10px;
+}
+.text-danger {
+  color: #ff1b2e;
+}
+.circle-left {
+  background: #E5E5E5;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -25px;
+}
+.circle-right {
+  background: #E5E5E5;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-right: -25px;
+  margin-top: -10px;
 }

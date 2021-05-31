@@ -1,0 +1,9 @@
+{
+  "heybusApp": {
+    "TypeVoyage": {
+      "null": "",
+      "ALLER_SIMPLE": "ALLER_SIMPLE",
+      "ALLER_RETOUR": "ALLER_RETOUR"
+    }
+  }
+}

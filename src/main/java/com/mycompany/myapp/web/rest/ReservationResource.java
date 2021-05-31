@@ -52,7 +52,7 @@ public class ReservationResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-    
+
     @Autowired
     private VoyageRepository voyageRepository;
 
@@ -78,37 +78,40 @@ public class ReservationResource {
      * {@code POST  /reservations} : Create a new reservation.
      *
      * @param reservation the reservation to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new reservation, or with status {@code 400 (Bad Request)} if the reservation has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
+     *         body the new reservation, or with status {@code 400 (Bad Request)} if
+     *         the reservation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/reservations")
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) throws URISyntaxException {
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation)
+            throws URISyntaxException {
         log.debug("REST request to save Reservation : {}", reservation);
         if (reservation.getId() != null) {
             throw new BadRequestAlertException("A new reservation cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Reservation result = reservationRepository.save(reservation);
         return ResponseEntity
-            .created(new URI("/api/reservations/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .created(new URI("/api/reservations/" + result.getId())).headers(HeaderUtil
+                        .createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
      * {@code PUT  /reservations/:id} : Updates an existing reservation.
      *
-     * @param id the id of the reservation to save.
+     * @param id          the id of the reservation to save.
      * @param reservation the reservation to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated reservation,
-     * or with status {@code 400 (Bad Request)} if the reservation is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the reservation couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated reservation, or with status {@code 400 (Bad Request)} if
+     *         the reservation is not valid, or with status
+     *         {@code 500 (Internal Server Error)} if the reservation couldn't be
+     *         updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/reservations/{id}")
-    public ResponseEntity<Reservation> updateReservation(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Reservation reservation
-    ) throws URISyntaxException {
+    public ResponseEntity<Reservation> updateReservation(@PathVariable(value = "id", required = false) final Long id,
+            @RequestBody Reservation reservation) throws URISyntaxException {
         log.debug("REST request to update Reservation : {}, {}", id, reservation);
         if (reservation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -122,28 +125,29 @@ public class ReservationResource {
         }
 
         Reservation result = reservationRepository.save(reservation);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(
+                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString()))
+                .body(result);
     }
 
     /**
-     * {@code PATCH  /reservations/:id} : Partial updates given fields of an existing reservation, field will ignore if it is null
+     * {@code PATCH  /reservations/:id} : Partial updates given fields of an
+     * existing reservation, field will ignore if it is null
      *
-     * @param id the id of the reservation to save.
+     * @param id          the id of the reservation to save.
      * @param reservation the reservation to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated reservation,
-     * or with status {@code 400 (Bad Request)} if the reservation is not valid,
-     * or with status {@code 404 (Not Found)} if the reservation is not found,
-     * or with status {@code 500 (Internal Server Error)} if the reservation couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated reservation, or with status {@code 400 (Bad Request)} if
+     *         the reservation is not valid, or with status {@code 404 (Not Found)}
+     *         if the reservation is not found, or with status
+     *         {@code 500 (Internal Server Error)} if the reservation couldn't be
+     *         updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/reservations/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<Reservation> partialUpdateReservation(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Reservation reservation
-    ) throws URISyntaxException {
+            @PathVariable(value = "id", required = false) final Long id, @RequestBody Reservation reservation)
+            throws URISyntaxException {
         log.debug("REST request to partial update Reservation partially : {}, {}", id, reservation);
         if (reservation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -156,55 +160,50 @@ public class ReservationResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Reservation> result = reservationRepository
-            .findById(reservation.getId())
-            .map(
-                existingReservation -> {
-                    if (reservation.getDateDeReservation() != null) {
-                        existingReservation.setDateDeReservation(reservation.getDateDeReservation());
-                    }
-                    if (reservation.getNbrePassagers() != null) {
-                        existingReservation.setNbrePassagers(reservation.getNbrePassagers());
-                    }
-                    if (reservation.getPrixReservation() != null) {
-                        existingReservation.setPrixReservation(reservation.getPrixReservation());
-                    }
+        Optional<Reservation> result = reservationRepository.findById(reservation.getId()).map(existingReservation -> {
+            if (reservation.getDateDeReservation() != null) {
+                existingReservation.setDateDeReservation(reservation.getDateDeReservation());
+            }
+            if (reservation.getNbrePassagers() != null) {
+                existingReservation.setNbrePassagers(reservation.getNbrePassagers());
+            }
+            if (reservation.getPrixReservation() != null) {
+                existingReservation.setPrixReservation(reservation.getPrixReservation());
+            }
 
-                    return existingReservation;
-                }
-            )
-            .map(reservationRepository::save);
+            return existingReservation;
+        }).map(reservationRepository::save);
 
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString())
-        );
+        return ResponseUtil.wrapOrNotFound(result,
+                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString()));
     }
 
     /**
      * {@code GET  /reservations} : get all the reservations.
      *
      * @param pageable the pagination information.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of reservations in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of reservations in body.
      */
     @GetMapping("/reservations")
     public ResponseEntity<List<Reservation>> getAllReservations(Pageable pageable) {
         log.debug("REST request to get a page of Reservations");
         Page<Reservation> page = null;
 
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_USER")){
-            if(SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")){
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_USER")) {
+            if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) {
                 page = reservationRepository.findAll(pageable);
-            }else{
+            } else {
                 page = reservationRepository.findByCustomerIsCurrentCustomer(pageable);
             }
-            
+
         }
 
         if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR"))
             page = reservationRepository.findByUserIsCurrentUser(pageable);
 
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        HttpHeaders headers = PaginationUtil
+                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
@@ -212,7 +211,8 @@ public class ReservationResource {
      * {@code GET  /reservations/:id} : get the "id" reservation.
      *
      * @param id the id of the reservation to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the reservation, or with status {@code 404 (Not Found)}.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the reservation, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/reservations/{id}")
     public ResponseEntity<Reservation> getReservation(@PathVariable Long id) {
@@ -231,13 +231,12 @@ public class ReservationResource {
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         log.debug("REST request to delete Reservation : {}", id);
         reservationRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+        return ResponseEntity.noContent()
+                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+                .build();
     }
 
-       /**
+    /**
      * {@code POST  /reservations} : Create a new reservation.
      *
      * @param reservation the reservation to create.
@@ -255,10 +254,6 @@ public class ReservationResource {
 
         if (customerExisting.isPresent()) {
 
-            customerExisting.get().setAdresse(customer.getAdresse());
-            customerExisting.get().setDatenaissance(customer.getDatenaissance());
-            customerExisting.get().setDateprisecontact(customer.getDateprisecontact());
-            customerExisting.get().setProfession(customer.getProfession());
             customerExisting.get().setTelephone(customer.getTelephone());
             customerExisting.get().setNom(customer.getNom());
             customerExisting.get().setPrenom(customer.getPrenom());
@@ -271,7 +266,7 @@ public class ReservationResource {
             reservation.setCustomer(customerExisting.get());
             reservation.setVoyage(voyage);
             reservation.setNbrePassagers(nbrePassagers);
-            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix()*nbrePassagers));
+            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
             Reservation result = reservationRepository.save(reservation);
 
             voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
@@ -307,7 +302,7 @@ public class ReservationResource {
             reservation.setCustomer(customerResult);
             reservation.setVoyage(voyage);
             reservation.setNbrePassagers(nbrePassagers);
-            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix()*nbrePassagers));
+            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
             Reservation result = reservationRepository.save(reservation);
 
             voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
@@ -321,18 +316,21 @@ public class ReservationResource {
         }
 
     }
+
     /**
      * {@code GET  /reservations} : get all the reservations.
      *
      * @param pageable the pagination information.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of reservations in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of reservations in body.
      */
     @GetMapping("/reservations/customer/voyage/{voyageId}")
     public ResponseEntity<List<Reservation>> getReservationCustomers(Pageable pageable, @PathVariable Long voyageId) {
         log.debug("REST request to get a page of Reservations");
         Page<Reservation> page = reservationRepository.findCustomerByVoyage(pageable, voyageId);
 
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        HttpHeaders headers = PaginationUtil
+                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

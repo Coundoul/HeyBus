@@ -1,4 +1,4 @@
-<div class="card jh-card">
+<div>
   <h2 id="page-heading" data-cy="VoyageHeading">
     <span jhiTranslate="heybusApp.voyage.home.title">Voyages</span>
 
@@ -36,6 +36,12 @@
           <th scope="col" jhiSortBy="dateDeVoyage">
             <span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="dateRetour">
+            <span jhiTranslate="heybusApp.voyage.dateRetour">Date Retour</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="dateArrivee">
+            <span jhiTranslate="heybusApp.voyage.dateArrivee">Date Arrivee</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="prix"><span jhiTranslate="heybusApp.voyage.prix">Prix</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="nbrePlace">
             <span jhiTranslate="heybusApp.voyage.nbrePlace">Nbre Place</span> <fa-icon icon="sort"></fa-icon>
@@ -46,9 +52,9 @@
           <th scope="col" jhiSortBy="adresseArrive">
             <span jhiTranslate="heybusApp.voyage.adresseArrive">Adresse Arrive</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <!-- <th scope="col" jhiSortBy="quartier">
+          <th scope="col" jhiSortBy="quartier">
             <span jhiTranslate="heybusApp.voyage.quartier">Quartier</span> <fa-icon icon="sort"></fa-icon>
-          </th> -->
+          </th>
           <th scope="col" jhiSortBy="description">
             <span jhiTranslate="heybusApp.voyage.description">Description</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -58,6 +64,9 @@
           <th scope="col" jhiSortBy="wifi"><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="toilette">
             <span jhiTranslate="heybusApp.voyage.toilette">Toilette</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="typeVoyage">
+            <span jhiTranslate="heybusApp.voyage.typeVoyage">Type Voyage</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="vehicule.reference">
             <span jhiTranslate="heybusApp.voyage.vehicule">Vehicule</span> <fa-icon icon="sort"></fa-icon>
@@ -80,15 +89,18 @@
             <a [routerLink]="['/voyage', voyage.id, 'view']">{{ voyage.id }}</a>
           </td>
           <td>{{ voyage.dateDeVoyage | formatMediumDatetime }}</td>
+          <td>{{ voyage.dateRetour | formatMediumDatetime }}</td>
+          <td>{{ voyage.dateArrivee | formatMediumDatetime }}</td>
           <td>{{ voyage.prix }}</td>
           <td>{{ voyage.nbrePlace }}</td>
           <td>{{ voyage.adresseDepart }}</td>
           <td>{{ voyage.adresseArrive }}</td>
-          <!-- <td>{{ voyage.quartier }}</td> -->
+          <td>{{ voyage.quartier }}</td>
           <td>{{ voyage.description }}</td>
           <td>{{ voyage.climatisation }}</td>
           <td>{{ voyage.wifi }}</td>
           <td>{{ voyage.toilette }}</td>
+          <td >{{ voyage.typeVoyage }}</td>
           <td>
             <div *ngIf="voyage.vehicule">
               <a [routerLink]="['/vehicule', voyage.vehicule?.id, 'view']">{{ voyage.vehicule?.reference }}</a>
@@ -115,12 +127,10 @@
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
-
               <button type="submit" [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-secondary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="users"></fa-icon>
                 <span class="d-none d-md-inline" >Voir Clients</span>
               </button>
-
               <button type="submit" [routerLink]="['/voyage', voyage.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>

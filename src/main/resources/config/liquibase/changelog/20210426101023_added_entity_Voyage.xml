@@ -17,6 +17,12 @@
             <column name="date_de_voyage" type="${datetimeType}">
                 <constraints nullable="false" />
             </column>
+            <column name="date_retour" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_arrivee" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
             <column name="prix" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -44,6 +50,9 @@
             <column name="toilette" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="type_voyage" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="vehicule_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -59,6 +68,8 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="voyage" columnName="date_de_voyage" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="voyage" columnName="date_retour" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="voyage" columnName="date_arrivee" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <changeSet id="20210426101023-1-relations" author="jhipster">
@@ -103,6 +114,8 @@
                   tableName="voyage">
             <column name="id" type="numeric"/>
             <column name="date_de_voyage" type="${datetimeType}"/>
+            <column name="date_retour" type="${datetimeType}"/>
+            <column name="date_arrivee" type="${datetimeType}"/>
             <column name="prix" type="numeric"/>
             <column name="nbre_place" type="numeric"/>
             <column name="adresse_depart" type="string"/>
@@ -112,6 +125,7 @@
             <column name="climatisation" type="boolean"/>
             <column name="wifi" type="boolean"/>
             <column name="toilette" type="boolean"/>
+            <column name="type_voyage" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

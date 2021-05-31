@@ -51,9 +51,25 @@ export class VoyageService {
       .get<IVoyage[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
-  searchVoyage(date: string, idDepartVoyage: number, idArriveVoyage: number, nbrePassagers: number): Observable<EntityArrayResponseType> {
+  searchVoyage(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    const date =  String(options.get('date'));
+    const  depart =  Number(options.get('depart'));
+    const  arrive =  Number(options.get('arrive'));
+    const nbrePassagers =  Number(options.get('nbrePassagers'));
     return this.http
-      .get<IVoyage[]>(`${this.resourceUrl}/${date}/${idDepartVoyage}/${idArriveVoyage}/${nbrePassagers}`, { observe: 'response' })
+      .get<IVoyage[]>(`${this.resourceUrl}/${date}/${depart}/${arrive}/${nbrePassagers}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+  searchVoyageRetour(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    const date =  String(options.get('date'));
+    const dateRetour =  String(options.get('dateRetour'));
+    const  depart =  Number(options.get('depart'));
+    const  arrive =  Number(options.get('arrive'));
+    const nbrePassagers =  Number(options.get('nbrePassagers'));
+    return this.http
+      .get<IVoyage[]>(`${this.resourceUrl}/${date}/${depart}/${arrive}/${nbrePassagers}/${dateRetour}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -94,6 +110,8 @@ export class VoyageService {
     if (res.body) {
       res.body.forEach((voyage: IVoyage) => {
         voyage.dateDeVoyage = voyage.dateDeVoyage ? dayjs(voyage.dateDeVoyage) : undefined;
+        voyage.dateRetour = voyage.dateRetour ? dayjs(voyage.dateRetour) : undefined;
+        voyage.dateArrivee = voyage.dateArrivee ? dayjs(voyage.dateArrivee) : undefined;
       });
     }
     return res;

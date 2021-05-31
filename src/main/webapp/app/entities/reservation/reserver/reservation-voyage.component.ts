@@ -22,7 +22,7 @@ export class ReservationVoyageComponent implements OnInit {
   isSaving = false;
 
   voyage!: IVoyage;
-
+  nbrePassagers?:number;
   editForm = this.fb.group({
     id: [], 
     nom: [],
@@ -51,6 +51,7 @@ export class ReservationVoyageComponent implements OnInit {
       this.updateForm(reservation);
       this.loadRelationshipsOptions();
     });
+    this.nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('passagers'));
   }
 
   previousState(): void {
@@ -87,8 +88,8 @@ export class ReservationVoyageComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    //this.previousState();
-    this.router.navigate(['/']);
+    const idVoyage = String(this.activatedRoute.snapshot.paramMap.get('voyage'));
+    this.router.navigate(['/reservation/success/voyage/'+idVoyage]);
 
   }
 
