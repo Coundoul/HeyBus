@@ -286,7 +286,7 @@ public class VoyageResource {
 
     //voyage Aller-retour
     @GetMapping("/voyages/{dateVoyage}/{idDepartVille}/{idArriveVille}/{nbrePassagers}/{dateRetour}")
-     public ResponseEntity<List<Voyage>> getVoyage(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille, @PathVariable Integer nbrePassagers,@PathVariable String dateRetour,
+     public ResponseEntity<List<Voyage>> getVoyageRetour(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille, @PathVariable Integer nbrePassagers,@PathVariable String dateRetour,
      Pageable pageable) {
         //log.debug("REST request to get Voyage : {}", id);
        

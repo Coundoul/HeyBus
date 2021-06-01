@@ -12,11 +12,14 @@ import { VoyageService } from 'app/entities/voyage/service/voyage.service';
 import { ICustomer, Customer } from 'app/entities/customer/customer.model';
 import { CustomerService } from 'app/entities/customer/service/customer.service';
 import { IUser } from 'app/entities/user/user.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'jhi-reservation-voyage',
   styleUrls: ['./reservation-voyage.component.scss'],
   templateUrl: './reservation-voyage.component.html',
+  providers: [DatePipe],
+
 })
 export class ReservationVoyageComponent implements OnInit {
   isSaving = false;
@@ -37,6 +40,7 @@ export class ReservationVoyageComponent implements OnInit {
   });
 
   constructor(
+    private datePipe: DatePipe,
     protected reservationService: ReservationService,
     protected voyageService: VoyageService,
     protected customerService: CustomerService,
