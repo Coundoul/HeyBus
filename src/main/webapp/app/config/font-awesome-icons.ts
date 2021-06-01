@@ -49,7 +49,8 @@ import {
   
   faBarcode,
   faFill,
-  faVectorSquare
+  faVectorSquare,
+  faInfoCircle
 
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
@@ -100,7 +101,7 @@ export const fontAwesomeIcons = [
   faToilet,
   faFan,
   faStar,
-
+  faInfoCircle,
   faBarcode,
   faFill,
   faVectorSquare

@@ -22,7 +22,10 @@ Main page styles
   }
 }
 
-
+@font-face {
+  font-family: 'Mulish';
+  src: url('../../content/font/Mulish-VariableFont_wght.ttf');
+}
 
 .text-heybus {
   color: #132968 !important;
@@ -43,10 +46,8 @@ Main page styles
   background-color: #ff1b2e;
   color: #ffffff;
   font-size: 18px;
-  font-weight: 600;
   letter-spacing: 0;
   line-height: 22px;
-  font-family: 'Calibri', Courier, monospace;
   text-align: center;
 }
 .btn-annuler{
@@ -59,7 +60,6 @@ Main page styles
   font-weight: 600;
   letter-spacing: 0;
   line-height: 22px;
-  font-family: 'Calibri', Courier, monospace;
   text-align: center;
 }
 .voyage-img {

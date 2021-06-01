@@ -24,7 +24,7 @@ import { DatePipe } from '@angular/common';
 export class ReservationVoyageComponent implements OnInit {
   isSaving = false;
 
-  voyage!: IVoyage;
+  voyage?: IVoyage;
   nbrePassagers?:number;
   editForm = this.fb.group({
     id: [], 
