@@ -16,14 +16,14 @@
       <div class="col-xs-12 col-md-7">
         <small>
           <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
-        </small><span class="text-black"><strong>06:20</strong> {{ voyage.departVille?.nom }} <fa-icon
+        </small><span class="text-black"><strong>{{voyage?.dateDeVoyage?.hour()}}:{{voyage?.dateDeVoyage?.minute()}}</strong> {{ voyage.departVille?.nom }} <fa-icon
             icon="info-circle" class="text-danger"></fa-icon></span>
         <div class="line text-center col-xs-4 ml-2">
           <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
         </div>
         <small>
           <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
-        </small><span class="text-black"><strong>06:20</strong> {{ voyage.arriveVille?.nom }} <fa-icon
+        </small><span class="text-black"><strong>{{voyage?.dateArrivee?.hour()}}:{{voyage?.dateArrivee?.minute()}}</strong> {{ voyage.arriveVille?.nom }} <fa-icon
             icon="info-circle" class="text-danger"></fa-icon></span>
       </div>
       <div class="col-xs-12 col-md-5">

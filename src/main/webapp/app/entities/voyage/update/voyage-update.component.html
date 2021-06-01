@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-8">
+  <div class="col-8 card jh-card">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-voyage-heading" data-cy="VoyageCreateUpdateHeading" jhiTranslate="heybusApp.voyage.home.createOrEditLabel">
         Create or edit a Voyage
@@ -221,7 +221,7 @@
           </select>
         </div>
 
-        <div class="form-group" *jhiHasAnyAutority="'ROLE_ADMIN'">
+        <div class="form-group" *jhiHasAnyAuthority="['ROLE_ADMIN']">
           <label class="form-control-label" jhiTranslate="heybusApp.voyage.transporteur" for="field_transporteur">Transporteur</label>
           <select class="form-control" id="field_transporteur" data-cy="transporteur" name="transporteur" formControlName="transporteur">
             <option [ngValue]="null"></option>
