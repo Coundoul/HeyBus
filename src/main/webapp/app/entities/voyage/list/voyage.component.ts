@@ -3,7 +3,6 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { IVoyage } from '../voyage.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
@@ -12,6 +11,7 @@ import { VoyageDeleteDialogComponent } from '../delete/voyage-delete-dialog.comp
 
 @Component({
   selector: 'jhi-voyage',
+  styleUrls: ['./voyage.component.scss'],
   templateUrl: './voyage.component.html',
 })
 export class VoyageComponent implements OnInit {

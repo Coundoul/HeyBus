@@ -102,6 +102,9 @@ export class VoyageService {
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.dateDeVoyage = res.body.dateDeVoyage ? dayjs(res.body.dateDeVoyage) : undefined;
+      res.body.dateRetour = res.body.dateRetour ? dayjs(res.body.dateRetour) : undefined;
+      res.body.dateArrivee = res.body.dateArrivee ? dayjs(res.body.dateArrivee) : undefined;
+
     }
     return res;
   }
