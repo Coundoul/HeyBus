@@ -9,9 +9,13 @@ import { ReservationRoutingModule } from './route/reservation-routing.module';
 import { ReservationVoyageComponent } from './reserver/reservation-voyage.component';
 import { ClientsComponent } from './list-client-voyage/clients.component';
 import { ReservationSuccessComponent } from './reserver-success/reservation-success.component';
+import { NgWizardModule, NgWizardConfig, THEME} from 'ng-wizard';
 
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.default
+};
 @NgModule({
-  imports: [SharedModule, ReservationRoutingModule],
+  imports: [SharedModule, ReservationRoutingModule, NgWizardModule.forRoot(ngWizardConfig)],
   declarations: [ReservationComponent, ReservationDetailComponent, ReservationUpdateComponent, ReservationDeleteDialogComponent, ReservationVoyageComponent, ClientsComponent, ReservationSuccessComponent],
   entryComponents: [ReservationDeleteDialogComponent],
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
 import { IReservation, Reservation } from '../reservation.model';
@@ -13,6 +13,7 @@ import { ICustomer, Customer } from 'app/entities/customer/customer.model';
 import { CustomerService } from 'app/entities/customer/service/customer.service';
 import { IUser } from 'app/entities/user/user.model';
 import { DatePipe } from '@angular/common';
+import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
 
 @Component({
   selector: 'jhi-reservation-voyage',
@@ -38,6 +39,25 @@ export class ReservationVoyageComponent implements OnInit {
     adresse: [],
     user: [],
   });
+  
+  stepStates = {
+    normal: STEP_STATE.normal,
+    disabled: STEP_STATE.disabled,
+    error: STEP_STATE.error,
+    hidden: STEP_STATE.hidden
+  };
+ 
+  config: NgWizardConfig = {
+    selected: 0,
+    theme: THEME.arrows,
+    toolbarSettings: {
+      toolbarExtraButtons: [
+        { text: 'Finish', class: 'btn btn-info', event(){ alert("Finished!!!");} }
+      ],
+    }
+  };
+  
+  isValidTypeBoolean = true;
 
   constructor(
     private datePipe: DatePipe,
@@ -46,6 +66,7 @@ export class ReservationVoyageComponent implements OnInit {
     protected customerService: CustomerService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
+    private ngWizardService: NgWizardService,
     protected router: Router
 
   ) {}
@@ -82,6 +103,34 @@ export class ReservationVoyageComponent implements OnInit {
 
   trackCustomerById(index: number, item: ICustomer): number {
     return item.id!;
+  }
+  showPreviousStep(event?: Event): void {
+    this.ngWizardService.previous();
+  }
+ 
+  showNextStep(event?: Event): void {
+    this.ngWizardService.next();
+  }
+ 
+  resetWizard(event?: Event): void {
+    this.ngWizardService.reset();
+  }
+ 
+  setTheme(theme: THEME): void {
+    this.ngWizardService.theme(theme);
+  }
+ 
+  stepChanged(args: StepChangedArgs): void {
+   args.step
+  }
+ 
+ 
+  isValidFunctionReturnsBoolean(args: StepValidationArgs): boolean {
+    return true;
+  }
+ 
+  isValidFunctionReturnsObservable(args: StepValidationArgs): Observable<boolean>{
+    return of(true);
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IReservation>>): void {
