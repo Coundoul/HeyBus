@@ -42,5 +42,4 @@ public interface VoyageRepository extends JpaRepository<Voyage, Long> {
 
     Page<Voyage> findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(Pageable pageable, ZonedDateTime date, ZonedDateTime date2, Ville arrive, Ville depart,Integer nbrePassagers);
     
-    Page<Voyage> findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqualAndDateRetourBetween(Pageable pageable, ZonedDateTime date, ZonedDateTime date2, Ville arrive, Ville depart,Integer nbrePassagers,ZonedDateTime dateRetour1, ZonedDateTime dateRetour2);
 }

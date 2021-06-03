@@ -46,6 +46,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     arriveVille: [],
     nbrePassagers: [1, [Validators.required]]
   });
+  editFormRetour = this.fb.group({
+    id: [],
+    dateDeVoyage: [null, [Validators.required]],
+    dateRetour: [null, [Validators.required]],
+    departVille: [],
+    arriveVille: [],
+    nbrePassagers: [1, [Validators.required]]
+  });
 
   constructor(
     private datePipe: DatePipe,
@@ -91,16 +99,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     //this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
   }
-  rechercheRetour(): void {
-    const date = this.editForm.get(['dateDeVoyage'])!.value;
-    const depart = this.editForm.get(['departVille'])!.value;
-    const arrive =  this.editForm.get(['arriveVille'])!.value;
-    const nbrePassagers = this.editForm.get(['nbrePassagers'])!.value;
-    const dateRetour = this.editForm.get(['dateRetour'])!.value;
-    this.router.navigate(['/search/'+String(date)+'/'+String(depart.id)+'/'+String(arrive.id)+'/'+String(nbrePassagers)+'/'+String(dateRetour)]);
-
-    //this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
-  }
+  
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
