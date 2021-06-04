@@ -10,13 +10,14 @@ import { ReservationVoyageComponent } from './reserver/reservation-voyage.compon
 import { ClientsComponent } from './list-client-voyage/clients.component';
 import { ReservationSuccessComponent } from './reserver-success/reservation-success.component';
 import { NgWizardModule, NgWizardConfig, THEME} from 'ng-wizard';
+import { ReservationPaiementComponent } from './reserver-paiement/reservation-paiement.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
 };
 @NgModule({
   imports: [SharedModule, ReservationRoutingModule, NgWizardModule.forRoot(ngWizardConfig)],
-  declarations: [ReservationComponent, ReservationDetailComponent, ReservationUpdateComponent, ReservationDeleteDialogComponent, ReservationVoyageComponent, ClientsComponent, ReservationSuccessComponent],
+  declarations: [ReservationComponent, ReservationDetailComponent, ReservationUpdateComponent, ReservationDeleteDialogComponent, ReservationVoyageComponent, ClientsComponent, ReservationSuccessComponent, ReservationPaiementComponent],
   entryComponents: [ReservationDeleteDialogComponent],
 })
 export class ReservationModule {}
