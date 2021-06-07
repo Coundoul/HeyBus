@@ -16,6 +16,9 @@
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
     <ul class="navbar-nav ml-auto">
+      <button class="btn btn-reserver" [routerLink]="['/voyage/new']" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
+        Saisir un Voyage
+      </button>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
           <span>

@@ -30,9 +30,13 @@ Main page styles
 .breadcrumb-item::before {
   content: ">";
 }
+.first::before {
+  content: none;
+}
 .breadcrumb-item {
   font-family: 'Mulish';
   font-style: normal;
+  font-size: 14px; 
   line-height: 20px;
   color: #425486;
 }

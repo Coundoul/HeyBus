@@ -73,6 +73,9 @@ Main page styles
 .breadcrumb-item::before {
   content: ">";
 }
+.first::before {
+  content: none;
+}
 .btn-reserver {
   width: 162px;
   height: 47px;
