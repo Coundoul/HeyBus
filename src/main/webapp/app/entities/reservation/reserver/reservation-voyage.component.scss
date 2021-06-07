@@ -26,6 +26,16 @@ Main page styles
   line-height: 20px;
   color: #425486;
 }
+
+.breadcrumb-item::before {
+  content: ">";
+}
+.breadcrumb-item {
+  font-family: 'Mulish';
+  font-style: normal;
+  line-height: 20px;
+  color: #425486;
+}
 .text-black {
   font-family: 'Mulish';
   font-style: normal;
