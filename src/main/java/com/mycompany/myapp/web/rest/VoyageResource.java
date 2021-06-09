@@ -279,4 +279,64 @@ public class VoyageResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    // Api aller-retour
+    @GetMapping("/voyages/retour")
+     public ResponseEntity<List<Voyage>> getVoyageRetour(@RequestParam String dateVoyage,@RequestParam String dateRetour, @RequestParam Long idDepartVille, @RequestParam Long idArriveVille, @RequestParam Integer nbrePassagers,
+     Pageable pageable) {
+        
+       
+        ZonedDateTime date1 = ZonedDateTime.of(
+            Integer.parseInt(dateVoyage.split("-")[0]),
+            Integer.parseInt(dateVoyage.split("-")[1]),
+            Integer.parseInt(dateVoyage.split("-")[2]),
+            0,
+            0,
+            0,
+            0,
+            ZoneId.of("UTC")
+        );
+        ZonedDateTime date2 = ZonedDateTime.of(
+            Integer.parseInt(dateVoyage.split("-")[0]),
+            Integer.parseInt(dateVoyage.split("-")[1]),
+            Integer.parseInt(dateVoyage.split("-")[2]),
+            23,
+            59,
+            59,
+            0,
+            ZoneId.of("UTC")
+        );
+        
+        ZonedDateTime date3 = ZonedDateTime.of(
+            Integer.parseInt(dateRetour.split("-")[0]),
+            Integer.parseInt(dateRetour.split("-")[1]),
+            Integer.parseInt(dateRetour.split("-")[2]),
+            0,
+            0,
+            0,
+            0,
+            ZoneId.of("UTC")
+        );
+        ZonedDateTime date4 = ZonedDateTime.of(
+            Integer.parseInt(dateRetour.split("-")[0]),
+            Integer.parseInt(dateRetour.split("-")[1]),
+            Integer.parseInt(dateRetour.split("-")[2]),
+            23,
+            59,
+            59,
+            0,
+            ZoneId.of("UTC")
+        );
+        Page<Voyage> page=voyageRepository.voyageRetour(
+            date1,
+            date2,
+            date3,
+            date4,
+            ville.findById(idDepartVille).get(),
+            ville.findById(idArriveVille).get(),
+            nbrePassagers,
+            pageable
+        );
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

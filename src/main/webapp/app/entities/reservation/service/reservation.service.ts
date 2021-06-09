@@ -100,6 +100,7 @@ export class ReservationService {
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.dateDeReservation = res.body.dateDeReservation ? dayjs(res.body.dateDeReservation) : undefined;
+ 
     }
     return res;
   }
@@ -108,6 +109,9 @@ export class ReservationService {
     if (res.body) {
       res.body.forEach((reservation: IReservation) => {
         reservation.dateDeReservation = reservation.dateDeReservation ? dayjs(reservation.dateDeReservation) : undefined;
+        reservation.voyage!.dateDeVoyage = reservation.voyage?.dateDeVoyage ? dayjs(reservation.voyage?.dateDeVoyage) : undefined;
+        reservation.voyage!.dateRetour = reservation.voyage?.dateRetour ? dayjs(reservation.voyage?.dateRetour) : undefined;
+        reservation.voyage!.dateArrivee = reservation.voyage?.dateArrivee ? dayjs(reservation.voyage?.dateArrivee) : undefined;
       });
     }
     return res;

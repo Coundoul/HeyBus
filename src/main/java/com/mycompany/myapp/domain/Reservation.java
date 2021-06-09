@@ -28,10 +28,10 @@ public class Reservation implements Serializable {
     private Integer prixReservation;
 
     @ManyToOne
-    @JsonIgnoreProperties(
-        value = { "reservations", "employes", "arrets", "vehicule", "departVille", "arriveVille", "transporteur" },
-        allowSetters = true
-    )
+    // @JsonIgnoreProperties(
+    //     value = { "reservations", "employes", "arrets", "vehicule"},
+    //     allowSetters = true
+    // )
     private Voyage voyage;
 
     @ManyToOne

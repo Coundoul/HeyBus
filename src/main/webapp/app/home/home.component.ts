@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.villes = res.body ?? [];
       this.valeurVoyage;
     });
-    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    //this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
     // this.editForm.get('departVille')?.valueChanges.subscribe((data)=>{
     // this.villes2.splice(this.villes2.indexOf(this.editForm.get(['departVille'])!.value),1);
     // eslint-disable-next-line no-console
@@ -96,6 +96,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     const arrive =  this.editForm.get(['arriveVille'])!.value;
     const nbrePassagers = this.editForm.get(['nbrePassagers'])!.value;
     this.router.navigate(['/search/'+String(date)+'/'+String(depart.id)+'/'+String(arrive.id)+'/'+String(nbrePassagers)]);
+
+    //this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
+  }
+
+  rechercheRetour(): void {
+    const date = this.editFormRetour.get(['dateDeVoyage'])!.value;
+    const dateRetour = this.editFormRetour.get(['dateRetour'])!.value;
+    const depart = this.editFormRetour.get(['departVille'])!.value;
+    const arrive =  this.editFormRetour.get(['arriveVille'])!.value;
+    const nbrePassagers = this.editFormRetour.get(['nbrePassagers'])!.value;
+    this.router.navigate(['/search/'+String(date)+'/'+String(dateRetour)+'/'+String(depart.id)+'/'+String(arrive.id)+'/'+String(nbrePassagers)]);
 
     //this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
   }
