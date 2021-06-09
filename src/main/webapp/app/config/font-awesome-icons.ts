@@ -51,16 +51,11 @@ import {
   faFill,
   faVectorSquare,
   faInfoCircle,
-<<<<<<< HEAD
   faChevronDown,
-  faPhotoVideo,
-  faBus
-=======
   faPhotoVideo,
   faBus,
   faDoorClosed,
   faBusAlt
->>>>>>> 0c551ad7e95e613b62ff99b4e1cd0f98d502fdea
 
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
@@ -118,7 +113,9 @@ export const fontAwesomeIcons = [
   faPhotoVideo,
   faBus,
   faChevronDown,
-  faSignOutAlt
+  faSignOutAlt,
+  faDoorClosed,
+  faBusAlt
 
   // jhipster-needle-add-icon-import
 ];
