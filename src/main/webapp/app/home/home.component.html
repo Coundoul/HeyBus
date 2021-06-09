@@ -152,8 +152,8 @@
     <!-- Formulaire Voyage Aller Retour -->
       <div class="col-md-11 shadow bg-white mt-5 pt-2" style="position: relative; left: 5%; top:55%; height: 40%;" *ngIf=" valeurVoyage ==2">
   
-        <form name="editForm" role="form" novalidate [formGroup]="editForm">
-          <div class="form-group" [hidden]="!editForm.get('id')!.value">
+        <form name="editFormRetour" role="form" novalidate [formGroup]="editFormRetour">
+          <div class="form-group" [hidden]="!editFormRetour.get('id')!.value">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
           </div>
@@ -216,7 +216,7 @@
                   aria-describedby="basic-addon1">
                   <option value="null">Ville de départ</option>
                   <option
-                    [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
+                    [ngValue]="villeOption.id === editFormRetour.get('departVille')!.value?.id ? editFormRetour.get('departVille')!.value : villeOption"
                     *ngFor="let villeOption of villes">
                     {{ villeOption.nom }}
                   </option>
@@ -235,7 +235,7 @@
                   aria-describedby="basic-addon2">
                   <option value="null">Ville d'arrivée</option>
                   <option
-                    [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
+                    [ngValue]="villeOption.id === editFormRetour.get('arriveVille')!.value?.id ? editFormRetour.get('arriveVille')!.value : villeOption"
                     *ngFor="let villeOption of villes">
                     {{ villeOption.nom }}
                   </option>
@@ -252,17 +252,28 @@
                   </div>
                   <div><fa-icon icon="barcode" class="position-relative" style="text-align: center; right: 80%; width: 100%; font-size: xx-large;"></fa-icon></div>
                   <div class="col-9 position-relative" style="left: 60%; bottom: 47.5px;">
-                  <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
-                  formControlName="dateDeVoyage" placeholder="12 juillet 2021" style="width: 100%;"/>
+                  <input id="field_dateRetour" type="date" class="form-control" name="dateRetour" min="{{ myDate }}"
+                  formControlName="dateRetour" placeholder="12 juillet 2021" style="width: 100%;"/>
                   </div>
               </div>
               <div
-                *ngIf="editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)">
-                <small class="form-text text-danger" *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
+                *ngIf="editFormRetour.get('dateDeVoyage')!.invalid && (editFormRetour.get('dateDeVoyage')!.dirty || editFormRetour.get('dateDeVoyage')!.touched)">
+                <small class="form-text text-danger" *ngIf="editFormRetour.get('dateDeVoyage')?.errors?.required"
                   jhiTranslate="entity.validation.required">
                   This field is required.
                 </small>
-                <small class="form-text text-danger" [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+                <small class="form-text text-danger" [hidden]="!editFormRetour.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+                  jhiTranslate="entity.validation.ZonedDateTimelocal">
+                  This field should be a date and time.
+                </small>
+              </div>
+              <div
+                *ngIf="editFormRetour.get('dateRetour')!.invalid && (editFormRetour.get('dateRetour')!.dirty || editFormRetour.get('dateRetour')!.touched)">
+                <small class="form-text text-danger" *ngIf="editFormRetour.get('dateRetour')?.errors?.required"
+                  jhiTranslate="entity.validation.required">
+                  This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editFormRetour.get('dateRetour')?.errors?.ZonedDateTimelocal"
                   jhiTranslate="entity.validation.ZonedDateTimelocal">
                   This field should be a date and time.
                 </small>
@@ -281,19 +292,19 @@
               </div>
     
               <div
-                *ngIf="editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)">
-                <small class="form-text text-danger" *ngIf="editForm.get('nbrePassagers')?.errors?.required"
+                *ngIf="editFormRetour.get('nbrePassagers')!.invalid && (editFormRetour.get('nbrePassagers')!.dirty || editFormRetour.get('nbrePassagers')!.touched)">
+                <small class="form-text text-danger" *ngIf="editFormRetour.get('nbrePassagers')?.errors?.required"
                   jhiTranslate="entity.validation.required">
                   This field is required.
                 </small>
-                <small class="form-text text-danger" [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
+                <small class="form-text text-danger" [hidden]="!editFormRetour.get('nbrePassagers')?.errors?.number"
                   jhiTranslate="entity.validation.number">
                   This field should be a number.
                 </small>
               </div>
             </div>
             <div class="form-group col-md-2">
-              <button type="submit" id="save-entity" class="btn btn-reserver" (click)="recherche()">
+              <button type="submit" id="save-entity" class="btn btn-reserver" (click)="rechercheRetour()">
                <span>Rechercher</span>
               </button>
             </div>

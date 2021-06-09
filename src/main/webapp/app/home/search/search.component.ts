@@ -28,12 +28,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   myDate: any = new Date();
   account: Account | null = null;
   authSubscription?: Subscription;
-  depart: [] | undefined;
+  date: any;
+  dateRetour: any;
+  depart: any;
   voyages?: IVoyage[];
   nbrePassagers?: number;
   nbrePlace!: number;
   villes: IVille[] = [];
-  arrive: [] | undefined;
+  arrive: any;
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -68,13 +70,45 @@ export class SearchComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.nbrePassagers=1;
+    this.date = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['date'] ? this.activatedRoute.snapshot.params['date'] : '';
+    this.dateRetour = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['dateRetour'] ? this.activatedRoute.snapshot.params['dateRetour'] : '';
+    this.depart = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['depart'] ? this.activatedRoute.snapshot.params['depart'] : '';
+    this.arrive = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['arrive'] ? this.activatedRoute.snapshot.params['arrive'] : '';
+    this.nbrePassagers = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['nbrePassagers'] ? this.activatedRoute.snapshot.params['nbrePassagers'] : '';
+
+
+
   }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
-
-    this.voyageService
+    if(this.activatedRoute.snapshot.params['dateRetour']){
+      this.voyageService
+      .searchVoyageRetour({
+        date : this.date,
+        dateRetour : this.dateRetour,
+        departVille : this.depart,
+        arriveVille :this.arrive,
+        nbrePassagers : this.nbrePassagers,
+        page: pageToLoad - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe(
+        (res: HttpResponse<IVoyage[]>) => {
+          this.isLoading = false;
+          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
+        },
+        () => {
+          this.isLoading = false;
+          this.onError();
+        }
+      );
+      
+    }
+    else{
+      this.voyageService
       .searchVoyage({
         date : String(this.activatedRoute.snapshot.paramMap.get('date')),
         depart : Number(this.activatedRoute.snapshot.paramMap.get('depart')),
@@ -94,13 +128,15 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.onError();
         }
       );
+    }
+    
   }
 
   ngOnInit(): void {
     this.villeService.query().subscribe((res: HttpResponse<IVille[]>) => {
       this.villes = res.body ?? [];
     });
-    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    //this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
 
     // const date = String(this.activatedRoute.snapshot.paramMap.get('date'));
     // const depart = Number(this.activatedRoute.snapshot.paramMap.get('depart'));
