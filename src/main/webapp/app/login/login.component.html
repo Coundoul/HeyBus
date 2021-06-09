@@ -58,94 +58,58 @@
 
 
 
-
-<!-- Template HeyBus  -->
-
-<div class="card-template jh-card">
-  <div class="row justify-content-center">
-    <div class="col-md-10">
-      <br>
-      <h4 style="font-weight: bold; text-align: center;">Espace Connexion</h4>
-    </div>
-  </div>
-  <br>
-  <div class="row justify-content-center">
-    <div class="col-md-10">
-      <form name="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
-
-        <div class="form-group">
-          <label class="form-control-label" for="email">Votre adresse email</label>
-          <br>
-          <input
-            type="email"
-            class="form-control-template"
-            id="email"
-            name="email"
-            placeholder="cam.zutt@gmail.com"
-            data-cy="email"
-            required
-          />
-
-          <div *ngIf="loginForm.get('email')!.invalid && (loginForm.get('email')!.dirty || loginForm.get('email')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="loginForm.get('email')?.errors?.required"
-              jhiTranslate="global.messages.validate.email.required"
-            >
-              Your email is required.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="loginForm.get('email')?.errors?.invalid"
-              jhiTranslate="global.messages.validate.email.invalid"
-            >
-              Your email is invalid.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="loginForm.get('email')?.errors?.minlength"
-              jhiTranslate="global.messages.validate.email.minlength"
-            >
-              Your email is required to be at least 5 characters.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="loginForm.get('email')?.errors?.maxlength"
-              jhiTranslate="global.messages.validate.email.maxlength"
-            >
-              Your email cannot be longer than 100 characters.
-            </small>
-          </div>
-        </div>
-
-
-
-        <div class="form-group">
-           <label class="form-control-label" for="password">Votre mot de passe</label>
-          <br>
-          <input
-            type="texte"
-            class="form-control-template"
-            id="password"
-            name="password"
-            formControlName="password"
-            required
-          />
-        </div>
+<div class="row justify-content-center mt-4">
+  <div class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3" style="max-width: 30rem">
+    <div class="card-body row">
+      <div class="col-md-12">
         <br>
-        <button
-          type="submit"
-          [disabled]="loginForm.invalid"
-          class="btn btn-creer-compte"
-          data-cy="submit"
-        >
-         <span> Se connecter</span>
-        </button>
-      </form>
+        <h4 style="font-weight: bold; text-align: center;">Espace Connexion</h4>
+      </div>
+      <br>
+      <div class="col-md-12 mt-2">
+        <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication"
+          data-cy="loginError">
+          <strong>Failed to sign in!</strong> Please check your credentials and try again.
+        </div>
+        <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+          <div class="form-group">
+            <label class="username-label" for="username" jhiTranslate="global.form.username.label">Login</label>
+            <input type="text" class="form-control" name="username" id="username"
+              placeholder="{{ 'global.form.username.placeholder' | translate }}" formControlName="username" #username
+              data-cy="username" />
+          </div>
+  
+          <div class="form-group">
+            <label for="password" jhiTranslate="login.form.password">Password</label>
+            <input type="password" class="form-control" name="password" id="password"
+              placeholder="{{ 'login.form.password.placeholder' | translate }}" formControlName="password"
+              data-cy="password" />
+          </div>
+  
+          <div class="form-check">
+                <label class="form-check-label" for="rememberMe">
+                  <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe"
+                    formControlName="rememberMe" />
+                  <span jhiTranslate="login.form.rememberme">Remember me</span>
+                </label>
+              </div>
+  
+  
+          <button type="submit" class="btn btn-creer-compte" jhiTranslate="login.form.button" data-cy="submit">Sign
+            in</button>
+        </form>
+        <div class="mt-3 alert alert-warning">
+              <a class="alert-link" routerLink="/account/reset/request" jhiTranslate="login.password.forgot"
+                data-cy="forgetYourPasswordSelector">Did you forget your password?</a>
+            </div>
+  
+       <div class="alert alert-warning">
+            <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+            <a class="alert-link" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">Register a new
+              account</a>
+          </div>
+      </div>
+
     </div>
   </div>
 </div>
-
