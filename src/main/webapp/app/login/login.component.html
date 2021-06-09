@@ -83,6 +83,7 @@
             name="email"
             placeholder="cam.zutt@gmail.com"
             data-cy="email"
+            required
           />
 
           <div *ngIf="loginForm.get('email')!.invalid && (loginForm.get('email')!.dirty || loginForm.get('email')!.touched)">
@@ -123,15 +124,15 @@
 
 
         <div class="form-group">
-           <label class="form-control-label" for="Telephone">Votre mot de passe</label>
+           <label class="form-control-label" for="password">Votre mot de passe</label>
           <br>
           <input
             type="texte"
             class="form-control-template"
-            id="telephone"
-            name="telephone"
-            formControlName="telephone"
-            maxlength="9"
+            id="password"
+            name="password"
+            formControlName="password"
+            required
           />
         </div>
         <br>
