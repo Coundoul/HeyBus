@@ -1,0 +1,14 @@
+<ul class="list-group shadow text-heybus">
+  <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/account/settings']">
+      <span><fa-icon icon="user" class="fa-lg mr-2"></fa-icon> Informations</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <span><fa-icon icon="photo-video" class="fa-lg mr-2"></fa-icon> Vos photos</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center text-active">
+    <span><fa-icon icon="bus" class="fa-lg mr-2" [routerLink]="['/account/settings']"></fa-icon> Vos voyages</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <span><fa-icon icon="sign-out-alt" class="fa-lg mr-2"></fa-icon> Déconnexion</span>
+  </li>
+</ul>

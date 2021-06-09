@@ -1,0 +1,93 @@
+<div class="row justify-content-center">
+  <div class="col-md-12 search-shadow">
+    <nav class="breadcrumb bg-white text-heybus">
+      <a class="breadcrumb-item first" href="#">Options de sièges</a>
+      <a class="breadcrumb-item" href="#">Coordonnées</a>
+      <a class="breadcrumb-item">Paiement</a>
+    </nav>
+  </div>
+</div>
+
+<div class="row justify-content-center mt-4">
+  <div class="col-md-12">
+    <jhi-alert></jhi-alert>
+  </div>
+  <!-- Formulaire de Reservation -->
+  <div class="col-md-7 mr-3">
+    <div class="row">
+      <h5 class="font-weight-bold">Votre mode de paiement</h5> 
+        <div class="shadow bg-white col-md-12 mb-2">
+          <div class="card-body">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input mr-1" type="checkbox" name="" id="" value="checkedValue"><a><span class="img-visa"></span></a>
+              </label>
+            </div><hr class="hr-horizontal">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input mr-1" type="checkbox" name="" id="" value="checkedValue"><a><span class="img-apay"></span></a>
+              </label>
+            </div><hr class="hr-horizontal">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input mr-1" type="checkbox" name="" id="" value="checkedValue"><span class="img-om"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="float-right">
+            <button type="submit" (click)="onPaySuccess()"
+            class="btn btn-reserver">
+            Payer
+          </button>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- End Formulaire de Reservation -->
+
+  <!-- Information de Reservation -->
+  <div class="col-md-4 ">
+    <div class="row">
+      <h5 class="font-weight-bold">Votre voyage</h5>
+      <div class="shadow pt-3 px-3 mb-4 bg-white col-md-12" style="max-width: 50rem">
+        <div><small>{{voyage?.dateDeVoyage?.format('dddd')}} {{voyage?.dateDeVoyage?.date()}} {{voyage?.dateDeVoyage?.format('MMMM')}}</small>
+          <div class="circle-left"></div>
+          <hr class="line-horizontal">
+          <div class="circle-right float-right"></div>
+        </div>
+        <div class="card-body">
+          <small>
+            <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
+          </small><span class="text-black"><strong>{{voyage?.dateDeVoyage?.format('HH')}}:{{voyage?.dateDeVoyage?.format('mm')}}</strong> {{ voyage?.departVille?.nom }} <fa-icon
+              icon="info-circle" class="text-red"></fa-icon></span>
+          <div class="line text-center col-xs-4 ml-2">
+            <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+          </div>
+          <small>
+            <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
+          </small><span class="text-black"><strong>{{voyage?.dateArrivee?.format('HH')}}:{{voyage?.dateArrivee?.format('HH')}}</strong> {{ voyage?.arriveVille?.nom }} <fa-icon
+              icon="info-circle" class="text-red"></fa-icon></span>
+        </div>
+        <!-- <div class="col-md-6 col-xs-4">
+            <h5 class="card-title text-heybus">{{ voyage.dateDeVoyage | formatMediumDatetime }}</h5>
+          </div> -->
+
+      </div>
+
+      <div class="shadow bg-white col-md-12 pt-3 px-3 mb-4">
+        <div class="card-body justify-content-center">
+          <h6 class="text-center text-heybus">Afficher les details du billet</h6>
+        </div>
+      </div>
+      <div class="shadow bg-white  col-md-12 pt-3 px-3 mb-4">
+        <div class="card-body">
+          <h6>Billets ({{nbrePassagers}} passager(s))</h6>
+          <h6 class="font-weight-bold">Total ({{voyage?.prix }}*{{nbrePassagers}})  <span class="float-right">{{voyage?.prix! * nbrePassagers!}}</span></h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

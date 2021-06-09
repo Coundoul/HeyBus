@@ -16,13 +16,13 @@ import { DatePipe } from '@angular/common';
 import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
 
 @Component({
-  selector: 'jhi-reservation-voyage',
-  styleUrls: ['./reservation-voyage.component.scss'],
-  templateUrl: './reservation-voyage.component.html',
+  selector: 'jhi-reservation-paiement',
+  styleUrls: ['./reservation-paiement.component.scss'],
+  templateUrl: './reservation-paiement.component.html',
   providers: [DatePipe],
 
 })
-export class ReservationVoyageComponent implements OnInit {
+export class ReservationPaiementComponent implements OnInit {
   isSaving = false;
 
   voyage?: IVoyage;
@@ -96,6 +96,11 @@ export class ReservationVoyageComponent implements OnInit {
       this.subscribeToSaveResponse(this.reservationService.createReservation(customer, idVoyage, nbrePassagers));
     }
   }
+  
+  onPaySuccess(): void {
+    const idVoyage = String(this.activatedRoute.snapshot.paramMap.get('voyage'));
+    this.router.navigate(['/reservation/success/voyage/'+idVoyage]);
+  }
 
   trackVoyageById(index: number, item: IVoyage): number {
     return item.id!;
@@ -142,7 +147,7 @@ export class ReservationVoyageComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     const idVoyage = String(this.activatedRoute.snapshot.paramMap.get('voyage'));
-    this.router.navigate(['/reservation/paiement/voyage/'+idVoyage]);
+    this.router.navigate(['/reservation/success/voyage/'+idVoyage]);
 
   }
 

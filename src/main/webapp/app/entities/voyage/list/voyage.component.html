@@ -1,67 +1,70 @@
-<div class="row mt-3">
-  <div class="col-xs-12 col-md-4">
-    
-  </div>
-  <div class="col-xs-12 col-md-8 mt-3">
-   
-    <div class="row justify-content-center">
-      <div class="col-xs-4 col-md-5 text-center">
-        <h5 class="text-black font-weight-bold">Trajets à venir</h5>
-      </div>
-      <div class="line text-center col-xs-4" style="height:30px;">
-      </div>
-      <div class="col-xs-4 col-md-5 text-center">
-        <h5 class="text-black font-weight-bold"> Trajets effectués</h5>
-      </div>
-      <div class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3" style="max-width: 50rem"
-        *ngFor="let voyage of voyages; trackBy: trackId">
-        <div><small>{{voyage?.dateDeVoyage?.format('dddd')}} {{voyage?.dateDeVoyage?.date()}}
-            {{voyage?.dateDeVoyage?.format('MMMM')}}</small>
-          <div class="circle-left"></div>
-          <hr class="line-horizontal">
-          <div class="circle-right float-right"></div>
+<div class="container">
+  <div class="row mt-3" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
+    <div class="col-xs-12 col-md-4 mt-3">
+      <jhi-sidebar></jhi-sidebar>
+    </div>
+    <div class="col-xs-12 col-md-8 mt-3">
+
+      <div class="row justify-content-center">
+        <div class="col-xs-4 col-md-5 text-center">
+          <h5 class="text-black font-weight-bold">Trajets à venir</h5>
         </div>
-        <div class="card-body row">
-          <div class="col-xs-12 col-md-7">
-            <small>
-              <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
-            </small><span
-              class="text-black"><strong>{{voyage?.dateDeVoyage?.format('HH')}}:{{voyage?.dateDeVoyage?.format('mm')}}</strong>
-              {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon></span>
-            <div class="line text-center col-xs-4 ml-2">
-              <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
-            </div>
-            <small>
-              <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
-            </small><span
-              class="text-black"><strong>{{voyage?.dateArrivee?.format('HH')}}:{{voyage?.dateArrivee?.format('mm')}}</strong>
-              {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon></span>
+        <div class="line text-center col-xs-4" style="height:30px;">
+        </div>
+        <div class="col-xs-4 col-md-5 text-center">
+          <h5 class="text-black font-weight-bold"> Trajets effectués</h5>
+        </div>
+
+        <div class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3" style="max-width: 50rem"
+          *ngFor="let voyage of voyages; trackBy: trackId">
+          <div><small>{{voyage?.dateDeVoyage?.format('dddd')}} {{voyage?.dateDeVoyage?.date()}}
+              {{voyage?.dateDeVoyage?.format('MMMM')}}</small>
+            <div class="circle-left"></div>
+            <hr class="line-horizontal">
+            <div class="circle-right float-right"></div>
           </div>
-          <div class="col-xs-12 col-md-5">
-            <h3 class="text-right font-weight-bold">{{ voyage.prix }}FCFA</h3>
-            <div class="float-right">
-              <small *ngIf="voyage.wifi">
-                <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
-              </small>
-              <small *ngIf="voyage.toilette">
-                <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
-              </small>
-              <small *ngIf="voyage.climatisation">
-                <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
-              </small>
-              <small style="color: #A1A9C3;">{{ voyage.transporteur?.nom }}</small>
-              <fa-icon icon="star" style="color: #A1A9C3;"></fa-icon><small style="color: #A1A9C3;"> 4,5</small> <br>
-              <div class="float-right mt-2"> <button type="submit"
-                  [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-simple font-weight-bold">
-                  Liste des passagers
-                </button>
+          <div class="card-body row">
+            <div class="col-xs-12 col-md-7">
+              <small>
+                <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
+              </small><span
+                class="text-black"><strong>{{voyage?.dateDeVoyage?.format('HH')}}:{{voyage?.dateDeVoyage?.format('mm')}}</strong>
+                {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon></span>
+              <div class="line text-center col-xs-4 ml-2">
+                <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+              </div>
+              <small>
+                <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
+              </small><span
+                class="text-black"><strong>{{voyage?.dateArrivee?.format('HH')}}:{{voyage?.dateArrivee?.format('mm')}}</strong>
+                {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon></span>
+            </div>
+            <div class="col-xs-12 col-md-5">
+              <h3 class="text-right font-weight-bold">{{ voyage.prix }}FCFA</h3>
+              <div class="float-right">
+                <small *ngIf="voyage.wifi">
+                  <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
+                </small>
+                <small *ngIf="voyage.toilette">
+                  <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
+                </small>
+                <small *ngIf="voyage.climatisation">
+                  <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
+                </small>
+                <small style="color: #A1A9C3;">{{ voyage.transporteur?.nom }}</small>
+                <fa-icon icon="star" style="color: #A1A9C3;"></fa-icon><small style="color: #A1A9C3;"> 4,5</small> <br>
+                <div class="float-right mt-2"> <button type="submit"
+                    [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-simple font-weight-bold">
+                    Liste des passagers
+                  </button>
+                </div>
               </div>
             </div>
+
           </div>
-
         </div>
-      </div>
 
+<<<<<<< HEAD
       
 
       <div *ngIf="voyages && voyages.length > 0">
@@ -69,182 +72,207 @@
           <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }">
           </jhi-item-count>
         </div>
+=======
+        <div *ngIf="voyages && voyages.length > 0">
+          <div class="row justify-content-center">
+            <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }">
+            </jhi-item-count>
+          </div>
+>>>>>>> 0c551ad7e95e613b62ff99b4e1cd0f98d502fdea
 
-        <div class="row justify-content-center">
-          <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
-            [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+          <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+              [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+          </div>
         </div>
       </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  <div class="card jh-card" *jhiHasAnyAuthority="['ROLE_ADMIN']">
+    <h2 id="page-heading" data-cy="VoyageHeading">
+      <span jhiTranslate="heybusApp.voyage.home.title">Voyages</span>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="heybusApp.voyage.home.refreshListLabel">Refresh List</span>
+        </button>
+
+        <button id="jh-create-entity" data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-voyage" [routerLink]="['/voyage/new']">
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="heybusApp.voyage.home.createLabel"> Create a new Voyage </span>
+        </button>
+      </div>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="voyages?.length === 0">
+      <span jhiTranslate="heybusApp.voyage.home.notFound">No voyages found</span>
     </div>
 
+    <div class="table-responsive" id="entities" *ngIf="voyages && voyages.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+            <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="dateDeVoyage">
+              <span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="dateRetour">
+              <span jhiTranslate="heybusApp.voyage.dateRetour">Date Retour</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="dateArrivee">
+              <span jhiTranslate="heybusApp.voyage.dateArrivee">Date Arrivee</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="prix"><span jhiTranslate="heybusApp.voyage.prix">Prix</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="nbrePlace">
+              <span jhiTranslate="heybusApp.voyage.nbrePlace">Nbre Place</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="adresseDepart">
+              <span jhiTranslate="heybusApp.voyage.adresseDepart">Adresse Depart</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="adresseArrive">
+              <span jhiTranslate="heybusApp.voyage.adresseArrive">Adresse Arrive</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="quartier">
+              <span jhiTranslate="heybusApp.voyage.quartier">Quartier</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <span jhiTranslate="heybusApp.voyage.description">Description</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="climatisation">
+              <span jhiTranslate="heybusApp.voyage.climatisation">Climatisation</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="wifi"><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="toilette">
+              <span jhiTranslate="heybusApp.voyage.toilette">Toilette</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="typeVoyage">
+              <span jhiTranslate="heybusApp.voyage.typeVoyage">Type Voyage</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="vehicule.reference">
+              <span jhiTranslate="heybusApp.voyage.vehicule">Vehicule</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="departVille.nom">
+              <span jhiTranslate="heybusApp.voyage.departVille">Depart Ville</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="arriveVille.nom">
+              <span jhiTranslate="heybusApp.voyage.arriveVille">Arrive Ville</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="transporteur.nom">
+              <span jhiTranslate="heybusApp.voyage.transporteur">Transporteur</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let voyage of voyages; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <a [routerLink]="['/voyage', voyage.id, 'view']">{{ voyage.id }}</a>
+            </td>
+            <td>{{ voyage.dateDeVoyage | formatMediumDatetime }}</td>
+            <td>{{ voyage.dateRetour | formatMediumDatetime }}</td>
+            <td>{{ voyage.dateArrivee | formatMediumDatetime }}</td>
+            <td>{{ voyage.prix }}</td>
+            <td>{{ voyage.nbrePlace }}</td>
+            <td>{{ voyage.adresseDepart }}</td>
+            <td>{{ voyage.adresseArrive }}</td>
+            <td>{{ voyage.quartier }}</td>
+            <td>{{ voyage.description }}</td>
+            <td>{{ voyage.climatisation }}</td>
+            <td>{{ voyage.wifi }}</td>
+            <td>{{ voyage.toilette }}</td>
+            <td>{{ voyage.typeVoyage }}</td>
+            <td>
+              <div *ngIf="voyage.vehicule">
+                <a [routerLink]="['/vehicule', voyage.vehicule?.id, 'view']">{{ voyage.vehicule?.reference }}</a>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="voyage.departVille">
+                <a [routerLink]="['/ville', voyage.departVille?.id, 'view']">{{ voyage.departVille?.nom }}</a>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="voyage.arriveVille">
+                <a [routerLink]="['/ville', voyage.arriveVille?.id, 'view']">{{ voyage.arriveVille?.nom }}</a>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="voyage.transporteur">
+                <a [routerLink]="['/transporteur', voyage.transporteur?.id, 'view']">{{ voyage.transporteur?.nom }}</a>
+              </div>
+            </td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['/voyage', voyage.id, 'view']" class="btn btn-info btn-sm"
+                  data-cy="entityDetailsButton">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+                <button type="submit" [routerLink]="['/reservation/customer/voyage', voyage.id]"
+                  class="btn btn-secondary btn-sm" data-cy="entityEditButton">
+                  <fa-icon icon="users"></fa-icon>
+                  <span class="d-none d-md-inline">Voir Clients</span>
+                </button>
+                <button type="submit" [routerLink]="['/voyage', voyage.id, 'edit']" class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="submit" (click)="delete(voyage)" class="btn btn-danger btn-sm"
+                  data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="voyages && voyages.length > 0">
+      <div class="row justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+          [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+      </div>
+    </div>
   </div>
 </div>
-
-
-<!-- <div class="card jh-card">
-  <h2 id="page-heading" data-cy="VoyageHeading">
-    <span jhiTranslate="heybusApp.voyage.home.title">Voyages</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="heybusApp.voyage.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-voyage"
-        [routerLink]="['/voyage/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="heybusApp.voyage.home.createLabel"> Create a new Voyage </span>
-      </button>
-    </div>
-  </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="voyages?.length === 0">
-    <span jhiTranslate="heybusApp.voyage.home.notFound">No voyages found</span>
-  </div>
-
-  <div class="table-responsive" id="entities" *ngIf="voyages && voyages.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="dateDeVoyage">
-            <span jhiTranslate="heybusApp.voyage.dateDeVoyage">Date De Voyage</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="dateRetour">
-            <span jhiTranslate="heybusApp.voyage.dateRetour">Date Retour</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="dateArrivee">
-            <span jhiTranslate="heybusApp.voyage.dateArrivee">Date Arrivee</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="prix"><span jhiTranslate="heybusApp.voyage.prix">Prix</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nbrePlace">
-            <span jhiTranslate="heybusApp.voyage.nbrePlace">Nbre Place</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="adresseDepart">
-            <span jhiTranslate="heybusApp.voyage.adresseDepart">Adresse Depart</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="adresseArrive">
-            <span jhiTranslate="heybusApp.voyage.adresseArrive">Adresse Arrive</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="quartier">
-            <span jhiTranslate="heybusApp.voyage.quartier">Quartier</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="description">
-            <span jhiTranslate="heybusApp.voyage.description">Description</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="climatisation">
-            <span jhiTranslate="heybusApp.voyage.climatisation">Climatisation</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="wifi"><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="toilette">
-            <span jhiTranslate="heybusApp.voyage.toilette">Toilette</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="typeVoyage">
-            <span jhiTranslate="heybusApp.voyage.typeVoyage">Type Voyage</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="vehicule.reference">
-            <span jhiTranslate="heybusApp.voyage.vehicule">Vehicule</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="departVille.nom">
-            <span jhiTranslate="heybusApp.voyage.departVille">Depart Ville</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="arriveVille.nom">
-            <span jhiTranslate="heybusApp.voyage.arriveVille">Arrive Ville</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="transporteur.nom">
-            <span jhiTranslate="heybusApp.voyage.transporteur">Transporteur</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let voyage of voyages; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/voyage', voyage.id, 'view']">{{ voyage.id }}</a>
-          </td>
-          <td>{{ voyage.dateDeVoyage | formatMediumDatetime }}</td>
-          <td>{{ voyage.dateRetour | formatMediumDatetime }}</td>
-          <td>{{ voyage.dateArrivee | formatMediumDatetime }}</td>
-          <td>{{ voyage.prix }}</td>
-          <td>{{ voyage.nbrePlace }}</td>
-          <td>{{ voyage.adresseDepart }}</td>
-          <td>{{ voyage.adresseArrive }}</td>
-          <td>{{ voyage.quartier }}</td>
-          <td>{{ voyage.description }}</td>
-          <td>{{ voyage.climatisation }}</td>
-          <td>{{ voyage.wifi }}</td>
-          <td>{{ voyage.toilette }}</td>
-          <td >{{ voyage.typeVoyage }}</td>
-          <td>
-            <div *ngIf="voyage.vehicule">
-              <a [routerLink]="['/vehicule', voyage.vehicule?.id, 'view']">{{ voyage.vehicule?.reference }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="voyage.departVille">
-              <a [routerLink]="['/ville', voyage.departVille?.id, 'view']">{{ voyage.departVille?.nom }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="voyage.arriveVille">
-              <a [routerLink]="['/ville', voyage.arriveVille?.id, 'view']">{{ voyage.arriveVille?.nom }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="voyage.transporteur">
-              <a [routerLink]="['/transporteur', voyage.transporteur?.id, 'view']">{{ voyage.transporteur?.nom }}</a>
-            </div>
-          </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/voyage', voyage.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-              <button type="submit" [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-secondary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="users"></fa-icon>
-                <span class="d-none d-md-inline" >Voir Clients</span>
-              </button>
-              <button type="submit" [routerLink]="['/voyage', voyage.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(voyage)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="voyages && voyages.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
-    </div>
-  </div>
-</div> -->

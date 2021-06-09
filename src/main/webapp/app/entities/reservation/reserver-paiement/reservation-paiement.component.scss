@@ -1,7 +1,33 @@
 /* ==========================================================================
 Main page styles
 ========================================================================== */
-
+.form-check-input {
+  width: 25px;
+  height: 25px;
+  background: #f1f2f6;
+  border-radius: 50%;
+}
+.img-visa {
+  width: 60px;
+  height: 20px;
+  background: url('../../../../content/images/visa.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-apay {
+  width: 60px;
+  height: 20px;
+  background: url('../../../../content/images/apple_pay.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-om {
+  width: 107.22px;
+  height: 25px;
+  background: url('../../../../content/images/orange-money.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
 @font-face {
   font-family: 'Mulish';
   src: url('../../../../content/font/Mulish-VariableFont_wght.ttf');
@@ -11,6 +37,13 @@ Main page styles
   font-family: 'Mulish';
   font-style: normal;
   font-weight: normal;
+  line-height: 20px;
+  color: #425486;
+}
+.breadcrumb-item {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-size: 14px; 
   line-height: 20px;
   color: #425486;
 }
@@ -31,13 +64,20 @@ Main page styles
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2) !important;
+
 }
 .search-shadow {
   background: #ffffff;
-  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2);
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2) !important;
+}
+.breadcrumb-item::before {
+  content: ">";
+}
+.first::before {
+  content: none;
 }
 .btn-reserver {
-  width: 212px;
+  width: 162px;
   height: 47px;
   border-radius: 8px;
   background-color: #ff1b2e;
@@ -50,21 +90,7 @@ Main page styles
   text-align: center;
   color: #ffffff;
 }
-.btn-simple {
-  width: 162px;
-  height: 47px;
-  border-radius: 8px;
-  background-color: #ffffff;
-  border: 1px solid #425486;
-  color: #425486;
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  /* identical to box height */
-  text-align: center;
-}
+
 .line {
   width: 0px;
   height: 61px;
@@ -75,18 +101,22 @@ Main page styles
   margin-bottom: 0px;
   margin-top: -10px;
 }
+.hr-horizontal {
+  border: 1px solid #f1f2f6;
+}
 .text-red {
   color: #ff1b2e;
 }
 .circle-left {
-  background: #E5E5E5;
+  /*box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;*/
+  background: #e5e5e5;
   border-radius: 50%;
   width: 20px;
   height: 20px;
   margin-left: -25px;
 }
 .circle-right {
-  background: #E5E5E5;
+  background: #e5e5e5;
   border-radius: 50%;
   width: 20px;
   height: 20px;

@@ -26,6 +26,20 @@ Main page styles
   line-height: 20px;
   color: #425486;
 }
+
+.breadcrumb-item::before {
+  content: ">";
+}
+.first::before {
+  content: none;
+}
+.breadcrumb-item {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-size: 14px; 
+  line-height: 20px;
+  color: #425486;
+}
 .text-black {
   font-family: 'Mulish';
   font-style: normal;
@@ -37,7 +51,7 @@ Main page styles
 .shadow {
   background: #ffffff;
   border-radius: 8px;
-  box-shadow: none !important;
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2) !important;
 }
 .search-shadow {
   background: #ffffff;
@@ -82,7 +96,7 @@ Main page styles
   margin-bottom: 0px;
   margin-top: -10px;
 }
-.text-danger {
+.text-red {
   color: #ff1b2e;
 }
 .circle-left {

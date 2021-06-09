@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+//import {MatDialogModule} from '@angular/material/dialog';
 
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/config/error.constants';
 import { RegisterService } from './register.service';
@@ -11,6 +13,8 @@ import { RegisterService } from './register.service';
   templateUrl: './register.component.html',
 })
 export class RegisterComponent implements AfterViewInit {
+  closeModal!: string;
+  
   @ViewChild('login', { static: false })
   login?: ElementRef;
 
@@ -34,6 +38,7 @@ export class RegisterComponent implements AfterViewInit {
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
+  
 
   constructor(private translateService: TranslateService, private registerService: RegisterService, private fb: FormBuilder) {}
 
@@ -71,4 +76,7 @@ export class RegisterComponent implements AfterViewInit {
       this.error = true;
     }
   }
+
+  
+  
 }

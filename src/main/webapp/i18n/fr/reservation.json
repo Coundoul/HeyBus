@@ -18,11 +18,11 @@
         "title": "Reservation"
       },
       "id": "ID",
-      "dateDeReservation": "Date De Reservation",
-      "nbrePassagers": "Nbre Passagers",
-      "prixReservation": "Prix Reservation",
+      "dateDeReservation": "Date De Réservation",
+      "nbrePassagers": "Nombre Passagers",
+      "prixReservation": "Prix Réservation",
       "voyage": "Voyage",
-      "customer": "Customer"
+      "customer": "Client"
     }
   }
 }
