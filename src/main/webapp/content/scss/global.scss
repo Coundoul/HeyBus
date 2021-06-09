@@ -216,6 +216,35 @@ ui bootstrap tweaks
   white-space: nowrap;
 }
 
+
+.btn-creer-compte{
+  height: 47px;
+  width: 100%;
+  border-radius: 8px;
+  background-color: #ec1616;
+  color: #ffffff;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 22px;
+  text-align: center;
+}
+
+.form-control-template{
+  width: 100%;
+  border-radius: 8px;
+  height: 47px;
+  background-color: #f1f2f6;
+  border: none;
+}
+
+.card-template{
+  background-color: #ffffff;
+  position: relative;
+  width: 30%;
+  left: 35%;
+}
+
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */
 
 
