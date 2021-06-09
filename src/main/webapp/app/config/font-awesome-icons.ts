@@ -52,7 +52,9 @@ import {
   faVectorSquare,
   faInfoCircle,
 <<<<<<< HEAD
-  faChevronDown
+  faChevronDown,
+  faPhotoVideo,
+  faBus
 =======
   faPhotoVideo,
   faBus,
@@ -113,13 +115,10 @@ export const fontAwesomeIcons = [
   faBarcode,
   faFill,
   faVectorSquare,
-<<<<<<< HEAD
-  faChevronDown
-=======
   faPhotoVideo,
   faBus,
+  faChevronDown,
   faSignOutAlt
->>>>>>> 0c551ad7e95e613b62ff99b4e1cd0f98d502fdea
 
   // jhipster-needle-add-icon-import
 ];
