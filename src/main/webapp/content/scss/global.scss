@@ -217,3 +217,90 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+
+.form-control {
+  border-radius: 8px;
+  height: 47px;
+  background: #f1f2f6;
+  color: #425486;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.text-heybus {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 20px;
+  color: #425486;
+}
+
+.breadcrumb-item::before {
+  content: ">";
+}
+.first::before {
+  content: none;
+}
+.breadcrumb-item {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-size: 14px; 
+  line-height: 20px;
+  color: #425486;
+}
+.text-black {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+  color: black;
+}
+.shadow {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2) !important;
+}
+.search-shadow {
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2);
+}
+.btn-reserver {
+  width: 162px;
+  height: 47px;
+  border-radius: 8px;
+  background-color: #ff1b2e;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-align: center;
+  color: #ffffff;
+}
+.btn-simple {
+  width: auto;
+  height: 47px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #425486;
+  color: #425486;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-align: center;
+}
+
+.text-danger {
+  color: #ff1b2e;
+}
