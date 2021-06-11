@@ -5,6 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { LANGUAGES } from 'app/config/language.constants';
+import { Observable } from 'rxjs';
+import { PasswordService } from '../password/password.service';
 
 @Component({
   selector: 'jhi-settings',
@@ -20,8 +22,17 @@ export class SettingsComponent implements OnInit {
     email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     langKey: [undefined],
   });
+  doNotMatch = false;
+  errorPass = false;
+  successPass = false;
+  account$?: Observable<Account | null>;
+  passwordForm = this.fb.group({
+    currentPassword: ['', [Validators.required]],
+    newPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+    confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+  });
 
-  constructor(private accountService: AccountService, private fb: FormBuilder, private translateService: TranslateService) {}
+  constructor(private accountService: AccountService, private fb: FormBuilder, private translateService: TranslateService, private passwordService: PasswordService,) {}
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => {
@@ -36,6 +47,8 @@ export class SettingsComponent implements OnInit {
         this.account = account;
       }
     });
+    this.account$ = this.accountService.identity();
+
   }
 
   save(): void {
@@ -55,5 +68,21 @@ export class SettingsComponent implements OnInit {
         this.translateService.use(this.account.langKey);
       }
     });
+  }
+
+  changePassword(): void {
+    this.errorPass = false;
+    this.successPass = false;
+    this.doNotMatch = false;
+
+    const newPassword = this.passwordForm.get(['newPassword'])!.value;
+    if (newPassword !== this.passwordForm.get(['confirmPassword'])!.value) {
+      this.doNotMatch = true;
+    } else {
+      this.passwordService.save(newPassword, this.passwordForm.get(['currentPassword'])!.value).subscribe(
+        () => (this.successPass = true),
+        () => (this.errorPass = true)
+      );
+    }
   }
 }
