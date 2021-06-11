@@ -11,6 +11,7 @@ import * as dayjs from 'dayjs';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent implements OnInit {
+  currentRout?: string
   private renderer: Renderer2;
 
   constructor(
@@ -20,11 +21,13 @@ export class SidebarComponent implements OnInit {
     rootRenderer: RendererFactory2
   ) {
     this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
+    this.currentRout = this.router.url;
+
   }
 
   ngOnInit(): void {
     // try to log in automatically
-
+    
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.updateTitle();

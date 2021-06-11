@@ -1,108 +1,207 @@
-<div class="card jh-card">
-  <h2 id="page-heading" data-cy="EmployeHeading">
-    <span jhiTranslate="heybusApp.employe.home.title">Employes</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="heybusApp.employe.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-employe"
-        [routerLink]="['/employe/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="heybusApp.employe.home.createLabel"> Create a new Employe </span>
-      </button>
+<div class="container">
+  <div class="row" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
+    <div class="col-xs-12 col-md-4 mt-3">
+      <jhi-sidebar></jhi-sidebar>
     </div>
-  </h2>
+    <div class="col-xs-12 col-md-8 mt-3">
+      <div class="card jh-card">
+        <h2 id="page-heading" data-cy="EmployeHeading">
+          <span jhiTranslate="heybusApp.employe.home.title">Employes</span>
 
-  <jhi-alert-error></jhi-alert-error>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span jhiTranslate="heybusApp.employe.home.refreshListLabel">Refresh List</span>
+            </button>
 
-  <jhi-alert></jhi-alert>
+            <button id="jh-create-entity" data-cy="entityCreateButton"
+              class="btn btn-primary jh-create-entity create-employe" [routerLink]="['/employe/new']">
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="heybusApp.employe.home.createLabel"> Create a new Employe </span>
+            </button>
+          </div>
+        </h2>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="employes?.length === 0">
-    <span jhiTranslate="heybusApp.employe.home.notFound">No employes found</span>
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <div class="alert alert-warning" id="no-result" *ngIf="employes?.length === 0">
+          <span jhiTranslate="heybusApp.employe.home.notFound">No employes found</span>
+        </div>
+
+        <div class="table-responsive" id="entities" *ngIf="employes && employes.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr>
+                <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.nom">Nom</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.prenom">Prenom</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.dateNaissance">Date Naissance</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.matrimoniale">Matrimoniale</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.telephone">Telephone</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.nbreEnfant">Nbre Enfant</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.photo">Photo</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.account">Account</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.user">User</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.position">Position</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.employe.transporteur">Transporteur</span></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employe of employes; trackBy: trackId" data-cy="entityTable">
+                <td>
+                  <a [routerLink]="['/employe', employe.id, 'view']">{{ employe.id }}</a>
+                </td>
+                <td>{{ employe.nom }}</td>
+                <td>{{ employe.prenom }}</td>
+                <td>{{ employe.dateNaissance | formatMediumDate }}</td>
+                <td jhiTranslate="{{ 'heybusApp.Matrimoniale.' + employe.matrimoniale }}">{{ employe.matrimoniale }}
+                </td>
+                <td>{{ employe.telephone }}</td>
+                <td>{{ employe.nbreEnfant }}</td>
+                <td>{{ employe.photo }}</td>
+                <td>{{ employe.account }}</td>
+                <td>
+                  {{ employe.user?.login }}
+                </td>
+                <td>
+                  <div *ngIf="employe.position">
+                    <a [routerLink]="['/position', employe.position?.id, 'view']">{{ employe.position?.nom }}</a>
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="employe.transporteur">
+                    <a [routerLink]="['/transporteur', employe.transporteur?.id, 'view']">{{ employe.transporteur?.nom
+                      }}</a>
+                  </div>
+                </td>
+                <td class="text-right">
+                  <div class="btn-group">
+                    <button type="submit" [routerLink]="['/employe', employe.id, 'view']" class="btn btn-info btn-sm"
+                      data-cy="entityDetailsButton">
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+
+                    <button type="submit" [routerLink]="['/employe', employe.id, 'edit']" class="btn btn-primary btn-sm"
+                      data-cy="entityEditButton">
+                      <fa-icon icon="pencil-alt"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                    </button>
+
+                    <button type="submit" (click)="delete(employe)" class="btn btn-danger btn-sm"
+                      data-cy="entityDeleteButton">
+                      <fa-icon icon="times"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="employes && employes.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.nom">Nom</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.prenom">Prenom</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.dateNaissance">Date Naissance</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.matrimoniale">Matrimoniale</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.telephone">Telephone</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.nbreEnfant">Nbre Enfant</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.photo">Photo</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.account">Account</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.user">User</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.position">Position</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.employe.transporteur">Transporteur</span></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let employe of employes; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/employe', employe.id, 'view']">{{ employe.id }}</a>
-          </td>
-          <td>{{ employe.nom }}</td>
-          <td>{{ employe.prenom }}</td>
-          <td>{{ employe.dateNaissance | formatMediumDate }}</td>
-          <td jhiTranslate="{{ 'heybusApp.Matrimoniale.' + employe.matrimoniale }}">{{ employe.matrimoniale }}</td>
-          <td>{{ employe.telephone }}</td>
-          <td>{{ employe.nbreEnfant }}</td>
-          <td>{{ employe.photo }}</td>
-          <td>{{ employe.account }}</td>
-          <td>
-            {{ employe.user?.login }}
-          </td>
-          <td>
-            <div *ngIf="employe.position">
-              <a [routerLink]="['/position', employe.position?.id, 'view']">{{ employe.position?.nom }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="employe.transporteur">
-              <a [routerLink]="['/transporteur', employe.transporteur?.id, 'view']">{{ employe.transporteur?.nom }}</a>
-            </div>
-          </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/employe', employe.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
+  <div class="card jh-card" *jhiHasAnyAuthority="['ROLE_ADMIN']">
+    <h2 id="page-heading" data-cy="EmployeHeading">
+      <span jhiTranslate="heybusApp.employe.home.title">Employes</span>
 
-              <button
-                type="submit"
-                [routerLink]="['/employe', employe.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="heybusApp.employe.home.refreshListLabel">Refresh List</span>
+        </button>
 
-              <button type="submit" (click)="delete(employe)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <button id="jh-create-entity" data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-employe" [routerLink]="['/employe/new']">
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="heybusApp.employe.home.createLabel"> Create a new Employe </span>
+        </button>
+      </div>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="employes?.length === 0">
+      <span jhiTranslate="heybusApp.employe.home.notFound">No employes found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="employes && employes.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.nom">Nom</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.prenom">Prenom</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.dateNaissance">Date Naissance</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.matrimoniale">Matrimoniale</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.telephone">Telephone</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.nbreEnfant">Nbre Enfant</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.photo">Photo</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.account">Account</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.user">User</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.position">Position</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.employe.transporteur">Transporteur</span></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employe of employes; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <a [routerLink]="['/employe', employe.id, 'view']">{{ employe.id }}</a>
+            </td>
+            <td>{{ employe.nom }}</td>
+            <td>{{ employe.prenom }}</td>
+            <td>{{ employe.dateNaissance | formatMediumDate }}</td>
+            <td jhiTranslate="{{ 'heybusApp.Matrimoniale.' + employe.matrimoniale }}">{{ employe.matrimoniale }}</td>
+            <td>{{ employe.telephone }}</td>
+            <td>{{ employe.nbreEnfant }}</td>
+            <td>{{ employe.photo }}</td>
+            <td>{{ employe.account }}</td>
+            <td>
+              {{ employe.user?.login }}
+            </td>
+            <td>
+              <div *ngIf="employe.position">
+                <a [routerLink]="['/position', employe.position?.id, 'view']">{{ employe.position?.nom }}</a>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="employe.transporteur">
+                <a [routerLink]="['/transporteur', employe.transporteur?.id, 'view']">{{ employe.transporteur?.nom
+                  }}</a>
+              </div>
+            </td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['/employe', employe.id, 'view']" class="btn btn-info btn-sm"
+                  data-cy="entityDetailsButton">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+
+                <button type="submit" [routerLink]="['/employe', employe.id, 'edit']" class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="submit" (click)="delete(employe)" class="btn btn-danger btn-sm"
+                  data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

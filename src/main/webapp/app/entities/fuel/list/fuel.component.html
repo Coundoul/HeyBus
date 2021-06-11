@@ -1,82 +1,173 @@
-<div>
-  <h2 id="page-heading" data-cy="FuelHeading">
-    <span jhiTranslate="heybusApp.fuel.home.title">Fuels</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="heybusApp.fuel.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-fuel"
-        [routerLink]="['/fuel/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="heybusApp.fuel.home.createLabel"> Create a new Fuel </span>
-      </button>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-4 mt-3">
+      <jhi-sidebar></jhi-sidebar>
     </div>
-  </h2>
+    <div class="col-xs-12 col-md-8 mt-3">
+      <div class="card jh-card">
+        <h2 id="page-heading" data-cy="FuelHeading">
+          <span jhiTranslate="heybusApp.fuel.home.title">Fuels</span>
 
-  <jhi-alert-error></jhi-alert-error>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span jhiTranslate="heybusApp.fuel.home.refreshListLabel">Refresh List</span>
+            </button>
 
-  <jhi-alert></jhi-alert>
+            <button id="jh-create-entity" data-cy="entityCreateButton"
+              class="btn btn-primary jh-create-entity create-fuel" [routerLink]="['/fuel/new']">
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="heybusApp.fuel.home.createLabel"> Create a new Fuel </span>
+            </button>
+          </div>
+        </h2>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="fuels?.length === 0">
-    <span jhiTranslate="heybusApp.fuel.home.notFound">No fuels found</span>
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <div class="alert alert-warning" id="no-result" *ngIf="fuels?.length === 0">
+          <span jhiTranslate="heybusApp.fuel.home.notFound">No fuels found</span>
+        </div>
+
+        <div class="table-responsive" id="entities" *ngIf="fuels && fuels.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr>
+                <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.fuel.typeDeCarburant">Type De Carburant</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.fuel.date">Date</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.fuel.km">Km</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.fuel.nbLitre">Nb Litre</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.fuel.montant">Montant</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.fuel.vehicule">Vehicule</span></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fuel of fuels; trackBy: trackId" data-cy="entityTable">
+                <td>
+                  <a [routerLink]="['/fuel', fuel.id, 'view']">{{ fuel.id }}</a>
+                </td>
+                <td>{{ fuel.typeDeCarburant }}</td>
+                <td>{{ fuel.date | formatMediumDate }}</td>
+                <td>{{ fuel.km }}</td>
+                <td>{{ fuel.nbLitre }}</td>
+                <td>{{ fuel.montant }}</td>
+                <td>
+                  <div *ngIf="fuel.vehicule">
+                    <a [routerLink]="['/vehicule', fuel.vehicule?.id, 'view']">{{ fuel.vehicule?.reference }}</a>
+                  </div>
+                </td>
+                <td class="text-right">
+                  <div class="btn-group">
+                    <button type="submit" [routerLink]="['/fuel', fuel.id, 'view']" class="btn btn-info btn-sm"
+                      data-cy="entityDetailsButton">
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+
+                    <button type="submit" [routerLink]="['/fuel', fuel.id, 'edit']" class="btn btn-primary btn-sm"
+                      data-cy="entityEditButton">
+                      <fa-icon icon="pencil-alt"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                    </button>
+
+                    <button type="submit" (click)="delete(fuel)" class="btn btn-danger btn-sm"
+                      data-cy="entityDeleteButton">
+                      <fa-icon icon="times"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="fuels && fuels.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.fuel.typeDeCarburant">Type De Carburant</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.fuel.date">Date</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.fuel.km">Km</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.fuel.nbLitre">Nb Litre</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.fuel.montant">Montant</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.fuel.vehicule">Vehicule</span></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let fuel of fuels; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/fuel', fuel.id, 'view']">{{ fuel.id }}</a>
-          </td>
-          <td>{{ fuel.typeDeCarburant }}</td>
-          <td>{{ fuel.date | formatMediumDate }}</td>
-          <td>{{ fuel.km }}</td>
-          <td>{{ fuel.nbLitre }}</td>
-          <td>{{ fuel.montant }}</td>
-          <td>
-            <div *ngIf="fuel.vehicule">
-              <a [routerLink]="['/vehicule', fuel.vehicule?.id, 'view']">{{ fuel.vehicule?.reference }}</a>
-            </div>
-          </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/fuel', fuel.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
 
-              <button type="submit" [routerLink]="['/fuel', fuel.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
 
-              <button type="submit" (click)="delete(fuel)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card jh-card">
+    <h2 id="page-heading" data-cy="FuelHeading">
+      <span jhiTranslate="heybusApp.fuel.home.title">Fuels</span>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="heybusApp.fuel.home.refreshListLabel">Refresh List</span>
+        </button>
+
+        <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-fuel"
+          [routerLink]="['/fuel/new']">
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="heybusApp.fuel.home.createLabel"> Create a new Fuel </span>
+        </button>
+      </div>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="fuels?.length === 0">
+      <span jhiTranslate="heybusApp.fuel.home.notFound">No fuels found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="fuels && fuels.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.fuel.typeDeCarburant">Type De Carburant</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.fuel.date">Date</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.fuel.km">Km</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.fuel.nbLitre">Nb Litre</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.fuel.montant">Montant</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.fuel.vehicule">Vehicule</span></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fuel of fuels; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <a [routerLink]="['/fuel', fuel.id, 'view']">{{ fuel.id }}</a>
+            </td>
+            <td>{{ fuel.typeDeCarburant }}</td>
+            <td>{{ fuel.date | formatMediumDate }}</td>
+            <td>{{ fuel.km }}</td>
+            <td>{{ fuel.nbLitre }}</td>
+            <td>{{ fuel.montant }}</td>
+            <td>
+              <div *ngIf="fuel.vehicule">
+                <a [routerLink]="['/vehicule', fuel.vehicule?.id, 'view']">{{ fuel.vehicule?.reference }}</a>
+              </div>
+            </td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['/fuel', fuel.id, 'view']" class="btn btn-info btn-sm"
+                  data-cy="entityDetailsButton">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+
+                <button type="submit" [routerLink]="['/fuel', fuel.id, 'edit']" class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="submit" (click)="delete(fuel)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
