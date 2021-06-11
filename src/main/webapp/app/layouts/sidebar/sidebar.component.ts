@@ -2,6 +2,7 @@ import { Component, OnInit, RendererFactory2, Renderer2 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LoginService } from 'app/login/login.service';
 import * as dayjs from 'dayjs';
 
 @Component({
@@ -16,6 +17,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private titleService: Title,
     private router: Router,
+    private loginService: LoginService,
     private translateService: TranslateService,
     rootRenderer: RendererFactory2
   ) {
@@ -40,6 +42,11 @@ export class SidebarComponent implements OnInit {
       dayjs.locale(langChangeEvent.lang);
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
     });
+  }
+
+  logout(): void {
+    this.loginService.logout();
+    this.router.navigate(['']);
   }
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
