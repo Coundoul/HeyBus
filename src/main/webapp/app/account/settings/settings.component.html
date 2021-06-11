@@ -177,7 +177,7 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label class="form-control-label" for="email" jhiTranslate="global.form.email.label">Email</label>
+                    <label class="form-control-label text-heybus" for="email" jhiTranslate="global.form.email.label">Email</label>
                     <input
                       type="email"
                       class="form-control"
@@ -226,7 +226,7 @@
                   </div>
 
                   <div class="form-group col-md-6" *ngIf="languages && languages.length > 0">
-                    <label for="langKey" jhiTranslate="settings.form.language">Language</label>
+                    <label for="langKey" jhiTranslate="settings.form.language" class="text-heybus">Language</label>
                     <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
                       <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
                     </select>
