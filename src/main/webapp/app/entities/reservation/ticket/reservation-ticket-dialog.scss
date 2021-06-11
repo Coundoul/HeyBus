@@ -106,21 +106,15 @@ Main page styles
 .text-danger {
   color: #ff1b2e;
 }
-.circle-left {
-  background: #e5e5e5;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  margin-left: -25px;
-}
-.circle-right {
-  background: #e5e5e5;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  margin-right: -25px;
-  margin-top: -10px;
-}
+
 .mat-tab-group {
   margin-bottom: 48px;
+}
+.logo-img {
+  height: 45px;
+  width: 115px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../../../content/images/heybuslogo.png') no-repeat center center;
+  background-size: contain;
 }

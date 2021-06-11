@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IReservation } from '../reservation.model';
 
@@ -10,8 +10,11 @@ import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { ReservationService } from '../service/reservation.service';
 import { ReservationDeleteDialogComponent } from '../delete/reservation-delete-dialog.component';
 
+import { MatDialog } from '@angular/material/dialog';
+import { ReservationTicketDialogComponent } from '../ticket/reservation-ticket-dialog.component';
 @Component({
   selector: 'jhi-reservation',
+  styleUrls: ['./reservation.component.scss'],
   templateUrl: './reservation.component.html',
 })
 export class ReservationComponent implements OnInit {
@@ -28,8 +31,19 @@ export class ReservationComponent implements OnInit {
     protected reservationService: ReservationService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    //public activeModal: NgbActiveModal,
+    public dialog: MatDialog
   ) {}
+
+  // openDialog(): void {
+  //     const dialogRef = this.dialog.open(ReservationExampleDialogComponent);
+
+  //     dialogRef.afterClosed().subscribe(result => {
+  //       /* eslint-disable no-console */
+  //       console.log(`Dialog result: ${result}`);
+  //     });
+  //   }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -63,6 +77,17 @@ export class ReservationComponent implements OnInit {
 
   delete(reservation: IReservation): void {
     const modalRef = this.modalService.open(ReservationDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.reservation = reservation;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'deleted') {
+        this.loadPage();
+      }
+    });
+  }
+
+  ticket(reservation: IReservation): void {
+    const modalRef = this.modalService.open(ReservationTicketDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.reservation = reservation;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
@@ -115,3 +140,9 @@ export class ReservationComponent implements OnInit {
     this.ngbPaginationPage = this.page ?? 1;
   }
 }
+
+// @Component({
+//   selector: 'jhi-reservation-dialog',
+//   templateUrl: './reservation-dialog.component'
+// })
+// export class ReservationExampleDialogComponent {}
