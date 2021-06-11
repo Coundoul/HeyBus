@@ -17,12 +17,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReservationTicketDialogComponent } from './ticket/reservation-ticket-dialog.component';
+import { SidebarModule } from 'app/layouts/sidebar/sidebar.module';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default,
 };
 @NgModule({
-  imports: [SharedModule, ReservationRoutingModule, NgWizardModule.forRoot(ngWizardConfig), MatTabsModule, MatDialogModule, NgbModule],
+  imports: [SharedModule, ReservationRoutingModule, NgWizardModule.forRoot(ngWizardConfig), MatTabsModule, MatDialogModule, NgbModule, SidebarModule],
   declarations: [
     ReservationComponent,
     ReservationDetailComponent,
