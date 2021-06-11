@@ -6,7 +6,7 @@
         "refreshListLabel": "Actualiser la liste",
         "createLabel": "Créer une nouvelle maintenance",
         "createOrEditLabel": "Créer ou éditer une maintenance",
-        "notFouned": "Aucune maintenance trouvée"
+        "notFound": "Aucune maintenance trouvée"
       },
       "created": "une nouvelle maintenance a été créée avec l'identifiant {{ param }}",
       "updated": "La maintenance avec l'identifiant {{ param }} a été mise à jour",

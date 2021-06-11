@@ -1,14 +1,57 @@
-<ul class="list-group shadow text-heybus">
-  <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/account/settings']">
-      <span><fa-icon icon="user" class="fa-lg mr-2"></fa-icon> Informations</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    <span><fa-icon icon="photo-video" class="fa-lg mr-2"></fa-icon> Vos photos</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center text-active">
-    <span><fa-icon icon="bus" class="fa-lg mr-2" [routerLink]="['/account/settings']"></fa-icon> Vos voyages</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    <span><fa-icon icon="sign-out-alt" class="fa-lg mr-2"></fa-icon> Déconnexion</span>
-  </li>
+<ul class="list-group shadow">
+  <a class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/account/settings']">
+    <span [ngClass]="{ 'text-active': currentRout === '/account/settings' }">
+      <fa-icon icon="user" class="fa-lg mr-2"></fa-icon> Informations
+    </span>
+  </a>
+  <a class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/reservation']">
+    <span [ngClass]="{ 'text-active': currentRout === '/reservation' }">
+      <fa-icon icon="money-check" class="fa-lg mr-2"></fa-icon> Vos réservations
+    </span>
+  </a>
+  <a class="list-group-item d-flex justify-content-between align-items-center" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
+    <span> <fa-icon icon="photo-video" class="fa-lg mr-2"></fa-icon> Vos photos </span>
+  </a>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [routerLink]="['/voyage']"
+    *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'"
+  >
+    <span [ngClass]="{ 'text-active': currentRout === '/voyage' }"> <fa-icon icon="bus" class="fa-lg mr-2"></fa-icon> Vos voyages </span>
+  </a>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [routerLink]="['/employe']"
+    *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'"
+  >
+    <span [ngClass]="{ 'text-active': currentRout === '/employe' }">
+      <fa-icon icon="users" class="fa-lg mr-2"></fa-icon> Vos employés
+    </span>
+  </a>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [routerLink]="['/vehicule']"
+    *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'"
+  >
+    <span [ngClass]="{ 'text-active': currentRout === '/vehicule' }"> <fa-icon icon="bus" class="fa-lg mr-2"></fa-icon> Vos vehicule </span>
+  </a>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [routerLink]="['/maintenance']"
+    *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'"
+  >
+    <span [ngClass]="{ 'text-active': currentRout === '/maintenance' }">
+      <fa-icon icon="tools" class="fa-lg mr-2"></fa-icon> Vos maintenance
+    </span>
+  </a>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [routerLink]="['/fuel']"
+    *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'"
+  >
+    <span [ngClass]="{ 'text-active': currentRout === '/fuel' }"> <fa-icon icon="gas-pump" class="fa-lg mr-2"></fa-icon> Vos fuel </span>
+  </a>
+  <a class="list-group-item d-flex justify-content-between align-items-center">
+    <span> <fa-icon icon="sign-out-alt" class="fa-lg mr-2"></fa-icon> Déconnexion </span>
+  </a>
 </ul>

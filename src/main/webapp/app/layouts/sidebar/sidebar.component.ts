@@ -4,13 +4,13 @@ import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import * as dayjs from 'dayjs';
 
-
 @Component({
   selector: 'jhi-sidebar',
   styleUrls: ['./sidebar.component.scss'],
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent implements OnInit {
+  currentRout?: string;
   private renderer: Renderer2;
 
   constructor(
@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit {
     rootRenderer: RendererFactory2
   ) {
     this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
+    this.currentRout = this.router.url;
   }
 
   ngOnInit(): void {

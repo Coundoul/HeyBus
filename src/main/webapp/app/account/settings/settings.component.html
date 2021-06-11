@@ -1,11 +1,12 @@
 <div class="container">
-  <div class="row mt-3">
+  <div class="row">
     <div class="col-md-4 mt-3">
-     <jhi-sidebar></jhi-sidebar>
+      <jhi-sidebar></jhi-sidebar>
     </div>
     <div class="col-md-8 mt-3">
+      <!--  Informations Sociétés -->
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
           <h5 class="font-weight-bold">Coordonnées</h5>
           <form name="editForm" role="form" novalidate>
             <div class="shadow bg-white col-md-12 mb-3">
@@ -23,51 +24,45 @@
 
                   <div class="form-group col-md-3">
                     <label class="form-control-label text-heybus">code postal</label>
-                    <input type="text" class="form-control" name="code_postal">
+                    <input type="text" class="form-control" name="code_postal" />
                   </div>
                   <div class="form-group col-md-3">
                     <label class="form-control-label text-heybus">ville</label>
-                    <input type="text" class="form-control" name="code_postal">
+                    <input type="text" class="form-control" name="code_postal" />
                   </div>
 
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Adresse email</label>
                     <input type="text" class="form-control" />
-
                   </div>
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Numéro de téléphone</label>
                     <input type="text" class="form-control" />
-
                   </div>
                 </div>
               </div>
             </div>
-
           </form>
         </div>
       </div>
+
+      <!--  Informations Juridiques -->
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
           <h5 class="font-weight-bold">Informations juridiques</h5>
           <form name="editForm" role="form" novalidate>
             <div class="shadow bg-white col-md-12 mb-3">
               <div class="card-body">
-
                 <div class="row mt-2">
-
                   <div class="form-group col-md-12">
-                    <label class="form-control-label text-heybus">Logo</label><br>
-                    <button type="submit" id="save-entity" class="btn btn-simple">
-                      Télecharger une image
-                    </button>
+                    <label class="form-control-label text-heybus">Logo</label><br />
+                    <button type="submit" id="save-entity" class="btn btn-simple">Télecharger une image</button>
                   </div>
 
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Numéro de TVA</label>
                     <input type="text" class="form-control" name="nom" />
                   </div>
-
 
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Registre de commerce</label>
@@ -79,9 +74,13 @@
           </form>
         </div>
       </div>
+
+      <!--  Information et Personne a contacter-->
       <div class="row">
         <div class="col-md-12">
-          <h5 class="font-weight-bold">Personne à contacter</h5>
+          <h5 class="font-weight-bold" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">Personne à contacter</h5>
+          <h5 class="font-weight-bold" *jhiHasAnyAuthority="'ROLE_USER'">Vos Informations</h5>
+
           <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="account" novalidate>
             <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
               <strong>Settings saved!</strong>
@@ -89,57 +88,89 @@
             <div class="shadow bg-white col-md-12 mb-3">
               <div class="card-body">
                 <div class="row mt-2">
-
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus" for="firstName"
-                      jhiTranslate="settings.form.firstname">First
-                      Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName"
-                      placeholder="{{ 'settings.form.firstname.placeholder' | translate }}" formControlName="firstName"
-                      data-cy="firstname" />
+                    <label class="form-control-label text-heybus" for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="firstName"
+                      name="firstName"
+                      placeholder="{{ 'settings.form.firstname.placeholder' | translate }}"
+                      formControlName="firstName"
+                      data-cy="firstname"
+                    />
 
-                    <div *ngIf="
-                                  settingsForm.get('firstName')!.invalid && (settingsForm.get('firstName')!.dirty || settingsForm.get('firstName')!.touched)
-                                ">
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('firstName')?.errors?.required"
-                        jhiTranslate="settings.messages.validate.firstname.required">
+                    <div
+                      *ngIf="
+                        settingsForm.get('firstName')!.invalid &&
+                        (settingsForm.get('firstName')!.dirty || settingsForm.get('firstName')!.touched)
+                      "
+                    >
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('firstName')?.errors?.required"
+                        jhiTranslate="settings.messages.validate.firstname.required"
+                      >
                         Your first name is required.
                       </small>
 
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('firstName')?.errors?.minlength"
-                        jhiTranslate="settings.messages.validate.firstname.minlength">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('firstName')?.errors?.minlength"
+                        jhiTranslate="settings.messages.validate.firstname.minlength"
+                      >
                         Your first name is required to be at least 1 character.
                       </small>
 
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('firstName')?.errors?.maxlength"
-                        jhiTranslate="settings.messages.validate.firstname.maxlength">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('firstName')?.errors?.maxlength"
+                        jhiTranslate="settings.messages.validate.firstname.maxlength"
+                      >
                         Your first name cannot be longer than 50 characters.
                       </small>
                     </div>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus" for="lastName"
-                      jhiTranslate="settings.form.lastname">Last
-                      Name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName"
-                      placeholder="{{ 'settings.form.lastname.placeholder' | translate }}" formControlName="lastName"
-                      data-cy="lastname" />
+                    <label class="form-control-label text-heybus" for="lastName" jhiTranslate="settings.form.lastname">Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="lastName"
+                      name="lastName"
+                      placeholder="{{ 'settings.form.lastname.placeholder' | translate }}"
+                      formControlName="lastName"
+                      data-cy="lastname"
+                    />
 
                     <div
-                      *ngIf="settingsForm.get('lastName')!.invalid && (settingsForm.get('lastName')!.dirty || settingsForm.get('lastName')!.touched)">
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('lastName')?.errors?.required"
-                        jhiTranslate="settings.messages.validate.lastname.required">
+                      *ngIf="
+                        settingsForm.get('lastName')!.invalid &&
+                        (settingsForm.get('lastName')!.dirty || settingsForm.get('lastName')!.touched)
+                      "
+                    >
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('lastName')?.errors?.required"
+                        jhiTranslate="settings.messages.validate.lastname.required"
+                      >
                         Your last name is required.
                       </small>
 
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('lastName')?.errors?.minlength"
-                        jhiTranslate="settings.messages.validate.lastname.minlength">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('lastName')?.errors?.minlength"
+                        jhiTranslate="settings.messages.validate.lastname.minlength"
+                      >
                         Your last name is required to be at least 1 character.
                       </small>
 
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('lastName')?.errors?.maxlength"
-                        jhiTranslate="settings.messages.validate.lastname.maxlength">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('lastName')?.errors?.maxlength"
+                        jhiTranslate="settings.messages.validate.lastname.maxlength"
+                      >
                         Your last name cannot be longer than 50 characters.
                       </small>
                     </div>
@@ -147,29 +178,48 @@
 
                   <div class="form-group col-md-6">
                     <label class="form-control-label" for="email" jhiTranslate="global.form.email.label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email"
-                      placeholder="{{ 'global.form.email.placeholder' | translate }}" formControlName="email"
-                      data-cy="email" />
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="{{ 'global.form.email.placeholder' | translate }}"
+                      formControlName="email"
+                      data-cy="email"
+                    />
 
                     <div
-                      *ngIf="settingsForm.get('email')!.invalid && (settingsForm.get('email')!.dirty || settingsForm.get('email')!.touched)">
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.required"
-                        jhiTranslate="global.messages.validate.email.required">
+                      *ngIf="settingsForm.get('email')!.invalid && (settingsForm.get('email')!.dirty || settingsForm.get('email')!.touched)"
+                    >
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('email')?.errors?.required"
+                        jhiTranslate="global.messages.validate.email.required"
+                      >
                         Your email is required.
                       </small>
 
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.email"
-                        jhiTranslate="global.messages.validate.email.invalid">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('email')?.errors?.email"
+                        jhiTranslate="global.messages.validate.email.invalid"
+                      >
                         Your email is invalid.
                       </small>
 
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.minlength"
-                        jhiTranslate="global.messages.validate.email.minlength">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('email')?.errors?.minlength"
+                        jhiTranslate="global.messages.validate.email.minlength"
+                      >
                         Your email is required to be at least 5 characters.
                       </small>
 
-                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.maxlength"
-                        jhiTranslate="global.messages.validate.email.maxlength">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="settingsForm.get('email')?.errors?.maxlength"
+                        jhiTranslate="global.messages.validate.email.maxlength"
+                      >
                         Your email cannot be longer than 100 characters.
                       </small>
                     </div>
@@ -177,19 +227,184 @@
 
                   <div class="form-group col-md-6" *ngIf="languages && languages.length > 0">
                     <label for="langKey" jhiTranslate="settings.form.language">Language</label>
-                    <select class="form-control" id="langKey" name="langKey" formControlName="langKey"
-                      data-cy="langKey">
-                      <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}
-                      </option>
+                    <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
+                      <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
                     </select>
                   </div>
-
                 </div>
               </div>
             </div>
             <div class="float-right mt-2 mb-3">
-              <button type="submit" [disabled]="settingsForm.invalid" class="btn btn-reserver"
-                jhiTranslate="settings.form.button" data-cy="submit">
+              <button
+                type="submit"
+                [disabled]="settingsForm.invalid"
+                class="btn btn-reserver"
+                jhiTranslate="settings.form.button"
+                data-cy="submit"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!--  Password Reset-->
+      <div class="row">
+        <div class="col-md-12">
+          <h5 class="font-weight-bold">Votre mot de passe</h5>
+
+          <div class="alert alert-success" *ngIf="successPass" jhiTranslate="password.messages.success">
+            <strong>Password changed!</strong>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="errorPass" jhiTranslate="password.messages.error">
+            <strong>An error has occurred!</strong> The password could not be changed.
+          </div>
+
+          <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+            The password and its confirmation do not match!
+          </div>
+
+          <form name="form" role="form" (ngSubmit)="changePassword()" [formGroup]="passwordForm">
+            <div class="shadow bg-white col-md-12 mb-3">
+              <div class="card-body">
+                <div class="row mt-2">
+                  <div class="form-group col-md-12">
+                    <label class="form-control-label text-heybus" for="currentPassword" jhiTranslate="global.form.currentpassword.label"
+                      >Current password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="currentPassword"
+                      name="currentPassword"
+                      placeholder="{{ 'global.form.currentpassword.placeholder' | translate }}"
+                      formControlName="currentPassword"
+                      data-cy="currentPassword"
+                    />
+
+                    <div
+                      *ngIf="
+                        passwordForm.get('currentPassword')!.invalid &&
+                        (passwordForm.get('currentPassword')!.dirty || passwordForm.get('currentPassword')!.touched)
+                      "
+                    >
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="passwordForm.get('currentPassword')?.errors?.required"
+                        jhiTranslate="global.messages.validate.newpassword.required"
+                      >
+                        Your password is required.
+                      </small>
+                    </div>
+                  </div>
+                  <br />
+
+                  <div class="form-group col-md-6">
+                    <label class="form-control-label text-heybus" for="newPassword" jhiTranslate="global.form.newpassword.label"
+                      >New password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="newPassword"
+                      name="newPassword"
+                      placeholder="{{ 'global.form.newpassword.placeholder' | translate }}"
+                      formControlName="newPassword"
+                      data-cy="newPassword"
+                    />
+
+                    <div
+                      *ngIf="
+                        passwordForm.get('newPassword')!.invalid &&
+                        (passwordForm.get('newPassword')!.dirty || passwordForm.get('newPassword')!.touched)
+                      "
+                    >
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="passwordForm.get('newPassword')?.errors?.required"
+                        jhiTranslate="global.messages.validate.newpassword.required"
+                      >
+                        Your password is required.
+                      </small>
+
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="passwordForm.get('newPassword')?.errors?.minlength"
+                        jhiTranslate="global.messages.validate.newpassword.minlength"
+                      >
+                        Your password is required to be at least 4 characters.
+                      </small>
+
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="passwordForm.get('newPassword')?.errors?.maxlength"
+                        jhiTranslate="global.messages.validate.newpassword.maxlength"
+                      >
+                        Your password cannot be longer than 50 characters.
+                      </small>
+                    </div>
+
+                    <jhi-password-strength-bar [passwordToCheck]="passwordForm.get('newPassword')!.value"> </jhi-password-strength-bar>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label class="form-control-label text-heybus" for="confirmPassword" jhiTranslate="global.form.confirmpassword.label"
+                      >New password confirmation</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="{{ 'global.form.confirmpassword.placeholder' | translate }}"
+                      formControlName="confirmPassword"
+                      data-cy="confirmPassword"
+                    />
+
+                    <div
+                      *ngIf="
+                        passwordForm.get('confirmPassword')!.invalid &&
+                        (passwordForm.get('confirmPassword')!.dirty || passwordForm.get('confirmPassword')!.touched)
+                      "
+                    >
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="passwordForm.get('confirmPassword')?.errors?.required"
+                        jhiTranslate="global.messages.validate.confirmpassword.required"
+                      >
+                        Your confirmation password is required.
+                      </small>
+
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="passwordForm.get('confirmPassword')?.errors?.minlength"
+                        jhiTranslate="global.messages.validate.confirmpassword.minlength"
+                      >
+                        Your confirmation password is required to be at least 4 characters.
+                      </small>
+
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="passwordForm.get('confirmPassword')?.errors?.maxlength"
+                        jhiTranslate="global.messages.validate.confirmpassword.maxlength"
+                      >
+                        Your confirmation password cannot be longer than 50 characters.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="float-right mt-2 mb-3">
+              <button
+                type="submit"
+                [disabled]="passwordForm.invalid"
+                class="btn btn-reserver"
+                jhiTranslate="password.form.button"
+                data-cy="submit"
+              >
                 Save
               </button>
             </div>
@@ -199,7 +414,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- <div class="card jh-card">
   <div class="row justify-content-center">
