@@ -20,18 +20,17 @@ import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, S
   styleUrls: ['./reservation-voyage.component.scss'],
   templateUrl: './reservation-voyage.component.html',
   providers: [DatePipe],
-
 })
 export class ReservationVoyageComponent implements OnInit {
   isSaving = false;
 
   voyage?: IVoyage;
-  nbrePassagers?:number;
+  nbrePassagers?: number;
   editForm = this.fb.group({
-    id: [], 
+    id: [],
     nom: [],
     prenom: [],
-    telephone: [null, [Validators.required]],
+    telephone: [null, [Validators.required, Validators.pattern('[0-9]{9}')]],
     email: [null, [Validators.required]],
     profession: [],
     datenaissance: [],
@@ -39,24 +38,30 @@ export class ReservationVoyageComponent implements OnInit {
     adresse: [],
     user: [],
   });
-  
+
   stepStates = {
     normal: STEP_STATE.normal,
     disabled: STEP_STATE.disabled,
     error: STEP_STATE.error,
-    hidden: STEP_STATE.hidden
+    hidden: STEP_STATE.hidden,
   };
- 
+
   config: NgWizardConfig = {
     selected: 0,
     theme: THEME.arrows,
     toolbarSettings: {
       toolbarExtraButtons: [
-        { text: 'Finish', class: 'btn btn-info', event(){ alert("Finished!!!");} }
+        {
+          text: 'Finish',
+          class: 'btn btn-info',
+          event() {
+            alert('Finished!!!');
+          },
+        },
       ],
-    }
+    },
   };
-  
+
   isValidTypeBoolean = true;
 
   constructor(
@@ -68,7 +73,6 @@ export class ReservationVoyageComponent implements OnInit {
     protected fb: FormBuilder,
     private ngWizardService: NgWizardService,
     protected router: Router
-
   ) {}
 
   ngOnInit(): void {
@@ -89,7 +93,6 @@ export class ReservationVoyageComponent implements OnInit {
     const idVoyage = Number(this.activatedRoute.snapshot.paramMap.get('voyage'));
     const nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('passagers'));
 
-
     if (customer.id !== undefined) {
       this.subscribeToSaveResponse(this.reservationService.update(customer));
     } else {
@@ -107,29 +110,28 @@ export class ReservationVoyageComponent implements OnInit {
   showPreviousStep(event?: Event): void {
     this.ngWizardService.previous();
   }
- 
+
   showNextStep(event?: Event): void {
     this.ngWizardService.next();
   }
- 
+
   resetWizard(event?: Event): void {
     this.ngWizardService.reset();
   }
- 
+
   setTheme(theme: THEME): void {
     this.ngWizardService.theme(theme);
   }
- 
+
   stepChanged(args: StepChangedArgs): void {
-   args.step
+    args.step;
   }
- 
- 
+
   isValidFunctionReturnsBoolean(args: StepValidationArgs): boolean {
     return true;
   }
- 
-  isValidFunctionReturnsObservable(args: StepValidationArgs): Observable<boolean>{
+
+  isValidFunctionReturnsObservable(args: StepValidationArgs): Observable<boolean> {
     return of(true);
   }
 
@@ -142,8 +144,7 @@ export class ReservationVoyageComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     const idVoyage = String(this.activatedRoute.snapshot.paramMap.get('voyage'));
-    this.router.navigate(['/reservation/paiement/voyage/'+idVoyage]);
-
+    this.router.navigate(['/reservation/paiement/voyage/' + idVoyage]);
   }
 
   protected onSaveError(): void {
