@@ -1,88 +1,186 @@
-<div>
-  <h2 id="page-heading" data-cy="MaintenanceHeading">
-    <span jhiTranslate="heybusApp.maintenance.home.title">Maintenances</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="heybusApp.maintenance.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-maintenance"
-        [routerLink]="['/maintenance/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="heybusApp.maintenance.home.createLabel"> Create a new Maintenance </span>
-      </button>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-4 mt-3">
+      <jhi-sidebar></jhi-sidebar>
     </div>
-  </h2>
+    <div class="col-xs-12 col-md-8 mt-3">
+      <div class="card jh-card">
+        <h2 id="page-heading" data-cy="MaintenanceHeading">
+          <span jhiTranslate="heybusApp.maintenance.home.title">Maintenances</span>
 
-  <jhi-alert-error></jhi-alert-error>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span jhiTranslate="heybusApp.maintenance.home.refreshListLabel">Refresh List</span>
+            </button>
 
-  <jhi-alert></jhi-alert>
+            <button
+              id="jh-create-entity"
+              data-cy="entityCreateButton"
+              class="btn btn-primary jh-create-entity create-maintenance"
+              [routerLink]="['/maintenance/new']"
+            >
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="heybusApp.maintenance.home.createLabel"> Create a new Maintenance </span>
+            </button>
+          </div>
+        </h2>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="maintenances?.length === 0">
-    <span jhiTranslate="heybusApp.maintenance.home.notFound">No maintenances found</span>
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <div class="alert alert-warning" id="no-result" *ngIf="maintenances?.length === 0">
+          <span jhiTranslate="heybusApp.maintenance.home.notFound">No maintenances found</span>
+        </div>
+
+        <div class="table-responsive" id="entities" *ngIf="maintenances && maintenances.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr>
+                <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.maintenance.date">Date</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.maintenance.type">Type</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.maintenance.nbreKmMoteur">Nbre Km Moteur</span></th>
+                <th scope="col"><span jhiTranslate="heybusApp.maintenance.vehicule">Vehicule</span></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let maintenance of maintenances; trackBy: trackId" data-cy="entityTable">
+                <td>
+                  <a [routerLink]="['/maintenance', maintenance.id, 'view']">{{ maintenance.id }}</a>
+                </td>
+                <td>{{ maintenance.date | formatMediumDate }}</td>
+                <td>{{ maintenance.type }}</td>
+                <td>{{ maintenance.nbreKmMoteur }}</td>
+                <td>
+                  <div *ngIf="maintenance.vehicule">
+                    <a [routerLink]="['/vehicule', maintenance.vehicule?.id, 'view']">{{ maintenance.vehicule?.reference }}</a>
+                  </div>
+                </td>
+                <td class="text-right">
+                  <div class="btn-group">
+                    <button
+                      type="submit"
+                      [routerLink]="['/maintenance', maintenance.id, 'view']"
+                      class="btn btn-info btn-sm"
+                      data-cy="entityDetailsButton"
+                    >
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+
+                    <button
+                      type="submit"
+                      [routerLink]="['/maintenance', maintenance.id, 'edit']"
+                      class="btn btn-primary btn-sm"
+                      data-cy="entityEditButton"
+                    >
+                      <fa-icon icon="pencil-alt"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                    </button>
+
+                    <button type="submit" (click)="delete(maintenance)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                      <fa-icon icon="times"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="maintenances && maintenances.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.maintenance.date">Date</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.maintenance.type">Type</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.maintenance.nbreKmMoteur">Nbre Km Moteur</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.maintenance.vehicule">Vehicule</span></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let maintenance of maintenances; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/maintenance', maintenance.id, 'view']">{{ maintenance.id }}</a>
-          </td>
-          <td>{{ maintenance.date | formatMediumDate }}</td>
-          <td>{{ maintenance.type }}</td>
-          <td>{{ maintenance.nbreKmMoteur }}</td>
-          <td>
-            <div *ngIf="maintenance.vehicule">
-              <a [routerLink]="['/vehicule', maintenance.vehicule?.id, 'view']">{{ maintenance.vehicule?.reference }}</a>
-            </div>
-          </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/maintenance', maintenance.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
+  <div class="card jh-card">
+    <h2 id="page-heading" data-cy="MaintenanceHeading">
+      <span jhiTranslate="heybusApp.maintenance.home.title">Maintenances</span>
 
-              <button
-                type="submit"
-                [routerLink]="['/maintenance', maintenance.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="heybusApp.maintenance.home.refreshListLabel">Refresh List</span>
+        </button>
 
-              <button type="submit" (click)="delete(maintenance)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-maintenance"
+          [routerLink]="['/maintenance/new']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="heybusApp.maintenance.home.createLabel"> Create a new Maintenance </span>
+        </button>
+      </div>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="maintenances?.length === 0">
+      <span jhiTranslate="heybusApp.maintenance.home.notFound">No maintenances found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="maintenances && maintenances.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.maintenance.date">Date</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.maintenance.type">Type</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.maintenance.nbreKmMoteur">Nbre Km Moteur</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.maintenance.vehicule">Vehicule</span></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let maintenance of maintenances; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <a [routerLink]="['/maintenance', maintenance.id, 'view']">{{ maintenance.id }}</a>
+            </td>
+            <td>{{ maintenance.date | formatMediumDate }}</td>
+            <td>{{ maintenance.type }}</td>
+            <td>{{ maintenance.nbreKmMoteur }}</td>
+            <td>
+              <div *ngIf="maintenance.vehicule">
+                <a [routerLink]="['/vehicule', maintenance.vehicule?.id, 'view']">{{ maintenance.vehicule?.reference }}</a>
+              </div>
+            </td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button
+                  type="submit"
+                  [routerLink]="['/maintenance', maintenance.id, 'view']"
+                  class="btn btn-info btn-sm"
+                  data-cy="entityDetailsButton"
+                >
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+
+                <button
+                  type="submit"
+                  [routerLink]="['/maintenance', maintenance.id, 'edit']"
+                  class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton"
+                >
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="submit" (click)="delete(maintenance)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

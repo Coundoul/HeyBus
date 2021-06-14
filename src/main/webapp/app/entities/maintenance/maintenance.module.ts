@@ -6,9 +6,10 @@ import { MaintenanceDetailComponent } from './detail/maintenance-detail.componen
 import { MaintenanceUpdateComponent } from './update/maintenance-update.component';
 import { MaintenanceDeleteDialogComponent } from './delete/maintenance-delete-dialog.component';
 import { MaintenanceRoutingModule } from './route/maintenance-routing.module';
+import { SidebarModule } from 'app/layouts/sidebar/sidebar.module';
 
 @NgModule({
-  imports: [SharedModule, MaintenanceRoutingModule],
+  imports: [SharedModule, MaintenanceRoutingModule, SidebarModule],
   declarations: [MaintenanceComponent, MaintenanceDetailComponent, MaintenanceUpdateComponent, MaintenanceDeleteDialogComponent],
   entryComponents: [MaintenanceDeleteDialogComponent],
 })

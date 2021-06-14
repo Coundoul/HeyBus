@@ -26,9 +26,27 @@ Main page styles
   border-radius: 8px;
   box-shadow: none !important;
 }
+.search-shadow {
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2);
+}
+.btn-reserver {
+  width: 212px;
+  height: 47px;
+  border-radius: 8px;
+  background-color: #ff1b2e;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-align: center;
+  color: #ffffff;
+}
 .btn-simple {
-  width: auto;
-  height: 40px;
+  width: 188px;
+  height: 47px;
   border-radius: 8px;
   background-color: #ffffff;
   border: 1px solid #425486;
@@ -51,8 +69,10 @@ Main page styles
   margin-bottom: 0px;
   margin-top: -10px;
 }
-
-.text-red {
+.underline {
+  border: 1px solid #ff1b2e;
+}
+.text-danger {
   color: #ff1b2e;
 }
 .circle-left {
@@ -69,4 +89,32 @@ Main page styles
   height: 20px;
   margin-right: -25px;
   margin-top: -10px;
+}
+.line {
+  width: 0px;
+  height: 61px;
+  border: 1px solid #a1a9c3;
+}
+.line-horizontal {
+  border: 1px dashed #f1f2f6;
+  margin-bottom: 0px;
+  margin-top: -10px;
+}
+.underline {
+  border: 1px solid #ff1b2e;
+}
+.text-danger {
+  color: #ff1b2e;
+}
+
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+.logo-img {
+  height: 45px;
+  width: 115px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../../../content/images/heybuslogo.png') no-repeat center center;
+  background-size: contain;
 }

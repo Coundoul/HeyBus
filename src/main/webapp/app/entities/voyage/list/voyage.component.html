@@ -1,43 +1,49 @@
 <div class="container">
-  <div class="row mt-3" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
+  <div class="row" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
     <div class="col-xs-12 col-md-4 mt-3">
       <jhi-sidebar></jhi-sidebar>
     </div>
     <div class="col-xs-12 col-md-8 mt-3">
-
       <div class="row justify-content-center">
         <div class="col-xs-4 col-md-5 text-center">
           <h5 class="text-black font-weight-bold">Trajets à venir</h5>
         </div>
-        <div class="line text-center col-xs-4" style="height:30px;">
-        </div>
+        <div class="line text-center col-xs-4" style="height: 30px"></div>
         <div class="col-xs-4 col-md-5 text-center">
-          <h5 class="text-black font-weight-bold"> Trajets effectués</h5>
+          <h5 class="text-black font-weight-bold">Trajets effectués</h5>
         </div>
 
-        <div class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3" style="max-width: 50rem"
-          *ngFor="let voyage of voyages; trackBy: trackId">
-          <div><small>{{voyage?.dateDeVoyage?.format('dddd')}} {{voyage?.dateDeVoyage?.date()}}
-              {{voyage?.dateDeVoyage?.format('MMMM')}}</small>
+        <div
+          class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3"
+          style="max-width: 50rem"
+          *ngFor="let voyage of voyages; trackBy: trackId"
+        >
+          <div>
+            <small
+              >{{ voyage?.dateDeVoyage?.format('dddd') }} {{ voyage?.dateDeVoyage?.date() }}
+              {{ voyage?.dateDeVoyage?.format('MMMM') }}</small
+            >
             <div class="circle-left"></div>
-            <hr class="line-horizontal">
+            <hr class="line-horizontal" />
             <div class="circle-right float-right"></div>
           </div>
           <div class="card-body row">
             <div class="col-xs-12 col-md-7">
               <small>
-                <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
-              </small><span
-                class="text-black"><strong>{{voyage?.dateDeVoyage?.format('HH')}}:{{voyage?.dateDeVoyage?.format('mm')}}</strong>
-                {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon></span>
+                <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
+              ><span class="text-black"
+                ><strong>{{ voyage?.dateDeVoyage?.format('HH') }}:{{ voyage?.dateDeVoyage?.format('mm') }}</strong>
+                {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+              ></span>
               <div class="line text-center col-xs-4 ml-2">
-                <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
               </div>
               <small>
-                <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
-              </small><span
-                class="text-black"><strong>{{voyage?.dateArrivee?.format('HH')}}:{{voyage?.dateArrivee?.format('mm')}}</strong>
-                {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon></span>
+                <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+              ><span class="text-black"
+                ><strong>{{ voyage?.dateArrivee?.format('HH') }}:{{ voyage?.dateArrivee?.format('mm') }}</strong>
+                {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+              ></span>
             </div>
             <div class="col-xs-12 col-md-5">
               <!-- <h3 class="text-right font-weight-bold">{{ voyage.prix }}FCFA</h3> -->
@@ -51,38 +57,38 @@
                 <small *ngIf="voyage.climatisation">
                   <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
                 </small>
-                <small style="color: #A1A9C3;">{{ voyage.transporteur?.nom }}</small>
-                <fa-icon icon="star" style="color: #A1A9C3;"></fa-icon><small style="color: #A1A9C3;"> 4,5</small> <br>
-                <div class="float-right mt-2"> <button type="submit"
-                    [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-simple font-weight-bold">
+                <small style="color: #a1a9c3">{{ voyage.transporteur?.nom }}</small>
+                <fa-icon icon="star" style="color: #a1a9c3"></fa-icon><small style="color: #a1a9c3"> 4,5</small> <br />
+                <div class="float-right mt-2">
+                  <button type="submit" [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-simple font-weight-bold">
                     Liste des passagers
                   </button>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
 
         <div *ngIf="voyages && voyages.length > 0">
           <div class="row justify-content-center">
-            <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }">
-            </jhi-item-count>
+            <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
           </div>
 
           <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
-              [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            <ngb-pagination
+              [collectionSize]="totalItems"
+              [(page)]="ngbPaginationPage"
+              [pageSize]="itemsPerPage"
+              [maxSize]="5"
+              [rotate]="true"
+              [boundaryLinks]="true"
+              (pageChange)="loadPage($event)"
+            ></ngb-pagination>
           </div>
         </div>
       </div>
-
     </div>
   </div>
-
-
-
-
 
   <div class="card jh-card" *jhiHasAnyAuthority="['ROLE_ADMIN']">
     <h2 id="page-heading" data-cy="VoyageHeading">
@@ -94,8 +100,12 @@
           <span jhiTranslate="heybusApp.voyage.home.refreshListLabel">Refresh List</span>
         </button>
 
-        <button id="jh-create-entity" data-cy="entityCreateButton"
-          class="btn btn-primary jh-create-entity create-voyage" [routerLink]="['/voyage/new']">
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-voyage"
+          [routerLink]="['/voyage/new']"
+        >
           <fa-icon icon="plus"></fa-icon>
           <span jhiTranslate="heybusApp.voyage.home.createLabel"> Create a new Voyage </span>
         </button>
@@ -114,7 +124,8 @@
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-            <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+            <th scope="col" jhiSortBy="id">
+              <span jhiTranslate="global.field.id">ID</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col" jhiSortBy="dateDeVoyage">
@@ -129,7 +140,8 @@
               <span jhiTranslate="heybusApp.voyage.dateArrivee">Date Arrivee</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="prix"><span jhiTranslate="heybusApp.voyage.prix">Prix</span>
+            <th scope="col" jhiSortBy="prix">
+              <span jhiTranslate="heybusApp.voyage.prix">Prix</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col" jhiSortBy="nbrePlace">
@@ -156,7 +168,8 @@
               <span jhiTranslate="heybusApp.voyage.climatisation">Climatisation</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="wifi"><span jhiTranslate="heybusApp.voyage.wifi">Wifi</span>
+            <th scope="col" jhiSortBy="wifi">
+              <span jhiTranslate="heybusApp.voyage.wifi">Wifi</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col" jhiSortBy="toilette">
@@ -226,24 +239,35 @@
             </td>
             <td class="text-right">
               <div class="btn-group">
-                <button type="submit" [routerLink]="['/voyage', voyage.id, 'view']" class="btn btn-info btn-sm"
-                  data-cy="entityDetailsButton">
+                <button
+                  type="submit"
+                  [routerLink]="['/voyage', voyage.id, 'view']"
+                  class="btn btn-info btn-sm"
+                  data-cy="entityDetailsButton"
+                >
                   <fa-icon icon="eye"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                 </button>
-                <button type="submit" [routerLink]="['/reservation/customer/voyage', voyage.id]"
-                  class="btn btn-secondary btn-sm" data-cy="entityEditButton">
+                <button
+                  type="submit"
+                  [routerLink]="['/reservation/customer/voyage', voyage.id]"
+                  class="btn btn-secondary btn-sm"
+                  data-cy="entityEditButton"
+                >
                   <fa-icon icon="users"></fa-icon>
                   <span class="d-none d-md-inline">Voir Clients</span>
                 </button>
-                <button type="submit" [routerLink]="['/voyage', voyage.id, 'edit']" class="btn btn-primary btn-sm"
-                  data-cy="entityEditButton">
+                <button
+                  type="submit"
+                  [routerLink]="['/voyage', voyage.id, 'edit']"
+                  class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton"
+                >
                   <fa-icon icon="pencil-alt"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                 </button>
 
-                <button type="submit" (click)="delete(voyage)" class="btn btn-danger btn-sm"
-                  data-cy="entityDeleteButton">
+                <button type="submit" (click)="delete(voyage)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                   <fa-icon icon="times"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                 </button>
@@ -260,8 +284,15 @@
       </div>
 
       <div class="row justify-content-center">
-        <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
-          [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [(page)]="ngbPaginationPage"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="loadPage($event)"
+        ></ngb-pagination>
       </div>
     </div>
   </div>
