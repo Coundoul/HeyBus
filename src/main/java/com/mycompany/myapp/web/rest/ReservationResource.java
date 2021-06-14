@@ -188,6 +188,7 @@ public class ReservationResource {
     @GetMapping("/reservations")
     public ResponseEntity<List<Reservation>> getAllReservations(Pageable pageable) {
         log.debug("REST request to get a page of Reservations");
+        
         Page<Reservation> page = null;
 
         if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_USER")) {

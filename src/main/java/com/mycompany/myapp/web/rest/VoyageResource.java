@@ -203,13 +203,23 @@ public class VoyageResource {
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
         log.debug("REST request to get a page of Voyages");
-        Page<Voyage> page;
+        Page<Voyage> page = null;
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) {
             if (eagerload) {
-                page = voyageRepository.findAllWithEagerRelationships(pageable);
+                page = voyageRepository.findByUserIsCurrentUser(pageable);
             } else {
-                page = voyageRepository.findAll(pageable);
+                page = voyageRepository.findByUserIsCurrentUser(pageable);
             }
-        
+
+        }
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) {
+            if (eagerload) {
+                page = voyageRepository.findByUserIsCurrentUser(pageable);
+            } else {
+                page = voyageRepository.findByUserIsCurrentUser(pageable);
+            }
+
+        }
         
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

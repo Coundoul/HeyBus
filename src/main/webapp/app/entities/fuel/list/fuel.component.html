@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
     <div class="col-xs-12 col-md-4 mt-3">
       <jhi-sidebar></jhi-sidebar>
     </div>
@@ -99,7 +99,7 @@
     </div>
   </div>
 
-  <div class="card jh-card">
+  <div class="card jh-card" *jhiHasAnyAuthority="['ROLE_ADMIN']">
     <h2 id="page-heading" data-cy="FuelHeading">
       <span jhiTranslate="heybusApp.fuel.home.title">Fuels</span>
 
