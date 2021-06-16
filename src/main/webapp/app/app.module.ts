@@ -30,6 +30,7 @@ import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default,
@@ -41,6 +42,7 @@ const ngWizardConfig: NgWizardConfig = {
     SharedModule,
     HomeModule,
     BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
     // jhipster-needle-angular-add-module JHipster will add new module here
     EntityRoutingModule,
     AppRoutingModule,

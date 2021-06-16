@@ -7,7 +7,6 @@
       </div>
 
       <div class="row justify-content-center mt-3">
-
         <div class="col-md-2">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -15,18 +14,24 @@
                 <fa-icon icon="circle"></fa-icon>
               </span>
             </div>
-            <select class="form-control" id="field_departVille" name="departVille" formControlName="departVille"
-              aria-describedby="basic-addon1">
+            <select
+              class="form-control"
+              id="field_departVille"
+              name="departVille"
+              formControlName="departVille"
+              aria-describedby="basic-addon1"
+            >
               <option value="null">Ville de départ</option>
               <option
                 [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
-                *ngFor="let villeOption of villes">
+                *ngFor="let villeOption of villes"
+              >
                 {{ villeOption.nom }}
               </option>
             </select>
           </div>
         </div>
-      <fa-icon icon="exchange-alt" style="position: relative; top: 10px;" class="fa-lg"></fa-icon>
+        <fa-icon icon="exchange-alt" style="position: relative; top: 10px" class="fa-lg"></fa-icon>
         <div class="col-md-2">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -34,30 +39,49 @@
                 <fa-icon icon="map-marker-alt"></fa-icon>
               </span>
             </div>
-            <select class="form-control" id="field_arriveVille" name="arriveVille" formControlName="arriveVille"
-              aria-describedby="basic-addon2">
+            <select
+              class="form-control"
+              id="field_arriveVille"
+              name="arriveVille"
+              formControlName="arriveVille"
+              aria-describedby="basic-addon2"
+            >
               <option value="null">Ville d'arrivée</option>
               <option
                 [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
-                *ngFor="let villeOption of villes">
+                *ngFor="let villeOption of villes"
+              >
                 {{ villeOption.nom }}
               </option>
             </select>
           </div>
         </div>
 
-
         <div class="form-group col-md-3">
-          <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
-            formControlName="dateDeVoyage" placeholder="YYYY/MM/DD" />
+          <input
+            id="field_dateDeVoyage"
+            type="date"
+            class="form-control"
+            name="dateDeVoyage"
+            min="{{ myDate }}"
+            formControlName="dateDeVoyage"
+            placeholder="YYYY/MM/DD"
+          />
           <div
-            *ngIf="editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
-              jhiTranslate="entity.validation.required">
+            *ngIf="editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
               This field is required.
             </small>
-            <small class="form-text text-danger" [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal">
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
               This field should be a date and time.
             </small>
           </div>
@@ -70,18 +94,36 @@
                 <fa-icon icon="users"></fa-icon>
               </span>
             </div>
-            <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
-              data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager" value=1 />
+            <input
+              type="number"
+              class="form-control"
+              name="nbrePassagers"
+              id="field_nbrePassagers"
+              data-cy="nbrePassagers"
+              formControlName="nbrePassagers"
+              min="1"
+              placeholder="1 passager"
+              value="1"
+            />
           </div>
 
           <div
-            *ngIf="editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('nbrePassagers')?.errors?.required"
-              jhiTranslate="entity.validation.required">
+            *ngIf="
+              editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nbrePassagers')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
               This field is required.
             </small>
-            <small class="form-text text-danger" [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
-              jhiTranslate="entity.validation.number">
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
               This field should be a number.
             </small>
           </div>
@@ -95,7 +137,6 @@
     </form>
   </div>
 </div>
-
 
 <div class="row justify-content-center mt-4">
   <div class="col-md-3">
@@ -118,29 +159,35 @@
       <div class="col-md-6 col-xs-3">
         <h5 class="font-weight-bold">Choisir l'aller</h5>
       </div>
-      <div class="col-md-6 col-xs-3">
+      <!-- <div class="col-md-6 col-xs-3">
         <h6>Trier par : <strong>Départ le plus tôt</strong> <fa-icon icon="chevron-down" class="text-secondary fa-lg"></fa-icon></h6>
-      </div>
+      </div> -->
     </div>
-    <div *ngFor="let voyage of voyages; trackBy: trackId" class="shadow pt-3 px-3 mb-3 bg-white"
-      style="max-width: 50rem">
-      <div ><small>{{ voyage.transporteur?.nom }}</small>
-        <fa-icon icon="star"></fa-icon><small> 4,5</small>
-        <div class="circle-left"></div><hr class="line-horizontal"><div class="circle-right float-right"></div>
+    <div *ngFor="let voyage of voyages; trackBy: trackId" class="shadow pt-3 px-3 mb-3 bg-white" style="max-width: 50rem">
+      <div>
+        <small>{{ voyage.transporteur?.nom }}</small> <fa-icon icon="star"></fa-icon><small> 4,5</small>
+        <div class="circle-left"></div>
+        <hr class="line-horizontal" />
+        <div class="circle-right float-right"></div>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-7 col-xs-6">
             <small>
-              <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
-            </small><span class="text-heybus"><strong>{{voyage?.dateDeVoyage?.format('HH')}}:{{voyage?.dateDeVoyage?.format('mm')}}</strong> {{ voyage.departVille?.nom }} <fa-icon
-                icon="info-circle" class="text-red"></fa-icon></span>
-            <div class="line text-center col-xs-4 ml-2"> <p style="padding: 15px; white-space: nowrap; color: #A1A9C3;">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+              <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
+            ><span class="text-heybus"
+              ><strong>{{ voyage?.dateDeVoyage?.format('HH') }}:{{ voyage?.dateDeVoyage?.format('mm') }}</strong>
+              {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+            ></span>
+            <div class="line text-center col-xs-4 ml-2">
+              <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
             </div>
             <small>
-              <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon>
-            </small><span class="text-heybus"><strong>{{voyage?.dateArrivee?.format('HH')}}:{{voyage?.dateArrivee?.format('mm')}}</strong> {{ voyage.arriveVille?.nom }} <fa-icon
-                icon="info-circle" class="text-red"></fa-icon></span>
+              <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+            ><span class="text-heybus"
+              ><strong>{{ voyage?.dateArrivee?.format('HH') }}:{{ voyage?.dateArrivee?.format('mm') }}</strong>
+              {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+            ></span>
           </div>
           <!-- <div class="col-md-6 col-xs-4">
             <h5 class="card-title text-heybus">{{ voyage.dateDeVoyage | formatMediumDatetime }}</h5>
@@ -160,9 +207,13 @@
               <small *ngIf="voyage.climatisation">
                 <fa-icon icon="fan" class="text-secondary fa-md" title="Climatiseur"></fa-icon>
               </small>
-              <button class="btn btn-reserver text-center"
+              <button
+                class="btn btn-reserver text-center"
                 [routerLink]="['/reservation/new/voyage', voyage.id, 'passagers', nbrePassagers]"
-                role="button">Réserver</button>
+                role="button"
+              >
+                Réserver
+              </button>
             </div>
           </div>
         </div>
@@ -179,11 +230,17 @@
   </div>
 
   <div class="row justify-content-center">
-    <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5"
-      [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+    <ngb-pagination
+      [collectionSize]="totalItems"
+      [(page)]="ngbPaginationPage"
+      [pageSize]="itemsPerPage"
+      [maxSize]="5"
+      [rotate]="true"
+      [boundaryLinks]="true"
+      (pageChange)="loadPage($event)"
+    ></ngb-pagination>
   </div>
 </div>
-
 
 <!-- <div class="row justify-content-center">
 
@@ -282,4 +339,3 @@
   </div>
   
 </div> -->
-

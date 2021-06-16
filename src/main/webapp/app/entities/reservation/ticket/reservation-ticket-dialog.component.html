@@ -17,16 +17,29 @@
         </small>
         <span class="text-black">
           <strong>{{ reservation.voyage?.dateDeVoyage?.format('HH') }}:{{ reservation.voyage?.dateDeVoyage?.format('mm') }}</strong>
-          {{ reservation.voyage?.departVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon
+          {{ reservation.voyage?.departVille?.nom }}
+          <fa-icon
+            icon="info-circle"
+            class="text-danger"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="{{ reservation.voyage?.adresseDepart }}"
+          ></fa-icon
         ></span>
         <div class="line text-center col-xs-4 ml-2">
           <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
         </div>
-        <small>
-          <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+        <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
         ><span class="text-black">
           <strong>{{ reservation.voyage?.dateArrivee?.format('HH') }}:{{ reservation.voyage?.dateArrivee?.format('mm') }}</strong>
-          {{ reservation.voyage?.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon
+          {{ reservation.voyage?.arriveVille?.nom }}
+          <fa-icon
+            icon="info-circle"
+            class="text-danger"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="{{ reservation.voyage?.adresseArrive }}"
+          ></fa-icon
         ></span>
       </div>
       <div class="col-xs-12 col-md-5">

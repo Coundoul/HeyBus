@@ -5,11 +5,12 @@ import { HOME_ROUTE } from './home.route';
 import { HomeComponent } from './home.component';
 import { SearchComponent } from './search/search.component';
 import { NpnSliderModule } from 'npn-slider';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(HOME_ROUTE), NpnSliderModule],
-  
+  imports: [SharedModule, RouterModule.forChild(HOME_ROUTE), NpnSliderModule, MatFormFieldModule, MatSelectModule],
+
   declarations: [HomeComponent, SearchComponent],
 })
 export class HomeModule {}

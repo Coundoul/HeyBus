@@ -31,7 +31,8 @@ export class ReservationVoyageComponent implements OnInit {
     nom: [],
     prenom: [],
     telephone: [null, [Validators.required, Validators.pattern('[0-9]{9}')]],
-    email: [null, [Validators.required]],
+    /* eslint-disable no-useless-escape */
+    email: [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
     profession: [],
     datenaissance: [],
     dateprisecontact: [],

@@ -80,7 +80,7 @@
 
               <div class="form-group col-md-6">
                 <label class="form-control-label text-heybus" jhiTranslate="heybusApp.customer.email" for="field_email">Email</label>
-                <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+                <input type="email" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
                 <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
                   <small
                     class="form-text text-danger"
@@ -88,6 +88,13 @@
                     jhiTranslate="entity.validation.required"
                   >
                     This field is required.
+                  </small>
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('email')?.errors?.patten"
+                    jhiTranslate="entity.validation.pattern"
+                  >
+                    Mail address not valid.
                   </small>
                 </div>
               </div>
@@ -117,28 +124,40 @@
       <h5 class="font-weight-bold">Votre voyage</h5>
       <div class="shadow pt-3 px-3 mb-4 bg-white col-md-12" style="max-width: 50rem">
         <div>
-          <small
-            >{{ voyage?.dateDeVoyage?.format('dddd') }} {{ voyage?.dateDeVoyage?.date() }} {{ voyage?.dateDeVoyage?.format('MMMM') }}</small
-          >
+          <small>
+            {{ voyage?.dateDeVoyage?.format('dddd') }} {{ voyage?.dateDeVoyage?.date() }} {{ voyage?.dateDeVoyage?.format('MMMM') }}
+          </small>
           <div class="circle-left"></div>
           <hr class="line-horizontal" />
           <div class="circle-right float-right"></div>
         </div>
         <div class="card-body">
-          <small>
-            <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
+          <small> <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
           ><span class="text-black"
             ><strong>{{ voyage?.dateDeVoyage?.format('HH') }}:{{ voyage?.dateDeVoyage?.format('mm') }}</strong>
-            {{ voyage?.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+            {{ voyage?.departVille?.nom }}
+            <fa-icon
+              icon="info-circle"
+              class="text-red"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="{{ voyage?.adresseDepart }}"
+            ></fa-icon
           ></span>
           <div class="line text-center col-xs-4 ml-2">
             <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
           </div>
-          <small>
-            <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+          <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
           ><span class="text-black"
             ><strong>{{ voyage?.dateArrivee?.format('HH') }}:{{ voyage?.dateArrivee?.format('HH') }}</strong>
-            {{ voyage?.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+            {{ voyage?.arriveVille?.nom }}
+            <fa-icon
+              icon="info-circle"
+              class="text-red"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="{{ voyage?.adresseArrive }}"
+            ></fa-icon
           ></span>
         </div>
         <!-- <div class="col-md-6 col-xs-4">
