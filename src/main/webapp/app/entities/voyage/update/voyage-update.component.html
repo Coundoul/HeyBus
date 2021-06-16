@@ -41,7 +41,7 @@
     </div>
 
     <!-- Wizard Ajout Voyage -->
-    <div class="col-md-8 mt-4">
+    <div class="col-md-7 mt-4">
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
         <jhi-alert-error></jhi-alert-error>
 
@@ -56,7 +56,7 @@
           <mat-step>
             <ng-template matStepLabel></ng-template>
             <h4 class="text-black text-center font-weight-bold"> Date de Voyage</h4>
-            <div class="shadow pt-3 px-3 pb-3 mb-4 bg-white col-md-12 mt-3">
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="heybusApp.voyage.dateDeVoyage"
                   for="field_dateDeVoyage">Date de départ</label>
@@ -89,6 +89,7 @@
               </div>
             </div>
             <div class="text-center">
+              <button mat-button type="button" class="btn btn-simple font-weight-bold" (click)="previousState()">Annuler</button>
               <button mat-button matStepperNext type="button" class="btn btn-reserver font-weight-bold">Suivant</button>
             </div>
           </mat-step>
@@ -97,7 +98,7 @@
           <mat-step>
             <ng-template matStepLabel></ng-template>
             <h4 class="text-black text-center font-weight-bold"> Lieu de départ</h4>
-            <div class="shadow pt-3 px-3 pb-3 mb-4 bg-white col-md-12 mt-3">
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="heybusApp.voyage.departVille"
                   for="field_departVille">Depart
@@ -130,7 +131,7 @@
           <mat-step>
             <ng-template matStepLabel></ng-template>
             <h4 class="text-black text-center font-weight-bold"> Lieu d'arrivé</h4>
-            <div class="shadow pt-3 px-3 pb-3 mb-4 bg-white col-md-12 mt-3">
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="heybusApp.voyage.arriveVille"
                   for="field_arriveVille">Arrive
@@ -164,7 +165,7 @@
           <mat-step>
             <ng-template matStepLabel></ng-template>
             <h4 class="text-black text-center font-weight-bold"> Nombre et prix place</h4>
-            <div class="shadow pt-3 px-3 pb-3 mb-4 bg-white col-md-12 mt-3">
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="heybusApp.voyage.prix" for="field_prix">Prix</label>
                 <input type="number" class="form-control" name="prix" id="field_prix" data-cy="prix"
@@ -187,7 +188,7 @@
           <mat-step>
             <ng-template matStepLabel></ng-template>
             <h4 class="text-black text-center font-weight-bold"> Véhicule</h4>
-            <div class="shadow pt-3 px-3 pb-3 mb-4 bg-white col-md-12 mt-3">
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="heybusApp.voyage.vehicule"
                   for="field_vehicule">Vehicule</label>
@@ -201,6 +202,9 @@
                   </option>
                 </select>
               </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-reserver font-weight-bold" [routerLink]="['/vehicule/new']">Ajouter</button>
+              </div>
             </div>
             <div class="text-center">
               <button mat-button matStepperPrevious type="button" class="btn btn-simple font-weight-bold">Précedent</button>
@@ -213,7 +217,7 @@
             <ng-template matStepLabel></ng-template>
             <h4 class="text-black text-center font-weight-bold"> Equipage</h4>
 
-            <div class="shadow pt-3 px-3 pb-3 mb-4 bg-white col-md-12 mt-3">
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
               <div class="form-group">
                 <label jhiTranslate="heybusApp.voyage.employe" for="field_employes">Employe</label>
                 <select class="form-control" id="field_employes" data-cy="employe" multiple name="employes"
@@ -223,6 +227,9 @@
                     {{ employeOption.nom }}
                   </option>
                 </select>
+              </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-reserver font-weight-bold" [routerLink]="['/employe/new']">Ajouter</button>
               </div>
             </div>
             <div class="text-center">
@@ -235,7 +242,7 @@
           <mat-step>
             <ng-template matStepLabel></ng-template>
             <h4 class="text-black text-center font-weight-bold"> Voyage accessoires</h4>
-            <div class="shadow pt-3 px-3 pb-3 mb-4 bg-white col-md-12 mt-3">
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="heybusApp.voyage.climatisation"
                   for="field_climatisation">Climatisation</label>
