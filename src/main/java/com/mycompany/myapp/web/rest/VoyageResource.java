@@ -214,9 +214,9 @@ public class VoyageResource {
         }
         if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) {
             if (eagerload) {
-                page = voyageRepository.findByUserIsCurrentUser(pageable);
+                page = voyageRepository.findAllWithEagerRelationships(pageable);
             } else {
-                page = voyageRepository.findByUserIsCurrentUser(pageable);
+                page = voyageRepository.findAll(pageable);
             }
 
         }
