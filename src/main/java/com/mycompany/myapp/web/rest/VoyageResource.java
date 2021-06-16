@@ -46,6 +46,7 @@ public class VoyageResource {
 
     @Autowired
     private VilleRepository ville;
+
     private final VoyageRepository voyageRepository;
 
     public VoyageResource(VoyageRepository voyageRepository) {
@@ -62,11 +63,11 @@ public class VoyageResource {
     @PostMapping("/voyages")
     public ResponseEntity<Voyage> createVoyage(@Valid @RequestBody Voyage voyage) throws URISyntaxException {
         log.debug("REST request to save Voyage : {}", voyage);
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")){
-             //set the Current Transporteur
-        voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) {
+            //set the Current Transporteur
+            voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
         }
-        
+
         if (voyage.getId() != null) {
             throw new BadRequestAlertException("A new voyage cannot already have an ID", ENTITY_NAME, "idexists");
         }
@@ -93,9 +94,9 @@ public class VoyageResource {
         @Valid @RequestBody Voyage voyage
     ) throws URISyntaxException {
         log.debug("REST request to update Voyage : {}, {}", id, voyage);
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")){
-             //set the Current Transporteur
-        voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) {
+            //set the Current Transporteur
+            voyage.setTransporteur(voyageRepository.findCurrentTransporteur());
         }
 
         if (voyage.getId() == null) {
@@ -203,14 +204,22 @@ public class VoyageResource {
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
         log.debug("REST request to get a page of Voyages");
-        Page<Voyage> page;
+        Page<Voyage> page = null;
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) {
+            if (eagerload) {
+                page = voyageRepository.findByUserIsCurrentUser(pageable);
+            } else {
+                page = voyageRepository.findByUserIsCurrentUser(pageable);
+            }
+        }
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) {
             if (eagerload) {
                 page = voyageRepository.findAllWithEagerRelationships(pageable);
             } else {
                 page = voyageRepository.findAll(pageable);
             }
-        
-        
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -243,11 +252,17 @@ public class VoyageResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
     @GetMapping("/voyages/{dateVoyage}/{idDepartVille}/{idArriveVille}/{nbrePassagers}")
-     public ResponseEntity<List<Voyage>> getVoyage(@PathVariable String dateVoyage, @PathVariable Long idDepartVille, @PathVariable Long idArriveVille, @PathVariable Integer nbrePassagers,
-     Pageable pageable) {
+    public ResponseEntity<List<Voyage>> getVoyage(
+        @PathVariable String dateVoyage,
+        @PathVariable Long idDepartVille,
+        @PathVariable Long idArriveVille,
+        @PathVariable Integer nbrePassagers,
+        Pageable pageable
+    ) {
         //log.debug("REST request to get Voyage : {}", id);
-       
+
         ZonedDateTime date = ZonedDateTime.of(
             Integer.parseInt(dateVoyage.split("-")[0]),
             Integer.parseInt(dateVoyage.split("-")[1]),
@@ -268,7 +283,7 @@ public class VoyageResource {
             0,
             ZoneId.of("UTC")
         );
-        Page<Voyage> page=voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
+        Page<Voyage> page = voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
             pageable,
             date,
             date2,
@@ -279,12 +294,17 @@ public class VoyageResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
     // Api aller-retour
     @GetMapping("/voyages/retour")
-     public ResponseEntity<List<Voyage>> getVoyageRetour(@RequestParam String dateVoyage,@RequestParam String dateRetour, @RequestParam Long idDepartVille, @RequestParam Long idArriveVille, @RequestParam Integer nbrePassagers,
-     Pageable pageable) {
-        
-       
+    public ResponseEntity<List<Voyage>> getVoyageRetour(
+        @RequestParam String dateVoyage,
+        @RequestParam String dateRetour,
+        @RequestParam Long idDepartVille,
+        @RequestParam Long idArriveVille,
+        @RequestParam Integer nbrePassagers,
+        Pageable pageable
+    ) {
         ZonedDateTime date1 = ZonedDateTime.of(
             Integer.parseInt(dateVoyage.split("-")[0]),
             Integer.parseInt(dateVoyage.split("-")[1]),
@@ -305,7 +325,7 @@ public class VoyageResource {
             0,
             ZoneId.of("UTC")
         );
-        
+
         ZonedDateTime date3 = ZonedDateTime.of(
             Integer.parseInt(dateRetour.split("-")[0]),
             Integer.parseInt(dateRetour.split("-")[1]),
@@ -326,7 +346,7 @@ public class VoyageResource {
             0,
             ZoneId.of("UTC")
         );
-        Page<Voyage> page=voyageRepository.voyageRetour(
+        Page<Voyage> page = voyageRepository.voyageRetour(
             date1,
             date2,
             date3,

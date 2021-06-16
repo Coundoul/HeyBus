@@ -4,7 +4,11 @@
       <fa-icon icon="user" class="fa-lg mr-2"></fa-icon> Informations
     </span>
   </a>
-  <a class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/reservation']">
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [routerLink]="['/reservation']"
+    *jhiHasAnyAuthority="'ROLE_USER'"
+  >
     <span [ngClass]="{ 'text-active': currentRout === '/reservation' }">
       <fa-icon icon="money-check" class="fa-lg mr-2"></fa-icon> Vos réservations
     </span>

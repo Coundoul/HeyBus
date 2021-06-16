@@ -8,6 +8,7 @@ import { IVoyage } from '../voyage.model';
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { VoyageService } from '../service/voyage.service';
 import { VoyageDeleteDialogComponent } from '../delete/voyage-delete-dialog.component';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'jhi-voyage',
@@ -23,6 +24,7 @@ export class VoyageComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  dateNow?: dayjs.Dayjs;
 
   constructor(
     protected voyageService: VoyageService,
@@ -55,6 +57,7 @@ export class VoyageComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.dateNow = dayjs();
   }
 
   trackId(index: number, item: IVoyage): number {

@@ -12,6 +12,7 @@ import { ReservationDeleteDialogComponent } from '../delete/reservation-delete-d
 
 import { MatDialog } from '@angular/material/dialog';
 import { ReservationTicketDialogComponent } from '../ticket/reservation-ticket-dialog.component';
+import * as dayjs from 'dayjs';
 @Component({
   selector: 'jhi-reservation',
   styleUrls: ['./reservation.component.scss'],
@@ -26,6 +27,7 @@ export class ReservationComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  dateNow?: dayjs.Dayjs;
 
   constructor(
     protected reservationService: ReservationService,
@@ -69,6 +71,7 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.dateNow = dayjs();
   }
 
   trackId(index: number, item: IReservation): number {

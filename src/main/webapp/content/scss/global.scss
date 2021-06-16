@@ -4,12 +4,14 @@
 
 /* Mandatory */
 @import '~ng-wizard/themes/ng_wizard.min.css';
- 
+
 /* Optional */
 /* If a theme other than default is used, the css file for that theme is required. */
 @import '~ng-wizard/themes/ng_wizard_theme_arrows.min.css';
 @import '~ng-wizard/themes/ng_wizard_theme_circles.min.css';
 @import '~ng-wizard/themes/ng_wizard_theme_dots.min.css';
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 /* ==============================================================
 Bootstrap tweaks
@@ -25,8 +27,8 @@ h4 {
   font-weight: 300;
   font-family: 'Mulish';
 }
-body{
-  background: #E5E5E5;
+body {
+  background: #e5e5e5;
   font-family: 'Mulish';
   color: #000000;
 }
@@ -216,8 +218,7 @@ ui bootstrap tweaks
   white-space: nowrap;
 }
 
-
-.btn-creer-compte{
+.btn-creer-compte {
   height: 47px;
   width: 100%;
   border-radius: 8px;
@@ -229,7 +230,7 @@ ui bootstrap tweaks
   text-align: center;
 }
 
-.form-control-template{
+.form-control-template {
   width: 100%;
   border-radius: 8px;
   height: 47px;
@@ -237,16 +238,14 @@ ui bootstrap tweaks
   border: none;
 }
 
-.card-template{
+.card-template {
   background-color: #ffffff;
   position: relative;
   width: 30%;
   left: 35%;
 }
 
-
 /* jhipster-needle-scss-add-main JHipster will add new css style */
-
 
 .form-control {
   border-radius: 8px;
@@ -271,7 +270,7 @@ ui bootstrap tweaks
 }
 
 .breadcrumb-item::before {
-  content: ">";
+  content: '>';
 }
 .first::before {
   content: none;
@@ -279,7 +278,7 @@ ui bootstrap tweaks
 .breadcrumb-item {
   font-family: 'Mulish';
   font-style: normal;
-  font-size: 14px; 
+  font-size: 14px;
   line-height: 20px;
   color: #425486;
 }
@@ -301,7 +300,7 @@ ui bootstrap tweaks
   box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2);
 }
 .btn-reserver {
-  width: 162px;
+  width: 127px;
   height: 47px;
   border-radius: 8px;
   background-color: #ff1b2e;
@@ -315,10 +314,9 @@ ui bootstrap tweaks
   color: #ffffff;
 }
 .btn-simple {
-  width: auto;
+  width: 127px;
   height: 47px;
   border-radius: 8px;
-  background-color: #ffffff;
   border: 1px solid #425486;
   color: #425486;
   font-family: 'Mulish';
@@ -332,4 +330,23 @@ ui bootstrap tweaks
 
 .text-danger {
   color: #ff1b2e;
+}
+
+.text-active {
+  color: #425486;
+  font-weight: bold;
+}
+
+.list-group-item {
+  height: 4.2rem;
+  text-decoration: none !important;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 20px;
+  color: #a1a9c3;
+}
+
+.mat-horizontal-stepper-header-container {
+  display: none !important;
 }

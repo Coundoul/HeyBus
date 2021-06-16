@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +20,7 @@ import { IVille } from 'app/entities/ville/ville.model';
 import { VilleService } from 'app/entities/ville/service/ville.service';
 import { ITransporteur } from 'app/entities/transporteur/transporteur.model';
 import { TransporteurService } from 'app/entities/transporteur/service/transporteur.service';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'jhi-voyage-update',
@@ -27,12 +28,13 @@ import { TransporteurService } from 'app/entities/transporteur/service/transport
 })
 export class VoyageUpdateComponent implements OnInit {
   isSaving = false;
-
+  @ViewChild('stepper') stepper!: MatHorizontalStepper;
   employesSharedCollection: IEmploye[] = [];
   arretsSharedCollection: IArret[] = [];
   vehiculesSharedCollection: IVehicule[] = [];
   villesSharedCollection: IVille[] = [];
   transporteursSharedCollection: ITransporteur[] = [];
+  step = 0;
 
   editForm = this.fb.group({
     id: [],
@@ -81,6 +83,9 @@ export class VoyageUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+  }
+  ngAfterViewInit(): void {
+    this.stepper._getIndicatorType = () => '';
   }
 
   previousState(): void {
@@ -137,6 +142,10 @@ export class VoyageUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  public onStepChange(event: any): void {
+    this.step = event.selectedIndex;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IVoyage>>): void {

@@ -14,21 +14,52 @@ Main page styles
   line-height: 20px;
   color: #425486;
 }
+.img-om {
+  width: 200px;
+  height: 100px;
+  background: url('../../../../content/images/orange-money.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
 .text-black {
   font-family: 'Mulish';
   font-style: normal;
   font-weight: normal;
+  font-size: 18px;
   line-height: 20px;
   color: black;
 }
+// .shadow-voyage {
+//   background: #ffffff;
+//   border-radius: 8px;
+//   box-shadow: none !important;
+// }
 .shadow {
   background: #ffffff;
   border-radius: 8px;
-  box-shadow: none !important;
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2) !important;
+}
+.search-shadow {
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(19, 51, 104, 0.2);
+}
+.btn-reserver {
+  width: 212px;
+  height: 47px;
+  border-radius: 8px;
+  background-color: #ff1b2e;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-align: center;
+  color: #ffffff;
 }
 .btn-simple {
-  width: auto;
-  height: 40px;
+  width: 162px;
+  height: 47px;
   border-radius: 8px;
   background-color: #ffffff;
   border: 1px solid #425486;
@@ -41,7 +72,6 @@ Main page styles
   /* identical to box height */
   text-align: center;
 }
-
 .line {
   width: 0px;
   height: 61px;
@@ -52,7 +82,6 @@ Main page styles
   margin-bottom: 0px;
   margin-top: -10px;
 }
-
 .text-red {
   color: #ff1b2e;
 }

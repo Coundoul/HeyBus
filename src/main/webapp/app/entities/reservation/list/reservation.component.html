@@ -143,85 +143,162 @@
     </div>
     <div class="col-xs-12 col-md-8 mt-3">
       <div class="row justify-content-center">
-        <div class="col-xs-4 col-md-5 text-center">
+        <!-- <div class="col-xs-4 col-md-5 text-center">
           <h5 class="text-black font-weight-bold">Trajets à venir</h5>
         </div>
         <div class="line text-center col-xs-4" style="height: 30px"></div>
         <div class="col-xs-4 col-md-5 text-center">
           <h5 class="text-black font-weight-bold">Trajets effectués</h5>
-        </div>
-        <div
-          class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3"
-          style="max-width: 50rem"
-          *ngFor="let reservation of reservations; trackBy: trackId"
-        >
-          <div>
-            <small
-              >{{ reservation.voyage?.dateDeVoyage?.format('dddd') }} {{ reservation.voyage?.dateDeVoyage?.date() }}
-              {{ reservation.voyage?.dateDeVoyage?.format('MMMM') }}</small
-            >
-            <div class="circle-left"></div>
-            <hr class="line-horizontal" />
-            <div class="circle-right float-right"></div>
-          </div>
-          <div class="card-body row">
-            <div class="col-xs-12 col-md-7">
-              <small>
-                <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
-              </small>
-              <span class="text-black">
-                <strong>{{ reservation.voyage?.dateDeVoyage?.format('HH') }}:{{ reservation.voyage?.dateDeVoyage?.format('mm') }}</strong>
-                {{ reservation.voyage?.departVille?.nom }}
-                <fa-icon
-                  icon="info-circle"
-                  class="text-danger"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="{{ reservation.voyage?.adresseDepart }}"
-                ></fa-icon>
-              </span>
-              <div class="line text-center col-xs-4 ml-2">
-                <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
-              </div>
-              <small>
-                <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
-              ><span class="text-black">
-                <strong>{{ reservation.voyage?.dateArrivee?.format('HH') }}:{{ reservation.voyage?.dateArrivee?.format('mm') }}</strong>
-                {{ reservation.voyage?.arriveVille?.nom }}
-                <fa-icon
-                  icon="info-circle"
-                  class="text-danger"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="{{ reservation.voyage?.adresseArrive }}"
-                ></fa-icon>
-              </span>
-            </div>
-            <div class="col-xs-12 col-md-5">
-              <h3 class="text-right font-weight-bold">{{ reservation.voyage?.prix }}FCFA</h3>
-              <div class="float-right">
-                <small *ngIf="reservation.voyage?.wifi">
-                  <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
-                </small>
-                <small *ngIf="reservation.voyage?.toilette">
-                  <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
-                </small>
-                <small *ngIf="reservation.voyage?.climatisation">
-                  <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
-                </small>
-                <small style="color: #a1a9c3">{{ reservation.voyage?.transporteur?.nom }}</small>
-                <fa-icon icon="star" style="color: #a1a9c3"></fa-icon><small style="color: #a1a9c3"> 4,5</small> <br />
-                <div class="float-right mt-2">
-                  <button type="submit" (click)="ticket(reservation)" class="btn btn-simple font-weight-bold" data-cy="entityDeleteButton">
-                    Voir billet
-                  </button>
+        </div> -->
+        <mat-tab-group class="col-md-12" mat-align-tabs="center" dynamicHeight>
+          <!-- Trajet Effectués -->
+          <mat-tab label="Trajets à venir">
+            <div *ngFor="let reservation of reservations; trackBy: trackId">
+              <div *ngIf="reservation?.voyage?.dateDeVoyage?.isAfter(dateNow!)" class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3">
+                <div>
+                  <small
+                    >{{ reservation.voyage?.dateDeVoyage?.format('dddd') }} {{ reservation.voyage?.dateDeVoyage?.date() }}
+                    {{ reservation.voyage?.dateDeVoyage?.format('MMMM') }}</small
+                  >
+                  <div class="circle-left"></div>
+                  <hr class="line-horizontal" />
+                  <div class="circle-right float-right"></div>
+                </div>
+                <div class="card-body row">
+                  <div class="col-xs-12 col-md-7">
+                    <small>
+                      <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
+                    </small>
+                    <span class="text-black">
+                      <strong
+                        >{{ reservation.voyage?.dateDeVoyage?.format('HH') }}:{{ reservation.voyage?.dateDeVoyage?.format('mm') }}</strong
+                      >
+                      {{ reservation.voyage?.departVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon>
+                    </span>
+                    <div class="line text-center col-xs-4 ml-2">
+                      <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                    </div>
+                    <small>
+                      <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+                    ><span class="text-black">
+                      <strong
+                        >{{ reservation.voyage?.dateArrivee?.format('HH') }}:{{ reservation.voyage?.dateArrivee?.format('mm') }}</strong
+                      >
+                      {{ reservation.voyage?.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon>
+                    </span>
+                  </div>
+                  <div class="col-xs-12 col-md-5">
+                    <h3 class="text-right font-weight-bold">{{ reservation.voyage?.prix }}FCFA</h3>
+                    <div class="float-right">
+                      <small *ngIf="reservation.voyage?.wifi">
+                        <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
+                      </small>
+                      <small *ngIf="reservation.voyage?.toilette">
+                        <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
+                      </small>
+                      <small *ngIf="reservation.voyage?.climatisation">
+                        <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
+                      </small>
+                      <small style="color: #a1a9c3">{{ reservation.voyage?.transporteur?.nom }}</small>
+                      <fa-icon icon="star" style="color: #a1a9c3"></fa-icon><small style="color: #a1a9c3"> 4,5</small> <br />
+                      <div class="float-right mt-2">
+                        <button
+                          type="submit"
+                          (click)="ticket(reservation)"
+                          class="btn btn-simple font-weight-bold"
+                          data-cy="entityDeleteButton"
+                        >
+                          Voir billet
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div *ngIf="reservations && reservations.length > 0">
+            <!-- <div *ngIf="voyages && voyages.length > 0">
+              <div class="row justify-content-center">
+                <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }">
+                </jhi-item-count>
+              </div>
+
+              <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                  [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+              </div>
+            </div> -->
+          </mat-tab>
+
+          <!-- Trajet Effectués -->
+          <mat-tab label="Trajets effectués">
+            <div *ngFor="let reservation of reservations; trackBy: trackId">
+              <div *ngIf="reservation?.voyage?.dateDeVoyage?.isBefore(dateNow!)" class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3">
+                <div>
+                  <small
+                    >{{ reservation.voyage?.dateDeVoyage?.format('dddd') }} {{ reservation.voyage?.dateDeVoyage?.date() }}
+                    {{ reservation.voyage?.dateDeVoyage?.format('MMMM') }}</small
+                  >
+                  <div class="circle-left"></div>
+                  <hr class="line-horizontal" />
+                  <div class="circle-right float-right"></div>
+                </div>
+                <div class="card-body row">
+                  <div class="col-xs-12 col-md-7">
+                    <small>
+                      <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon>
+                    </small>
+                    <span class="text-black">
+                      <strong
+                        >{{ reservation.voyage?.dateDeVoyage?.format('HH') }}:{{ reservation.voyage?.dateDeVoyage?.format('mm') }}</strong
+                      >
+                      {{ reservation.voyage?.departVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon>
+                    </span>
+                    <div class="line text-center col-xs-4 ml-2">
+                      <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                    </div>
+                    <small>
+                      <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+                    ><span class="text-black">
+                      <strong
+                        >{{ reservation.voyage?.dateArrivee?.format('HH') }}:{{ reservation.voyage?.dateArrivee?.format('mm') }}</strong
+                      >
+                      {{ reservation.voyage?.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-danger"></fa-icon>
+                    </span>
+                  </div>
+                  <div class="col-xs-12 col-md-5">
+                    <h3 class="text-right font-weight-bold">{{ reservation.voyage?.prix }}FCFA</h3>
+                    <div class="float-right">
+                      <small *ngIf="reservation.voyage?.wifi">
+                        <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
+                      </small>
+                      <small *ngIf="reservation.voyage?.toilette">
+                        <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
+                      </small>
+                      <small *ngIf="reservation.voyage?.climatisation">
+                        <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
+                      </small>
+                      <small style="color: #a1a9c3">{{ reservation.voyage?.transporteur?.nom }}</small>
+                      <fa-icon icon="star" style="color: #a1a9c3"></fa-icon><small style="color: #a1a9c3"> 4,5</small> <br />
+                      <div class="float-right mt-2">
+                        <button
+                          type="submit"
+                          (click)="ticket(reservation)"
+                          class="btn btn-simple font-weight-bold"
+                          data-cy="entityDeleteButton"
+                        >
+                          Voir billet
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+        <!-- <div *ngIf="reservations && reservations.length > 0">
           <div class="row justify-content-center">
             <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
           </div>
@@ -237,7 +314,7 @@
               (pageChange)="loadPage($event)"
             ></ngb-pagination>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

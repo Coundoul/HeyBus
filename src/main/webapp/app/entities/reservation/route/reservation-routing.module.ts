@@ -10,6 +10,7 @@ import { ReservationVoyageComponent } from '../reserver/reservation-voyage.compo
 import { ClientsComponent } from '../list-client-voyage/clients.component';
 import { ReservationSuccessComponent } from '../reserver-success/reservation-success.component';
 import { ReservationPaiementComponent } from '../reserver-paiement/reservation-paiement.component';
+import { ReservationOrangeComponent } from '../reserver-orange/reservation-orange.component';
 
 const reservationRoute: Routes = [
   {
@@ -55,6 +56,14 @@ const reservationRoute: Routes = [
   {
     path: 'paiement/voyage/:voyage',
     component: ReservationPaiementComponent,
+    resolve: {
+      reservation: ReservationRoutingResolveService,
+    },
+    //canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'paiement-orange/:voyage',
+    component: ReservationOrangeComponent,
     resolve: {
       reservation: ReservationRoutingResolveService,
     },

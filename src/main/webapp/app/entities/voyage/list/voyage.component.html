@@ -5,96 +5,163 @@
     </div>
     <div class="col-xs-12 col-md-8 mt-3">
       <div class="row justify-content-center">
-        <div class="col-xs-4 col-md-5 text-center">
+        <jhi-alert></jhi-alert>
+        <mat-tab-group class="col-md-12" mat-align-tabs="center" dynamicHeight>
+          <!-- Trajet Effectués -->
+          <mat-tab label="Trajets à venir">
+            <div *ngFor="let voyage of voyages; trackBy: trackId">
+              <div *ngIf="voyage?.dateDeVoyage?.isAfter(dateNow!)" class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3">
+                <div>
+                  <small
+                    >{{ voyage?.dateDeVoyage?.format('dddd') }} {{ voyage?.dateDeVoyage?.date() }}
+                    {{ voyage?.dateDeVoyage?.format('MMMM') }}</small
+                  >
+                  <div class="circle-left"></div>
+                  <hr class="line-horizontal" />
+                  <div class="circle-right float-right"></div>
+                </div>
+                <div class="card-body row">
+                  <div class="col-xs-12 col-md-7">
+                    <small>
+                      <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
+                    ><span class="text-black"
+                      ><strong>{{ voyage?.dateDeVoyage?.format('HH') }}:{{ voyage?.dateDeVoyage?.format('mm') }}</strong>
+                      {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+                    ></span>
+                    <div class="line text-center col-xs-4 ml-2">
+                      <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                    </div>
+                    <small>
+                      <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+                    ><span class="text-black"
+                      ><strong>{{ voyage?.dateArrivee?.format('HH') }}:{{ voyage?.dateArrivee?.format('mm') }}</strong>
+                      {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+                    ></span>
+                  </div>
+                  <div class="col-xs-12 col-md-5">
+                    <!-- <h3 class="text-right font-weight-bold">{{ voyage.prix }}FCFA</h3> -->
+                    <div class="float-right mt-4">
+                      <small *ngIf="voyage.wifi">
+                        <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
+                      </small>
+                      <small *ngIf="voyage.toilette">
+                        <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
+                      </small>
+                      <small *ngIf="voyage.climatisation">
+                        <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
+                      </small>
+                      <small style="color: #a1a9c3">{{ voyage.transporteur?.nom }}</small>
+                      <fa-icon icon="star" style="color: #a1a9c3"></fa-icon><small style="color: #a1a9c3"> 4,5</small>
+                      <br />
+                      <div class="float-right mt-2">
+                        <button
+                          type="submit"
+                          [routerLink]="['/reservation/customer/voyage', voyage.id]"
+                          class="btn btn-simple font-weight-bold"
+                        >
+                          Liste des passagers
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div *ngIf="voyages && voyages.length > 0">
+              <div class="row justify-content-center">
+                <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }">
+                </jhi-item-count>
+              </div>
+
+              <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                  [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+              </div>
+            </div> -->
+          </mat-tab>
+
+          <!-- Trajet Effectués -->
+          <mat-tab label="Trajets effectués">
+            <div *ngFor="let voyage of voyages; trackBy: trackId">
+              <div *ngIf="voyage?.dateDeVoyage?.isBefore(dateNow!)" class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3">
+                <div>
+                  <small
+                    >{{ voyage?.dateDeVoyage?.format('dddd') }} {{ voyage?.dateDeVoyage?.date() }}
+                    {{ voyage?.dateDeVoyage?.format('MMMM') }}</small
+                  >
+                  <div class="circle-left"></div>
+                  <hr class="line-horizontal" />
+                  <div class="circle-right float-right"></div>
+                </div>
+                <div class="card-body row">
+                  <div class="col-xs-12 col-md-7">
+                    <small>
+                      <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
+                    ><span class="text-black"
+                      ><strong>{{ voyage?.dateDeVoyage?.format('HH') }}:{{ voyage?.dateDeVoyage?.format('mm') }}</strong>
+                      {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+                    ></span>
+                    <div class="line text-center col-xs-4 ml-2">
+                      <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                    </div>
+                    <small>
+                      <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+                    ><span class="text-black"
+                      ><strong>{{ voyage?.dateArrivee?.format('HH') }}:{{ voyage?.dateArrivee?.format('mm') }}</strong>
+                      {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
+                    ></span>
+                  </div>
+                  <div class="col-xs-12 col-md-5">
+                    <!-- <h3 class="text-right font-weight-bold">{{ voyage.prix }}FCFA</h3> -->
+                    <div class="float-right mt-4">
+                      <small *ngIf="voyage.wifi">
+                        <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
+                      </small>
+                      <small *ngIf="voyage.toilette">
+                        <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
+                      </small>
+                      <small *ngIf="voyage.climatisation">
+                        <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
+                      </small>
+                      <small style="color: #a1a9c3">{{ voyage.transporteur?.nom }}</small>
+                      <fa-icon icon="star" style="color: #a1a9c3"></fa-icon><small style="color: #a1a9c3"> 4,5</small>
+                      <br />
+                      <div class="float-right mt-2">
+                        <button
+                          type="submit"
+                          [routerLink]="['/reservation/customer/voyage', voyage.id]"
+                          class="btn btn-simple font-weight-bold"
+                        >
+                          Liste des passagers
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div *ngIf="voyages && voyages.length > 0">
+              <div class="row justify-content-center">
+                <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }">
+                </jhi-item-count>
+              </div>
+
+              <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                  [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+              </div>
+            </div> -->
+          </mat-tab>
+        </mat-tab-group>
+
+        <!-- <div class="col-xs-4 col-md-5 text-center">
           <h5 class="text-black font-weight-bold">Trajets à venir</h5>
         </div>
         <div class="line text-center col-xs-4" style="height: 30px"></div>
         <div class="col-xs-4 col-md-5 text-center">
           <h5 class="text-black font-weight-bold">Trajets effectués</h5>
-        </div>
-
-        <div
-          class="shadow pt-3 px-3 mb-4 bg-white col-md-12 mt-3"
-          style="max-width: 50rem"
-          *ngFor="let voyage of voyages; trackBy: trackId"
-        >
-          <div>
-            <small
-              >{{ voyage?.dateDeVoyage?.format('dddd') }} {{ voyage?.dateDeVoyage?.date() }}
-              {{ voyage?.dateDeVoyage?.format('MMMM') }}</small
-            >
-            <div class="circle-left"></div>
-            <hr class="line-horizontal" />
-            <div class="circle-right float-right"></div>
-          </div>
-          <div class="card-body row">
-            <div class="col-xs-12 col-md-7">
-              <small> <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
-              ><span class="text-black"
-                ><strong>{{ voyage?.dateDeVoyage?.format('HH') }}:{{ voyage?.dateDeVoyage?.format('mm') }}</strong>
-                {{ voyage.departVille?.nom }}
-                <fa-icon
-                  icon="info-circle"
-                  class="text-red"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="{{ voyage.adresseDepart }}"
-                ></fa-icon
-              ></span>
-              <div class="line text-center col-xs-4 ml-2">
-                <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">
-                  {{ voyage?.dateArrivee?.date()! - voyage?.dateDeVoyage?.date()! }} &nbsp; &nbsp; &nbsp; &nbsp; Direct
-                </p>
-              </div>
-              <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
-              ><span class="text-black"
-                ><strong>{{ voyage?.dateArrivee?.format('HH') }}:{{ voyage?.dateArrivee?.format('mm') }}</strong>
-                {{ voyage.arriveVille?.nom }}
-                <fa-icon icon="info-circle" class="text-red" data-toggle="tooltip" data-placement="top" title="{{ voyage.adresseArrive }}">
-                </fa-icon>
-              </span>
-            </div>
-            <div class="col-xs-12 col-md-5">
-              <!-- <h3 class="text-right font-weight-bold">{{ voyage.prix }}FCFA</h3> -->
-              <div class="float-right mt-4">
-                <small *ngIf="voyage.wifi">
-                  <fa-icon icon="wifi" class="text-secondary fa-sm" title="WIFI"></fa-icon>
-                </small>
-                <small *ngIf="voyage.toilette">
-                  <fa-icon icon="toilet" class="text-secondary fa-sm" title="Cabine Toilette"></fa-icon>
-                </small>
-                <small *ngIf="voyage.climatisation">
-                  <fa-icon icon="fan" class="text-secondary fa-sm" title="Climatiseur"></fa-icon>
-                </small>
-                <small style="color: #a1a9c3">{{ voyage.transporteur?.nom }}</small>
-                <fa-icon icon="star" style="color: #a1a9c3"></fa-icon><small style="color: #a1a9c3"> 4,5</small> <br />
-                <div class="float-right mt-2">
-                  <button type="submit" [routerLink]="['/reservation/customer/voyage', voyage.id]" class="btn btn-simple font-weight-bold">
-                    Liste des passagers
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="voyages && voyages.length > 0">
-          <div class="row justify-content-center">
-            <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
-          </div>
-
-          <div class="row justify-content-center">
-            <ngb-pagination
-              [collectionSize]="totalItems"
-              [(page)]="ngbPaginationPage"
-              [pageSize]="itemsPerPage"
-              [maxSize]="5"
-              [rotate]="true"
-              [boundaryLinks]="true"
-              (pageChange)="loadPage($event)"
-            ></ngb-pagination>
-          </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
