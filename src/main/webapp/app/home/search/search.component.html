@@ -157,8 +157,27 @@
   <div class="col-md-9 col-xs-12">
     <div class="row mb-3 mt-3">
       <div class="col-md-6 col-xs-3">
-        <h5 class="font-weight-bold">Choisir l'aller</h5>
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>Trier par:</button>
+              <div
+                ngbDropdownMenu
+                aria-labelledby="dropdownBasic1"
+                jhiSort
+                [(predicate)]="predicate"
+                [(ascending)]="ascending"
+                [callback]="loadPage.bind(this)"
+              >
+                <button ngbDropdownItem jhiSortBy="id">Date</button>
+                <button ngbDropdownItem>Prix</button>
+                <button ngbDropdownItem>Transporteur</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
       <!-- <div class="col-md-6 col-xs-3">
         <h6>Trier par : <strong>Départ le plus tôt</strong> <fa-icon icon="chevron-down" class="text-secondary fa-lg"></fa-icon></h6>
       </div> -->
@@ -173,8 +192,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-7 col-xs-6">
-            <small>
-              <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
+            <small> <fa-icon icon="circle" class="text-secondary fa-lg mr-2"></fa-icon> </small
             ><span class="text-heybus"
               ><strong>{{ voyage?.dateDeVoyage?.format('HH') }}:{{ voyage?.dateDeVoyage?.format('mm') }}</strong>
               {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
@@ -182,8 +200,7 @@
             <div class="line text-center col-xs-4 ml-2">
               <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
             </div>
-            <small>
-              <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
+            <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
             ><span class="text-heybus"
               ><strong>{{ voyage?.dateArrivee?.format('HH') }}:{{ voyage?.dateArrivee?.format('mm') }}</strong>
               {{ voyage.arriveVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
