@@ -259,7 +259,8 @@ public class VoyageResource {
         @PathVariable Long idDepartVille,
         @PathVariable Long idArriveVille,
         @PathVariable Integer nbrePassagers,
-        Pageable pageable
+        Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
         //log.debug("REST request to get Voyage : {}", id);
 
@@ -283,14 +284,29 @@ public class VoyageResource {
             0,
             ZoneId.of("UTC")
         );
-        Page<Voyage> page = voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
-            pageable,
-            date,
-            date2,
-            ville.findById(idDepartVille).get(),
-            ville.findById(idArriveVille).get(),
-            nbrePassagers
-        );
+        Page<Voyage> page = null;
+        if (eagerload) {
+            page =
+                voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
+                    pageable,
+                    date,
+                    date2,
+                    ville.findById(idDepartVille).get(),
+                    ville.findById(idArriveVille).get(),
+                    nbrePassagers
+                );
+        } else {
+            page =
+                voyageRepository.findByDateDeVoyageBetweenAndDepartVilleAndArriveVilleAndNbrePlaceGreaterThanEqual(
+                    pageable,
+                    date,
+                    date2,
+                    ville.findById(idDepartVille).get(),
+                    ville.findById(idArriveVille).get(),
+                    nbrePassagers
+                );
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -303,7 +319,8 @@ public class VoyageResource {
         @RequestParam Long idDepartVille,
         @RequestParam Long idArriveVille,
         @RequestParam Integer nbrePassagers,
-        Pageable pageable
+        Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
         ZonedDateTime date1 = ZonedDateTime.of(
             Integer.parseInt(dateVoyage.split("-")[0]),
@@ -346,16 +363,33 @@ public class VoyageResource {
             0,
             ZoneId.of("UTC")
         );
-        Page<Voyage> page = voyageRepository.voyageRetour(
-            date1,
-            date2,
-            date3,
-            date4,
-            ville.findById(idDepartVille).get(),
-            ville.findById(idArriveVille).get(),
-            nbrePassagers,
-            pageable
-        );
+        Page<Voyage> page = null;
+        if (eagerload) {
+            page =
+                voyageRepository.voyageRetour(
+                    date1,
+                    date2,
+                    date3,
+                    date4,
+                    ville.findById(idDepartVille).get(),
+                    ville.findById(idArriveVille).get(),
+                    nbrePassagers,
+                    pageable
+                );
+        } else {
+            page =
+                voyageRepository.voyageRetour(
+                    date1,
+                    date2,
+                    date3,
+                    date4,
+                    ville.findById(idDepartVille).get(),
+                    ville.findById(idArriveVille).get(),
+                    nbrePassagers,
+                    pageable
+                );
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

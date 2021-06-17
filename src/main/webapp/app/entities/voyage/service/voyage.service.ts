@@ -53,22 +53,22 @@ export class VoyageService {
   }
   searchVoyage(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    const date =  String(options.get('date'));
-    const  depart =  Number(options.get('depart'));
-    const  arrive =  Number(options.get('arrive'));
-    const nbrePassagers =  Number(options.get('nbrePassagers'));
+    const date = String(options.get('date'));
+    const depart = Number(options.get('depart'));
+    const arrive = Number(options.get('arrive'));
+    const nbrePassagers = Number(options.get('nbrePassagers'));
     return this.http
-      .get<IVoyage[]>(`${this.resourceUrl}/${date}/${depart}/${arrive}/${nbrePassagers}`, { observe: 'response' })
+      .get<IVoyage[]>(`${this.resourceUrl}/${date}/${depart}/${arrive}/${nbrePassagers}`, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   searchVoyageRetour(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    const date =  String(options.get('date'));
-    const dateRetour =  String(options.get('dateRetour'));
-    const  depart =  Number(options.get('departVille'));
-    const  arrive =  Number(options.get('arriveVille'));
-    const nbrePassagers =  Number(options.get('nbrePassagers'));
+    const date = String(options.get('date'));
+    const dateRetour = String(options.get('dateRetour'));
+    const depart = Number(options.get('departVille'));
+    const arrive = Number(options.get('arriveVille'));
+    const nbrePassagers = Number(options.get('nbrePassagers'));
     //  /* eslint-disable no-console */
     //  console.log(date);
     //  /* eslint-disable no-console */
@@ -78,10 +78,13 @@ export class VoyageService {
     // /* eslint-disable no-console */
     // console.log(arrive);
     return this.http
-      .get<IVoyage[]>(`${this.resourceUrl}/retour?dateVoyage=${date}&dateRetour=${dateRetour}&idDepartVille=${depart}&idArriveVille=${arrive}&nbrePassagers=${nbrePassagers}`, { observe: 'response' })
+      .get<IVoyage[]>(
+        `${this.resourceUrl}/retour?dateVoyage=${date}&dateRetour=${dateRetour}&idDepartVille=${depart}&idArriveVille=${arrive}&nbrePassagers=${nbrePassagers}`,
+        { observe: 'response' }
+      )
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
-  
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
@@ -114,7 +117,6 @@ export class VoyageService {
       res.body.dateDeVoyage = res.body.dateDeVoyage ? dayjs(res.body.dateDeVoyage) : undefined;
       res.body.dateRetour = res.body.dateRetour ? dayjs(res.body.dateRetour) : undefined;
       res.body.dateArrivee = res.body.dateArrivee ? dayjs(res.body.dateArrivee) : undefined;
-
     }
     return res;
   }
