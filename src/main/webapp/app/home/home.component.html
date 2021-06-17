@@ -1,12 +1,13 @@
-<div class="row voyage-img justify-content-center">
-  <p class="voyages-en-bus font-weight-bold" style="position: relative; top:65%">Voyages en bus pas chers à
-    partir de 5000 FCFA</p>
-   
-  
+<div class="voyage-img">
 
-    <!-- Formulaire Voyage Simple-->
+  <div class="container">
+    <p class="voyages-en-bus font-weight-bold" style="position:relative; top: 10rem;">Voyages en bus pas chers à
+      partir de 5000 FCFA</p>
+    <div class="row justify-content-center " style="position:relative; top: 11rem;">
 
-      <div class="col-md-11 shadow bg-white mt-5 pt-2" style="position: relative; left: 5%; top:55%" *ngIf=" valeurVoyage ==1">
+      <!-- Formulaire Voyage Simple -->
+
+      <div class="col-md-12 shadow bg-white mt-5 pt-2" style="max-height: 30rem" *ngIf=" valeurVoyage ==1">
 
         <form name="editForm" role="form" novalidate [formGroup]="editForm">
           <div class="form-group" [hidden]="!editForm.get('id')!.value">
@@ -16,17 +17,13 @@
           <div class="row ml-1 pt-2">
             <div class="form-check form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="option1" checked (click)="voyageSimple()"
-                style="
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+                  checked (click)="voyageSimple()" style="
                position: absolute;
                width: 17px;
                height: 17px;
                top: 5px;
-               background: #a1a9c3;"
-                > <span style="color: #a1a9c3;
+               background: #a1a9c3;"> <span style="color: #a1a9c3;
                 font-family: Mulish;
                 font-size: 14px;
                 font-weight: 600;
@@ -37,11 +34,8 @@
             </div>
             <div class="form-check form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="option2"
-               (click)="voyageAllerRetour()"
-               style="
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+                  (click)="voyageAllerRetour()" style="
                position: absolute;
                width: 17px;
                height: 17px;
@@ -58,9 +52,9 @@
               </label>
             </div>
           </div>
-    
+
           <div class="row pt-3">
-    
+
             <div class="col-md-2">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -79,7 +73,9 @@
                 </select>
               </div>
             </div>
-            <div class="pt-3"><fa-icon icon="exchange-alt" class="fa"></fa-icon></div>
+            <!-- <div class="col-xs-1 pt-2">
+              <fa-icon icon="exchange-alt" class="fa-lg"></fa-icon>
+            </div> -->
             <div class="col-md-2">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -98,9 +94,9 @@
                 </select>
               </div>
             </div>
-    
-    
-            <div class="form-group col-md-3">
+
+
+            <div class="form-group col-md-4">
               <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
                 formControlName="dateDeVoyage" placeholder="YYYY/MM/DD" />
               <div
@@ -109,13 +105,14 @@
                   jhiTranslate="entity.validation.required">
                   This field is required.
                 </small>
-                <small class="form-text text-danger" [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+                <small class="form-text text-danger"
+                  [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
                   jhiTranslate="entity.validation.ZonedDateTimelocal">
                   This field should be a date and time.
                 </small>
               </div>
             </div>
-    
+
             <div class="form-group col-md-2">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -124,9 +121,9 @@
                   </span>
                 </div>
                 <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
-                  data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager" value="1"/>
+                  data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager" value="1" />
               </div>
-    
+
               <div
                 *ngIf="editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)">
                 <small class="form-text text-danger" *ngIf="editForm.get('nbrePassagers')?.errors?.required"
@@ -141,7 +138,7 @@
             </div>
             <div class="form-group col-md-2">
               <button type="submit" id="save-entity" class="btn btn-reserver" (click)="recherche()">
-               <span>Rechercher</span>
+                <span>Rechercher</span>
               </button>
             </div>
           </div>
@@ -149,9 +146,9 @@
       </div>
 
 
-    <!-- Formulaire Voyage Aller Retour -->
-      <div class="col-md-11 shadow bg-white mt-5 pt-2" style="position: relative; left: 5%; top:55%; height: 40%;" *ngIf=" valeurVoyage ==2">
-  
+      <!-- Formulaire Voyage Aller Retour -->
+      <div class="col-md-12 shadow bg-white mt-5 pt-2" style="max-height: 30rem" *ngIf=" valeurVoyage ==2">
+
         <form name="editFormRetour" role="form" novalidate [formGroup]="editFormRetour">
           <div class="form-group" [hidden]="!editFormRetour.get('id')!.value">
             <label for="id" jhiTranslate="global.field.id">ID</label>
@@ -160,17 +157,13 @@
           <div class="row ml-1 pt-2">
             <div class="form-check form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="option1" (click)="voyageSimple()"
-                style="
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+                  (click)="voyageSimple()" style="
                position: absolute;
                width: 17px;
                height: 17px;
                top: 5px;
-               background: #a1a9c3;"
-                > <span style="color: #a1a9c3;
+               background: #a1a9c3;"> <span style="color: #a1a9c3;
                 font-family: Mulish;
                 font-size: 12px;
                 font-weight: 600;
@@ -181,12 +174,8 @@
             </div>
             <div class="form-check form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="option2"
-                checked
-               (click)="voyageAllerRetour()"
-               style="
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+                  checked (click)="voyageAllerRetour()" style="
                position: absolute;
                width: 17px;
                height: 17px;
@@ -203,7 +192,7 @@
               </label>
             </div>
           </div>
-    
+
           <div class="row pt-3">
             <div class="col-md-2">
               <div class="input-group">
@@ -223,7 +212,9 @@
                 </select>
               </div>
             </div>
-            <div class="pt-3"><fa-icon icon="exchange-alt" class="fa"></fa-icon></div>
+            <!-- <div class="col-xs-1 pt-2 pb-2">
+              <fa-icon icon="exchange-alt" class="fa-lg"></fa-icon>
+            </div> -->
             <div class="col-md-2">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -242,19 +233,22 @@
                 </select>
               </div>
             </div>
-    
-    
-            <div class="form-group col-md-3">
-              <div class="container-fluid row form-group position-relative" style="right: 10%;">
-                  <div class="col-9">
+
+
+            <div class="form-group col-md-4">
+              <div class="row form-group">
+                <div class="col-md-6 col-xs-12">
                   <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
-                  formControlName="dateDeVoyage" placeholder="24 juin 2021" style="width: 100%;"/>
-                  </div>
-                  <div><fa-icon icon="barcode" class="position-relative" style="text-align: center; right: 80%; width: 100%; font-size: xx-large;"></fa-icon></div>
-                  <div class="col-9 position-relative" style="left: 60%; bottom: 47.5px;">
+                    formControlName="dateDeVoyage" placeholder="24 juin 2021" style="width: 100%;" />
+                </div>
+                <!-- <div>
+                  <fa-icon icon="barcode" class="position-relative"
+                    style="text-align: center; right: 80%; width: 100%; font-size: xx-large;"></fa-icon>
+                </div> -->
+                <div class="col-md-6 col-xs-12">
                   <input id="field_dateRetour" type="date" class="form-control" name="dateRetour" min="{{ myDate }}"
-                  formControlName="dateRetour" placeholder="12 juillet 2021" style="width: 100%;"/>
-                  </div>
+                    formControlName="dateRetour" placeholder="12 juillet 2021" style="width: 100%;" />
+                </div>
               </div>
               <div
                 *ngIf="editFormRetour.get('dateDeVoyage')!.invalid && (editFormRetour.get('dateDeVoyage')!.dirty || editFormRetour.get('dateDeVoyage')!.touched)">
@@ -262,7 +256,8 @@
                   jhiTranslate="entity.validation.required">
                   This field is required.
                 </small>
-                <small class="form-text text-danger" [hidden]="!editFormRetour.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+                <small class="form-text text-danger"
+                  [hidden]="!editFormRetour.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
                   jhiTranslate="entity.validation.ZonedDateTimelocal">
                   This field should be a date and time.
                 </small>
@@ -273,13 +268,14 @@
                   jhiTranslate="entity.validation.required">
                   This field is required.
                 </small>
-                <small class="form-text text-danger" [hidden]="!editFormRetour.get('dateRetour')?.errors?.ZonedDateTimelocal"
+                <small class="form-text text-danger"
+                  [hidden]="!editFormRetour.get('dateRetour')?.errors?.ZonedDateTimelocal"
                   jhiTranslate="entity.validation.ZonedDateTimelocal">
                   This field should be a date and time.
                 </small>
               </div>
             </div>
-    
+
             <div class="form-group col-md-2">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -288,9 +284,9 @@
                   </span>
                 </div>
                 <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
-                  data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager" value="1"/>
+                  data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager" value="1" />
               </div>
-    
+
               <div
                 *ngIf="editFormRetour.get('nbrePassagers')!.invalid && (editFormRetour.get('nbrePassagers')!.dirty || editFormRetour.get('nbrePassagers')!.touched)">
                 <small class="form-text text-danger" *ngIf="editFormRetour.get('nbrePassagers')?.errors?.required"
@@ -305,14 +301,15 @@
             </div>
             <div class="form-group col-md-2">
               <button type="submit" id="save-entity" class="btn btn-reserver" (click)="rechercheRetour()">
-               <span>Rechercher</span>
+                <span>Rechercher</span>
               </button>
             </div>
           </div>
         </form>
       </div>
+    </div>
+  </div>
 </div>
-
 
 
 <div class="col-md-12">

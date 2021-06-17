@@ -100,6 +100,16 @@ export class ReservationComponent implements OnInit {
     });
   }
 
+  public convertHour(minutes:number):number{
+
+    return Math.floor(minutes/(60));
+  }
+
+  public convertMinute(minutes:number):number{
+
+    return Math.floor(minutes%(60));
+  }
+  
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
