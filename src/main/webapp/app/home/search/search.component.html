@@ -198,7 +198,10 @@
               {{ voyage.departVille?.nom }} <fa-icon icon="info-circle" class="text-red"></fa-icon
             ></span>
             <div class="line text-center col-xs-4 ml-2">
-              <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">4h &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+              <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">
+                {{ convertHour((voyage?.dateArrivee?.diff(voyage?.dateDeVoyage!, 'minutes'))!) }}h
+                {{ convertMinute((voyage?.dateArrivee?.diff(voyage?.dateDeVoyage!, 'minutes'))!) }}min 
+                 &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
             </div>
             <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
             ><span class="text-heybus"

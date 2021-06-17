@@ -41,7 +41,7 @@ Main page styles
 }
 .btn-reserver {
   height: 47px;
-  width: 161px;
+  width: auto;
   border-radius: 8px;
   background-color: #ff1b2e;
   color: #ffffff;
@@ -65,12 +65,9 @@ Main page styles
 .voyage-img {
   width: 100%;
   height: 350px;
-  position: fixed;
-  display: inline-block;
   vertical-align: middle;
   background: url('../../content/images/voyageimg.jpg') no-repeat;
-  background-size: cover;
-  background-color: rgba(0, 0, 0, 1);
+  background-size:cover;
   text-align: center;
 }
 
