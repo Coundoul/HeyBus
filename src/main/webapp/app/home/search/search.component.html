@@ -156,10 +156,10 @@
 
   <div class="col-md-9 col-xs-12">
     <div class="row mb-3 mt-3">
-      <div class="col-md-6 col-xs-3">
+      <div class="col-md-12 col-xs-12">
         <div class="row">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
+          <div class="col-md-12">
+            <div ngbDropdown class="d-inline-block float-right">
               <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>Trier par:</button>
               <div
                 ngbDropdownMenu
@@ -211,9 +211,9 @@
             ></span>
             <div class="line text-center col-xs-4 ml-2">
               <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">
-                {{ convertHour((voyage?.dateArrivee?.diff(voyage?.dateDeVoyage!, 'minutes'))!) }}h
-                {{ convertMinute((voyage?.dateArrivee?.diff(voyage?.dateDeVoyage!, 'minutes'))!) }}min 
-                 &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                {{ convertHour(voyage?.dateArrivee?.diff(voyage?.dateDeVoyage!, 'minutes')!) }}h
+                {{ convertMinute(voyage?.dateArrivee?.diff(voyage?.dateDeVoyage!, 'minutes')!) }}min &nbsp; &nbsp; &nbsp; &nbsp; Direct
+              </p>
             </div>
             <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
             ><span class="text-heybus"
