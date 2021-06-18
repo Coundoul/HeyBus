@@ -303,8 +303,9 @@
             </div>
           </mat-tab>
         </mat-tab-group>
-
-        <!-- <div *ngIf="reservations && reservations.length > 0">
+        
+        <!-- Pagination -->
+        <div *ngIf="reservations && reservations.length > 0">
           <div class="row justify-content-center">
             <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
           </div>
@@ -320,7 +321,8 @@
               (pageChange)="loadPage($event)"
             ></ngb-pagination>
           </div>
-        </div> -->
+        </div>
+
       </div>
     </div>
   </div>
