@@ -25,23 +25,51 @@ Main page styles
 @font-face {
   font-family: 'Mulish';
   src: url('../../content/font/Mulish-VariableFont_wght.ttf');
+  font-family: 'Peace Sans';
+  src: url('../../content/font/Peace\ Sans\ Webfont.ttf');
+
 }
+
 
 .text-heybus {
   color: #132968 !important;
 }
 .shadow {
   border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1) ;
+
 }
+
+.search-shadow {
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1) ;
+}
+.text-red {
+  color: #ff1b2e;
+}
+
 .form-control {
   border-radius: 8px;
   height: 47px;
   background-color: #f1f2f6;
+  border: none;  
+  color: #425486;
+
+}
+
+.input-group-text{
   border: none;
+  background-color: #f1f2f6;
+}
+
+.col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6{
+  padding-right: 1px;
+  padding-left: 1px;
+
 }
 .btn-reserver {
   height: 47px;
-  width: auto;
+  width: 157;
   border-radius: 8px;
   background-color: #ff1b2e;
   color: #ffffff;
@@ -50,6 +78,7 @@ Main page styles
   line-height: 22px;
   text-align: center;
 }
+
 .btn-annuler{
   height: 47px;
   width: 161px;
@@ -63,11 +92,12 @@ Main page styles
   text-align: center;
 }
 .voyage-img {
-  width: 100%;
+  width: auto;
   height: 350px;
   vertical-align: middle;
   background: url('../../content/images/voyageimg.jpg') no-repeat;
   background-size:cover;
+  opacity: 1;
   text-align: center;
 }
 
@@ -79,3 +109,9 @@ Main page styles
   letter-spacing: 0;
   line-height: 44px;
 }
+.line-horizontal {
+  border: 1px dashed #f1f2f6;
+  margin-bottom: 0px;
+}
+
+

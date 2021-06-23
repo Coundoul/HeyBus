@@ -59,6 +59,8 @@ import {
   faGasPump,
   faTicketAlt,
   faMoneyCheck,
+  faShieldAlt,
+  faPhoneAlt
 
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
@@ -123,6 +125,8 @@ export const fontAwesomeIcons = [
   faGasPump,
   faTicketAlt,
   faMoneyCheck,
+  faShieldAlt,
+  faPhoneAlt
 
   // jhipster-needle-add-icon-import
 ];
