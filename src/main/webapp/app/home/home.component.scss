@@ -93,7 +93,7 @@ Main page styles
 }
 .voyage-img {
   width: auto;
-  height: 350px;
+  height: 300px;
   vertical-align: middle;
   background: url('../../content/images/voyageimg.jpg') no-repeat;
   background-size:cover;
@@ -104,7 +104,7 @@ Main page styles
 .voyages-en-bus {
   height: 44px;
   color: #FFFFFF;
-  font-family: 'Helvetica';
+  font-family: 'Peace Sans';
   font-size: 32px;
   letter-spacing: 0;
   line-height: 44px;
@@ -112,6 +112,10 @@ Main page styles
 .line-horizontal {
   border: 1px dashed #f1f2f6;
   margin-bottom: 0px;
+}
+
+body{
+  background: #ffffff;
 }
 
 
