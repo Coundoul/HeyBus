@@ -1,74 +1,76 @@
-<div>
-  <h2 id="page-heading" data-cy="ArretHeading">
-    <span jhiTranslate="heybusApp.arret.home.title">Arrets</span>
+<div class="container">
+  <div class="card jh-card">
+    <h2 id="page-heading" data-cy="ArretHeading">
+      <span jhiTranslate="heybusApp.arret.home.title">Arrets</span>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="heybusApp.arret.home.refreshListLabel">Refresh List</span>
-      </button>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="heybusApp.arret.home.refreshListLabel">Refresh List</span>
+        </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-arret"
-        [routerLink]="['/arret/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="heybusApp.arret.home.createLabel"> Create a new Arret </span>
-      </button>
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-arret"
+          [routerLink]="['/arret/new']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="heybusApp.arret.home.createLabel"> Create a new Arret </span>
+        </button>
+      </div>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="arrets?.length === 0">
+      <span jhiTranslate="heybusApp.arret.home.notFound">No arrets found</span>
     </div>
-  </h2>
 
-  <jhi-alert-error></jhi-alert-error>
+    <div class="table-responsive" id="entities" *ngIf="arrets && arrets.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.arret.description">Description</span></th>
+            <th scope="col"><span jhiTranslate="heybusApp.arret.nomarretVille">Nomarret Ville</span></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let arret of arrets; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <a [routerLink]="['/arret', arret.id, 'view']">{{ arret.id }}</a>
+            </td>
+            <td>{{ arret.description }}</td>
+            <td>
+              <div *ngIf="arret.nomarretVille">
+                <a [routerLink]="['/ville', arret.nomarretVille?.id, 'view']">{{ arret.nomarretVille?.nom }}</a>
+              </div>
+            </td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['/arret', arret.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
 
-  <jhi-alert></jhi-alert>
+                <button type="submit" [routerLink]="['/arret', arret.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="arrets?.length === 0">
-    <span jhiTranslate="heybusApp.arret.home.notFound">No arrets found</span>
-  </div>
-
-  <div class="table-responsive" id="entities" *ngIf="arrets && arrets.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.arret.description">Description</span></th>
-          <th scope="col"><span jhiTranslate="heybusApp.arret.nomarretVille">Nomarret Ville</span></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let arret of arrets; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/arret', arret.id, 'view']">{{ arret.id }}</a>
-          </td>
-          <td>{{ arret.description }}</td>
-          <td>
-            <div *ngIf="arret.nomarretVille">
-              <a [routerLink]="['/ville', arret.nomarretVille?.id, 'view']">{{ arret.nomarretVille?.nom }}</a>
-            </div>
-          </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/arret', arret.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
-              <button type="submit" [routerLink]="['/arret', arret.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(arret)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                <button type="submit" (click)="delete(arret)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

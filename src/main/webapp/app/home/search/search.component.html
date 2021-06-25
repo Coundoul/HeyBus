@@ -164,8 +164,7 @@
           <div ngbDropdown class="d-inline-block float-right mr-4">
             <h6>
               Trier par:
-              <button class="btn btn-outline-secondary" id="dropdownBasic1 " ngbDropdownToggle></button>
-
+              <button class="btn btn-outline-secondary" id="dropdownBasic1 " ngbDropdownToggle>Date(plus tôt)</button>
               <div
                 ngbDropdownMenu
                 aria-labelledby="dropdownBasic1"
@@ -175,12 +174,8 @@
                 [callback]="loadPage.bind(this)"
               >
                 <button ngbDropdownItem jhiSortBy="dateDeVoyage">Date(plus tôt)</button>
-                <button ngbDropdownItem jhiSortBy="prix" selected>Prix(moins cher)</button>
+                <button ngbDropdownItem jhiSortBy="prix">Prix(moins cher)</button>
                 <button ngbDropdownItem jhiSortBy="transporteur.nom">Transporteur</button>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option><a jhiSortBy="dateDeVoyage">1</a></option>
-                  <option><a jhiSortBy="prix">2</a></option>
-                </select>
               </div>
             </h6>
           </div>

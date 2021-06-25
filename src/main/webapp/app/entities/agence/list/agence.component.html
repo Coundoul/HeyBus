@@ -1,110 +1,132 @@
-<div>
-  <h2 id="page-heading" data-cy="AgenceHeading">
-    <span jhiTranslate="heybusApp.agence.home.title">Agences</span>
+<div class="container">
+  <div class="card jh-card">
+    <h2 id="page-heading" data-cy="AgenceHeading">
+      <span jhiTranslate="heybusApp.agence.home.title">Agences</span>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="heybusApp.agence.home.refreshListLabel">Refresh List</span>
-      </button>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="heybusApp.agence.home.refreshListLabel">Refresh List</span>
+        </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-agence"
-        [routerLink]="['/agence/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="heybusApp.agence.home.createLabel"> Create a new Agence </span>
-      </button>
-    </div>
-  </h2>
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-agence"
+          [routerLink]="['/agence/new']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="heybusApp.agence.home.createLabel"> Create a new Agence </span>
+        </button>
+      </div>
+    </h2>
 
-  <jhi-alert-error></jhi-alert-error>
+    <jhi-alert-error></jhi-alert-error>
 
-  <jhi-alert></jhi-alert>
+    <jhi-alert></jhi-alert>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="agences?.length === 0">
-    <span jhiTranslate="heybusApp.agence.home.notFound">No agences found</span>
-  </div>
-
-  <div class="table-responsive" id="entities" *ngIf="agences && agences.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom"><span jhiTranslate="heybusApp.agence.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="telephone">
-            <span jhiTranslate="heybusApp.agence.telephone">Telephone</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="responsable">
-            <span jhiTranslate="heybusApp.agence.responsable">Responsable</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="revenu.date">
-            <span jhiTranslate="heybusApp.agence.revenu">Revenu</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="depense.date">
-            <span jhiTranslate="heybusApp.agence.depense">Depense</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let agence of agences; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/agence', agence.id, 'view']">{{ agence.id }}</a>
-          </td>
-          <td>{{ agence.nom }}</td>
-          <td>{{ agence.telephone }}</td>
-          <td>{{ agence.responsable }}</td>
-          <td>
-            <div *ngIf="agence.revenu">
-              <a [routerLink]="['/revenu', agence.revenu?.id, 'view']">{{ agence.revenu?.date }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="agence.depense">
-              <a [routerLink]="['/depense', agence.depense?.id, 'view']">{{ agence.depense?.date }}</a>
-            </div>
-          </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/agence', agence.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
-              <button type="submit" [routerLink]="['/agence', agence.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(agence)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="agences && agences.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    <div class="alert alert-warning" id="no-result" *ngIf="agences?.length === 0">
+      <span jhiTranslate="heybusApp.agence.home.notFound">No agences found</span>
     </div>
 
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
+    <div class="table-responsive" id="entities" *ngIf="agences && agences.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+            <th scope="col" jhiSortBy="id">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="nom">
+              <span jhiTranslate="heybusApp.agence.nom">Nom</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="telephone">
+              <span jhiTranslate="heybusApp.agence.telephone">Telephone</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="responsable">
+              <span jhiTranslate="heybusApp.agence.responsable">Responsable</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="revenu.date">
+              <span jhiTranslate="heybusApp.agence.revenu">Revenu</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="depense.date">
+              <span jhiTranslate="heybusApp.agence.depense">Depense</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let agence of agences; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <a [routerLink]="['/agence', agence.id, 'view']">{{ agence.id }}</a>
+            </td>
+            <td>{{ agence.nom }}</td>
+            <td>{{ agence.telephone }}</td>
+            <td>{{ agence.responsable }}</td>
+            <td>
+              <div *ngIf="agence.revenu">
+                <a [routerLink]="['/revenu', agence.revenu?.id, 'view']">{{ agence.revenu?.date }}</a>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="agence.depense">
+                <a [routerLink]="['/depense', agence.depense?.id, 'view']">{{ agence.depense?.date }}</a>
+              </div>
+            </td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button
+                  type="submit"
+                  [routerLink]="['/agence', agence.id, 'view']"
+                  class="btn btn-info btn-sm"
+                  data-cy="entityDetailsButton"
+                >
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+
+                <button
+                  type="submit"
+                  [routerLink]="['/agence', agence.id, 'edit']"
+                  class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton"
+                >
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="submit" (click)="delete(agence)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="agences && agences.length > 0">
+      <div class="row justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="row justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [(page)]="ngbPaginationPage"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="loadPage($event)"
+        ></ngb-pagination>
+      </div>
     </div>
   </div>
 </div>

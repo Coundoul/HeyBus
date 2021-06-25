@@ -19,6 +19,7 @@ import { UserService } from 'app/entities/user/user.service';
 })
 export class TransporteurUpdateComponent implements OnInit {
   isSaving = false;
+  step = 0;
 
   usersSharedCollection: IUser[] = [];
 
@@ -95,6 +96,10 @@ export class TransporteurUpdateComponent implements OnInit {
 
   trackUserById(index: number, item: IUser): number {
     return item.id!;
+  }
+
+  public onStepChange(event: any): void {
+    this.step = event.selectedIndex;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITransporteur>>): void {
