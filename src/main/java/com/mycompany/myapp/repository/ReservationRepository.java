@@ -14,6 +14,12 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+
+    @Query(  value = "select distinct reservation from Reservation reservation",
+             countQuery = "select count(distinct reservation) from Reservation reservation"
+            )
+   Page<Reservation> findAllWithEagerRelationships(Pageable pageable);
+
     @Query( value = "select reservation from Reservation reservation where reservation.voyage.transporteur.user.login = ?#{principal.username}",
             countQuery = "select count(distinct reservation) from Reservation reservation")
     Page<Reservation> findByUserIsCurrentUser(Pageable pageable);

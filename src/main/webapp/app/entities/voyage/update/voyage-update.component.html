@@ -489,7 +489,7 @@
                 [ngValue]="getSelectedArret(arretOption, editForm.get('arrets')!.value)"
                 *ngFor="let arretOption of arretsSharedCollection; trackBy: trackArretById"
               >
-                {{ arretOption.id }}
+                {{ arretOption.description }}
               </option>
             </select>
           </div>

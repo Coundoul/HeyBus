@@ -1,19 +1,31 @@
 /* ==========================================================================
 Search page styles
 ========================================================================== */
+
 .form-control {
   border-radius: 8px;
   height: 47px;
-  background: #f1f2f6;
+  background-color: #f1f2f6;
+  border: none;  
   color: #425486;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
+  padding: 2px;
+
 }
+
+.input-group-text{
+  border: none;
+  background-color: #f1f2f6;
+  padding: 7px;
+  color:  #A1A9C3;
+  font-size: 1.3em;
+}
+
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6{
+  padding-right: 1px;
+  padding-left: 1px;
+
+}
+
 @font-face {
   font-family: 'Mulish';
   src: url('../../../content/font/Mulish-VariableFont_wght.ttf');

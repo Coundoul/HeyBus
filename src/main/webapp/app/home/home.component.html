@@ -1,355 +1,350 @@
-  <div class="row voyage-img" style="margin-bottom: 26rem;">
-    <div class="container">
-      <p class="voyages-en-bus text-left" style="position:relative; top: 7rem;">Voyages en bus pas chers à
-        partir de 5000 FCFA</p>
-      <div class="row justify-content-center " style="position:relative; top: 8rem;">
-  
-        <!-- Formulaire Voyage Simple -->
-  
-        <div class="col-md-12 search-shadow bg-white mt-5 pt-2" style="max-height: 30rem" *ngIf=" valeurVoyage ==1">
-  
-          <form name="editForm" role="form" novalidate [formGroup]="editForm">
-            <div class="form-group" [hidden]="!editForm.get('id')!.value">
-              <label for="id" jhiTranslate="global.field.id">ID</label>
-              <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
-            </div>
-            <div class="row pt-2 px-2">
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
-                    checked (click)="voyageSimple()" style="
+<div class="row voyage-img" style="margin-bottom: 26rem;">
+  <div class="container">
+    <p class="voyages-en-bus text-left" style="position:relative; top: 7rem;">Voyages en bus pas chers à
+      partir de 5000 FCFA</p>
+    <div class="row justify-content-center " style="position:relative; top: 8rem;">
+
+      <!-- Formulaire Voyage Simple -->
+
+      <div class="col-md-12 search-shadow bg-white mt-5 pt-2" style="max-height: 30rem" *ngIf=" valeurVoyage ==1">
+
+        <form name="editForm" role="form" novalidate [formGroup]="editForm">
+          <div class="form-group" [hidden]="!editForm.get('id')!.value">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+          </div>
+          <div class="row pt-2 px-2">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+                  checked (click)="voyageSimple()" style="
                    position: absolute;
-                   width: 17px;
-                   height: 17px;
+                   width: 20px;
+                   height: 20px;
                    top: 5px;
-                   background: #a1a9c3;"> <span style="color: #a1a9c3;
+                   background: #a1a9c3;"> <span style="
                     font-family: Mulish;
-                    font-size: 14px;
-                    font-weight: 600;
+                    font-size: 16px;
                     letter-spacing: 0;
                     position: relative;
-                    left: 20px;">Aller simple </span>
-                </label>
-              </div>
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
-                    (click)="voyageAllerRetour()" style="
+                    left: 26px;">Aller simple </span>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+                  (click)="voyageAllerRetour()" style="
                    position: absolute;
-                   width: 17px;
-                   height: 17px;
-                   left: 18px;
+                   width: 20px;
+                   height: 20px;
+                   left: 20px;
+                   top: 5px;
+                   background: #a1a9c3;"> <span style="
+                    font-family: Mulish;
+                    font-size: 16px;
+                    letter-spacing: 0;
+                    position: relative;
+                    left: 45px;"> Aller-retour</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="row pt-3 pb-4 px-2">
+            <div class="col-md-5">
+              <div class="row px-3">
+
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">
+                        <fa-icon icon="circle"></fa-icon>
+                      </span>
+                    </div>
+                    <select class="form-control" id="field_departVille" name="departVille" formControlName="departVille"
+                      aria-describedby="basic-addon1">
+                      <option value="null">Ville de départ</option>
+                      <option
+                        [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
+                        *ngFor="let villeOption of villes">
+                        {{ villeOption.nom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <fa-icon icon="exchange-alt" class="col-md-2 " style="color:  #A1A9C3; font-size: 1.8em;"></fa-icon>
+
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon2">
+                        <fa-icon icon="map-marker-alt"></fa-icon>
+                      </span>
+                    </div>
+                    <select class="form-control" id="field_arriveVille" name="arriveVille" formControlName="arriveVille"
+                      aria-describedby="basic-addon2">
+                      <option value="null">Ville d'arrivée</option>
+                      <option
+                        [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
+                        *ngFor="let villeOption of villes">
+                        {{ villeOption.nom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon2">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                  </span>
+                </div>
+                <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
+                  formControlName="dateDeVoyage" placeholder="YYYY/MM/DD" />
+              </div>
+              <div
+                *ngIf="editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
+                  jhiTranslate="entity.validation.required">
+                  This field is required.
+                </small>
+                <small class="form-text text-danger"
+                  [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+                  jhiTranslate="entity.validation.ZonedDateTimelocal">
+                  This field should be a date and time.
+                </small>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="row px-3 justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">
+                        <fa-icon icon="users"></fa-icon>
+                      </span>
+                    </div>
+                    <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
+                      data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager"
+                      value="1" />
+                  </div>
+
+                  <div
+                    *ngIf="editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)">
+                    <small class="form-text text-danger" *ngIf="editForm.get('nbrePassagers')?.errors?.required"
+                      jhiTranslate="entity.validation.required">
+                      This field is required.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
+                      jhiTranslate="entity.validation.number">
+                      This field should be a number.
+                    </small>
+                  </div>
+                </div>
+                <button type="submit" id="save-entity" class="btn btn-reserver col-md-6" (click)="recherche()">
+                  <span>Rechercher</span>
+                </button>
+              </div>
+            </div>
+
+
+
+          </div>
+        </form>
+      </div>
+
+
+      <!-- Formulaire Voyage Aller Retour -->
+      <div class="col-md-12 search-shadow bg-white mt-5 pt-2" style="max-height: 30rem" *ngIf=" valeurVoyage ==2">
+
+        <form name="editFormRetour" role="form" novalidate [formGroup]="editFormRetour">
+          <div class="form-group" [hidden]="!editFormRetour.get('id')!.value">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+          </div>
+          <div class="row pt-2 px-2">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+                  (click)="voyageSimple()" style="
+                   position: absolute;
+                   width: 20px;
+                   height: 20px;
+                   top: 5px;
+                   background: #a1a9c3;"> <span style="
+                    font-family: Mulish;
+                    font-size: 16px;
+                    letter-spacing: 0;
+                    position: relative;
+                    left: 26px;">Aller simple </span>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+                  checked (click)="voyageAllerRetour()" style="
+                   position: absolute;
+                   width: 20px;
+                   height: 20px;
+                   left: 20px;
                    top: 5px;
                    
-                   background: #a1a9c3;"> <span style=" color: #a1a9c3;
+                   background: #a1a9c3;"> <span style="
                     font-family: Mulish;
-                    font-size: 14px;
-                    font-weight: 600;
+                    font-size: 16px;
                     letter-spacing: 0;
                     position: relative;
-                    left: 36px;"> Aller-retour</span>
-                </label>
+                    left: 43px;"> Aller-retour</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="row pt-3 pb-4 px-2">
+            <div class="col-md-4">
+              <div class="row px-3">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">
+                        <fa-icon icon="circle"></fa-icon>
+                      </span>
+                    </div>
+                    <select class="form-control" id="field_departVille" name="departVille" formControlName="departVille"
+                      aria-describedby="basic-addon1">
+                      <option value="null">Ville de départ</option>
+                      <option
+                        [ngValue]="villeOption.id === editFormRetour.get('departVille')!.value?.id ? editFormRetour.get('departVille')!.value : villeOption"
+                        *ngFor="let villeOption of villes">
+                        {{ villeOption.nom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- <div class="col-xs-1 pt-2 pb-2">
+                      <fa-icon icon="exchange-alt" class="fa-lg"></fa-icon>
+                    </div> -->
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon2">
+                        <fa-icon icon="map-marker-alt"></fa-icon>
+                      </span>
+                    </div>
+                    <select class="form-control" id="field_arriveVille" name="arriveVille" formControlName="arriveVille"
+                      aria-describedby="basic-addon2">
+                      <option value="null">Ville d'arrivée</option>
+                      <option
+                        [ngValue]="villeOption.id === editFormRetour.get('arriveVille')!.value?.id ? editFormRetour.get('arriveVille')!.value : villeOption"
+                        *ngFor="let villeOption of villes">
+                        {{ villeOption.nom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
-  
-            <div class="row pt-3 pb-4 px-2">
-              <div class="col-md-5">
-                <div class="row px-3">
-            
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                          <fa-icon icon="circle"></fa-icon>
-                        </span>
-                      </div>
-                      <select class="form-control" id="field_departVille" name="departVille" formControlName="departVille"
-                        aria-describedby="basic-addon1">
-                        <option value="null">Ville de départ</option>
-                        <option
-                          [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
-                          *ngFor="let villeOption of villes">
-                          {{ villeOption.nom }}
-                        </option>
-                      </select>
+
+
+
+            <div class="col-md-5">
+              <div class="row px-3">
+                <div class="col-md-6 col-xs-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon2">
+                        <fa-icon icon="calendar-alt"></fa-icon>
+                      </span>
                     </div>
-                  </div>
-            
-                  <!-- <fa-icon icon="exchange-alt" class="fa-lg col-xs-1 pt-2 col-md-1"></fa-icon> -->
-            
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon2">
-                          <fa-icon icon="map-marker-alt"></fa-icon>
-                        </span>
-                      </div>
-                      <select class="form-control" id="field_arriveVille" name="arriveVille" formControlName="arriveVille"
-                        aria-describedby="basic-addon2">
-                        <option value="null">Ville d'arrivée</option>
-                        <option
-                          [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
-                          *ngFor="let villeOption of villes">
-                          {{ villeOption.nom }}
-                        </option>
-                      </select>
-                    </div>
+                    <input id="field_dateDeVoyage" type="date" class="form-control date-control" name="dateDeVoyage"
+                      min="{{ myDate }}" formControlName="dateDeVoyage" placeholder="24 juin 2021" />
                   </div>
                 </div>
-              </div>
-  
-  
-              <div class="col-md-3">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon2">
-                      <fa-icon icon="calendar-alt"></fa-icon>
-                    </span>
+                <!-- <div>
+                                                      <fa-icon icon="barcode" class="position-relative"
+                                                      style="text-align: center; right: 80%; width: 100%; font-size: xx-large;"></fa-icon>
+                                                    </div> -->
+                <div class="col-md-6 col-xs-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon2">
+                        <fa-icon icon="calendar-alt"></fa-icon>
+                      </span>
+                    </div>
+                    <input id="field_dateRetour" type="date" class="form-control  date-control" name="dateRetour"
+                      min="{{ myDate }}" formControlName="dateRetour" placeholder="12 juillet 2021" />
                   </div>
-                  <input id="field_dateDeVoyage" type="date" class="form-control" name="dateDeVoyage" min="{{ myDate }}"
-                    formControlName="dateDeVoyage" placeholder="YYYY/MM/DD" />
                 </div>
                 <div
-                  *ngIf="editForm.get('dateDeVoyage')!.invalid && (editForm.get('dateDeVoyage')!.dirty || editForm.get('dateDeVoyage')!.touched)">
-                  <small class="form-text text-danger" *ngIf="editForm.get('dateDeVoyage')?.errors?.required"
+                  *ngIf="editFormRetour.get('dateDeVoyage')!.invalid && (editFormRetour.get('dateDeVoyage')!.dirty || editFormRetour.get('dateDeVoyage')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editFormRetour.get('dateDeVoyage')?.errors?.required"
                     jhiTranslate="entity.validation.required">
                     This field is required.
                   </small>
                   <small class="form-text text-danger"
-                    [hidden]="!editForm.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+                    [hidden]="!editFormRetour.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
+                    jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                  </small>
+                </div>
+
+                <div
+                  *ngIf="editFormRetour.get('dateRetour')!.invalid && (editFormRetour.get('dateRetour')!.dirty || editFormRetour.get('dateRetour')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editFormRetour.get('dateRetour')?.errors?.required"
+                    jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                  <small class="form-text text-danger"
+                    [hidden]="!editFormRetour.get('dateRetour')?.errors?.ZonedDateTimelocal"
                     jhiTranslate="entity.validation.ZonedDateTimelocal">
                     This field should be a date and time.
                   </small>
                 </div>
               </div>
-  
-              <div class="col-md-4">
-                <div class="row px-3 justify-content-center">
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                          <fa-icon icon="users"></fa-icon>
-                        </span>
-                      </div>
-                      <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
-                        data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager"
-                        value="1" />
-                    </div>
-  
-                    <div
-                      *ngIf="editForm.get('nbrePassagers')!.invalid && (editForm.get('nbrePassagers')!.dirty || editForm.get('nbrePassagers')!.touched)">
-                      <small class="form-text text-danger" *ngIf="editForm.get('nbrePassagers')?.errors?.required"
-                        jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                      <small class="form-text text-danger" [hidden]="!editForm.get('nbrePassagers')?.errors?.number"
-                        jhiTranslate="entity.validation.number">
-                        This field should be a number.
-                      </small>
-                    </div>
-                  </div>
-                  <button type="submit" id="save-entity" class="btn btn-reserver col-md-6" (click)="recherche()">
-                    <span>Rechercher</span>
-                  </button>
-                </div>
-              </div>
-  
-  
-  
             </div>
-          </form>
-        </div>
-  
-  
-        <!-- Formulaire Voyage Aller Retour -->
-        <div class="col-md-12 search-shadow bg-white mt-5 pt-2" style="max-height: 30rem" *ngIf=" valeurVoyage ==2">
-  
-          <form name="editFormRetour" role="form" novalidate [formGroup]="editFormRetour">
-            <div class="form-group" [hidden]="!editFormRetour.get('id')!.value">
-              <label for="id" jhiTranslate="global.field.id">ID</label>
-              <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
-            </div>
-            <div class="row pt-2 px-2">
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
-                    (click)="voyageSimple()" style="
-                   position: absolute;
-                   width: 17px;
-                   height: 17px;
-                   top: 5px;
-                   background: #a1a9c3;"> <span style="color: #a1a9c3;
-                    font-family: Mulish;
-                    font-size: 14px;
-                    font-weight: 600;
-                    letter-spacing: 0;
-                    position: relative;
-                    left: 20px;">Aller simple </span>
-                </label>
-              </div>
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
-                    checked (click)="voyageAllerRetour()" style="
-                   position: absolute;
-                   width: 17px;
-                   height: 17px;
-                   left: 18px;
-                   top: 5px;
-                   
-                   background: #a1a9c3;"> <span style=" color: #a1a9c3;
-                    font-family: Mulish;
-                    font-size: 14px;
-                    font-weight: 600;
-                    letter-spacing: 0;
-                    position: relative;
-                    left: 36px;"> Aller-retour</span>
-                </label>
-              </div>
-            </div>
-  
-            <div class="row pt-3 pb-4 px-2">
-              <div class="col-md-4">
-                <div class="row px-3">
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                          <fa-icon icon="circle"></fa-icon>
-                        </span>
-                      </div>
-                      <select class="form-control" id="field_departVille" name="departVille" formControlName="departVille"
-                        aria-describedby="basic-addon1">
-                        <option value="null">Ville de départ</option>
-                        <option
-                          [ngValue]="villeOption.id === editFormRetour.get('departVille')!.value?.id ? editFormRetour.get('departVille')!.value : villeOption"
-                          *ngFor="let villeOption of villes">
-                          {{ villeOption.nom }}
-                        </option>
-                      </select>
+
+            <div class="col-md-3">
+              <div class="row px-3 justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">
+                        <fa-icon icon="users"></fa-icon>
+                      </span>
                     </div>
-                  </div>
-                  <!-- <div class="col-xs-1 pt-2 pb-2">
-                      <fa-icon icon="exchange-alt" class="fa-lg"></fa-icon>
-                    </div> -->
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon2">
-                          <fa-icon icon="map-marker-alt"></fa-icon>
-                        </span>
-                      </div>
-                      <select class="form-control" id="field_arriveVille" name="arriveVille" formControlName="arriveVille"
-                        aria-describedby="basic-addon2">
-                        <option value="null">Ville d'arrivée</option>
-                        <option
-                          [ngValue]="villeOption.id === editFormRetour.get('arriveVille')!.value?.id ? editFormRetour.get('arriveVille')!.value : villeOption"
-                          *ngFor="let villeOption of villes">
-                          {{ villeOption.nom }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-  
-  
-              <div class="col-md-5">
-                <div class="row px-3">
-                  <div class="col-md-6 col-xs-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon2">
-                          <fa-icon icon="calendar-alt"></fa-icon>
-                        </span>
-                      </div>
-                      <input id="field_dateDeVoyage" type="date" class="form-control date-control" name="dateDeVoyage"
-                        min="{{ myDate }}" formControlName="dateDeVoyage" placeholder="24 juin 2021" />
-                    </div>
-                  </div>
-                  <!-- <div>
-                                                      <fa-icon icon="barcode" class="position-relative"
-                                                      style="text-align: center; right: 80%; width: 100%; font-size: xx-large;"></fa-icon>
-                                                    </div> -->
-                  <div class="col-md-6 col-xs-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon2">
-                          <fa-icon icon="calendar-alt"></fa-icon>
-                        </span>
-                      </div>
-                      <input id="field_dateRetour" type="date" class="form-control  date-control" name="dateRetour"
-                        min="{{ myDate }}" formControlName="dateRetour" placeholder="12 juillet 2021" />
-                    </div>
+                    <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
+                      data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager"
+                      value="1" />
                   </div>
                   <div
-                    *ngIf="editFormRetour.get('dateDeVoyage')!.invalid && (editFormRetour.get('dateDeVoyage')!.dirty || editFormRetour.get('dateDeVoyage')!.touched)">
-                    <small class="form-text text-danger" *ngIf="editFormRetour.get('dateDeVoyage')?.errors?.required"
+                    *ngIf="editFormRetour.get('nbrePassagers')!.invalid && (editFormRetour.get('nbrePassagers')!.dirty || editFormRetour.get('nbrePassagers')!.touched)">
+                    <small class="form-text text-danger" *ngIf="editFormRetour.get('nbrePassagers')?.errors?.required"
                       jhiTranslate="entity.validation.required">
                       This field is required.
                     </small>
-                    <small class="form-text text-danger"
-                      [hidden]="!editFormRetour.get('dateDeVoyage')?.errors?.ZonedDateTimelocal"
-                      jhiTranslate="entity.validation.ZonedDateTimelocal">
-                      This field should be a date and time.
-                    </small>
-                  </div>
-  
-                  <div
-                    *ngIf="editFormRetour.get('dateRetour')!.invalid && (editFormRetour.get('dateRetour')!.dirty || editFormRetour.get('dateRetour')!.touched)">
-                    <small class="form-text text-danger" *ngIf="editFormRetour.get('dateRetour')?.errors?.required"
-                      jhiTranslate="entity.validation.required">
-                      This field is required.
-                    </small>
-                    <small class="form-text text-danger"
-                      [hidden]="!editFormRetour.get('dateRetour')?.errors?.ZonedDateTimelocal"
-                      jhiTranslate="entity.validation.ZonedDateTimelocal">
-                      This field should be a date and time.
+                    <small class="form-text text-danger" [hidden]="!editFormRetour.get('nbrePassagers')?.errors?.number"
+                      jhiTranslate="entity.validation.number">
+                      This field should be a number.
                     </small>
                   </div>
                 </div>
+
+                <button type="submit" id="save-entity" class="btn btn-reserver col-md-6" (click)="rechercheRetour()">
+                  <span>Rechercher</span>
+                </button>
               </div>
-  
-              <div class="col-md-3">
-                <div class="row px-3 justify-content-center">
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                          <fa-icon icon="users"></fa-icon>
-                        </span>
-                      </div>
-                      <input type="number" class="form-control" name="nbrePassagers" id="field_nbrePassagers"
-                        data-cy="nbrePassagers" formControlName="nbrePassagers" min=1 placeholder="1 passager"
-                        value="1" />
-                    </div>
-                    <div
-                      *ngIf="editFormRetour.get('nbrePassagers')!.invalid && (editFormRetour.get('nbrePassagers')!.dirty || editFormRetour.get('nbrePassagers')!.touched)">
-                      <small class="form-text text-danger" *ngIf="editFormRetour.get('nbrePassagers')?.errors?.required"
-                        jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                      <small class="form-text text-danger" [hidden]="!editFormRetour.get('nbrePassagers')?.errors?.number"
-                        jhiTranslate="entity.validation.number">
-                        This field should be a number.
-                      </small>
-                    </div>
-                  </div>
-  
-                  <button type="submit" id="save-entity" class="btn btn-reserver col-md-6" (click)="rechercheRetour()">
-                    <span>Rechercher</span>
-                  </button>
-                </div>
-              </div>
-  
             </div>
-          </form>
-        </div>
-  
-        <!-- card tips -->
-        <!-- <div class="col-md-12">
+
+          </div>
+        </form>
+      </div>
+
+      <!-- card tips -->
+      <!-- <div class="col-md-12">
             <div class="row justify-content-center">
               <div class="col-md-3 shadow bg-white mt-3 pt-2 mr-2">
                 <h4>Lorem ipsum dolor</h4>
@@ -365,44 +360,44 @@
            </div>
             </div>
           </div> -->
-      </div>
-  
-      <div class="row" style="padding-top: 10rem;">
-        <div class="col-md-4">
-          <div class=" shadow p-4 m-2">
-            <fa-icon icon="shield-alt" class="fa-2x text-red"> </fa-icon>
-            <hr class="line-horizontal" />
-  
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae rem eum incidunt repudiandae neque
-            ducimus voluptates, dolores fugiat, temporibus natus debitis assumenda nesciunt libero tempore doloremque
-            molestiae, facere minus.
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class=" shadow p-4 m-2">
-            <fa-icon icon="phone-alt" class="fa-2x text-red"> </fa-icon>
-            <hr class="line-horizontal" />
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae rem eum incidunt repudiandae neque
-            ducimus voluptates, dolores fugiat, temporibus natus debitis assumenda nesciunt libero tempore doloremque
-            molestiae, facere minus.
-  
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class=" shadow p-4 m-2">
-            <fa-icon icon="bus" class="fa-2x text-red"> </fa-icon>
-            <hr class="line-horizontal" />
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae rem eum incidunt repudiandae neque
-            ducimus voluptates, dolores fugiat, temporibus natus debitis assumenda nesciunt libero tempore doloremque
-            molestiae, facere minus.
-  
-          </div>
-        </div>
-      </div>
-  
     </div>
+
+    <div class="row" style="padding-top: 10rem;">
+      <div class="col-md-4">
+        <div class=" shadow p-4 m-2">
+          <fa-icon icon="shield-alt" class="fa-2x text-red"> </fa-icon>
+          <hr class="line-horizontal" />
+
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae rem eum incidunt repudiandae neque
+          ducimus voluptates, dolores fugiat, temporibus natus debitis assumenda nesciunt libero tempore doloremque
+          molestiae, facere minus.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class=" shadow p-4 m-2">
+          <fa-icon icon="phone-alt" class="fa-2x text-red"> </fa-icon>
+          <hr class="line-horizontal" />
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae rem eum incidunt repudiandae neque
+          ducimus voluptates, dolores fugiat, temporibus natus debitis assumenda nesciunt libero tempore doloremque
+          molestiae, facere minus.
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class=" shadow p-4 m-2">
+          <fa-icon icon="bus" class="fa-2x text-red"> </fa-icon>
+          <hr class="line-horizontal" />
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur beatae rem eum incidunt repudiandae neque
+          ducimus voluptates, dolores fugiat, temporibus natus debitis assumenda nesciunt libero tempore doloremque
+          molestiae, facere minus.
+
+        </div>
+      </div>
+    </div>
+
   </div>
-  
-  <div class="col-md-12">
-    <jhi-alert></jhi-alert>
-  </div>
+</div>
+
+<div class="col-md-12">
+  <jhi-alert></jhi-alert>
+</div>

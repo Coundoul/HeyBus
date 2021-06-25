@@ -198,7 +198,7 @@ public class ReservationResource {
     public ResponseEntity<List<Reservation>> getAllReservations(Pageable pageable) {
         log.debug("REST request to get a page of Reservations");
 
-        Page<Reservation> page = null;
+        Page<Reservation> page = reservationRepository.findAll(pageable);
 
         if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_USER")) {
             if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) {
@@ -208,7 +208,8 @@ public class ReservationResource {
             }
         }
 
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) page = reservationRepository.findByUserIsCurrentUser(pageable);
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) 
+        page = reservationRepository.findByUserIsCurrentUser(pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

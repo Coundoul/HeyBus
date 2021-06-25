@@ -54,12 +54,16 @@ Main page styles
   background-color: #f1f2f6;
   border: none;  
   color: #425486;
+  padding: 2px;
 
 }
 
 .input-group-text{
   border: none;
   background-color: #f1f2f6;
+  padding: 5px;
+  color:  #A1A9C3;
+  font-size: 1.3em;
 }
 
 .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6{
@@ -119,3 +123,6 @@ body{
 }
 
 
+.form-check-input {
+  background-color: #A1A9C3; 
+}

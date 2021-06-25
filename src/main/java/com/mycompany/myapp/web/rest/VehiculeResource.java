@@ -179,7 +179,9 @@ public class VehiculeResource {
     @GetMapping("/vehicules")
     public List<Vehicule> getAllVehicules() {
         log.debug("REST request to get all Vehicules");
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) return vehiculeRepository.findAll();
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")) 
+        return vehiculeRepository.findAll();
+        
         return vehiculeRepository.findByUserIsCurrentUser();
     }
 
