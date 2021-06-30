@@ -6,24 +6,27 @@ Search page styles
   border-radius: 8px;
   height: 47px;
   background-color: #f1f2f6;
-  border: none;  
+  border: none;
   color: #425486;
   padding: 2px;
-
 }
 
-.input-group-text{
+.input-group-text {
   border: none;
   background-color: #f1f2f6;
   padding: 7px;
-  color:  #A1A9C3;
+  color: #a1a9c3;
   font-size: 1.3em;
 }
 
-.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6{
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6 {
   padding-right: 1px;
   padding-left: 1px;
-
 }
 
 @font-face {
@@ -80,14 +83,14 @@ Search page styles
   color: #ff1b2e;
 }
 .circle-left {
-  background: #E5E5E5;
+  background: #e5e5e5;
   border-radius: 50%;
   width: 20px;
   height: 20px;
   margin-left: -25px;
 }
 .circle-right {
-  background: #E5E5E5;
+  background: #e5e5e5;
   border-radius: 50%;
   width: 20px;
   height: 20px;

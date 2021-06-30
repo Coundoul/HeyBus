@@ -208,8 +208,7 @@ public class ReservationResource {
             }
         }
 
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) 
-        page = reservationRepository.findByUserIsCurrentUser(pageable);
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) page = reservationRepository.findByUserIsCurrentUser(pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

@@ -184,9 +184,10 @@
                     </span>
                     <div class="line text-center col-xs-4 ml-2">
                       <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">
-                        {{ convertHour((reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes'))!) }}h
-                        {{ convertMinute((reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes'))!) }}min 
-                         &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                        {{ convertHour(reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes')!) }}h
+                        {{ convertMinute(reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes')!) }}min &nbsp;
+                        &nbsp; &nbsp; &nbsp; Direct
+                      </p>
                     </div>
                     <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
                     ><span class="text-black">
@@ -272,9 +273,10 @@
                     </span>
                     <div class="line text-center col-xs-4 ml-2">
                       <p style="padding: 15px; white-space: nowrap; color: #a1a9c3">
-                        {{ convertHour((reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes'))!) }}h
-                        {{ convertMinute((reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes'))!) }}min
-                         &nbsp; &nbsp; &nbsp; &nbsp; Direct</p>
+                        {{ convertHour(reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes')!) }}h
+                        {{ convertMinute(reservation.voyage?.dateArrivee?.diff(reservation.voyage?.dateDeVoyage!, 'minutes')!) }}min &nbsp;
+                        &nbsp; &nbsp; &nbsp; Direct
+                      </p>
                     </div>
                     <small> <fa-icon icon="map-marker-alt" class="text-secondary fa-lg ml-1 mr-2"></fa-icon> </small
                     ><span class="text-black">
@@ -315,7 +317,7 @@
             </div>
           </mat-tab>
         </mat-tab-group>
-        
+
         <!-- Pagination -->
         <div *ngIf="reservations && reservations.length > 0">
           <div class="row justify-content-center">
@@ -334,7 +336,6 @@
             ></ngb-pagination>
           </div>
         </div>
-
       </div>
     </div>
   </div>
