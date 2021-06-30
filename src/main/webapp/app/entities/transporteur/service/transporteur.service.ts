@@ -36,6 +36,10 @@ export class TransporteurService {
     return this.http.get<ITransporteur>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findByUser(user: string): Observable<EntityResponseType> {
+    return this.http.get<ITransporteur>(`${this.resourceUrl}/user/${user}`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<ITransporteur[]>(this.resourceUrl, { params: options, observe: 'response' });

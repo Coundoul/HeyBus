@@ -4,24 +4,46 @@
       <jhi-sidebar></jhi-sidebar>
     </div>
     <div class="col-md-8 mt-3">
-      <!--  Informations Sociétés -->
-      <div class="row">
-        <div class="col-md-12" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
-          <jhi-alert></jhi-alert>
+      <form name="editForm" role="form" novalidate (ngSubmit)="saveTransporteur()" [formGroup]="editFormTransporteur">
+        <!--  Informations Sociétés -->
+        <div class="row">
+          <div class="col-md-12" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
+            <jhi-alert></jhi-alert>
 
-          <h5 class="font-weight-bold">Coordonnées</h5>
-          <form name="editForm" role="form" novalidate>
+            <h5 class="font-weight-bold">Coordonnées</h5>
             <div class="shadow bg-white col-md-12 mb-3">
               <div class="card-body">
                 <div class="row mt-2">
+                  <div class="form-group col-md-12" [hidden]="true">
+                    <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                    <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+                      [readonly]="true" />
+                  </div>
                   <div class="form-group col-md-12">
                     <label class="form-control-label text-heybus">Nom de la société</label>
-                    <input type="text" class="form-control" name="societe_ name" />
+                    <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom"
+                      formControlName="nom" />
+                    <div
+                      *ngIf="editFormTransporteur.get('nom')!.invalid && (editFormTransporteur.get('nom')!.dirty || editFormTransporteur.get('nom')!.touched)">
+                      <small class="form-text text-danger" *ngIf="editFormTransporteur.get('nom')?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                      </small>
+                    </div>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus">Numéro et nom de la voie</label>
-                    <input type="text" class="form-control" name="nom" />
+                    <label class="form-control-label text-heybus">Responsable</label>
+                    <input type="text" class="form-control" name="responsable" id="field_responsable"
+                      data-cy="responsable" formControlName="responsable" />
+                    <div
+                      *ngIf="editFormTransporteur.get('responsable')!.invalid && (editFormTransporteur.get('responsable')!.dirty || editFormTransporteur.get('responsable')!.touched)">
+                      <small class="form-text text-danger"
+                        *ngIf="editFormTransporteur.get('responsable')?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                      </small>
+                    </div>
                   </div>
 
                   <div class="form-group col-md-3">
@@ -35,47 +57,81 @@
 
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Adresse email</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" name="mail" id="field_mail" data-cy="mail"
+                      formControlName="mail" />
                   </div>
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Numéro de téléphone</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone"
+                      formControlName="telephone" />
+                    <div
+                      *ngIf="editFormTransporteur.get('telephone')!.invalid && (editFormTransporteur.get('telephone')!.dirty || editFormTransporteur.get('telephone')!.touched)">
+                      <small class="form-text text-danger"
+                        *ngIf="editFormTransporteur.get('telephone')?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                      </small>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
 
-      <!--  Informations Juridiques -->
-      <div class="row">
-        <div class="col-md-12" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
-          <h5 class="font-weight-bold">Informations juridiques</h5>
-          <form name="editForm" role="form" novalidate>
+        <!--  Informations Juridiques -->
+        <div class="row">
+          <div class="col-md-12" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
+            <h5 class="font-weight-bold">Informations Juridiques</h5>
             <div class="shadow bg-white col-md-12 mb-3">
               <div class="card-body">
                 <div class="row mt-2">
-                  <div class="form-group col-md-12">
-                    <label class="form-control-label text-heybus">Logo</label><br />
-                    <button type="submit" id="save-entity" class="btn btn-simple" style="width: auto;">Télecharger une image</button>
+                  <div class="form-group col-md-6">
+                    <label class="form-control-label text-heybus">Logo</label><br>
+                    <img
+                      [src]="'data:' + editFormTransporteur.get('logoContentType')!.value + ';base64,' + editFormTransporteur.get('logo')!.value"
+                      style="max-height: 100px" *ngIf="editFormTransporteur.get('logo')!.value" alt="transporteur image" />
+                    <div *ngIf="editFormTransporteur.get('logo')!.value" class="form-text text-danger clearfix">
+                      <span class="pull-left">{{ editFormTransporteur.get('logoContentType')!.value }}, {{
+                        byteSize(editFormTransporteur.get('logo')!.value) }}</span>
+                      <button type="button" (click)="clearInputImage('logo', 'logoContentType', 'file_logo')"
+                        class="btn btn-secondary btn-xs pull-right">
+                        <fa-icon icon="times"></fa-icon>
+                      </button>
+                    </div><br>
                   </div>
-
+                  <div class="form-group col-md-6">
+                    <input type="file" id="file_logo" class="btn btn-simple custom-file-input" id="customFile" data-cy="logo"
+                      (change)="setFileData($event, 'logo', true)" accept="image/*" jhiTranslate="entity.action.addimage" />
+                    <label class="custom-file-label" for="customFile">Télécharger un logo</label>
+                  </div>
+                  <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+                  <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"
+                    formControlName="logoContentType" />
+                
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Numéro de TVA</label>
                     <input type="text" class="form-control" name="nom" />
                   </div>
-
+                
                   <div class="form-group col-md-6">
                     <label class="form-control-label text-heybus">Registre de commerce</label>
                     <input type="text" class="form-control" />
                   </div>
+
                 </div>
               </div>
             </div>
-          </form>
+            <div class="float-right mt-2 mb-3">
+              <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
+                [disabled]="editFormTransporteur.invalid || isSaving" class="btn btn-reserver">
+                Enregistrer
+              </button>
+            </div>
+
+          </div>
         </div>
-      </div>
+      </form>
 
       <!--  Information et Personne a contacter-->
       <div class="row">
@@ -91,137 +147,87 @@
               <div class="card-body">
                 <div class="row mt-2">
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus" for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="firstName"
-                      name="firstName"
-                      placeholder="{{ 'settings.form.firstname.placeholder' | translate }}"
-                      formControlName="firstName"
-                      data-cy="firstname"
-                    />
+                    <label class="form-control-label text-heybus" for="firstName"
+                      jhiTranslate="settings.form.firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName"
+                      placeholder="{{ 'settings.form.firstname.placeholder' | translate }}" formControlName="firstName"
+                      data-cy="firstname" />
 
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         settingsForm.get('firstName')!.invalid &&
                         (settingsForm.get('firstName')!.dirty || settingsForm.get('firstName')!.touched)
-                      "
-                    >
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('firstName')?.errors?.required"
-                        jhiTranslate="settings.messages.validate.firstname.required"
-                      >
+                      ">
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('firstName')?.errors?.required"
+                        jhiTranslate="settings.messages.validate.firstname.required">
                         Your first name is required.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('firstName')?.errors?.minlength"
-                        jhiTranslate="settings.messages.validate.firstname.minlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('firstName')?.errors?.minlength"
+                        jhiTranslate="settings.messages.validate.firstname.minlength">
                         Your first name is required to be at least 1 character.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('firstName')?.errors?.maxlength"
-                        jhiTranslate="settings.messages.validate.firstname.maxlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('firstName')?.errors?.maxlength"
+                        jhiTranslate="settings.messages.validate.firstname.maxlength">
                         Your first name cannot be longer than 50 characters.
                       </small>
                     </div>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus" for="lastName" jhiTranslate="settings.form.lastname">Last Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="lastName"
-                      name="lastName"
-                      placeholder="{{ 'settings.form.lastname.placeholder' | translate }}"
-                      formControlName="lastName"
-                      data-cy="lastname"
-                    />
+                    <label class="form-control-label text-heybus" for="lastName"
+                      jhiTranslate="settings.form.lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName"
+                      placeholder="{{ 'settings.form.lastname.placeholder' | translate }}" formControlName="lastName"
+                      data-cy="lastname" />
 
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         settingsForm.get('lastName')!.invalid &&
                         (settingsForm.get('lastName')!.dirty || settingsForm.get('lastName')!.touched)
-                      "
-                    >
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('lastName')?.errors?.required"
-                        jhiTranslate="settings.messages.validate.lastname.required"
-                      >
+                      ">
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('lastName')?.errors?.required"
+                        jhiTranslate="settings.messages.validate.lastname.required">
                         Your last name is required.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('lastName')?.errors?.minlength"
-                        jhiTranslate="settings.messages.validate.lastname.minlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('lastName')?.errors?.minlength"
+                        jhiTranslate="settings.messages.validate.lastname.minlength">
                         Your last name is required to be at least 1 character.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('lastName')?.errors?.maxlength"
-                        jhiTranslate="settings.messages.validate.lastname.maxlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('lastName')?.errors?.maxlength"
+                        jhiTranslate="settings.messages.validate.lastname.maxlength">
                         Your last name cannot be longer than 50 characters.
                       </small>
                     </div>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus" for="email" jhiTranslate="global.form.email.label">Email</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="email"
-                      name="email"
-                      placeholder="{{ 'global.form.email.placeholder' | translate }}"
-                      formControlName="email"
-                      data-cy="email"
-                    />
+                    <label class="form-control-label text-heybus" for="email"
+                      jhiTranslate="global.form.email.label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                      placeholder="{{ 'global.form.email.placeholder' | translate }}" formControlName="email"
+                      data-cy="email" />
 
                     <div
-                      *ngIf="settingsForm.get('email')!.invalid && (settingsForm.get('email')!.dirty || settingsForm.get('email')!.touched)"
-                    >
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('email')?.errors?.required"
-                        jhiTranslate="global.messages.validate.email.required"
-                      >
+                      *ngIf="settingsForm.get('email')!.invalid && (settingsForm.get('email')!.dirty || settingsForm.get('email')!.touched)">
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.required"
+                        jhiTranslate="global.messages.validate.email.required">
                         Your email is required.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('email')?.errors?.email"
-                        jhiTranslate="global.messages.validate.email.invalid"
-                      >
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.email"
+                        jhiTranslate="global.messages.validate.email.invalid">
                         Your email is invalid.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('email')?.errors?.minlength"
-                        jhiTranslate="global.messages.validate.email.minlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.minlength"
+                        jhiTranslate="global.messages.validate.email.minlength">
                         Your email is required to be at least 5 characters.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="settingsForm.get('email')?.errors?.maxlength"
-                        jhiTranslate="global.messages.validate.email.maxlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="settingsForm.get('email')?.errors?.maxlength"
+                        jhiTranslate="global.messages.validate.email.maxlength">
                         Your email cannot be longer than 100 characters.
                       </small>
                     </div>
@@ -229,21 +235,18 @@
 
                   <div class="form-group col-md-6" *ngIf="languages && languages.length > 0">
                     <label for="langKey" jhiTranslate="settings.form.language" class="text-heybus">Language</label>
-                    <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
-                      <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
+                    <select class="form-control" id="langKey" name="langKey" formControlName="langKey"
+                      data-cy="langKey">
+                      <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}
+                      </option>
                     </select>
                   </div>
                 </div>
               </div>
             </div>
             <div class="float-right mt-2 mb-3">
-              <button
-                type="submit"
-                [disabled]="settingsForm.invalid"
-                class="btn btn-reserver"
-                jhiTranslate="settings.form.button"
-                data-cy="submit"
-              >
+              <button type="submit" [disabled]="settingsForm.invalid" class="btn btn-reserver"
+                jhiTranslate="settings.form.button" data-cy="submit">
                 Save
               </button>
             </div>
@@ -273,30 +276,18 @@
               <div class="card-body">
                 <div class="row mt-2">
                   <div class="form-group col-md-12">
-                    <label class="form-control-label text-heybus" for="currentPassword" jhiTranslate="global.form.currentpassword.label"
-                      >Current password</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="currentPassword"
-                      name="currentPassword"
+                    <label class="form-control-label text-heybus" for="currentPassword"
+                      jhiTranslate="global.form.currentpassword.label">Current password</label>
+                    <input type="password" class="form-control" id="currentPassword" name="currentPassword"
                       placeholder="{{ 'global.form.currentpassword.placeholder' | translate }}"
-                      formControlName="currentPassword"
-                      data-cy="currentPassword"
-                    />
+                      formControlName="currentPassword" data-cy="currentPassword" />
 
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         passwordForm.get('currentPassword')!.invalid &&
                         (passwordForm.get('currentPassword')!.dirty || passwordForm.get('currentPassword')!.touched)
-                      "
-                    >
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="passwordForm.get('currentPassword')?.errors?.required"
-                        jhiTranslate="global.messages.validate.newpassword.required"
-                      >
+                      ">
+                      <small class="form-text text-danger" *ngIf="passwordForm.get('currentPassword')?.errors?.required"
+                        jhiTranslate="global.messages.validate.newpassword.required">
                         Your password is required.
                       </small>
                     </div>
@@ -304,94 +295,61 @@
                   <br />
 
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus" for="newPassword" jhiTranslate="global.form.newpassword.label"
-                      >New password</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="newPassword"
-                      name="newPassword"
+                    <label class="form-control-label text-heybus" for="newPassword"
+                      jhiTranslate="global.form.newpassword.label">New password</label>
+                    <input type="password" class="form-control" id="newPassword" name="newPassword"
                       placeholder="{{ 'global.form.newpassword.placeholder' | translate }}"
-                      formControlName="newPassword"
-                      data-cy="newPassword"
-                    />
+                      formControlName="newPassword" data-cy="newPassword" />
 
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         passwordForm.get('newPassword')!.invalid &&
                         (passwordForm.get('newPassword')!.dirty || passwordForm.get('newPassword')!.touched)
-                      "
-                    >
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="passwordForm.get('newPassword')?.errors?.required"
-                        jhiTranslate="global.messages.validate.newpassword.required"
-                      >
+                      ">
+                      <small class="form-text text-danger" *ngIf="passwordForm.get('newPassword')?.errors?.required"
+                        jhiTranslate="global.messages.validate.newpassword.required">
                         Your password is required.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="passwordForm.get('newPassword')?.errors?.minlength"
-                        jhiTranslate="global.messages.validate.newpassword.minlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="passwordForm.get('newPassword')?.errors?.minlength"
+                        jhiTranslate="global.messages.validate.newpassword.minlength">
                         Your password is required to be at least 4 characters.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="passwordForm.get('newPassword')?.errors?.maxlength"
-                        jhiTranslate="global.messages.validate.newpassword.maxlength"
-                      >
+                      <small class="form-text text-danger" *ngIf="passwordForm.get('newPassword')?.errors?.maxlength"
+                        jhiTranslate="global.messages.validate.newpassword.maxlength">
                         Your password cannot be longer than 50 characters.
                       </small>
                     </div>
 
-                    <jhi-password-strength-bar [passwordToCheck]="passwordForm.get('newPassword')!.value"> </jhi-password-strength-bar>
+                    <jhi-password-strength-bar [passwordToCheck]="passwordForm.get('newPassword')!.value">
+                    </jhi-password-strength-bar>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label class="form-control-label text-heybus" for="confirmPassword" jhiTranslate="global.form.confirmpassword.label"
-                      >New password confirmation</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="confirmPassword"
-                      name="confirmPassword"
+                    <label class="form-control-label text-heybus" for="confirmPassword"
+                      jhiTranslate="global.form.confirmpassword.label">New password confirmation</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                       placeholder="{{ 'global.form.confirmpassword.placeholder' | translate }}"
-                      formControlName="confirmPassword"
-                      data-cy="confirmPassword"
-                    />
+                      formControlName="confirmPassword" data-cy="confirmPassword" />
 
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         passwordForm.get('confirmPassword')!.invalid &&
                         (passwordForm.get('confirmPassword')!.dirty || passwordForm.get('confirmPassword')!.touched)
-                      "
-                    >
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="passwordForm.get('confirmPassword')?.errors?.required"
-                        jhiTranslate="global.messages.validate.confirmpassword.required"
-                      >
+                      ">
+                      <small class="form-text text-danger" *ngIf="passwordForm.get('confirmPassword')?.errors?.required"
+                        jhiTranslate="global.messages.validate.confirmpassword.required">
                         Your confirmation password is required.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
+                      <small class="form-text text-danger"
                         *ngIf="passwordForm.get('confirmPassword')?.errors?.minlength"
-                        jhiTranslate="global.messages.validate.confirmpassword.minlength"
-                      >
+                        jhiTranslate="global.messages.validate.confirmpassword.minlength">
                         Your confirmation password is required to be at least 4 characters.
                       </small>
 
-                      <small
-                        class="form-text text-danger"
+                      <small class="form-text text-danger"
                         *ngIf="passwordForm.get('confirmPassword')?.errors?.maxlength"
-                        jhiTranslate="global.messages.validate.confirmpassword.maxlength"
-                      >
+                        jhiTranslate="global.messages.validate.confirmpassword.maxlength">
                         Your confirmation password cannot be longer than 50 characters.
                       </small>
                     </div>
@@ -400,13 +358,8 @@
               </div>
             </div>
             <div class="float-right mt-2 mb-3">
-              <button
-                type="submit"
-                [disabled]="passwordForm.invalid"
-                class="btn btn-reserver"
-                jhiTranslate="password.form.button"
-                data-cy="submit"
-              >
+              <button type="submit" [disabled]="passwordForm.invalid" class="btn btn-reserver"
+                jhiTranslate="password.form.button" data-cy="submit">
                 Save
               </button>
             </div>
