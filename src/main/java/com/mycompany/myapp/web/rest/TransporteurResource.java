@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.Transporteur;
 import com.mycompany.myapp.repository.TransporteurRepository;
+import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +41,9 @@ public class TransporteurResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
+  
+    @Autowired
+    private UserRepository user;
 
     private final TransporteurRepository transporteurRepository;
 
@@ -189,6 +194,20 @@ public class TransporteurResource {
     public ResponseEntity<Transporteur> getTransporteur(@PathVariable Long id) {
         log.debug("REST request to get Transporteur : {}", id);
         Optional<Transporteur> transporteur = transporteurRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(transporteur);
+    }
+
+     /**
+     * {@code GET  /transporteurs/:id} : get the "id" transporteur.
+     *
+     * @param username the username of the transporteur to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the transporteur, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/transporteurs/user/{user}")
+    public ResponseEntity<Transporteur> getTransporteurInfo(@PathVariable String user) {
+        log.debug("REST request to get Transporteur : {}", user);
+        
+        Optional<Transporteur> transporteur = transporteurRepository.findByUser(user);
         return ResponseUtil.wrapOrNotFound(transporteur);
     }
 

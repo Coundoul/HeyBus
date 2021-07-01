@@ -29,10 +29,10 @@
       },
       "account": {
         "main": "Compte",
-        "settings": "Profil",
+        "settings": "Compte",
         "password": "Mot de passe",
         "sessions": "Sessions",
-        "login": "S'authentifier",
+        "login": "Connexion",
         "logout": "Déconnexion",
         "register": "Créer un compte"
       },

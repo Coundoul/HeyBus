@@ -20,105 +20,63 @@
         <button class="btn btn-reserver" [routerLink]="['/voyage/new']" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
           Saisir un Voyage
         </button>
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <!-- <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="home"></fa-icon>
               <span jhiTranslate="global.menu.home">Home</span>
             </span>
           </a>
-        </li>
+        </li> -->
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-        <li
-          *ngSwitchCase="true"
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a
-            class="nav-link dropdown-toggle"
-            ngbDropdownToggle
-            href="javascript:void(0);"
-            id="entity-menu"
-            data-cy="entity"
-            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR', 'ROLE_USER']"
-          >
+        <li  *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic"
+          routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu"
+            data-cy="entity" >
             <span>
               <fa-icon icon="th-list"></fa-icon>
               <span jhiTranslate="global.menu.entities.main">Entities</span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="agence"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li >
+              <a class="dropdown-item" routerLink="agence" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.agence">Agence</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="transporteur"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li >
+              <a class="dropdown-item" routerLink="transporteur" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.transporteur">Transporteur</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="arret"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li >
+              <a class="dropdown-item" routerLink="arret" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.arret">Arret</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="customer"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li >
+              <a class="dropdown-item" routerLink="customer" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.customer">Customer</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="depense"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="depense" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.depense">Depense</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
-              <a
-                class="dropdown-item"
-                routerLink="employe"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="employe" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.employe">Employe</span>
               </a>
@@ -135,65 +93,40 @@
                 <span jhiTranslate="global.menu.entities.fuel">Fuel</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="incident"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="incident" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.incident">Incident</span>
               </a>
             </li>
             <li>
-              <a
-                *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']"
-                class="dropdown-item"
-                routerLink="maintenance"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+              <a class="dropdown-item"
+                routerLink="maintenance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.maintenance">Maintenance</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="position"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="position" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.position">Position</span>
               </a>
             </li>
 
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="pays"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="pays" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.pays">Pays</span>
               </a>
             </li>
 
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="revenu"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="revenu" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.revenu">Revenu</span>
               </a>
@@ -210,64 +143,38 @@
                 <span jhiTranslate="global.menu.entities.section">Section</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR', 'ROLE_USER']">
-              <a
-                class="dropdown-item"
-                routerLink="reservation"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="reservation" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.reservation">Reservation</span>
               </a>
             </li>
             <li>
-              <a
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                class="dropdown-item"
-                routerLink="type-de-paiement"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+              <a class="dropdown-item" routerLink="type-de-paiement"
+                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.typeDePaiement">Type De Paiement</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
-              <a
-                class="dropdown-item"
-                routerLink="vehicule"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="vehicule" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.vehicule">Vehicule</span>
               </a>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-              <a
-                class="dropdown-item"
-                routerLink="ville"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li >
+              <a class="dropdown-item" routerLink="ville" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.ville">Ville</span>
               </a>
             </li>
 
-            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
-              <a
-                class="dropdown-item"
-                routerLink="voyage"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
+            <li>
+              <a class="dropdown-item" routerLink="voyage" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.voyage">Voyage</span>
               </a>
@@ -329,7 +236,8 @@
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           </ul>
         </li>
-        <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
+
+        <!-- <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
             <span>
               <fa-icon icon="flag"></fa-icon>
@@ -347,15 +255,12 @@
               >
             </li>
           </ul>
-        </li>
-        <li
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
+        </li> -->
+
+        <!-- <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu"
+            data-cy="accountMenu">
             <span *ngIf="!getImageUrl()">
               <fa-icon icon="user"></fa-icon>
               <span jhiTranslate="global.menu.account.main">Account</span>
@@ -364,57 +269,42 @@
               <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar" />
             </span>
           </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
-            <li *ngSwitchCase="true">
-              <a
-                class="dropdown-item"
-                routerLink="account/settings"
-                routerLinkActive="active"
-                (click)="collapseNavbar()"
-                data-cy="settings"
-              >
-                <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu"> -->
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item">
+              <a class="nav-link" routerLink="account/settings" routerLinkActive="active"
+                (click)="collapseNavbar()" data-cy="settings">
+                <fa-icon icon="user" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.account.settings">Settings</span>
               </a>
             </li>
-            <li *ngSwitchCase="true">
-              <a
-                class="dropdown-item"
-                routerLink="account/password"
-                routerLinkActive="active"
-                (click)="collapseNavbar()"
-                data-cy="passwordItem"
-              >
-                <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'"  class="nav-item">
+              <a class="nav-link" routerLink="account/password" routerLinkActive="active"
+                (click)="collapseNavbar()" data-cy="passwordItem">
+                <!-- <fa-icon icon="lock" [fixedWidth]="true"></fa-icon> -->
                 <span jhiTranslate="global.menu.account.password">Password</span>
               </a>
             </li>
-            <li *ngSwitchCase="true">
-              <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
-                <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'"  class="nav-item">
+              <a class="nav-link" (click)="logout()" id="logout" data-cy="logout">
+                <!-- <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon> -->
                 <span jhiTranslate="global.menu.account.logout">Sign out</span>
               </a>
             </li>
-            <li *ngSwitchCase="false">
-              <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
-                <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
+            <li *ngSwitchCase="false" class="nav-item">
+              <a class="nav-link" (click)="login()" id="login" data-cy="login">
+                <!-- <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon> -->
                 <span jhiTranslate="global.menu.account.login">Sign in</span>
               </a>
             </li>
-            <li *ngSwitchCase="false">
-              <a
-                class="dropdown-item"
-                routerLink="account/register"
-                routerLinkActive="active"
-                (click)="collapseNavbar()"
-                data-cy="register"
-              >
-                <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
+            <li *ngSwitchCase="false" class="nav-item">
+              <a class="nav-link" routerLink="account/register" routerLinkActive="active"
+                (click)="collapseNavbar()" data-cy="register">
+                <!-- <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon> -->
                 <span jhiTranslate="global.menu.account.register">Register</span>
               </a>
             </li>
-          </ul>
-        </li>
+          <!-- </ul>
+        </li> -->
       </ul>
     </div>
   </div>
