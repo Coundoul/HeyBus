@@ -3,58 +3,410 @@
     <div class="col-md-4 mt-4">
       <ul class="list-group shadow">
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span [ngClass]="{ 'text-active': step === 0 }"> Créer l'utilisateur</span>
+          <span [ngClass]="{ 'text-active': step === 0 }"> Créer l'utilisateur </span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <span [ngClass]="{ 'text-active': step === 1 }"> Créer le tranporteur </span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span [ngClass]="{ 'text-active': step === 2 }"> Associer le compte </span>
         </li>
       </ul>
     </div>
 
     <!-- Wizard Ajout Voyage -->
-    <div class="col-md-7 mt-4">
+    <div class="col-md-7 mt-4  mb-4" *ngIf="!currentRoutIsEdit">
+      <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
+        <strong>Registration saved!</strong> Please check your email for confirmation.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+        <strong>Registration failed!</strong> Please try again later.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
+        <strong>Login name already registered!</strong> Please choose another one.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+        <strong>Email is already in use!</strong> Please choose another one.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+        The password and its confirmation do not match!
+      </div>
       <mat-horizontal-stepper #stepper class="text-heybus" (selectionChange)="onStepChange($event)">
         <!-- Créer l'utilisateur -->
         <mat-step>
-          <ng-template matStepLabel></ng-template>
-          <h4 class="text-black text-center font-weight-bold">Créer l'utilisateur</h4>
-          <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3"></div>
-          <div class="text-center">
-            <button mat-button type="button" class="btn btn-simple font-weight-bold" (click)="previousState()">Annuler</button>
-            <button mat-button matStepperNext type="button" class="btn btn-reserver font-weight-bold">Suivant</button>
-          </div>
+          <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+            <ng-template matStepLabel></ng-template>
+            <h4 class="text-black text-center font-weight-bold">Créer l'utilisateur</h4>
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
+              <div class="form-group">
+                <label class="form-control-label" for="login" jhiTranslate="global.form.username.label">Username</label>
+                <input type="text" class="form-control" id="login" name="login"
+                  placeholder="{{ 'global.form.username.placeholder' | translate }}" formControlName="login"
+                  data-cy="username" #login />
+
+                <div
+                  *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)">
+                  <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required"
+                    jhiTranslate="register.messages.validate.login.required">
+                    Your username is required.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.minlength"
+                    jhiTranslate="register.messages.validate.login.minlength">
+                    Your username is required to be at least 1 character.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.maxlength"
+                    jhiTranslate="register.messages.validate.login.maxlength">
+                    Your username cannot be longer than 50 characters.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.pattern"
+                    jhiTranslate="register.messages.validate.login.pattern">
+                    Your username can only contain letters and digits.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="email" jhiTranslate="global.form.email.label">Email</label>
+                <input type="email" class="form-control" id="email" name="email"
+                  placeholder="{{ 'global.form.email.placeholder' | translate }}" formControlName="email"
+                  data-cy="email" />
+
+                <div
+                  *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)">
+                  <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.required"
+                    jhiTranslate="global.messages.validate.email.required">
+                    Your email is required.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.invalid"
+                    jhiTranslate="global.messages.validate.email.invalid">
+                    Your email is invalid.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.minlength"
+                    jhiTranslate="global.messages.validate.email.minlength">
+                    Your email is required to be at least 5 characters.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.maxlength"
+                    jhiTranslate="global.messages.validate.email.maxlength">
+                    Your email cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="password" jhiTranslate="global.form.newpassword.label">New
+                  password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                  placeholder="{{ 'global.form.newpassword.placeholder' | translate }}" formControlName="password"
+                  data-cy="firstPassword" />
+
+                <div *ngIf="
+                    registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)
+                  ">
+                  <small class="form-text text-danger" *ngIf="registerForm.get('password')?.errors?.required"
+                    jhiTranslate="global.messages.validate.newpassword.required">
+                    Your password is required.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('password')?.errors?.minlength"
+                    jhiTranslate="global.messages.validate.newpassword.minlength">
+                    Your password is required to be at least 4 characters.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('password')?.errors?.maxlength"
+                    jhiTranslate="global.messages.validate.newpassword.maxlength">
+                    Your password cannot be longer than 50 characters.
+                  </small>
+                </div>
+
+                <jhi-password-strength-bar [passwordToCheck]="registerForm.get('password')!.value">
+                </jhi-password-strength-bar>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="confirmPassword"
+                  jhiTranslate="global.form.confirmpassword.label">New password confirmation</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                  placeholder="{{ 'global.form.confirmpassword.placeholder' | translate }}"
+                  formControlName="confirmPassword" data-cy="secondPassword" />
+
+                <div *ngIf="
+                    registerForm.get('confirmPassword')!.invalid &&
+                    (registerForm.get('confirmPassword')!.dirty || registerForm.get('confirmPassword')!.touched)
+                  ">
+                  <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.required"
+                    jhiTranslate="global.messages.validate.confirmpassword.required">
+                    Your confirmation password is required.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.minlength"
+                    jhiTranslate="global.messages.validate.confirmpassword.minlength">
+                    Your confirmation password is required to be at least 4 characters.
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength"
+                    jhiTranslate="global.messages.validate.confirmpassword.maxlength">
+                    Your confirmation password cannot be longer than 50 characters.
+                  </small>
+                </div>
+              </div>
+              <br />
+            </div>
+            <div class="text-center">
+              <button mat-button type="button" class="btn btn-simple font-weight-bold"
+                (click)="previousState()">Annuler</button>
+              <!-- <button mat-button matStepperNext type="button" class="btn btn-reserver font-weight-bold">Suivant</button> -->
+              <button mat-button matStepperNext type="submit" [disabled]="registerForm.invalid"
+                data-cy="submit" class="btn btn-reserver font-weight-bold">Suivant</button>
+            </div>
+          </form>
         </mat-step>
 
         <!-- Créer le tranporteur -->
         <mat-step>
-          <ng-template matStepLabel></ng-template>
-          <h4 class="text-black text-center font-weight-bold">Créer le tranporteur</h4>
-          <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3"></div>
-          <div class="text-center">
-            <button mat-button matStepperPrevious type="button" class="btn btn-simple font-weight-bold">Précédent</button>
-            <button mat-button matStepperNext type="button" class="btn btn-reserver font-weight-bold">Suivant</button>
-          </div>
+          <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <ng-template matStepLabel></ng-template>
+            <h4 class="text-black text-center font-weight-bold">Créer le tranporteur</h4>
+            <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
+              <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+                <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+                  [readonly]="true" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="heybusApp.transporteur.nom" for="field_nom">Nom</label>
+                <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+                <div
+                  *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required"
+                    jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="heybusApp.transporteur.telephone"
+                  for="field_telephone">Telephone</label>
+                <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone"
+                  formControlName="telephone" />
+                <div
+                  *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('telephone')?.errors?.required"
+                    jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="heybusApp.transporteur.responsable"
+                  for="field_responsable">Responsable</label>
+                <input type="text" class="form-control" name="responsable" id="field_responsable" data-cy="responsable"
+                  formControlName="responsable" />
+                <div
+                  *ngIf="editForm.get('responsable')!.invalid && (editForm.get('responsable')!.dirty || editForm.get('responsable')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('responsable')?.errors?.required"
+                    jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="heybusApp.transporteur.mail"
+                  for="field_mail">Mail</label>
+                <input type="text" class="form-control" name="mail" id="field_mail" data-cy="mail"
+                  formControlName="mail" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="heybusApp.transporteur.adresse"
+                  for="field_adresse">Adresse</label>
+                <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse"
+                  formControlName="adresse" />
+                <div
+                  *ngIf="editForm.get('adresse')!.invalid && (editForm.get('adresse')!.dirty || editForm.get('adresse')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('adresse')?.errors?.required"
+                    jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="heybusApp.transporteur.logo"
+                  for="field_logo">Logo</label>
+                <div>
+                  <img
+                    [src]="'data:' + editForm.get('logoContentType')!.value + ';base64,' + editForm.get('logo')!.value"
+                    style="max-height: 100px" *ngIf="editForm.get('logo')!.value" alt="transporteur image" />
+                  <div *ngIf="editForm.get('logo')!.value" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{ editForm.get('logoContentType')!.value }}, {{
+                      byteSize(editForm.get('logo')!.value)
+                      }}</span>
+                    <button type="button" (click)="clearInputImage('logo', 'logoContentType', 'file_logo')"
+                      class="btn btn-secondary btn-xs pull-right">
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input type="file" id="file_logo" data-cy="logo" (change)="setFileData($event, 'logo', true)"
+                    accept="image/*" jhiTranslate="entity.action.addimage" />
+                </div>
+                <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo"
+                  formControlName="logo" />
+                <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"
+                  formControlName="logoContentType" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="heybusApp.transporteur.user"
+                  for="field_user">User</label>
+                <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+                  <option [ngValue]="null"></option>
+                  <option
+                    [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+                    *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById">
+                    {{ userOption.login }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="text-center">
+              <button mat-button matStepperPrevious type="button"
+                class="btn btn-simple font-weight-bold">Précédent</button>
+              <!-- <button mat-button matStepperNext type="button" class="btn btn-reserver font-weight-bold">Suivant</button> -->
+              <button mat-button matStepperNext type="submit" id="save-entity" data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving" class="btn btn-reserver font-weight-bold">Suivant</button>
+            </div>
+          </form>
         </mat-step>
 
-        <!-- Lieu d'arriver -->
-        <mat-step>
-          <ng-template matStepLabel></ng-template>
-          <h4 class="text-black text-center font-weight-bold">Associer le compte</h4>
-          <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3"></div>
-          <div class="text-center">
-            <button mat-button matStepperPrevious type="button" class="btn btn-simple font-weight-bold">Précédent</button>
-            <button mat-button matStepperNext type="button" class="btn btn-reserver font-weight-bold">Suivant</button>
-          </div>
-        </mat-step>
       </mat-horizontal-stepper>
+    </div>
+
+    <div class="col-md-7 mt-4 mb-4" *ngIf="currentRoutIsEdit">
+      <!-- Créer le tranporteur -->
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <h4 class="text-black text-center font-weight-bold">Créer le tranporteur</h4>
+        <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
+          <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+            <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+              [readonly]="true" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.nom" for="field_nom">Nom</label>
+            <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+            <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.telephone"
+              for="field_telephone">Telephone</label>
+            <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone"
+              formControlName="telephone" />
+            <div
+              *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('telephone')?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.responsable"
+              for="field_responsable">Responsable</label>
+            <input type="text" class="form-control" name="responsable" id="field_responsable" data-cy="responsable"
+              formControlName="responsable" />
+            <div
+              *ngIf="editForm.get('responsable')!.invalid && (editForm.get('responsable')!.dirty || editForm.get('responsable')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('responsable')?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.mail" for="field_mail">Mail</label>
+            <input type="text" class="form-control" name="mail" id="field_mail" data-cy="mail" formControlName="mail" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.adresse"
+              for="field_adresse">Adresse</label>
+            <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse"
+              formControlName="adresse" />
+            <div
+              *ngIf="editForm.get('adresse')!.invalid && (editForm.get('adresse')!.dirty || editForm.get('adresse')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('adresse')?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.logo" for="field_logo">Logo</label>
+            <div>
+              <img [src]="'data:' + editForm.get('logoContentType')!.value + ';base64,' + editForm.get('logo')!.value"
+                style="max-height: 100px" *ngIf="editForm.get('logo')!.value" alt="transporteur image" />
+              <div *ngIf="editForm.get('logo')!.value" class="form-text text-danger clearfix">
+                <span class="pull-left">{{ editForm.get('logoContentType')!.value }}, {{
+                  byteSize(editForm.get('logo')!.value)
+                  }}</span>
+                <button type="button" (click)="clearInputImage('logo', 'logoContentType', 'file_logo')"
+                  class="btn btn-secondary btn-xs pull-right">
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="file" id="file_logo" data-cy="logo" (change)="setFileData($event, 'logo', true)"
+                accept="image/*" jhiTranslate="entity.action.addimage" />
+            </div>
+            <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo"
+              formControlName="logo" />
+            <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"
+              formControlName="logoContentType" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+                *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById">
+                {{ userOption.login }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="button" class="btn btn-simple font-weight-bold" (click)="previousState()">Précédent</button>
+          <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
+              [disabled]="editForm.invalid || isSaving" class="btn btn-reserver font-weight-bold">Enregistrer</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-<div class="row justify-content-center">
+<!-- <div class="row justify-content-center">
   <div class="col-8 card jh-card">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2
@@ -200,4 +552,4 @@
       </div>
     </form>
   </div>
-</div>
+</div> -->

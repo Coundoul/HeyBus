@@ -17,10 +17,6 @@ import { SidebarModule } from 'app/layouts/sidebar/sidebar.module';
   declarations: [
     ActivateComponent,
     RegisterComponent,
-    PasswordComponent,
-    PasswordStrengthBarComponent,
-    PasswordResetInitComponent,
-    PasswordResetFinishComponent,
     SettingsComponent,
   ],
 })
