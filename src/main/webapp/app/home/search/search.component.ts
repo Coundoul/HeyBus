@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgModule } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
 
@@ -16,7 +16,8 @@ import { VehiculeService } from 'app/entities/vehicule/service/vehicule.service'
 import { VilleService } from 'app/entities/ville/service/ville.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { DxRangeSelectorModule, DxDataGridModule } from 'devextreme-angular';
 
 @Component({
   selector: 'jhi-search',
@@ -31,7 +32,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   date: any;
   dateRetour: any;
   depart: any;
+  e: any;
   voyages?: IVoyage[];
+  selectedVoyages?: IVoyage[];
   nbrePassagers?: number;
   nbrePlace!: number;
   villes: IVille[] = [];
@@ -52,10 +55,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     vehicule: [],
     departVille: [],
     arriveVille: [],
-    nbrePassagers: [1, [Validators.required]]
+    nbrePassagers: [1, [Validators.required]],
   });
   _currentValues?: number[];
-
 
   constructor(
     private datePipe: DatePipe,
@@ -70,14 +72,20 @@ export class SearchComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.nbrePassagers = 1;
-    this.date = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['date'] ? this.activatedRoute.snapshot.params['date'] : '';
-    this.dateRetour = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['dateRetour'] ? this.activatedRoute.snapshot.params['dateRetour'] : '';
-    this.depart = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['depart'] ? this.activatedRoute.snapshot.params['depart'] : '';
-    this.arrive = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['arrive'] ? this.activatedRoute.snapshot.params['arrive'] : '';
-    this.nbrePassagers = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['nbrePassagers'] ? this.activatedRoute.snapshot.params['nbrePassagers'] : '';
-
-
-
+    this.date =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['date'] ? this.activatedRoute.snapshot.params['date'] : '';
+    this.dateRetour =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['dateRetour']
+        ? this.activatedRoute.snapshot.params['dateRetour']
+        : '';
+    this.depart =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['depart'] ? this.activatedRoute.snapshot.params['depart'] : '';
+    this.arrive =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['arrive'] ? this.activatedRoute.snapshot.params['arrive'] : '';
+    this.nbrePassagers =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['nbrePassagers']
+        ? this.activatedRoute.snapshot.params['nbrePassagers']
+        : '';
   }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -105,9 +113,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.onError();
           }
         );
-
-    }
-    else {
+    } else {
       this.voyageService
         .searchVoyage({
           date: String(this.activatedRoute.snapshot.paramMap.get('date')),
@@ -129,7 +135,6 @@ export class SearchComponent implements OnInit, OnDestroy {
           }
         );
     }
-
   }
 
   ngOnInit(): void {
@@ -177,14 +182,25 @@ export class SearchComponent implements OnInit, OnDestroy {
     this._currentValues = selectedValues;
   }
   public convertHour(minutes: number): number {
-
-    return Math.floor(minutes / (60));
+    return Math.floor(minutes / 60);
   }
 
   public convertMinute(minutes: number): number {
-
-    return Math.floor(minutes % (60));
+    return Math.floor(minutes % 60);
   }
+  onValueChanged(e: any): void {
+    /*eslint prefer-const: "warn"*/
+    const selectedVoyages: any[] = [];
+
+    this.voyages!.forEach((item, index) => {
+      if (item.dateDeVoyage! >= e.value[0] && item.dateDeVoyage! <= e.value[1]) {
+        selectedVoyages.push(item);
+      }
+    });
+
+    this.selectedVoyages = selectedVoyages;
+  }
+
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
@@ -231,7 +247,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }
-
-
-
 }
+// @NgModule({
+//   imports: [
+//       BrowserModule,
+//       DxRangeSelectorModule,
+//       DxDataGridModule
+//   ],
+//   declarations: [SearchComponent],
+//   bootstrap: [SearchComponent]
+// })
+// export class HomeModule {}
