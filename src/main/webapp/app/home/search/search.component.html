@@ -140,32 +140,8 @@
 <div class="container">
   <div class="row justify-content-center mt-4">
     <div class="col-md-3">
-      <div id="range-selector-demo">
-        <dx-range-selector
-          id="range-selector"
-          title="Filtrer"
-          [dataSource]="voyages!"
-          dataSourceField="dateDeVoyage"
-          (onValueChanged)="onValueChanged($event)"
-        >
-          <dxo-margin [top]="20"></dxo-margin>
-          <dxo-scale [tickInterval]="1" [minorTickInterval]="1">
-            <dxo-label format="decimal"></dxo-label>
-          </dxo-scale>
-          <dxo-behavior callValueChanged="onMoving"></dxo-behavior>
-        </dx-range-selector>
-        <dx-data-grid id="gridContainer" [dataSource]="selectedVoyages!" [showBorders]="true" [columnAutoWidth]="true"> </dx-data-grid>
-      </div>
-      <!-- <h5 class="font-weight-bold">Départ de Dakar</h5> -->
-      <div class="row">
-        <div class="col-xs-6 col-md-6" jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)"></div>
-        <div class="col-xs-6 col-md-6 text-right">
-          <!-- sam 20:30 -->
-        </div>
-        <!-- <div class="col-xs-12 col-md-12 mt-1">
-          <npn-slider [min]="2006" [max]="2020" (onChange)="onSliderChange($event)"></npn-slider>
-        </div> -->
-      </div>
+      <npn-slider [min]="0" [max]="23" (onChange)="onSliderChange($event)" [step]="1" [showStepIndicator]="true"></npn-slider>
+       {{_currentValues}}
     </div>
 
     <div class="col-md-9 col-xs-12">
@@ -294,6 +270,7 @@
     </div>
   </div>
 </div>
+
 <!-- <div class="row justify-content-center">
 
   <div class="table-responsive" id="entities" *ngIf="voyages && voyages.length > 0">

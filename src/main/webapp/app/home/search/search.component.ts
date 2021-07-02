@@ -17,7 +17,6 @@ import { VilleService } from 'app/entities/ville/service/ville.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { BrowserModule } from '@angular/platform-browser';
-import { DxRangeSelectorModule, DxDataGridModule } from 'devextreme-angular';
 
 @Component({
   selector: 'jhi-search',
@@ -33,6 +32,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   dateRetour: any;
   depart: any;
   e: any;
+
   voyages?: IVoyage[];
   selectedVoyages?: IVoyage[];
   nbrePassagers?: number;
@@ -151,6 +151,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     // this.voyageService.searchVoyage(date, depart, arrive,this.nbrePassagers).subscribe(rest => (this.voyages = rest.body!));
 
     this.handleNavigation();
+  
   }
   trackId(index: number, item: Voyage): number {
     return item.id!;
