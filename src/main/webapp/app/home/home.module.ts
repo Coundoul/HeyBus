@@ -7,7 +7,6 @@ import { SearchComponent } from './search/search.component';
 import { NpnSliderModule } from 'npn-slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { DxDataGridModule, DxRangeSelectorModule } from 'devextreme-angular';
 
 @NgModule({
   imports: [
@@ -15,9 +14,7 @@ import { DxDataGridModule, DxRangeSelectorModule } from 'devextreme-angular';
     RouterModule.forChild(HOME_ROUTE),
     NpnSliderModule,
     MatFormFieldModule,
-    MatSelectModule,
-    DxRangeSelectorModule,
-    DxDataGridModule,
+    MatSelectModule
   ],
 
   declarations: [HomeComponent, SearchComponent],
