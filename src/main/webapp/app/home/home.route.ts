@@ -15,7 +15,7 @@ export const HOME_ROUTE: Routes =[
     path: 'search/:date/:depart/:arrive/:nbrePassagers',
     component: SearchComponent,
     data: {
-      pageTitle: 'home.title',
+      pageTitle: 'home.search',
       authorities:[],
       defaultSort: 'id,asc'
     },
@@ -24,7 +24,7 @@ export const HOME_ROUTE: Routes =[
     path: 'search/:date/:dateRetour/:depart/:arrive/:nbrePassagers',
     component: SearchComponent,
     data: {
-      pageTitle: 'home.title',
+      pageTitle: 'home.search',
       authorities:[],
       defaultSort: 'id,asc'
     },

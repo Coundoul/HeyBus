@@ -4,8 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/config/error.constants';
 
 import { ITransporteur, Transporteur } from '../transporteur.model';
 import { TransporteurService } from '../service/transporteur.service';
@@ -15,7 +13,6 @@ import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RegisterService } from 'app/account/register/register.service';
 
 @Component({
   selector: 'jhi-transporteur-update',
@@ -23,7 +20,6 @@ import { RegisterService } from 'app/account/register/register.service';
 })
 export class TransporteurUpdateComponent implements OnInit {
   isSaving = false;
-  step = 0;
 
   usersSharedCollection: IUser[] = [];
 
@@ -46,26 +42,8 @@ export class TransporteurUpdateComponent implements OnInit {
 
   doNotMatch = false;
   error = false;
-  errorEmailExists = false;
-  errorUserExists = false;
   success = false;
 
-  registerForm = this.fb.group({
-    login: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    ],
-    email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-  });
-
-  currentRoutIsEdit = false;
 
   constructor(
     protected dataUtils: DataUtils,
@@ -75,14 +53,9 @@ export class TransporteurUpdateComponent implements OnInit {
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private translateService: TranslateService,
-    private registerService: RegisterService,
-    private router: Router,
     protected fb: FormBuilder
   ) { 
-    if(this.router.url.includes('edit')){
-      this.currentRoutIsEdit = true;
-      this.step = 1
-    }
+   
   }
 
   ngOnInit(): void {
@@ -143,29 +116,6 @@ export class TransporteurUpdateComponent implements OnInit {
     }
   }
 
-  register(): void {
-    this.doNotMatch = false;
-    this.error = false;
-    this.errorEmailExists = false;
-    this.errorUserExists = false;
-
-    const password = this.registerForm.get(['password'])!.value;
-    if (password !== this.registerForm.get(['confirmPassword'])!.value) {
-      this.doNotMatch = true;
-    } else {
-      const login = this.registerForm.get(['login'])!.value;
-      const email = this.registerForm.get(['email'])!.value;
-      this.registerService.save({ login, email, password, langKey: this.translateService.currentLang }).subscribe(
-        () => (this.success = true),
-        response => this.processError(response)
-      );
-    }
-  }
-
-
-  public onStepChange(event: any): void {
-    this.step = event.selectedIndex;
-  }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITransporteur>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
@@ -223,14 +173,5 @@ export class TransporteurUpdateComponent implements OnInit {
       logo: this.editForm.get(['logo'])!.value,
       user: this.editForm.get(['user'])!.value,
     };
-  }
-  private processError(response: HttpErrorResponse): void {
-    if (response.status === 400 && response.error.type === LOGIN_ALREADY_USED_TYPE) {
-      this.errorUserExists = true;
-    } else if (response.status === 400 && response.error.type === EMAIL_ALREADY_USED_TYPE) {
-      this.errorEmailExists = true;
-    } else {
-      this.error = true;
-    }
   }
 }

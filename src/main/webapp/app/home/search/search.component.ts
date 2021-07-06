@@ -32,11 +32,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   dateRetour: any;
   depart: any;
   e: any;
-
+  trierPar = 'Départ le plus tôt';
   voyages?: IVoyage[];
   selectedVoyages?: IVoyage[];
   nbrePassagers?: number;
-  nbrePlace!: number;
   villes: IVille[] = [];
   arrive: any;
   isLoading = false;
@@ -86,6 +85,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['nbrePassagers']
         ? this.activatedRoute.snapshot.params['nbrePassagers']
         : '';
+
+    this.editForm.controls['dateDeVoyage'].setValue(this.date);
+    this.editForm.controls['nbrePassagers'].setValue(this.nbrePassagers);
   }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -141,13 +143,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.villeService.query().subscribe((res: HttpResponse<IVille[]>) => {
       this.villes = res.body ?? [];
     });
+   
+
     //this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
 
     // const date = String(this.activatedRoute.snapshot.paramMap.get('date'));
     // const depart = Number(this.activatedRoute.snapshot.paramMap.get('depart'));
     // const arrive = Number(this.activatedRoute.snapshot.paramMap.get('arrive'));
     // this.nbrePassagers = Number(this.activatedRoute.snapshot.paramMap.get('nbrePassagers'));
-    // this.nbrePlace = Number(this.activatedRoute.snapshot.paramMap.get('nbrePlace'));
     // this.voyageService.searchVoyage(date, depart, arrive,this.nbrePassagers).subscribe(rest => (this.voyages = rest.body!));
 
     this.handleNavigation();
@@ -217,6 +220,15 @@ export class SearchComponent implements OnInit, OnDestroy {
       const sort = (params.get('sort') ?? data['defaultSort']).split(',');
       const predicate = sort[0];
       const ascending = sort[1] === 'asc';
+      if(sort[0] === 'transporteur.nom'){
+        this.trierPar = 'Transporteur [A-Z]';
+      }
+      if(sort[0] === 'dateDeVoyage'){
+        this.trierPar = 'Départ le plus tôt';
+      }
+      if(sort[0] === 'prix'){
+        this.trierPar = 'Prix le moins cher';
+      }
       if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
         this.predicate = predicate;
         this.ascending = ascending;

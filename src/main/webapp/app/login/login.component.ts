@@ -31,7 +31,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // if already authenticated then navigate to settings page
     this.accountService.identity().subscribe(() => {
       if (this.accountService.isAuthenticated()) {
-        this.router.navigate(['/account/settings']);
+        if (this.accountService.hasAnyAuthority('ROLE_TRANSPORTEUR')){
+          this.router.navigate(['/voyage']);
+        }else {
+          if (this.accountService.hasAnyAuthority('ROLE_ADMIN')) {
+            this.router.navigate(['/voyage']);
+          } else {
+            this.router.navigate(['/reservation']);
+          }
+        }
       }
     });
   }
@@ -54,7 +62,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.authenticationError = false;
           if (!this.router.getCurrentNavigation()) {
             // There were no routing during login (eg from navigationToStoredUrl)
-            this.router.navigate(['/account/settings']);
+            if (this.accountService.hasAnyAuthority('ROLE_TRANSPORTEUR')) {
+              this.router.navigate(['/voyage']);
+            } else {
+              if (this.accountService.hasAnyAuthority('ROLE_ADMIN')) {
+                this.router.navigate(['/voyage']);
+              } else {
+                this.router.navigate(['/reservation']);
+              }
+            }
           }
         },
         () => (this.authenticationError = true)

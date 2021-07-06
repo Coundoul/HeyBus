@@ -1,6 +1,7 @@
 {
   "home": {
-    "title": "Bienvenue, Java Hipster !",
+    "title": "Accueil - HeyBus",
+    "search": "Resultat Recherche - Heybus",
     "subtitle": "Ceci est votre page d'accueil",
     "logged": {
       "message": "Vous êtes connecté en tant que \"{{username}}\"."

@@ -31,7 +31,7 @@
             </select>
           </div>
         </div>
-        <fa-icon icon="exchange-alt" style="position: relative; top: 10px" class="fa-lg"></fa-icon>
+        <fa-icon icon="exchange-alt" style="color: #a1a9c3; font-size: 1.8em; margin-right:5px; margin-left:5px"></fa-icon>
         <div class="col-md-2">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -140,17 +140,17 @@
 <div class="container">
   <div class="row justify-content-center mt-4">
     <div class="col-md-3">
-      <npn-slider [min]="0" [max]="23" (onChange)="onSliderChange($event)" [step]="1" [showStepIndicator]="true"></npn-slider>
-       {{_currentValues}}
+      <!-- <npn-slider [min]="0" [max]="23" (onChange)="onSliderChange($event)" [step]="1" [showStepIndicator]="true"></npn-slider>
+       {{_currentValues}} -->
     </div>
 
     <div class="col-md-9 col-xs-12">
       <div class="row mb-3 mt-3">
         <div class="col-md-12 col-xs-12">
           <div ngbDropdown class="d-inline-block float-right mr-4">
-            <h6>
-              Trier par:
-              <button class="btn btn-outline-secondary" id="dropdownBasic1 " ngbDropdownToggle>Date(plus tôt)</button>
+            <h6 class="text-heybus" style="color: #132968">
+              Trier par :
+              <button class="btn btn-outline-secondary" id="dropdownBasic1 " ngbDropdownToggle>{{trierPar}}</button>
               <div
                 ngbDropdownMenu
                 aria-labelledby="dropdownBasic1"
@@ -159,9 +159,9 @@
                 [(ascending)]="ascending"
                 [callback]="loadPage.bind(this)"
               >
-                <button ngbDropdownItem jhiSortBy="dateDeVoyage">Date(plus tôt)</button>
-                <button ngbDropdownItem jhiSortBy="prix">Prix(moins cher)</button>
-                <button ngbDropdownItem jhiSortBy="transporteur.nom">Transporteur</button>
+                <button ngbDropdownItem jhiSortBy="dateDeVoyage">Départ le plus tôt</button>
+                <button ngbDropdownItem jhiSortBy="prix">Prix le moins cher</button>
+                <button ngbDropdownItem jhiSortBy="transporteur.nom">Transporteur [A-Z]</button>
               </div>
             </h6>
           </div>
