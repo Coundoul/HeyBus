@@ -1,0 +1,143 @@
+<div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
+  <div class="col-8 card jh-card">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-customer-heading" data-cy="CustomerCreateUpdateHeading" jhiTranslate="heybusApp.customer.home.createOrEditLabel">
+        Create or edit a Customer
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.prenom" for="field_prenom">Prenom</label>
+          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.telephone" for="field_telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+          <div *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telephone')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)"></div>
+        </div>
+
+        <!-- <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.profession" for="field_profession">Profession</label>
+          <input
+            type="text"
+            class="form-control"
+            name="profession"
+            id="field_profession"
+            data-cy="profession"
+            formControlName="profession"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.datenaissance" for="field_datenaissance">Datenaissance</label>
+          <div class="input-group">
+            <input
+              id="field_datenaissance"
+              data-cy="datenaissance"
+              type="text"
+              class="form-control"
+              name="datenaissance"
+              ngbDatepicker
+              #datenaissanceDp="ngbDatepicker"
+              formControlName="datenaissance"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="datenaissanceDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.dateprisecontact" for="field_dateprisecontact"
+            >Dateprisecontact</label
+          >
+          <div class="input-group">
+            <input
+              id="field_dateprisecontact"
+              data-cy="dateprisecontact"
+              type="text"
+              class="form-control"
+              name="dateprisecontact"
+              ngbDatepicker
+              #dateprisecontactDp="ngbDatepicker"
+              formControlName="dateprisecontact"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="dateprisecontactDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.adresse" for="field_adresse">Adresse</label>
+          <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse" formControlName="adresse" />
+        </div> -->
+
+        <!-- <div class="form-group">
+          <label class="form-control-label" jhiTranslate="heybusApp.customer.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div> -->
+        
+        <div class="form-group">
+          <label class="form-control-label"  for="field_adresse">Nombre de Passager</label>
+          <input type="number" min="1" value="1" class="form-control" name="passager" id="field_passager" data-cy="passager" formControlName="passager" />
+        </div> 
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
+
+import { IReservation, Reservation } from '../reservation.model';
+import { ReservationService } from '../service/reservation.service';
+import { IVoyage } from 'app/entities/voyage/voyage.model';
+import { VoyageService } from 'app/entities/voyage/service/voyage.service';
+import { Customer, ICustomer } from 'app/entities/customer/customer.model';
+import { CustomerService } from 'app/entities/customer/service/customer.service';
+import { IUser } from 'app/admin/user-management/user-management.model';
+import { UserService } from 'app/entities/user/user.service';
+
+@Component({
+  selector: 'jhi-reserver-transporteur',
+  templateUrl: './reservation-transporteur.component.html',
+})
+export class ReservationTransporteurComponent implements OnInit {
+  isSaving = false;
+
+  usersSharedCollection: IUser[] = [];
+
+  editForm = this.fb.group({
+    id: [],
+    nom: [],
+    prenom: [],
+    telephone: [null, [Validators.required]],
+    email: [null, []],
+    profession: [],
+    datenaissance: [],
+    dateprisecontact: [],
+    adresse: [],
+    passager: [1, []],
+    user: [],
+  });
+
+  constructor(
+    protected customerService: CustomerService,
+    protected reservationService: ReservationService,
+    protected userService: UserService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    protected router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe(({ customer }) => {
+      this.updateForm(customer);
+
+      this.loadRelationshipsOptions();
+    });
+  }
+
+  previousState(): void {
+    window.history.back();
+  }
+
+  save(): void {
+    this.isSaving = true;
+    const customer = this.createFromForm();
+    const voyage = Number(this.activatedRoute.snapshot.paramMap.get('voyage'));
+    const nbrePassagers = Number(this.editForm.get(['passager'])!.value);
+
+    this.subscribeToSaveResponse(this.reservationService.createReservationTransporteur(customer, voyage, nbrePassagers));
+  
+  }
+
+  trackUserById(index: number, item: IUser): number {
+    return item.id!;
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICustomer>>): void {
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    this.previousState();
+  }
+
+  protected onSaveError(): void {
+    // Api for inheritance.
+  }
+
+  protected onSaveFinalize(): void {
+    this.isSaving = false;
+  }
+
+  protected updateForm(customer: ICustomer): void {
+    this.editForm.patchValue({
+      id: customer.id,
+      nom: customer.nom,
+      prenom: customer.prenom,
+      telephone: customer.telephone,
+      email: customer.email,
+      profession: customer.profession,
+      datenaissance: customer.datenaissance,
+      dateprisecontact: customer.dateprisecontact,
+      adresse: customer.adresse,
+      user: customer.user,
+    });
+
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, customer.user);
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+  }
+
+  protected createFromForm(): ICustomer {
+    return {
+      ...new Customer(),
+      id: this.editForm.get(['id'])!.value,
+      nom: this.editForm.get(['nom'])!.value,
+      prenom: this.editForm.get(['prenom'])!.value,
+      telephone: this.editForm.get(['telephone'])!.value,
+      email: this.editForm.get(['email'])!.value,
+      profession: this.editForm.get(['profession'])!.value,
+      datenaissance: this.editForm.get(['datenaissance'])!.value,
+      dateprisecontact: this.editForm.get(['dateprisecontact'])!.value,
+      adresse: this.editForm.get(['adresse'])!.value,
+      user: this.editForm.get(['user'])!.value,
+    };
+  }
+}

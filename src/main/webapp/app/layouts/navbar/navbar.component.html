@@ -16,6 +16,26 @@
       <fa-icon icon="bars"></fa-icon>
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
+      <ul class="navbar-nav">
+        <li *ngSwitchCase="false" class="nav-item">
+          <a class="nav-link" id="item1" data-cy="item1">
+            <span >Louer un bus</span>
+          </a>
+        </li>
+        <li *ngSwitchCase="false" class="nav-item">
+          <a class="nav-link" id="item2" data-cy="item2">
+            <span >Item 2</span>
+          </a>
+        </li>
+        <li *ngSwitchCase="false" class="nav-item">
+          <a class="nav-link" id="item2" data-cy="item2">
+            <span >Item 3</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
       <ul class="navbar-nav ml-auto">
         <button class="btn btn-reserver" [routerLink]="['/voyage/new']" *jhiHasAnyAuthority="['ROLE_TRANSPORTEUR']">
           Saisir un Voyage
