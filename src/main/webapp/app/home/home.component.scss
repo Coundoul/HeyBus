@@ -98,7 +98,7 @@ Main page styles
   width: auto;
   height: 300px;
   vertical-align: middle;
-  background: url('../../content/images/voyageimg.jpg') no-repeat;
+  background: url('../../content/images/busvoyage.jpg') center center no-repeat;
   background-size: cover;
   opacity: 1;
   text-align: center;
@@ -115,10 +115,6 @@ Main page styles
 .line-horizontal {
   border: 1px dashed #f1f2f6;
   margin-bottom: 0px;
-}
-
-body {
-  background: #ffffff;
 }
 
 .form-check-input {
