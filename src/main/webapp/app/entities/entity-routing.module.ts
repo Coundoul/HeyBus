@@ -60,6 +60,11 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./pays/pays.module').then(m => m.PaysModule),
       },
       {
+        path: 'photo',
+        data: { pageTitle: 'heybusApp.photo.home.title' },
+        loadChildren: () => import('./photo/photo.module').then(m => m.PhotoModule),
+      },
+      {
         path: 'position',
         data: { pageTitle: 'heybusApp.position.home.title' },
         loadChildren: () => import('./position/position.module').then(m => m.PositionModule),

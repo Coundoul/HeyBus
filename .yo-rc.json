@@ -60,8 +60,9 @@
       "Reservation",
       "TypeDePaiement",
       "Vehicule",
-      "Voyage"
+      "Voyage",
+      "Photo"
     ],
-    "lastLiquibaseTimestamp": 1619431823000
+    "lastLiquibaseTimestamp": 1625495477000
   }
 }

@@ -13,8 +13,14 @@
       <fa-icon icon="money-check" class="fa-lg mr-2"></fa-icon> Vos réservations
     </span>
   </a>
-  <a class="list-group-item d-flex justify-content-between align-items-center" *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'">
-    <span> <fa-icon icon="photo-video" class="fa-lg mr-2"></fa-icon> Vos photos </span>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [routerLink]="['/photo']"
+    *jhiHasAnyAuthority="'ROLE_TRANSPORTEUR'"
+  >
+    <span [ngClass]="{ 'text-active': currentRout === '/photo' }">
+      <fa-icon icon="photo-video" class="fa-lg mr-2"></fa-icon> Vos photos
+    </span>
   </a>
   <a
     class="list-group-item d-flex justify-content-between align-items-center"

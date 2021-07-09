@@ -17,7 +17,6 @@ import { VilleService } from 'app/entities/ville/service/ville.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { BrowserModule } from '@angular/platform-browser';
-import { DxRangeSelectorModule, DxDataGridModule } from 'devextreme-angular';
 
 @Component({
   selector: 'jhi-search',

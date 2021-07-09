@@ -57,6 +57,12 @@
       "otherEntityName": "employe",
       "otherEntityRelationshipName": "transporteur",
       "relationshipName": "employe"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "photo",
+      "otherEntityRelationshipName": "transporteur",
+      "relationshipName": "photo"
     }
   ],
   "entityTableName": "transporteur",
