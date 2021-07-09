@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReservationTicketDialogComponent } from './ticket/reservation-ticket-dialog.component';
 import { SidebarModule } from 'app/layouts/sidebar/sidebar.module';
 import { ReservationOrangeComponent } from './reserver-orange/reservation-orange.component';
+import { ReservationTransporteurComponent } from './reserver-transporteur/reservation-transporteur.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default,
@@ -44,6 +45,7 @@ const ngWizardConfig: NgWizardConfig = {
     ReservationPaiementComponent,
     ReservationOrangeComponent,
     ReservationTicketDialogComponent,
+    ReservationTransporteurComponent,
   ],
   entryComponents: [ReservationDeleteDialogComponent, ReservationTicketDialogComponent],
 })

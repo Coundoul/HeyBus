@@ -14,6 +14,7 @@ import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.AdminUserDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.errors.LoginAlreadyUsedException;
+import com.mycompany.myapp.web.rest.errors.NbreDePlaceException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -264,76 +265,169 @@ public class ReservationResource {
         Optional<Customer> customerExisting = customerRepository.findOneByEmailIgnoreCase(customer.getEmail());
 
         if (customerExisting.isPresent()) {
-            customerExisting.get().setTelephone(customer.getTelephone());
-            customerExisting.get().setNom(customer.getNom());
-            customerExisting.get().setPrenom(customer.getPrenom());
-            customerRepository.save(customerExisting.get());
-
             Voyage voyage = voyageRepository.findById(voyageId).get();
 
-            Reservation reservation = new Reservation();
-            reservation.setDateDeReservation(LocalDate.now());
-            reservation.setCustomer(customerExisting.get());
-            reservation.setVoyage(voyage);
-            reservation.setNbrePassagers(nbrePassagers);
-            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
-            Reservation result = reservationRepository.save(reservation);
+            if (voyage.getNbrePlace() >= nbrePassagers) {
+                customerExisting.get().setTelephone(customer.getTelephone());
+                customerExisting.get().setNom(customer.getNom());
+                customerExisting.get().setPrenom(customer.getPrenom());
+                customerRepository.save(customerExisting.get());
 
-            voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
-            voyageRepository.save(voyage);
-            return ResponseEntity
-                .created(new URI("/api/reservations/voyage/" + voyageId + "/"))
-                .headers(
-                    HeaderUtil.createEntityCreationAlert(
-                        applicationName,
-                        true,
-                        ENTITY_NAME,
-                        "\n Reservation reussi pour votre compte " + customerExisting.get().getEmail().toString()
+                Reservation reservation = new Reservation();
+                reservation.setDateDeReservation(LocalDate.now());
+                reservation.setCustomer(customerExisting.get());
+                reservation.setVoyage(voyage);
+                reservation.setNbrePassagers(nbrePassagers);
+                reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
+                Reservation result = reservationRepository.save(reservation);
+
+                voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
+                voyageRepository.save(voyage);
+                return ResponseEntity
+                    .created(new URI("/api/reservations/voyage/" + voyageId + "/"))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi pour votre compte " + customerExisting.get().getEmail().toString()
+                        )
                     )
-                )
-                .body(result);
-        } else {
-            AdminUserDTO user = new AdminUserDTO();
-            user.setEmail(customer.getEmail());
-            user.setActivated(true);
-            user.setLogin(customer.getEmail());
-            Set<String> role = new HashSet<String>();
-            role.add("ROLE_USER");
-            user.setAuthorities(role);
-
-            if (userRepository.findOneByLogin(user.getLogin().toLowerCase()).isPresent()) {
-                throw new LoginAlreadyUsedException();
+                    .body(result);
             } else {
-                User newUser = userService.createUser(user);
-                mailService.sendCreationEmail(newUser);
-                customer.setUser(newUser);
+                throw new NbreDePlaceException();
             }
-            Customer customerResult = customerRepository.save(customer);
-
+        } else {
             Voyage voyage = voyageRepository.findById(voyageId).get();
 
-            Reservation reservation = new Reservation();
-            reservation.setDateDeReservation(LocalDate.now());
-            reservation.setCustomer(customerResult);
-            reservation.setVoyage(voyage);
-            reservation.setNbrePassagers(nbrePassagers);
-            reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
-            Reservation result = reservationRepository.save(reservation);
+            if (voyage.getNbrePlace() >= nbrePassagers) {
+                AdminUserDTO user = new AdminUserDTO();
+                user.setEmail(customer.getEmail());
+                user.setActivated(true);
+                user.setLogin(customer.getEmail());
+                Set<String> role = new HashSet<String>();
+                role.add("ROLE_USER");
+                user.setAuthorities(role);
 
-            voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
-            voyageRepository.save(voyage);
+                if (userRepository.findOneByLogin(user.getLogin().toLowerCase()).isPresent()) {
+                    throw new LoginAlreadyUsedException();
+                } else {
+                    User newUser = userService.createUser(user);
+                    mailService.sendCreationEmail(newUser);
+                    customer.setUser(newUser);
+                }
+                Customer customerResult = customerRepository.save(customer);
 
-            return ResponseEntity
-                .created(new URI("/api/reservations/voyage/" + voyageId + "/"))
-                .headers(
-                    HeaderUtil.createEntityCreationAlert(
-                        applicationName,
-                        true,
-                        ENTITY_NAME,
-                        "\n Reservation reussi !\n consulter votre mail pour activer votre compte " + customerResult.getEmail().toString()
+                Reservation reservation = new Reservation();
+                reservation.setDateDeReservation(LocalDate.now());
+                reservation.setCustomer(customerResult);
+                reservation.setVoyage(voyage);
+                reservation.setNbrePassagers(nbrePassagers);
+                reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
+                Reservation result = reservationRepository.save(reservation);
+
+                voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
+                voyageRepository.save(voyage);
+
+                return ResponseEntity
+                    .created(new URI("/api/reservations/voyage/" + voyageId + "/"))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi !\n consulter votre mail pour activer votre compte " +
+                            customerResult.getEmail().toString()
+                        )
                     )
-                )
-                .body(result);
+                    .body(result);
+            } else {
+                throw new NbreDePlaceException();
+            }
+        }
+    }
+
+    /**
+     * {@code POST  /reservations} : Create a new reservation by a transporteur.
+     *
+     * @param reservation the reservation to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
+     *         body the new reservation, or with status {@code 400 (Bad Request)} if
+     *         the reservation has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/reservations/transporteur/voyage/{voyageId}/passagers/{nbrePassagers}")
+    public ResponseEntity<Reservation> createReservationVoyageTransporteur(
+        @RequestBody Customer customer,
+        @PathVariable Long voyageId,
+        @PathVariable Integer nbrePassagers
+    ) throws URISyntaxException {
+        log.debug("REST request to save Customer Reservation : {}", customer);
+
+        Optional<Customer> customerExisting = customerRepository.findOneByEmailIgnoreCase(customer.getEmail());
+
+        if (customerExisting.isPresent()) {
+            Voyage voyage = voyageRepository.findById(voyageId).get();
+            if (voyage.getNbrePlace() >= nbrePassagers) {
+                customerExisting.get().setTelephone(customer.getTelephone());
+                customerExisting.get().setNom(customer.getNom());
+                customerExisting.get().setPrenom(customer.getPrenom());
+                customerRepository.save(customerExisting.get());
+
+                Reservation reservation = new Reservation();
+                reservation.setDateDeReservation(LocalDate.now());
+                reservation.setCustomer(customerExisting.get());
+                reservation.setVoyage(voyage);
+                reservation.setNbrePassagers(nbrePassagers);
+                reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
+                Reservation result = reservationRepository.save(reservation);
+
+                voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
+                voyageRepository.save(voyage);
+                return ResponseEntity
+                    .created(new URI("/api/reservations/" + result.getId()))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi pour le compte " + customerExisting.get().getEmail().toString()
+                        )
+                    )
+                    .body(result);
+            } else {
+                throw new NbreDePlaceException();
+            }
+        } else {
+            Voyage voyage = voyageRepository.findById(voyageId).get();
+
+            if (voyage.getNbrePlace() >= nbrePassagers) {
+                Customer customerAdd = customerRepository.save(customer);
+
+                Reservation reservation = new Reservation();
+                reservation.setDateDeReservation(LocalDate.now());
+                reservation.setCustomer(customerAdd);
+                reservation.setVoyage(voyage);
+                reservation.setNbrePassagers(nbrePassagers);
+                reservation.setPrixReservation(Integer.valueOf(voyage.getPrix() * nbrePassagers));
+                Reservation result = reservationRepository.save(reservation);
+
+                voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
+                voyageRepository.save(voyage);
+                return ResponseEntity
+                    .created(new URI("/api/reservations/" + result.getId()))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi pour " + customerAdd.getId().toString()
+                        )
+                    )
+                    .body(result);
+            } else {
+                throw new NbreDePlaceException();
+            }
         }
     }
 

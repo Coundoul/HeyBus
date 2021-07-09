@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -12,6 +12,7 @@ import { EventManager, EventWithContent } from 'app/core/util/event-manager.serv
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-transporteur-update',
@@ -19,7 +20,6 @@ import { UserService } from 'app/entities/user/user.service';
 })
 export class TransporteurUpdateComponent implements OnInit {
   isSaving = false;
-  step = 0;
 
   usersSharedCollection: IUser[] = [];
 
@@ -35,6 +35,15 @@ export class TransporteurUpdateComponent implements OnInit {
     user: [],
   });
 
+  closeModal!: string;
+
+  @ViewChild('login', { static: false })
+  login?: ElementRef;
+
+  doNotMatch = false;
+  error = false;
+  success = false;
+
   constructor(
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
@@ -42,6 +51,7 @@ export class TransporteurUpdateComponent implements OnInit {
     protected userService: UserService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
+    private translateService: TranslateService,
     protected fb: FormBuilder
   ) {}
 
@@ -97,9 +107,10 @@ export class TransporteurUpdateComponent implements OnInit {
   trackUserById(index: number, item: IUser): number {
     return item.id!;
   }
-
-  public onStepChange(event: any): void {
-    this.step = event.selectedIndex;
+  ngAfterViewInit(): void {
+    if (this.login) {
+      this.login.nativeElement.focus();
+    }
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITransporteur>>): void {

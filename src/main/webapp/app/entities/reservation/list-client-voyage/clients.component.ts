@@ -23,6 +23,7 @@ export class ClientsComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  voyage?: number;
 
   constructor(
     protected reservationService: ReservationService,
@@ -56,6 +57,7 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.voyage = Number(this.activatedRoute.snapshot.paramMap.get('voyage'));
   }
 
   trackId(index: number, item: IReservation): number {
@@ -100,7 +102,7 @@ export class ClientsComponent implements OnInit {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
-      this.router.navigate(['/reservation/customer/voyage/'+String(this.activatedRoute.snapshot.paramMap.get('voyage'))], {
+      this.router.navigate(['/reservation/customer/voyage/' + String(this.activatedRoute.snapshot.paramMap.get('voyage'))], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

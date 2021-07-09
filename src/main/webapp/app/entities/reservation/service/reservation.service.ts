@@ -26,10 +26,16 @@ export class ReservationService {
       .post<IReservation>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
-  createReservation(customer: ICustomer, idVoyage:number, nbrePassagers:number): Observable<EntityResponseType> {
+  createReservation(customer: ICustomer, idVoyage: number, nbrePassagers: number): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(customer);
     return this.http
       .post<ICustomer>(`${this.resourceUrl}/voyage/${idVoyage}/passagers/${nbrePassagers}`, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+  createReservationTransporteur(customer: ICustomer, idVoyage: number, nbrePassagers: number): Observable<EntityResponseType> {
+    const copy = this.convertDateFromClient(customer);
+    return this.http
+      .post<ICustomer>(`${this.resourceUrl}/transporteur/voyage/${idVoyage}/passagers/${nbrePassagers}`, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
   update(reservation: IReservation): Observable<EntityResponseType> {
@@ -100,7 +106,6 @@ export class ReservationService {
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.dateDeReservation = res.body.dateDeReservation ? dayjs(res.body.dateDeReservation) : undefined;
- 
     }
     return res;
   }

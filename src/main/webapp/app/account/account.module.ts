@@ -14,14 +14,6 @@ import { SidebarModule } from 'app/layouts/sidebar/sidebar.module';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(accountState), SidebarModule],
-  declarations: [
-    ActivateComponent,
-    RegisterComponent,
-    PasswordComponent,
-    PasswordStrengthBarComponent,
-    PasswordResetInitComponent,
-    PasswordResetFinishComponent,
-    SettingsComponent,
-  ],
+  declarations: [ActivateComponent, RegisterComponent, SettingsComponent],
 })
 export class AccountModule {}
