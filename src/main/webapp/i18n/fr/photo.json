@@ -1,0 +1,27 @@
+{
+  "heybusApp": {
+    "photo": {
+      "home": {
+        "title": "Photos",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Photo",
+        "createOrEditLabel": "Créer ou éditer une Photo",
+        "notFound": "Aucune Photo trouvée"
+      },
+      "created": "Une nouvelle Photo a été créé avec l'identifiant {{ param }}",
+      "updated": "La Photo avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La Photo avec l'identifiant {{ param }} a été supprimée",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer la Photo {{ id }} ?"
+      },
+      "detail": {
+        "title": "Photo"
+      },
+      "id": "ID",
+      "title": "Title",
+      "image": "Image",
+      "uploaded": "Uploaded",
+      "transporteur": "Transporteur"
+    }
+  }
+}

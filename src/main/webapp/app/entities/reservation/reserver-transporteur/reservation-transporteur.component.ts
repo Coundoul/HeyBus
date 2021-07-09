@@ -65,7 +65,6 @@ export class ReservationTransporteurComponent implements OnInit {
     const nbrePassagers = Number(this.editForm.get(['passager'])!.value);
 
     this.subscribeToSaveResponse(this.reservationService.createReservationTransporteur(customer, voyage, nbrePassagers));
-  
   }
 
   trackUserById(index: number, item: IUser): number {

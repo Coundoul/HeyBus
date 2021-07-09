@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <jhi-sidebar></jhi-sidebar>
+    </div>
+    <div class="col-md-8">
+      <h2 id="page-heading" data-cy="PhotoHeading">
+        <span jhiTranslate="heybusApp.photo.home.title">Photos</span>
+
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+            <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+            <span jhiTranslate="heybusApp.photo.home.refreshListLabel">Refresh List</span>
+          </button>
+
+          <button
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-primary jh-create-entity create-photo"
+            [routerLink]="['/photo/new']"
+          >
+            <fa-icon icon="plus"></fa-icon>
+            <span jhiTranslate="heybusApp.photo.home.createLabel"> Create a new Photo </span>
+          </button>
+        </div>
+      </h2>
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="alert alert-warning" id="no-result" *ngIf="photos?.length === 0">
+        <span jhiTranslate="heybusApp.photo.home.notFound">No photos found</span>
+      </div>
+
+      <div class="row">
+        <div class="card" style="width: 23rem" *ngFor="let photo of photos">
+          <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-width: 100%" alt="photo image" />
+          <div class="card-body">
+            <h5 class="card-title">{{ photo.title }}</h5>
+            <a *ngIf="photo.image" (click)="openFile(photo.image, photo.imageContentType)" class="btn btn-primary">Voir photo</a>
+            <a type="submit" (click)="delete(photo)" class="btn btn-secondary" data-cy="entityDeleteButton">
+              <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="table-responsive" id="entities" *ngIf="photos && photos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.photo.title">Title</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.photo.image">Image</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.photo.uploaded">Uploaded</span></th>
+          <th scope="col"><span jhiTranslate="heybusApp.photo.transporteur">Transporteur</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let photo of photos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/photo', photo.id, 'view']">{{ photo.id }}</a>
+          </td>
+          <td>{{ photo.title }}</td>
+          <td>
+            <a *ngIf="photo.image" (click)="openFile(photo.image, photo.imageContentType)">
+              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-height: 30px" alt="photo image" />
+            </a>
+            <span *ngIf="photo.image">{{ photo.imageContentType }}, {{ byteSize(photo.image) }}</span>
+          </td>
+          <td>{{ photo.uploaded | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="photo.transporteur">
+              <a [routerLink]="['/transporteur', photo.transporteur?.id, 'view']">{{ photo.transporteur?.nom }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/photo', photo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/photo', photo.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(photo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+</div>

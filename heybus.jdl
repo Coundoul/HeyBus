@@ -149,6 +149,12 @@ entity Voyage {
 }
 paginate Voyage with pagination
 
+entity Photo {
+    title String ,
+    image ImageBlob required,
+    uploaded Instant
+}
+
 enum Matrimoniale {
   CELIBATAIRE,
   MARIE
@@ -161,6 +167,7 @@ enum TypeVoyage {
   Aller_Simple,
   Aller_Retour
 }
+
 
 
 relationship OneToOne {
@@ -185,6 +192,7 @@ relationship OneToMany {
   Transporteur{voyage} to Voyage{transporteur(nom)},
   Transporteur{vehicule} to Vehicule{transporteur(nom)},
   Transporteur{employe} to Employe{transporteur(nom)},
+  Transporteur{photo} to Photo{transporteur(nom)},
   Pays{ville} to Ville{pays(nom)}
 }
 

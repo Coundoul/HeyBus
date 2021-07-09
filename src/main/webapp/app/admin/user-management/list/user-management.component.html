@@ -2,7 +2,7 @@
   <div class="card jh-card">
     <h2>
       <span id="user-management-page-heading" jhiTranslate="userManagement.home.title" data-cy="userManagementPageHeading">Users</span>
-  
+
       <div class="d-flex justify-content-end">
         <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
           <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
@@ -13,11 +13,11 @@
         </button>
       </div>
     </h2>
-  
+
     <jhi-alert-error></jhi-alert-error>
-  
+
     <jhi-alert></jhi-alert>
-  
+
     <div class="table-responsive" *ngIf="users">
       <table class="table table-striped" aria-describedby="user-management-page-heading">
         <thead>
@@ -83,12 +83,12 @@
                   <fa-icon icon="eye"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                 </button>
-  
+
                 <button type="submit" [routerLink]="['./', user.login, 'edit']" queryParamsHandling="merge" class="btn btn-primary btn-sm">
                   <fa-icon icon="pencil-alt"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                 </button>
-  
+
                 <button
                   type="button"
                   (click)="deleteUser(user)"
@@ -104,12 +104,12 @@
         </tbody>
       </table>
     </div>
-  
+
     <div *ngIf="users">
       <div class="row justify-content-center">
         <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
       </div>
-  
+
       <div class="row justify-content-center">
         <ngb-pagination
           [collectionSize]="totalItems"
@@ -124,4 +124,3 @@
     </div>
   </div>
 </div>
-

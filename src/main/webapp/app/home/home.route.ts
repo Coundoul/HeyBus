@@ -3,7 +3,7 @@ import { Route, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { SearchComponent } from './search/search.component';
 
-export const HOME_ROUTE: Routes =[
+export const HOME_ROUTE: Routes = [
   {
     path: '',
     component: HomeComponent,
@@ -16,8 +16,8 @@ export const HOME_ROUTE: Routes =[
     component: SearchComponent,
     data: {
       pageTitle: 'home.search',
-      authorities:[],
-      defaultSort: 'id,asc'
+      authorities: [],
+      defaultSort: 'id,asc',
     },
   },
   {
@@ -25,9 +25,8 @@ export const HOME_ROUTE: Routes =[
     component: SearchComponent,
     data: {
       pageTitle: 'home.search',
-      authorities:[],
-      defaultSort: 'id,asc'
+      authorities: [],
+      defaultSort: 'id,asc',
     },
-  }
+  },
 ];
-

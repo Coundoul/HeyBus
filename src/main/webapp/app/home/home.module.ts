@@ -9,13 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    RouterModule.forChild(HOME_ROUTE),
-    NpnSliderModule,
-    MatFormFieldModule,
-    MatSelectModule
-  ],
+  imports: [SharedModule, RouterModule.forChild(HOME_ROUTE), NpnSliderModule, MatFormFieldModule, MatSelectModule],
 
   declarations: [HomeComponent, SearchComponent],
 })

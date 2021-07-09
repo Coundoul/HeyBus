@@ -31,9 +31,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // if already authenticated then navigate to settings page
     this.accountService.identity().subscribe(() => {
       if (this.accountService.isAuthenticated()) {
-        if (this.accountService.hasAnyAuthority('ROLE_TRANSPORTEUR')){
+        if (this.accountService.hasAnyAuthority('ROLE_TRANSPORTEUR')) {
           this.router.navigate(['/voyage']);
-        }else {
+        } else {
           if (this.accountService.hasAnyAuthority('ROLE_ADMIN')) {
             this.router.navigate(['/voyage']);
           } else {

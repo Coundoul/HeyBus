@@ -7,13 +7,11 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
 
-
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { ReservationTransporteurComponent } from './reservation-transporteur.component';
 import { CustomerService } from 'app/entities/customer/service/customer.service';
 import { Customer, ICustomer } from 'app/entities/customer/customer.model';
-
 
 describe('Component Tests', () => {
   describe('Customer Management Update Component', () => {

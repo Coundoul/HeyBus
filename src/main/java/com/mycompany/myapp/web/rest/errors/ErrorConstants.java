@@ -14,6 +14,5 @@ public final class ErrorConstants {
     public static final URI LOGIN_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/login-already-used");
     public static final URI NBRE_PLACE_ATTEINT = URI.create(PROBLEM_BASE_URL + "/nbre-place-atteint");
 
-
     private ErrorConstants() {}
 }

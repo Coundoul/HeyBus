@@ -143,7 +143,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.villeService.query().subscribe((res: HttpResponse<IVille[]>) => {
       this.villes = res.body ?? [];
     });
-   
 
     //this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
 
@@ -154,7 +153,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     // this.voyageService.searchVoyage(date, depart, arrive,this.nbrePassagers).subscribe(rest => (this.voyages = rest.body!));
 
     this.handleNavigation();
-  
   }
   trackId(index: number, item: Voyage): number {
     return item.id!;
@@ -220,13 +218,13 @@ export class SearchComponent implements OnInit, OnDestroy {
       const sort = (params.get('sort') ?? data['defaultSort']).split(',');
       const predicate = sort[0];
       const ascending = sort[1] === 'asc';
-      if(sort[0] === 'transporteur.nom'){
+      if (sort[0] === 'transporteur.nom') {
         this.trierPar = 'Transporteur [A-Z]';
       }
-      if(sort[0] === 'dateDeVoyage'){
+      if (sort[0] === 'dateDeVoyage') {
         this.trierPar = 'Départ le plus tôt';
       }
-      if(sort[0] === 'prix'){
+      if (sort[0] === 'prix') {
         this.trierPar = 'Prix le moins cher';
       }
       if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {

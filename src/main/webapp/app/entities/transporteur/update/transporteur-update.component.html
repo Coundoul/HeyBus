@@ -1,51 +1,57 @@
 <div class="container">
   <div class="row justify-content-center">
     <!-- Wizard Ajout Voyage -->
-    <div class="col-md-8 mt-4  mb-4">
-
+    <div class="col-md-8 mt-4 mb-4">
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
         <h5 class="text-center font-weight-bold">Créer ou Editer le tranporteur</h5>
         <div class="shadow pt-3 px-5 pb-3 mb-4 bg-white col-md-12 mt-3">
           <div class="form-group" [hidden]="editForm.get('id')!.value == null">
             <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
-              [readonly]="true" />
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
 
           <div class="form-group">
             <label class="form-control-label" jhiTranslate="heybusApp.transporteur.nom" for="field_nom">Nom</label>
             <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
             <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
-              <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required"
-                jhiTranslate="entity.validation.required">
+              <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
               </small>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.telephone"
-              for="field_telephone">Telephone</label>
-            <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone"
-              formControlName="telephone" />
-            <div
-              *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
-              <small class="form-text text-danger" *ngIf="editForm.get('telephone')?.errors?.required"
-                jhiTranslate="entity.validation.required">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.telephone" for="field_telephone">Telephone</label>
+            <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+            <div *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('telephone')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
                 This field is required.
               </small>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.responsable"
-              for="field_responsable">Responsable</label>
-            <input type="text" class="form-control" name="responsable" id="field_responsable" data-cy="responsable"
-              formControlName="responsable" />
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.responsable" for="field_responsable">Responsable</label>
+            <input
+              type="text"
+              class="form-control"
+              name="responsable"
+              id="field_responsable"
+              data-cy="responsable"
+              formControlName="responsable"
+            />
             <div
-              *ngIf="editForm.get('responsable')!.invalid && (editForm.get('responsable')!.dirty || editForm.get('responsable')!.touched)">
-              <small class="form-text text-danger" *ngIf="editForm.get('responsable')?.errors?.required"
-                jhiTranslate="entity.validation.required">
+              *ngIf="editForm.get('responsable')!.invalid && (editForm.get('responsable')!.dirty || editForm.get('responsable')!.touched)"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('responsable')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
                 This field is required.
               </small>
             </div>
@@ -57,14 +63,14 @@
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.adresse"
-              for="field_adresse">Adresse</label>
-            <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse"
-              formControlName="adresse" />
-            <div
-              *ngIf="editForm.get('adresse')!.invalid && (editForm.get('adresse')!.dirty || editForm.get('adresse')!.touched)">
-              <small class="form-text text-danger" *ngIf="editForm.get('adresse')?.errors?.required"
-                jhiTranslate="entity.validation.required">
+            <label class="form-control-label" jhiTranslate="heybusApp.transporteur.adresse" for="field_adresse">Adresse</label>
+            <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse" formControlName="adresse" />
+            <div *ngIf="editForm.get('adresse')!.invalid && (editForm.get('adresse')!.dirty || editForm.get('adresse')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('adresse')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
                 This field is required.
               </small>
             </div>
@@ -73,24 +79,33 @@
           <div class="form-group">
             <label class="form-control-label" jhiTranslate="heybusApp.transporteur.logo" for="field_logo">Logo</label>
             <div>
-              <img [src]="'data:' + editForm.get('logoContentType')!.value + ';base64,' + editForm.get('logo')!.value"
-                style="max-height: 100px" *ngIf="editForm.get('logo')!.value" alt="transporteur image" />
+              <img
+                [src]="'data:' + editForm.get('logoContentType')!.value + ';base64,' + editForm.get('logo')!.value"
+                style="max-height: 100px"
+                *ngIf="editForm.get('logo')!.value"
+                alt="transporteur image"
+              />
               <div *ngIf="editForm.get('logo')!.value" class="form-text text-danger clearfix">
-                <span class="pull-left">{{ editForm.get('logoContentType')!.value }}, {{
-                  byteSize(editForm.get('logo')!.value)
-                  }}</span>
-                <button type="button" (click)="clearInputImage('logo', 'logoContentType', 'file_logo')"
-                  class="btn btn-secondary btn-xs pull-right">
+                <span class="pull-left">{{ editForm.get('logoContentType')!.value }}, {{ byteSize(editForm.get('logo')!.value) }}</span>
+                <button
+                  type="button"
+                  (click)="clearInputImage('logo', 'logoContentType', 'file_logo')"
+                  class="btn btn-secondary btn-xs pull-right"
+                >
                   <fa-icon icon="times"></fa-icon>
                 </button>
               </div>
-              <input type="file" id="file_logo" data-cy="logo" (change)="setFileData($event, 'logo', true)"
-                accept="image/*" jhiTranslate="entity.action.addimage" />
+              <input
+                type="file"
+                id="file_logo"
+                data-cy="logo"
+                (change)="setFileData($event, 'logo', true)"
+                accept="image/*"
+                jhiTranslate="entity.action.addimage"
+              />
             </div>
-            <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo"
-              formControlName="logo" />
-            <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"
-              formControlName="logoContentType" />
+            <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+            <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType" formControlName="logoContentType" />
           </div>
 
           <div class="form-group">
@@ -99,7 +114,8 @@
               <option [ngValue]="null"></option>
               <option
                 [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
-                *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById">
+                *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+              >
                 {{ userOption.login }}
               </option>
             </select>
@@ -108,11 +124,17 @@
         <div class="text-center">
           <button type="button" (click)="previousState()" class="btn btn-simple font-weight-bold">Précédent</button>
           <!-- <button mat-button matStepperNext type="button" class="btn btn-reserver font-weight-bold">Suivant</button> -->
-          <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
-            [disabled]="editForm.invalid || isSaving" class="btn btn-reserver font-weight-bold">Suivant</button>
+          <button
+            type="submit"
+            id="save-entity"
+            data-cy="entityCreateSaveButton"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-reserver font-weight-bold"
+          >
+            Suivant
+          </button>
         </div>
       </form>
-
     </div>
   </div>
 </div>

@@ -44,7 +44,6 @@ export class TransporteurUpdateComponent implements OnInit {
   error = false;
   success = false;
 
-
   constructor(
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
@@ -54,9 +53,7 @@ export class TransporteurUpdateComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     private translateService: TranslateService,
     protected fb: FormBuilder
-  ) { 
-   
-  }
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ transporteur }) => {
@@ -115,7 +112,6 @@ export class TransporteurUpdateComponent implements OnInit {
       this.login.nativeElement.focus();
     }
   }
-
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITransporteur>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(

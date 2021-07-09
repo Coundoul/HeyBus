@@ -15,7 +15,6 @@ import com.mycompany.myapp.service.dto.AdminUserDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.errors.LoginAlreadyUsedException;
 import com.mycompany.myapp.web.rest.errors.NbreDePlaceException;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -85,17 +84,16 @@ public class ReservationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/reservations")
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation)
-            throws URISyntaxException {
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) throws URISyntaxException {
         log.debug("REST request to save Reservation : {}", reservation);
         if (reservation.getId() != null) {
             throw new BadRequestAlertException("A new reservation cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Reservation result = reservationRepository.save(reservation);
         return ResponseEntity
-                .created(new URI("/api/reservations/" + result.getId())).headers(HeaderUtil
-                        .createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-                .body(result);
+            .created(new URI("/api/reservations/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -111,8 +109,10 @@ public class ReservationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/reservations/{id}")
-    public ResponseEntity<Reservation> updateReservation(@PathVariable(value = "id", required = false) final Long id,
-            @RequestBody Reservation reservation) throws URISyntaxException {
+    public ResponseEntity<Reservation> updateReservation(
+        @PathVariable(value = "id", required = false) final Long id,
+        @RequestBody Reservation reservation
+    ) throws URISyntaxException {
         log.debug("REST request to update Reservation : {}, {}", id, reservation);
         if (reservation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -126,9 +126,10 @@ public class ReservationResource {
         }
 
         Reservation result = reservationRepository.save(reservation);
-        return ResponseEntity.ok().headers(
-                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString()))
-                .body(result);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -147,8 +148,9 @@ public class ReservationResource {
      */
     @PatchMapping(value = "/reservations/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<Reservation> partialUpdateReservation(
-            @PathVariable(value = "id", required = false) final Long id, @RequestBody Reservation reservation)
-            throws URISyntaxException {
+        @PathVariable(value = "id", required = false) final Long id,
+        @RequestBody Reservation reservation
+    ) throws URISyntaxException {
         log.debug("REST request to partial update Reservation partially : {}, {}", id, reservation);
         if (reservation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -161,22 +163,29 @@ public class ReservationResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Reservation> result = reservationRepository.findById(reservation.getId()).map(existingReservation -> {
-            if (reservation.getDateDeReservation() != null) {
-                existingReservation.setDateDeReservation(reservation.getDateDeReservation());
-            }
-            if (reservation.getNbrePassagers() != null) {
-                existingReservation.setNbrePassagers(reservation.getNbrePassagers());
-            }
-            if (reservation.getPrixReservation() != null) {
-                existingReservation.setPrixReservation(reservation.getPrixReservation());
-            }
+        Optional<Reservation> result = reservationRepository
+            .findById(reservation.getId())
+            .map(
+                existingReservation -> {
+                    if (reservation.getDateDeReservation() != null) {
+                        existingReservation.setDateDeReservation(reservation.getDateDeReservation());
+                    }
+                    if (reservation.getNbrePassagers() != null) {
+                        existingReservation.setNbrePassagers(reservation.getNbrePassagers());
+                    }
+                    if (reservation.getPrixReservation() != null) {
+                        existingReservation.setPrixReservation(reservation.getPrixReservation());
+                    }
 
-            return existingReservation;
-        }).map(reservationRepository::save);
+                    return existingReservation;
+                }
+            )
+            .map(reservationRepository::save);
 
-        return ResponseUtil.wrapOrNotFound(result,
-                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString()));
+        return ResponseUtil.wrapOrNotFound(
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, reservation.getId().toString())
+        );
     }
 
     /**
@@ -200,11 +209,9 @@ public class ReservationResource {
             }
         }
 
-        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR"))
-            page = reservationRepository.findByUserIsCurrentUser(pageable);
+        if (SecurityUtils.hasCurrentUserThisAuthority("ROLE_TRANSPORTEUR")) page = reservationRepository.findByUserIsCurrentUser(pageable);
 
-        HttpHeaders headers = PaginationUtil
-                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
@@ -232,9 +239,10 @@ public class ReservationResource {
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         log.debug("REST request to delete Reservation : {}", id);
         reservationRepository.deleteById(id);
-        return ResponseEntity.noContent()
-                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-                .build();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 
     /**
@@ -247,8 +255,11 @@ public class ReservationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/reservations/voyage/{voyageId}/passagers/{nbrePassagers}")
-    public ResponseEntity<Reservation> createReservationVoyageCustomer(@RequestBody Customer customer,
-            @PathVariable Long voyageId, @PathVariable Integer nbrePassagers) throws URISyntaxException {
+    public ResponseEntity<Reservation> createReservationVoyageCustomer(
+        @RequestBody Customer customer,
+        @PathVariable Long voyageId,
+        @PathVariable Integer nbrePassagers
+    ) throws URISyntaxException {
         log.debug("REST request to save Customer Reservation : {}", customer);
 
         Optional<Customer> customerExisting = customerRepository.findOneByEmailIgnoreCase(customer.getEmail());
@@ -257,7 +268,6 @@ public class ReservationResource {
             Voyage voyage = voyageRepository.findById(voyageId).get();
 
             if (voyage.getNbrePlace() >= nbrePassagers) {
-
                 customerExisting.get().setTelephone(customer.getTelephone());
                 customerExisting.get().setNom(customer.getNom());
                 customerExisting.get().setPrenom(customer.getPrenom());
@@ -273,11 +283,17 @@ public class ReservationResource {
 
                 voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
                 voyageRepository.save(voyage);
-                return ResponseEntity.created(new URI("/api/reservations/voyage/" + voyageId + "/"))
-                        .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
-                                "\n Reservation reussi pour votre compte "
-                                        + customerExisting.get().getEmail().toString()))
-                        .body(result);
+                return ResponseEntity
+                    .created(new URI("/api/reservations/voyage/" + voyageId + "/"))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi pour votre compte " + customerExisting.get().getEmail().toString()
+                        )
+                    )
+                    .body(result);
             } else {
                 throw new NbreDePlaceException();
             }
@@ -285,7 +301,6 @@ public class ReservationResource {
             Voyage voyage = voyageRepository.findById(voyageId).get();
 
             if (voyage.getNbrePlace() >= nbrePassagers) {
-
                 AdminUserDTO user = new AdminUserDTO();
                 user.setEmail(customer.getEmail());
                 user.setActivated(true);
@@ -314,11 +329,18 @@ public class ReservationResource {
                 voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
                 voyageRepository.save(voyage);
 
-                return ResponseEntity.created(new URI("/api/reservations/voyage/" + voyageId + "/"))
-                        .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
-                                "\n Reservation reussi !\n consulter votre mail pour activer votre compte "
-                                        + customerResult.getEmail().toString()))
-                        .body(result);
+                return ResponseEntity
+                    .created(new URI("/api/reservations/voyage/" + voyageId + "/"))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi !\n consulter votre mail pour activer votre compte " +
+                            customerResult.getEmail().toString()
+                        )
+                    )
+                    .body(result);
             } else {
                 throw new NbreDePlaceException();
             }
@@ -335,8 +357,11 @@ public class ReservationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/reservations/transporteur/voyage/{voyageId}/passagers/{nbrePassagers}")
-    public ResponseEntity<Reservation> createReservationVoyageTransporteur(@RequestBody Customer customer,
-            @PathVariable Long voyageId, @PathVariable Integer nbrePassagers) throws URISyntaxException {
+    public ResponseEntity<Reservation> createReservationVoyageTransporteur(
+        @RequestBody Customer customer,
+        @PathVariable Long voyageId,
+        @PathVariable Integer nbrePassagers
+    ) throws URISyntaxException {
         log.debug("REST request to save Customer Reservation : {}", customer);
 
         Optional<Customer> customerExisting = customerRepository.findOneByEmailIgnoreCase(customer.getEmail());
@@ -344,7 +369,6 @@ public class ReservationResource {
         if (customerExisting.isPresent()) {
             Voyage voyage = voyageRepository.findById(voyageId).get();
             if (voyage.getNbrePlace() >= nbrePassagers) {
-
                 customerExisting.get().setTelephone(customer.getTelephone());
                 customerExisting.get().setNom(customer.getNom());
                 customerExisting.get().setPrenom(customer.getPrenom());
@@ -360,10 +384,17 @@ public class ReservationResource {
 
                 voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
                 voyageRepository.save(voyage);
-                return ResponseEntity.created(new URI("/api/reservations/" + result.getId()))
-                        .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
-                                "\n Reservation reussi pour le compte " + customerExisting.get().getEmail().toString()))
-                        .body(result);
+                return ResponseEntity
+                    .created(new URI("/api/reservations/" + result.getId()))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi pour le compte " + customerExisting.get().getEmail().toString()
+                        )
+                    )
+                    .body(result);
             } else {
                 throw new NbreDePlaceException();
             }
@@ -383,16 +414,21 @@ public class ReservationResource {
 
                 voyage.setNbrePlace(voyage.getNbrePlace() - nbrePassagers);
                 voyageRepository.save(voyage);
-                return ResponseEntity.created(new URI("/api/reservations/" + result.getId()))
-                        .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
-                                "\n Reservation reussi pour " + customerAdd.getId().toString()))
-                        .body(result);
+                return ResponseEntity
+                    .created(new URI("/api/reservations/" + result.getId()))
+                    .headers(
+                        HeaderUtil.createEntityCreationAlert(
+                            applicationName,
+                            true,
+                            ENTITY_NAME,
+                            "\n Reservation reussi pour " + customerAdd.getId().toString()
+                        )
+                    )
+                    .body(result);
             } else {
                 throw new NbreDePlaceException();
             }
-
         }
-
     }
 
     /**
@@ -407,8 +443,7 @@ public class ReservationResource {
         log.debug("REST request to get a page of Reservations");
         Page<Reservation> page = reservationRepository.findCustomerByVoyage(pageable, voyageId);
 
-        HttpHeaders headers = PaginationUtil
-                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }
