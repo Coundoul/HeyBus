@@ -48,6 +48,9 @@
           <th scope="col" jhiSortBy="customer.email">
             <span >E-mail</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="nbrePassagers">
+            <span >Nombre de place</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -64,6 +67,9 @@
           </td>
           <td>
             {{ reservation.customer?.email }}
+          </td>
+          <td>
+            {{ reservation.nbrePassagers }}
           </td>
           <td class="text-right">
             <div class="btn-group">
