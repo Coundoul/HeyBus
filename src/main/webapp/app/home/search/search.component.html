@@ -24,7 +24,7 @@
               <option value="null">Ville de départ</option>
               <option
                 [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
-                *ngFor="let villeOption of villes"
+                *ngFor="let villeOption of villesSharedCollection"
               >
                 {{ villeOption.nom }}
               </option>
@@ -49,7 +49,7 @@
               <option value="null">Ville d'arrivée</option>
               <option
                 [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
-                *ngFor="let villeOption of villes"
+                *ngFor="let villeOption of villesSharedCollection"
               >
                 {{ villeOption.nom }}
               </option>

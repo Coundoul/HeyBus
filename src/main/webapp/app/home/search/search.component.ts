@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, NgModule } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
-
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { IVoyage, Voyage } from 'app/entities/voyage/voyage.model';
 import { IVille } from 'app/entities/ville/ville.model';
 
@@ -32,6 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   dateRetour: any;
   depart: any;
   e: any;
+  villesSharedCollection: IVille[] = [];
   trierPar = 'Départ le plus tôt';
   voyages?: IVoyage[];
   selectedVoyages?: IVoyage[];
@@ -45,6 +47,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+
+  villeDepart?: IVille
+  villeArrive?: IVille
 
   editForm = this.fb.group({
     id: [],
@@ -88,6 +93,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.editForm.controls['dateDeVoyage'].setValue(this.date);
     this.editForm.controls['nbrePassagers'].setValue(this.nbrePassagers);
+    
   }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -144,6 +150,32 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.villes = res.body ?? [];
     });
 
+    this.villeService.find(this.depart).subscribe(
+      ville => this.villeDepart = ville.body!
+      );
+
+      this.villeService.find(this.arrive).subscribe(
+        ville => this.villeArrive = ville.body!
+        );
+    
+    this.villesSharedCollection = this.villeService.addVilleToCollectionIfMissing(
+      this.villesSharedCollection,
+      this.villeDepart,
+      this.villeArrive
+    );
+    this.villeService
+    .query()
+    .pipe(map((res: HttpResponse<IVille[]>) => res.body ?? []))
+    .pipe(
+      map((villes: IVille[]) =>
+        this.villeService.addVilleToCollectionIfMissing(
+          villes,
+          this.editForm.get('departVille')!.value,
+          this.editForm.get('arriveVille')!.value
+        )
+      )
+    )
+    .subscribe((villes: IVille[]) => (this.villesSharedCollection = villes));
     //this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
 
     // const date = String(this.activatedRoute.snapshot.paramMap.get('date'));
