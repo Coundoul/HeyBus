@@ -32,11 +32,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   date: any;
   dateRetour: any;
   depart: any;
-  e: any;
-  villesSharedCollection: IVille[] = [];
+  
   trierPar = 'Départ le plus tôt';
   voyages?: IVoyage[];
-  selectedVoyages?: IVoyage[];
   nbrePassagers?: number;
   villes: IVille[] = [];
   arrive: any;
@@ -150,32 +148,14 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.villes = res.body ?? [];
     });
 
-    this.villeService.find(this.depart).subscribe(
-      ville => this.villeDepart = ville.body!
-      );
+    this.villeService.find(this.depart).subscribe(ville => {
+      this.villeDepart = ville.body!;
+    });
 
-      this.villeService.find(this.arrive).subscribe(
-        ville => this.villeArrive = ville.body!
-        );
+    this.villeService.find(this.arrive).subscribe(ville => {
+      this.villeArrive = ville.body!;
+    });
     
-    this.villesSharedCollection = this.villeService.addVilleToCollectionIfMissing(
-      this.villesSharedCollection,
-      this.villeDepart,
-      this.villeArrive
-    );
-    this.villeService
-    .query()
-    .pipe(map((res: HttpResponse<IVille[]>) => res.body ?? []))
-    .pipe(
-      map((villes: IVille[]) =>
-        this.villeService.addVilleToCollectionIfMissing(
-          villes,
-          this.editForm.get('departVille')!.value,
-          this.editForm.get('arriveVille')!.value
-        )
-      )
-    )
-    .subscribe((villes: IVille[]) => (this.villesSharedCollection = villes));
     //this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
 
     // const date = String(this.activatedRoute.snapshot.paramMap.get('date'));
@@ -199,10 +179,27 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
   recherche(): void {
     const date = this.editForm.get(['dateDeVoyage'])!.value;
+    const nbrePassagers = this.editForm.get(['nbrePassagers'])!.value;
     const depart = this.editForm.get(['departVille'])!.value;
     const arrive = this.editForm.get(['arriveVille'])!.value;
-    const nbrePassagers = this.editForm.get(['nbrePassagers'])!.value;
-    window.location.assign('/search/' + String(date) + '/' + String(depart.id) + '/' + String(arrive.id) + '/' + String(nbrePassagers));
+
+
+    if ((depart === null) && (arrive === null)) {
+      window.location.assign('/search/' + String(date) + '/' + String(this.depart) + '/' + String(this.arrive) + '/' + String(nbrePassagers));
+
+    }
+     else {
+      if ((depart === null) && (arrive != null)){
+        window.location.assign('/search/' + String(date) + '/' + String(this.depart) + '/' + String(arrive.id) + '/' + String(nbrePassagers));
+      }
+      if ((depart != null) && (arrive === null)){
+        window.location.assign('/search/' + String(date) + '/' + String(depart.id) + '/' + String(this.arrive) + '/' + String(nbrePassagers));
+      }
+      if ((depart != null) && (arrive != null)){
+        window.location.assign('/search/' + String(date) + '/' + String(depart.id) + '/' + String(arrive.id) + '/' + String(nbrePassagers));
+      }
+    }
+
     //this.voyageService.searchVoyage(date, depart.id, arrive.id).subscribe(rest => (this.voyages = rest.body!));
   }
 
@@ -222,18 +219,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public convertMinute(minutes: number): number {
     return Math.floor(minutes % 60);
   }
-  onValueChanged(e: any): void {
-    /*eslint prefer-const: "warn"*/
-    const selectedVoyages: any[] = [];
-
-    this.voyages!.forEach((item, index) => {
-      if (item.dateDeVoyage! >= e.value[0] && item.dateDeVoyage! <= e.value[1]) {
-        selectedVoyages.push(item);
-      }
-    });
-
-    this.selectedVoyages = selectedVoyages;
-  }
+ 
 
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];

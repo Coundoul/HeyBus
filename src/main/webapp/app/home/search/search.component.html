@@ -21,10 +21,10 @@
               formControlName="departVille"
               aria-describedby="basic-addon1"
             >
-              <option value="null">Ville de départ</option>
+              <option [ngValue]="null">{{villeDepart?.nom}}</option>
               <option
                 [ngValue]="villeOption.id === editForm.get('departVille')!.value?.id ? editForm.get('departVille')!.value : villeOption"
-                *ngFor="let villeOption of villesSharedCollection"
+                *ngFor="let villeOption of villes"
               >
                 {{ villeOption.nom }}
               </option>
@@ -46,10 +46,10 @@
               formControlName="arriveVille"
               aria-describedby="basic-addon2"
             >
-              <option value="null">Ville d'arrivée</option>
-              <option
+            <option [ngValue]="null">{{villeArrive?.nom}}</option>
+            <option
                 [ngValue]="villeOption.id === editForm.get('arriveVille')!.value?.id ? editForm.get('arriveVille')!.value : villeOption"
-                *ngFor="let villeOption of villesSharedCollection"
+                *ngFor="let villeOption of villes"
               >
                 {{ villeOption.nom }}
               </option>
