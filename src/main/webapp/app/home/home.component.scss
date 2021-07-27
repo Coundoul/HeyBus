@@ -28,7 +28,9 @@ Main page styles
   font-family: 'Peace Sans';
   src: url('../../content/font/Peace\ Sans\ Webfont.ttf');
 }
-
+body{
+  background-color: #ffffff !important;
+}
 .text-heybus {
   color: #132968 !important;
 }
@@ -111,7 +113,6 @@ Main page styles
   font-family: 'Peace Sans';
   font-size: 32px;
   letter-spacing: 0;
-  line-height: 44px;
 }
 .line-horizontal {
   border: 1px dashed #f1f2f6;
@@ -120,4 +121,33 @@ Main page styles
 
 .form-check-input {
   background-color: #a1a9c3;
+}
+
+.img-secu {
+  width: 66px;
+  height: 80px;
+  background: url('../../content/images/Union.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-confort {
+  width: 66px;
+  height: 80px;
+  background: url('../../content/images/confort.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-lowprice {
+  width: 66px;
+  height: 80px;
+  background: url('../../content/images/basprix.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-cc {
+  width: 66px;
+  height: 80px;
+  background: url('../../content/images/cc.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
 }

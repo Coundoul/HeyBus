@@ -1,7 +1,36 @@
 .list-group-item{
-    background-color: #E5E5E5;
+    background-color: #ffffff;
     border: none;
     color: #425486;
     height: 2rem;
     font-family: 'Mulish';
 }
+.img-facebook {
+    width: 30px;
+    height: 30px;
+    background: url('../../../content/images/facebook.png') center center no-repeat;
+    background-size: contain;
+    display: inline-block;
+  }
+.img-twitter {
+    width: 30px;
+    height: 30px;
+    background: url('../../../content/images/twitter.png') center center no-repeat;
+    background-size: contain;
+    display: inline-block;
+  }
+.img-linkdin {
+    width: 30px;
+    height: 30px;
+    background: url('../../../content/images/linkdin.png') center center no-repeat;
+    background-size: contain;
+    display: inline-block;
+  }
+  .logo-img {
+    height: 45px;
+    width: 115px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url('../../../content/images/heybuslogo-removebg.png') no-repeat center center;
+    background-size: contain;
+  }
