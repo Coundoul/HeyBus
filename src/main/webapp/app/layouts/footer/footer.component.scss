@@ -1,36 +1,46 @@
-.list-group-item{
-    background-color: #ffffff;
-    border: none;
-    color: #425486;
-    height: 2rem;
-    font-family: 'Mulish';
+.list-group-item {
+  background-color: #f1f2f6;
+  border: none;
+  color: #425486;
+  height: 2rem;
+  font-family: 'Mulish';
 }
 .img-facebook {
-    width: 30px;
-    height: 30px;
-    background: url('../../../content/images/facebook.png') center center no-repeat;
-    background-size: contain;
-    display: inline-block;
-  }
+  width: 30px;
+  height: 30px;
+  background: url('../../../content/images/facebook.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
 .img-twitter {
-    width: 30px;
-    height: 30px;
-    background: url('../../../content/images/twitter.png') center center no-repeat;
-    background-size: contain;
-    display: inline-block;
-  }
+  width: 30px;
+  height: 30px;
+  background: url('../../../content/images/twitter.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
 .img-linkdin {
-    width: 30px;
-    height: 30px;
-    background: url('../../../content/images/linkdin.png') center center no-repeat;
-    background-size: contain;
-    display: inline-block;
-  }
-  .logo-img {
-    height: 45px;
-    width: 115px;
-    display: inline-block;
-    vertical-align: middle;
-    background: url('../../../content/images/heybuslogo-removebg.png') no-repeat center center;
-    background-size: contain;
-  }
+  width: 30px;
+  height: 30px;
+  background: url('../../../content/images/linkdin.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.logo-img {
+  height: 45px;
+  width: 115px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../../content/images/heybuslogo-removebg.png') no-repeat center center;
+  background-size: contain;
+}
+
+.font-weight-bold {
+  color: #000000;
+  font-family: 'Peace Sans';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+
+}

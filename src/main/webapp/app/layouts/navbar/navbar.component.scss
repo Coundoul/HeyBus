@@ -28,6 +28,12 @@ Navbar
     font-weight: 400;
   }
 }
+.navbar-light .navbar-nav .nav-link {
+  color: #000000;
+}
+.navbar-light .navbar-nav .nav-link:hover{
+  color: #ff1b2e;
+}
 .btn-reserver {
   width: 212px;
   height: 47px;
