@@ -28,8 +28,13 @@
           </a>
         </li>
         <li *ngSwitchCase="false" class="nav-item">
-          <a class="nav-link" id="item2" data-cy="item2">
+          <a class="nav-link" id="item3" data-cy="item2">
             <span>Louer un bus</span>
+          </a>
+        </li>
+        <li *ngSwitchCase="false" class="nav-item">
+          <a class="nav-link" id="item4" data-cy="item2" [routerLink]="['/comment-ça-marche']">
+            <span>Comment ça marche ?</span>
           </a>
         </li>
       </ul>

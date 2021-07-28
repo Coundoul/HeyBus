@@ -1,0 +1,39 @@
+.text-heybus {
+  color: #000000;
+  font-family: 'Peace Sans';
+  font-style: normal;
+}
+.text-blueheybus {
+  color: #425486;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: bold;
+}
+.img-voyage {
+  width: 63px;
+  height: 67px;
+  background: url('../../../content/images/vosvoyage.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-employe {
+  width: 63px;
+  height: 67px;
+  background: url('../../../content/images/vosemployes.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-incident {
+  width: 63px;
+  height: 67px;
+  background: url('../../../content/images/vosincidents.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+.img-argent {
+  width: 63px;
+  height: 67px;
+  background: url('../../../content/images/votreargent.png') center center no-repeat;
+  background-size: contain;
+  display: inline-block;
+}

@@ -18,8 +18,13 @@ Bootstrap tweaks
 ===============================================================*/
 @font-face {
   font-family: 'Mulish';
-  src: url('../font/Mulish-VariableFont_wght.ttf');
+  src: url('../../content/font/Mulish-VariableFont_wght.ttf');
 }
+@font-face {
+font-family: 'Peace Sans';
+src: url('../../content/font/Peace\ Sans\ Webfont.ttf');
+}
+
 h1,
 h2,
 h3,

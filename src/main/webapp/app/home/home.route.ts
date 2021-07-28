@@ -1,4 +1,5 @@
 import { Route, Routes } from '@angular/router';
+import { CommentComponent } from './comment/comment.component';
 
 import { HomeComponent } from './home.component';
 import { SearchComponent } from './search/search.component';
@@ -7,6 +8,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: {
+      pageTitle: 'home.title',
+    },
+  },
+  {
+    path: 'comment-ça-marche',
+    component: CommentComponent,
     data: {
       pageTitle: 'home.title',
     },
