@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid mb-3">
   <div class="row justify-content-center" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRANSPORTEUR']">
     <div class="col-8 card jh-card">
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
