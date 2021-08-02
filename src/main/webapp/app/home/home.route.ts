@@ -2,6 +2,7 @@ import { Route, Routes } from '@angular/router';
 import { CommentComponent } from './comment/comment.component';
 
 import { HomeComponent } from './home.component';
+import { LocationComponent } from './location/location.component';
 import { SearchComponent } from './search/search.component';
 
 export const HOME_ROUTE: Routes = [
@@ -16,7 +17,14 @@ export const HOME_ROUTE: Routes = [
     path: 'comment-ça-marche',
     component: CommentComponent,
     data: {
-      pageTitle: 'home.title',
+      pageTitle: 'home.comment',
+    },
+  },
+  {
+    path: 'louer-un-bus',
+    component: LocationComponent,
+    data: {
+      pageTitle: 'home.louer',
     },
   },
   {

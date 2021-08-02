@@ -8,10 +8,11 @@ import { NpnSliderModule } from 'npn-slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { CommentComponent } from './comment/comment.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(HOME_ROUTE), NpnSliderModule, MatFormFieldModule, MatSelectModule],
 
-  declarations: [HomeComponent, SearchComponent, CommentComponent],
+  declarations: [HomeComponent, SearchComponent, CommentComponent, LocationComponent],
 })
 export class HomeModule {}

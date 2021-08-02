@@ -1,0 +1,81 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+
+body{
+  background-color: #ffffff !important;
+}
+label {
+  color: #132968 !important;
+}
+.shadow {
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.search-shadow {
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+.text-red {
+  color: #ff1b2e;
+}
+
+.form-control {
+  border-radius: 8px;
+  background-color: #f1f2f6;
+  border: none;
+  color: #425486;
+  padding: 2px;
+}
+
+.input-group-text {
+  border: none;
+  background-color: #f1f2f6;
+  padding: 5px;
+  color: #a1a9c3;
+  font-size: 1.3em;
+}
+
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6 {
+  padding-right: 1px;
+  padding-left: 1px;
+}
+.btn-reserver {
+  height: 47px;
+  width: 157;
+  border-radius: 8px;
+  background-color: #ff1b2e;
+  color: #ffffff;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 22px;
+  text-align: center;
+}
+
+
+.voyage-img {
+  width: auto;
+  height: 300px;
+  vertical-align: middle;
+  background: url('../../../content/images/busvoyage.jpg') center center no-repeat;
+  background-size: cover;
+  opacity: 1;
+  text-align: center;
+  background-color:white;
+}
+
+.voyages-en-bus {
+  height: 44px;
+  color: #ffffff;
+  font-family: 'Peace Sans';
+  font-size: 32px;
+  letter-spacing: 0;
+}
+
+
