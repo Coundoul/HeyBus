@@ -2,6 +2,8 @@
   "home": {
     "title": "Accueil - HeyBus",
     "search": "Resultat Recherche - Heybus",
+    "louer": "Louer bus - Heybus",
+    "comment": "Comment ça marche?- Heybus",
     "subtitle": "Ceci est votre page d'accueil",
     "logged": {
       "message": "Vous êtes connecté en tant que \"{{username}}\"."

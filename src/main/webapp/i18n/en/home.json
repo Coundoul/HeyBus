@@ -1,6 +1,9 @@
 {
   "home": {
     "title": "Welcome, Java Hipster!",
+    "search": "search result - Heybus",
+    "louer": "louer bus - Heybus",
+    "comment": "Comment ça marche?- Heybus",
     "subtitle": "This is your homepage",
     "logged": {
       "message": "You are logged in as user \"{{username}}\"."
