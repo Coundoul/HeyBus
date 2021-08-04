@@ -89,6 +89,10 @@ export class VoyageService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  louerBus(nom:string, email:string, tel:string, message:string): Observable<EntityResponseType> {
+    return this.http.get(`${this.resourceUrl}/louer/${nom}/${email}/${tel}/${message}`, { observe: 'response' })
+  }
+
   addVoyageToCollectionIfMissing(voyageCollection: IVoyage[], ...voyagesToCheck: (IVoyage | null | undefined)[]): IVoyage[] {
     const voyages: IVoyage[] = voyagesToCheck.filter(isPresent);
     if (voyages.length > 0) {

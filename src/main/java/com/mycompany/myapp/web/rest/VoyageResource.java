@@ -4,6 +4,7 @@ import com.mycompany.myapp.domain.Voyage;
 import com.mycompany.myapp.repository.VilleRepository;
 import com.mycompany.myapp.repository.VoyageRepository;
 import com.mycompany.myapp.security.SecurityUtils;
+import com.mycompany.myapp.service.MailService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,7 +47,10 @@ public class VoyageResource {
 
     @Autowired
     private VilleRepository ville;
-
+    
+    @Autowired
+    private MailService mailService;
+    
     private final VoyageRepository voyageRepository;
 
     public VoyageResource(VoyageRepository voyageRepository) {
@@ -392,5 +396,23 @@ public class VoyageResource {
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    @GetMapping("/voyages/louer/{nom}/{mail}/{tel}/{message}")
+    public String sendLocation(
+        @PathVariable String nom,
+        @PathVariable String mail,
+        @PathVariable String tel,
+        @PathVariable String message,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
+        mailService.sendEmail(
+        "saou.transport@gmail.com",
+        "Location de Bus", 
+        "Voici les informations:\nEntreprise: "+nom+"\nE-mail: "+mail+"\nTel: "+tel+"\nMessage: "+message,
+        true, 
+        true);
+        return "Votre demande de location de bus a été bien envoyée";
     }
 }

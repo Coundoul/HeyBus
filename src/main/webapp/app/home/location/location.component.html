@@ -8,25 +8,128 @@
       <!-- Formulaire Location -->
       <div class="col-md-7 search-shadow bg-white mt-5 pt-2">
         <div class="p-3">
-          <div class="form-group ">
-            <label for="">Nom de l'entreprise</label>
-            <input type="email" class="form-control" name="" id="" aria-describedby="emailHelpId" placeholder="" />
-          </div>
-          <div class="form-group">
-            <label for="">Adresse email*</label>
-            <input type="email" class="form-control" name="" id="" aria-describedby="emailHelpId" placeholder="" />
-          </div>
-          <div class="form-group">
-            <label for="">Numero téléphone</label>
-            <input type="email" class="form-control" name="" id="" aria-describedby="emailHelpId" placeholder="" />
-          </div>
-          <div class="form-group">
-            <label for="">Message</label>
-            <textarea class="form-control" name="" id="" rows="4"></textarea>
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-reserver">Envoyer</button>
-          </div>
+          <form name="editForm" role="form" novalidate (ngSubmit)="sendMail()" [formGroup]="editForm">
+            <div>
+              <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+                <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+              </div>
+              <div *ngIf="successLocation" class="alert alert-success" role="alert">
+                <strong>Votre demande de location de bus a été bien envoyée</strong>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_nomEntreprise">Nom de l'entreprise</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="nomEntreprise"
+                  id="field_nomEntreprise"
+                  data-cy="nomEntreprise"
+                  formControlName="nomEntreprise"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_mailEntreprise">Adresse email*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="mailEntreprise"
+                  id="field_mailEntreprise"
+                  data-cy="mailEntreprise"
+                  formControlName="mailEntreprise"
+                />
+                <div
+                  *ngIf="
+                    editForm.get('mailEntreprise')!.invalid &&
+                    (editForm.get('mailEntreprise')!.dirty || editForm.get('mailEntreprise')!.touched)
+                  "
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('mailEntreprise')?.errors?.required"
+                    jhiTranslate="entity.validation.required"
+                  >
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_telEntreprise">Numéro téléphone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="telEntreprise"
+                  id="field_telEntreprise"
+                  data-cy="telEntreprise"
+                  formControlName="telEntreprise"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_message">Message</label>
+                <textarea
+                  rows="4"
+                  class="form-control"
+                  name="message"
+                  id="field_message"
+                  data-cy="message"
+                  formControlName="message"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving"
+                class="btn btn-reserver"
+              >
+                Envoyer
+              </button>
+            </div>
+          </form>
+
+          <!-- <form name="louerForm" role="form" novalidate (ngSubmit)="sendMail()" [formGroup]="louerForm">
+           
+            <div class="form-group">
+              <label for="">Nom de l'entreprise</label>
+              <input type="text" class="form-control" name="nomEntreprise" data-cy="nomEntreprise" id="field_nomEntreprise" />
+            </div>
+            <div class="form-group">
+              <label for="">Adresse email*</label>
+              <input
+                type="email"
+                class="form-control"
+                name="mailEntreprise"
+                data-cy="mailEntreprise"
+                id="field_mailEntreprise"
+                placeholder=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="">Numero téléphone</label>
+              <input
+                type="text"
+                class="form-control"
+                name="telEntreprise"
+                data-cy="telEntreprise"
+                id="field_telEntreprise"
+                placeholder=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="">Message</label>
+              <textarea class="form-control" name="message" id="" rows="4" data-cy="message"></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" id="save-entity" class="btn btn-reserver">Envoyer</button>
+            </div>
+          </form> -->
         </div>
       </div>
     </div>
