@@ -408,7 +408,7 @@ public class VoyageResource {
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
         mailService.sendEmail(
-        "saou.transport@gmail.com",
+        "ithiame.dts@gmail.com",
         "Demande de location de bus sur HeyBus", 
         "Voici les informations:\nEntreprise: "+nom+"\nE-mail: "+mail+"\nTel: "+tel+"\nMessage: "+message,
         true, 
