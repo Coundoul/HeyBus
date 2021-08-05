@@ -1,29 +1,10 @@
-<div class="container">
+<div class="container mb-3">
   <div class="row mt-4">
     <div class="col-md-4">
       <jhi-sidebar></jhi-sidebar>
     </div>
     <div class="col-md-8">
-      <h2 id="page-heading" data-cy="PhotoHeading">
-        <span jhiTranslate="heybusApp.photo.home.title">Photos</span>
-
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
-            <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-            <span jhiTranslate="heybusApp.photo.home.refreshListLabel">Refresh List</span>
-          </button>
-
-          <button
-            id="jh-create-entity"
-            data-cy="entityCreateButton"
-            class="btn btn-primary jh-create-entity create-photo"
-            [routerLink]="['/photo/new']"
-          >
-            <fa-icon icon="plus"></fa-icon>
-            <span jhiTranslate="heybusApp.photo.home.createLabel"> Create a new Photo </span>
-          </button>
-        </div>
-      </h2>
+   
 
       <jhi-alert-error></jhi-alert-error>
 
@@ -34,16 +15,28 @@
       </div>
 
       <div class="row">
-        <div class="card" style="width: 23rem" *ngFor="let photo of photos">
+        <div class="card col-md-4 p-1 mt-1" *ngFor="let photo of photos">
           <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-width: 100%" alt="photo image" />
-          <div class="card-body">
-            <h5 class="card-title">{{ photo.title }}</h5>
+          <div class="card-body p-1">
+            <h5 class="card-title font-weight-bold text-center">{{ photo.title }}</h5>
             <a *ngIf="photo.image" (click)="openFile(photo.image, photo.imageContentType)" class="btn btn-primary">Voir photo</a>
             <a type="submit" (click)="delete(photo)" class="btn btn-secondary" data-cy="entityDeleteButton">
               <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
             </a>
           </div>
         </div>
+      </div>
+      <div class="d-flex mt-3 justify-content-center">
+
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          style="width: auto; font-weight: bold;"
+          class="btn btn-simple jh-create-entity create-photo"
+          [routerLink]="['/photo/new']"
+        >
+          <span jhiTranslate="heybusApp.photo.home.createLabel"> Create a new Photo </span>
+        </button>
       </div>
     </div>
   </div>

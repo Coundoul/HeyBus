@@ -4,7 +4,7 @@
       "home": {
         "title": "Photos",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer une nouvelle Photo",
+        "createLabel": "Ajouter une photo",
         "createOrEditLabel": "Créer ou éditer une Photo",
         "notFound": "Aucune Photo trouvée"
       },
