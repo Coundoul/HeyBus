@@ -1,6 +1,12 @@
-FROM openjdk:8-jdk-alpine
+FROM ubuntu:20.04
 
-RUN apk update && apk add maven
+RUN apt-get update
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get install -y openjdk-8-jdk && apt-get install -y maven
+RUN export JAVA_HOME="/usr/lib/jvm/jdk1.8.0_281/jre"
+
+RUN apt-get install -y nodejs
+RUN apt-get install -y npm
 
 COPY . /project
 WORKDIR /project
